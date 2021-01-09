@@ -1,0 +1,49 @@
+Projects
+Learning the Lathe--Cheesy Machinists puzzle
+Understanding the upcoming 99mTc Crisis
+Solutions to the 99mTc Crisis
+The mandalorian carving
+Scrabble board
+Balancing bot
+Community Ecology--The Videogame?
+Community Ecology Simulation V1
+Community Ecology Simulation V2: The environment, Animal Animation and Navigation
+Community Ecology Simulation V2: Genomes
+Muon-Catalyzed Nuclear Fusion
+Of Course I Still Love You
+Steve's Shuffle part 1
+Steve's Shuffle part 2
+This website
+Viewpoints
+CNC Jacquard Loom
+Hank and the Doves
+Axion
+Controlled Caustics in Julia
+Watercolor Painting
+Sourdough baking
+
+Book Reviews
+(Fiction)
+The Culture Series
+The Three Body Problem/Dark Forest/Death's End
+The Foundation Trilogy
+A Fire Upon the Deep
+
+
+(Nonfiction)
+The Critical Question
+Physics from Symmetry
+The Periodic Table
+Principles of Charged Particle Acceleration
+The one with the zemax prescriptions
+Behave
+New Kind of Science
+The Book of Why
+QED
+Future of Fusion Energy
+Principles of Fusion Power
+The colorful geometery one
+
+Misc Ideas:
+Iron-man-like design program with different libraries which are different disciplines
+Ant type search algorith for finding good enough, short paths. Could be used for neurons to connect far away parts of the brain?
