@@ -21,7 +21,7 @@ export default function Home ({ allPostsData }) {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>Hi I'm Matt Ferraro. I'm an aerospace engineer that writes software. I love math and science, and I have a pet cat.</p>
+        <p>Hi I'm Matt Ferraro. I'm an aerospace engineer that writes software. I love math and science, and I have a cat.</p>
         <p>
           This site is where I document my side projects. In the future I'd like to add book and paper reviews, and interesting ideas that I don't have time to dive into.
         </p>
