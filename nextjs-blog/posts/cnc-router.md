@@ -278,11 +278,27 @@ One benefit of UGS is that it can to several different GCode interpreters such a
 
 This is staggeringly useful because it means you can run your GCode sender on a cheap raspberry pi which is tethered to your CNC over USB, but you can set up your pi to host the CNCJS web UI globally on your local network. That means you can keep an eye on your CNC's progress, even pausing it or resuming it, from your laptop on the other side of your house.
 
+### bCNC
+
+![bCNC](/images/bcnc.png "Screenshot of bCNC")
+
+To me, [bCNC](https://github.com/vlachoudis/bCNC) looks pretty ugly. It is written in python and can be easily pip installed. Its super power is that it comes with auto bed levelling that probes a grid of points, applying correction to get you very close to the surface for situations where z height *really* matters. If you are using engraving bits to carve your own PCBs, you should try out bCNC.
+
+### Carbide Motion
+
+![Carbide Motion](/images/carbide_motion.png "Screenshot of Carbide Motion")
+
+By all accounts a decent GCode sender, [Carbide Motion](https://carbide3d.com/carbidemotion/) only works with the Nomad or Shapeoko CNC routers. For a homebuilt router, this is just not an option.
+
 ### Smoothieboard
 
 The Smoothieboard approach is much more batteries-included than any options mentioned above.
 
 ### Marlin
+
+### Others not fit to mention
+
+There are loads of Gcode senders I didn't have time to investigate: Easel, Candle, Candle2, Goko, Grbl-Panel, Gcode-sender, and more.
 
 ---
 
