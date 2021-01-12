@@ -55,9 +55,9 @@ The main disadvantages of 8020 are that it is more costly than extruded aluminum
 
 A Steel frame is a fantastic choice for its high mass and high rigidity. The biggest downsides are that metalworking requires tools that many hobbyists don't have access to.
 
-But if you're comfortable cutting, welding, and powder coating steel then you should probably go ahead and build the frame out of steel. Some large surfaces will need to be milled flat to hold linear guides, so make sure you plan everything out before you start welding.
+If you are comfortable cutting, welding, and powder coating steel then you should probably go ahead and build the frame out of steel. Some large surfaces will need to be milled flat to hold linear guides, so make sure you plan everything out before you start welding.
 
-With a steel frame you can hit tight tolerances and cut almost any material, or at least your limitations won't have anything to do with the frame. See This Old Tony's excellent steel-framed CNC router build [here](https://www.youtube.com/watch?v=K9UA9ZRFwWU)
+With a steel frame you can hit tight tolerances and cut almost any material. Your machine's primary limitation won't be its frame. See This Old Tony's excellent steel-framed CNC router build [here](https://www.youtube.com/watch?v=K9UA9ZRFwWU)
 
 ---
 
@@ -65,15 +65,13 @@ With a steel frame you can hit tight tolerances and cut almost any material, or 
 
 The role of the linear guide is to constrain movement onto a single axis, preventing any unwanted rotation or deflection. These are often some of the most expensive parts on a CNC router.
 
-but most CNC routers use much lighter duty linear guides because they are cheaper up front and easier to replace when worn. These typically take one of two forms: supported precision shafts or ground precision rails. The only job of the linear guide is to restrict movement along a translation axis. Your primary concern when choosing linear guides are rigidity and height.
-
 ### Box Ways or Dovetail Ways
 
 ![Dovetail Ways](/images/dovetail_ways.jpg "Dovetail ways")
 
-Mills and lathes generally use box ways or dovetail ways, which are precision machined surfaces floating over each other on a microscopically thin film of oil, kept tight with a small insert called a gibbs. When maintained properly with oil, ways [do not wear whatsoever](https://www.youtube.com/watch?v=cwdoUjynpEk&t=125) and will literally last longer than every other part of the machine.
+Mills and lathes generally use box ways or dovetail ways, which are precision machined surfaces floating over each other on a microscopically thin film of oil, kept tight with a small insert called a gibbs. When kept clean of damaging debris and maintained properly with oil, ways [do not wear whatsoever](https://www.youtube.com/watch?v=cwdoUjynpEk&t=125) and will last longer than every other part of the machine.
 
-Ways have the advantage of a huge contact area, allowing vibrations to couple very effectively across the linear guide. This allows vibrational energy to spread out through the entire machine body where it is can be dampened effectively in one part or another.
+Ways have the advantage of a huge contact area, allowing vibrations to couple very effectively across the linear guide and into the frame. This allows vibrational energy to spread out through the entire machine body where it can be dampened effectively.
 
 They carry the secondary advantage of being extremely massive, which helps reduce the amplitude of vibrations. Ways are the most rigid linear guides available. In mills or lathes the ways can be ground directly into the body of the machine, reducing assembly complexity and part count.
 
@@ -118,7 +116,7 @@ The job of the linear actuator is to turn rotational movement into linear moveme
 
 ![Belt Drive](/images/belt_drive.png "A Typical Belt Drive")
 
-Belt Drives are extremely inexpensive, lightweight, and their cost is not dependent on the length you want to actuate. Very cheap ones do have a tiny amount of give under load and they may stretch a little over time, but not over the course of a single job and not if you buy from a reputable source.
+Belt Drives are extremely inexpensive, lightweight, and their cost is not dependent on the length you want to actuate. Very cheap ones do have a tiny amount of give under load and they may stretch a little over time, but not over the course of a single job.
 
 Some designs feature a fixed motor with a moving belt that shuttles a linear stage back and forth. This can lead to belt flapping or bouncing unless you find a way to dampen belt vibrations.
 
@@ -174,39 +172,117 @@ If you go down this path you are going to have a bad time.
 
 # Motors
 
-Motors turn electrical power into the mechanical rotation which powers the lead screws. In practice there are only two practical choies.
+Motors turn electrical power into the mechanical rotation which powers the lead screws. In practice there are two choies.
 
 ### Stepper Motors
 
-Far and away the most popular option, stepper motors have multiple sets of wires (motor poles) that you energize in a particular pattern in order to *step* the motor by some small angular increment like .9 degrees. The logic to control this is trivial to implement on an Arduino, but the power required is often far too high for an Arduino to source, so you can use an H-bridge per
+![Stepper Motors](/images/steppers.jpg "Example Nema23 Stepper Motors")
+
+Far and away the most popular option, stepper motors have multiple sets of wires (motor poles) that you energize in a particular pattern in order to *step* the motor by some small angular increment like 1.8 degrees. The logic to control this is trivial to implement on an Arduino, but the power required is often far too high for an Arduino to source, so you generally buy a motor controller that takes in step and direction pulses, and powers the motor poles directly.
+
+Steppers have high torque at low speed but their torque falls off quickly at high RPM. Consequently it often doesn't make sense to combine a stepper with a gear box reduction. Consider a 10x gear reduction: Your gear box grants a 10x increase in torque but your motor must run at 10x the speed to achieve the same axis speed. But in running 10x faster, your motor may have less that 10x the torque it had at a slow speed. So in the end you have a strictly worse setup than a direct drive system. Besides, gear boxes add friction, noise, and backlash.
+
+A common mistake is to attach a lead screw directly to the shaft of the stepper motor in such a manner that the cutting forces transmitted through the lead screw are borne by the motor itself. This is bad for the motor because the bearings inside are not generally designed to tolerate axial forces and may heat up or become damaged under load. Also, the motor shaft and the motor body may well have axial slop that translates directly into backlash. A properly mounted lead screw or ball screw has bearing blocks on both sides to handle the axial loads. Motors are for radial loads.
+
+One gotcha with steppers is that if your cutting forces even momentarily exceed the torque available, they slip. This is called skipping steps and it means your parts come out with severe defects, usually over every surface of the part machined after the skip. The only solution is to over spec your motors and run them at higher torque than you ever expect your machine to need.
+
+Some stepper motor controllers allow for microstepping, which is a way of artifically splitting the motor steps into finer increments. For example you might see an 8x microstepper so that each motor pulse moves 0.225 degrees instead of the full 1.8 degrees. Microstepping is a mixed bag and it is debatable how much you should apply. More microsteps means finer resolving power, less excitation of natural resonances in your machine, and less noise. But it comes at the expense of lower torque and higher step frequency--two resources that may be at a premium in a home built CNC. Conventional wisdom is to use microstepping as sparingly as possible while still achieving the resolution that you want. For me that means 8x microstepping.
 
 ### Servo Motors
 
----
+![Clearpath Servo](/images/clearpath.png "Some Clearpath Servo Motors")
 
-# Motor Electronics
+A servo motor is a complex feedback control system in its own right. It consists of a motor, a measurement system to determine its exact position, and a controller with on board logic that keeps the motor in the exact position specified even when changing external torques try to drive the motor away from its position.
 
-### Integrated packages
+Any type of motor can be used, including DC, AC, or stepper motors. The sensor is usually a digital rotary encoder, but some systems use rotary resolvers or HAL effect sensors. The controller is usually some sort of microcontroller that has configurable gains so you can tune in the response characteristics that you want. Some controllers consist purely of discrete electrical components and may be tuned by moving potentiometers.
 
-### Standalone components
+Compared to steppers, servo motors are generally much faster, quieter, smoother, and stronger. Their drawbacks are complexity and price. A single servo motor for a single axis of a CNC router might cost $40. A drop in replacement servo motor may cost $400 and require tuning after installation.
+
+That said, servo motors don't skip steps. Even if you do temporarily overwhelm the available torque, the defects on the resulting part will be limited to only the immediate area where the problem occurred.
+
+If you are considering going with servo motors, Teknik Clearpath are considered great value. If you are comfortable choosing your own motors, soldering wires, and programming in python, you should look into buying an [ODrive](https://odriverobotics.com/). With an ODrive controller, you can turn almost any motor into a servo.
+
+Servos can usually be configured to take in the same step/direction pulses that are used to control stepper motors, so that nothing upstream of the motors needs to change if you decide to start with steppers and move to servos later on.
 
 ---
 
 # GCode Interpreter and Step Generator
 
-### TinyG
+GCode is a command language for CNC machines. A command looks like:
+
+```
+G01 X7Y43 F98
+```
+
+Which instructs the machine to move linearly to the new X, Y coordinate `(7, 43)` at a speed of 98 inches/min.
+
+GCode commands exist to move around in straight lines and in circular arcs, to start and stop the spindle and coolant, to change spindle speed or change cutting tool, and many other actions. Specialized extensions exist for certain types of machines. For example, 3D printers support commands for heating the print bed, extruding plastic, or waiting for a temperature to be reached.
+
+The GCode interpreter is the tiny computer that sits on your machine awaiting instructions in the form of GCode. As it receives instructions, it performs thousands of computations per second to generate the appropriate step/direction pulses for your stepper motor controllers, causing the actual movement to occur.
 
 ### GRBL
+
+![Arduino Uno](/images/arduino.jpg "An Arduino Uno")
+
+For small hobby CNC machines, [GRBL](https://github.com/gnea/grbl/wiki) is the dominant GCode interpeter. It is free to use and runs smoothly on an [Arduino Uno](https://store.arduino.cc/usa/arduino-uno-rev3). It can control up to 3 axes of movement with spare outputs to control your spindle and coolant.
+
+To use GRBL you must configure it so it knows how your machine works. You have to teach it how many steps per inch your motors require, how to stop movement if it hits the end of its ranges, and whether or not certain axes should be inverted. You can choose to operate in metric vs imperial units, what the maximum safe travel speed is, and many other things.
+
+If you don't know where to start, start with GRBL.
+
+### TinyG
+
+![TinyG Board](/images/tinyg.jpg "The TinyG Board")
+
+TinyG is a [high performance](https://github.com/synthetos/TinyG/wiki/What-is-TinyG) version of GRBL that forked away in 2010. It can handle up to 6 axes of control: XYZ translation but also ABC axes of rotation. Its motors and axes are remappable, allowing you more design freedom for how to actuate your axes. It also uses a 3rd order motion planner instead of a 2nd order controller, capping maximum jerk instead of maximum acceleration. This leads to much smoother, quieter operation.
+
+Another huge difference is that you can buy TinyG pre-loaded onto a custom PCB, purpose built with on board motor controllers to be the ideal hardware for running TinyG. It can generate higher frequency stepper pulses for smoother microstepping, and it frees you from having to buy dedicated stepper controllers.
+
+The drawbacks are cost and complexity. GRBL will cost you $25 all-in. A [TinyG board](https://synthetos.myshopify.com/collections/assembled-electronics/products/tinyg) will cost $130. GRBL only requires configuring a few settings. TinyG requires much more configuration. Lastly, the TinyG board has a maximum motor current of 2 amps per motor. This is plenty for most hobby uses but won't cut it for large machines.
+
+TinyG is a great piece of software and hardware that was once cutting edge, but for a new build it has largely been surpassed by its successor, G2Core.
+
+### G2Core
+
+![Arduino Due](/images/due.jpg "An Arduino Due")
+
+G2Core is a fork of TinyG (itself a fork of GRBL) that is meant to run on an Arduino Due [Arduino Due](https://store.arduino.cc/usa/due). It has all the advantages of TinyG software with none of the disadvantages of TinyG hardware.
+
+[G2Core](https://github.com/synthetos/g2) can support up to *nine* machine axes, configurable tool offset, safety interlocks, fifth order motion planning, the works.
+
+The only drawback is complexity. You really need to understand what you're doing before you jump in to G2Core, so it isn't a great choice for your very first 3-axis CNC router. But if you're already comfortable with CNC or you really need the extra axes, G2Core is a fantastic choice.
+
+### Smoothieware
 
 ---
 
 # GCode sender
 
+A GCode sender is responsible for reading gcode lines out of a large file and streaming them down to the GCode interpreter, usually over a USB connection. GCode senders are programs that run on regular laptops, raspberry pi's, or equivalents. They provide higher-level operations like pausing and resuming a tool path, jogging the cutter around using a pendant, or adjusting the z-height offset when changing to a different tool.
+
+Senders provide you with a user interface of some kind that lets you actuate your CNC machine at a much more intuitive level than at the GCode level.
+
 ### Universal GCode Sender
+
+![Universal GCode Sender](/images/ugs.png "A Screenshot of UGS")
+
+A tried and true program, [UGS](https://winder.github.io/ugs_website/) has been around a long time and is looking somewhat long in the tooth. It requires quite an old Java runtime in order to function, its UI consumes 100% CPU on my 2018 Macbook Pro, and it looks, well, old.
+
+One benefit of UGS is that it can to several different GCode interpreters such as GRBL and G2Core. UGS does technically run on any operating system, but on a mac that means creating an Oracle account, digging through their archives to find a JRE old enough, downloading the huge JRE and then putting up with Java updates for the rest of your life. If nothing else works for you, UGS is a great fallback but I don't recommend it for most users.
 
 ### CNCJS
 
-### Axion
+![CNCJS](/images/cncjs.png "Screenshot of CNCJS")
+
+[CNCJS](https://cnc.js.org/) is probably the most beautiful GCode sender available. It talks to all the major GCode interpreters, runs on any operating system, and most importantly it presents its UI as a web application.
+
+This is staggeringly useful because it means you can run your GCode sender on a cheap raspberry pi which is tethered to your CNC over USB, but you can set up your pi to host the CNCJS web UI globally on your local network. That means you can keep an eye on your CNC's progress, even pausing it or resuming it, from your laptop on the other side of your house.
+
+### Smoothieboard
+
+The Smoothieboard approach is much more batteries-included than any options mentioned above.
+
+### Marlin
 
 ---
 
