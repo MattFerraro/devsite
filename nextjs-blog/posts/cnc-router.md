@@ -336,11 +336,11 @@ Technically you could buy the components separately to design your own custom sp
 
 By far the most common choice for hobby grade CNC routers, a palm router like the [Makita RT0701C](https://www.amazon.com/Makita-RT0701C-1-1-Compact-Router/dp/B00E7D3V4S/ref=sr_1_1) or [DeWalt DW611](https://www.dewalt.com/products/power-tools/routers-planers-and-joiners/routers/114-hp-max-torque-variable-speed-compact-router/dwp611) is a great starting spindle.
 
-One big disadvantage is that the collets in these small routers are only capable of holding bits of 1/4 inch shank size. To fit smaller bits you'll need an adapter sleave and larger bits just won't work. The follow on effect of skinny bits is that the lack of rigidity can become a limiting factor on your machine.
+The big advantages are cost and availability. These routers are usually about $100 and if they break you can run to the nearest home depot and get a drop-in replacement same day. They are also very commonly used by hobbyists so there are loads of resources on optimal feeds and speeds, how to trigger them via GRBL, etc.
+
+One big disadvantage is that the collets in these small routers are only capable of holding bits of 1/4 inch shank size. To fit smaller bits you'll need an adapter sleeve and larger bits just won't work. The follow on effect of skinny bits is that their lack of rigidity can become a limiting factor on the accuracy of your cuts.
 
 Another big disadvantage is noise. It seems like a non-issue at first, but when you're pulling a 10 hour job and you can't escape the incessant whining of the router, you may regret taking the cheap, noisy option.
-
-The big advantages are cost and availability. These routers are usually about $100 and if they break you can run to the nearest home depot and get a drop-in replacement same day. They are also very commonly used by hobbyists so there are loads of resources on optimal feeds and speeds, how to trigger them via GRBL, etc.
 
 ## Air Cooled Spindle
 
