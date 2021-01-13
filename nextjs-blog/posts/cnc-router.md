@@ -368,17 +368,17 @@ By far the most common choice for hobby grade CNC routers, a palm router like th
 
 # Axis Arrangement
 
-When 2020 began, my theme for the year was to learn how to design and produce physical objects and mechanical systems. When lockdown began I decided to learn these skills by designing and building my own 3-axis CNC router.
+<!-- When 2020 began, my theme for the year was to learn how to design and produce physical objects and mechanical systems. When lockdown began I decided to learn these skills by designing and building my own 3-axis CNC router.
 
-I started by looking at routers I could buy, comparing overall layouts and high-level design choices. Cheap little routers like the [3018](https://www.banggood.com/3018-3-Axis-Mini-DIY-CNC-Router-Standard-Spindle-Motor-Wood-Engraving-Machine-Milling-Engraver-p-1274569.html) are well liked and affordable but they come with serious limitations--namely small working volume and low rigidity which lead to slow cutting speed and limited ability to cut materials harder than wood. Usually these machines are underpowered and some come with sketchy software.
+I started by looking at routers I could buy, comparing overall layouts and high-level design choices. Cheap little routers like the [3018](https://www.banggood.com/3018-3-Axis-Mini-DIY-CNC-Router-Standard-Spindle-Motor-Wood-Engraving-Machine-Milling-Engraver-p-1274569.html) are well liked and affordable but they come with serious limitations--namely small working volume and low rigidity which lead to slow cutting speed and limited ability to cut materials harder than wood. Usually these machines are underpowered and some come with sketchy software. -->
 
 ![A typical 3018 import router from China](/images/3018.png "3018 CNC Router")
 
-This style of router has a fixed gantry where the work piece slides back and forth on a moving table.
+<!-- This style of router has a fixed gantry where the work piece slides back and forth on a moving table. -->
 
-Larger, [more expensive](https://www.toolots.com/6040.html?cid=10311468392) CNC routers tend to leave the work piece fixed and use a sliding gantry instead.
+<!-- Larger, [more expensive](https://www.toolots.com/6040.html?cid=10311468392) CNC routers tend to leave the work piece fixed and use a sliding gantry instead. -->
 
 ![A typical 6040 import router from China](/images/6040.png "6040 CNC Router")
 
-I opted to go with a scaled up version of the 3018 layout because I thought I could build a stiffer frame that way.
+<!-- I opted to go with a scaled up version of the 3018 layout because I thought I could build a stiffer frame that way. -->
 
