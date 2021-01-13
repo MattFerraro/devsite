@@ -5,9 +5,11 @@ date: '2020-01-08'
 
 ![My Homemade CNC Router](/images/my_router.jpg "My Homemade CNC Router")
 
-This is the blog post I wish I could have read when I started designing my CNC router
+This is the encyclopedic blog post I wish I could have read when I started designing my CNC router
 
-In it I'll cover all the components and some of the design considerations you'll need to keep in mind when desiging your own CNC router.
+I'll cover all the components and some of the design considerations you'll need to keep in mind when desiging your own CNC router.
+
+# Table of Contents
 
 # Overall Layout
 
@@ -19,7 +21,7 @@ The foundation of a CNC router is some sort of rigid frame. On top of the frame 
 
 The frame is the main body of your machine. You should use the most rigid material you are able to work with.
 
-### Wood
+## Wood
 
 ![Wooden Frame Router](/images/wooden_frame.jpg "Example Wooden Frame Router")
 
@@ -27,7 +29,7 @@ If you only have access to woodworking equipment, then [wood is your only choice
 
 If you never intend to cut any material harder than wood and you are comfortable never achieving tight tolerances or repeatable dimensions, a wooden frame can be a very economical choice. If you are primarily making art pieces rather than functional mechanical parts subject to tolerances, this might be a good choice for you.
 
-### Metal tube with 3D Printed Joints
+## Metal tube with 3D Printed Joints
 
 ![Mostly Printed CNC](/images/mpcnc.jpg "The Mostly Printed CNC")
 
@@ -37,7 +39,7 @@ Their primary weakness is that 3D printed parts aren't very rigid, so the precis
 
 I should mention that "low-precision" for a CNC router might mean give or take 30 thousandths of an inch. If you are a woodworker used to table saws and pencil-drawn lines, tolerances that tight are fantastic and either a wooden frame or mostly printed frame will likely exceed your needs.
 
-### Extruded Aluminum aka 8020
+## Extruded Aluminum aka 8020
 
 ![Avid CNC](/images/avidcnc.jpg "Avid CNC")
 
@@ -49,7 +51,7 @@ Some providers can even mill precision surfaces onto your extrusion, allowing it
 
 The main disadvantages of 8020 are that it is more costly than extruded aluminum tube and that it isn't as rigid as steel. Still, it is a very popular choice because it is the cheapest, easiest way to produce a machine capable of hitting tolerances and producing great surface finishes.
 
-### Steel Beams
+## Steel Beams
 
 ![Steel Frame Router](/images/steel_frame_router.png "Steel Frame Router")
 
@@ -65,7 +67,7 @@ With a steel frame you can hit tight tolerances and cut almost any material. You
 
 The role of the linear guide is to constrain movement onto a single axis, preventing any unwanted rotation or deflection. These are often some of the most expensive parts on a CNC router.
 
-### Box Ways or Dovetail Ways
+## Box Ways or Dovetail Ways
 
 ![Dovetail Ways](/images/dovetail_ways.jpg "Dovetail ways")
 
@@ -81,7 +83,7 @@ The issue with wear is that if a small problem does develop on the ways, it can 
 
 In contrast all following linear guides are cheap and easy to replace when worn.
 
-### Supported Shafts
+## Supported Shafts
 
 ![Supported Shaft linear guides](/images/supported_shafts.png "Supported Shafts")
 
@@ -89,7 +91,7 @@ Supported shafts are precision ground steel with aluminum support structure unde
 
 These shafts introduce a lot of separation between the fixed surface and the moving surface, giving you space to put lead screws, run wires, or access the back side of the movable part.
 
-### Ground Rails
+## Ground Rails
 
 ![Ground Rail linear guides](/images/linear_rails.png "Ground Rails")
 
@@ -98,7 +100,7 @@ Precision ground linear rails are much lower profile than supported shafts. Thei
 Also if you get this type of rail, be very careful **never** to remove the slides from the rail. The ball bearings inside will fall out and get everywhere. They are difficult to put back inside if you can even find them all.
 
 
-### Unsupported Shafts
+## Unsupported Shafts
 
 ![Unsupported linear shafts](/images/unsupported_shaft.png "Unsupported Shaft")
 
@@ -112,7 +114,7 @@ This solution works for laser cutters and 3D printers where tool forces are negl
 
 The job of the linear actuator is to turn rotational movement into linear movement in order to propel the axes along their linear guides. Your main concerns are backlash, price, maximum length, backdrivability, and mechanical reduction. Secondary concerns might include resistence to wear, dust, and vibration.
 
-### Belt Drives
+## Belt Drives
 
 ![Belt Drive](/images/belt_drive.png "A Typical Belt Drive")
 
@@ -124,15 +126,15 @@ An alternative approach is to use a fixed belt with your motor on the moving sta
 
 Backlash can be a problem with belts if your pully and belt teeth don't mesh perfectly. Another problem with belts is that there is no mechanical reduction between the motor and the gear that moves the belt. This is great for high-speed applications but can cause torque problems, inviting chatter and the possibility of missing steps.
 
-### Rack and Pinion
+## Rack and Pinion
 
 ![Rack and Pinion](/images/rack_and_pinion.jpg "Example Rack and Pinion")
 
 The primary advantage of a Rack and Pinion system is that extremely long lengths can be achieved. If you need >8 feet of travel, R&P is the way to go. These systems are typically geared very aggressively to be able to travel long distances quickly with some sacrifice in spatial resolution.
 
-Like belt drives, R&P systems are easily backdrivable which can be good for manually moving the X and Y axes around. However, the Z axis of a CNC must not be backdrivable to prevent the spindle from falling into the bed when power is turned off.
+Like belt drives, R&P systems are easily backdrivable which can be good for manually moving the X and Y axes around. However, the Z axis of a CNC must not be backdrivable to prevent the spindle from falling into the bed when power is turned off. Do not use a belt drive or a R&P drive on your Z axis.
 
-### Lead Screws/Acme Screws
+## Lead Screws/Acme Screws
 
 ![Lead Screw](/images/lead_screw.jpg "Example lead screw")
 
@@ -144,7 +146,7 @@ There are also special nuts that can be preloaded with tension to reduce backlas
 
 For backlash reasons alone, lead screws are not generally used on high quality CNC routers. The one exception is the Z axes, where the mass of the spindle pushing down on the lead screw can offer sufficient preload to eliminate backlash. If you go this route be mindful of using down-cut spiral bits, which impart force upwards against the spindle.
 
-### Ball Screws
+## Ball Screws
 
 ![Ball Screw](/images/ball_screw.jpg "Example ball screw")
 
@@ -156,7 +158,7 @@ A primary concern with lead screws and ball screws is that neither solution is b
 
 Lead screws and ball screws also offer built-in mechanical reduction. A single rotation of the shaft might move the axis as little as 1mm or as much as 30mm depending on the purpose of the shaft. A typical value for hobby grade machines is 5mm/turn. This limits the maximum travel speed of the machine, but that is usually not a primary concern unless you are working in a job shop where time is money. The mechanical reduction buys you spatial resolution.
 
-### Threaded Rod
+## Threaded Rod
 
 ![Threaded Rod](/images/threaded_rod.jpg "Example Threaded Rod")
 
@@ -174,7 +176,7 @@ If you go down this path you are going to have a bad time.
 
 Motors turn electrical power into the mechanical rotation which powers the lead screws. In practice there are two choies.
 
-### Stepper Motors
+## Stepper Motors
 
 ![Stepper Motors](/images/steppers.jpg "Example Nema23 Stepper Motors")
 
@@ -188,7 +190,7 @@ One gotcha with steppers is that if your cutting forces even momentarily exceed 
 
 Some stepper motor controllers allow for microstepping, which is a way of artifically splitting the motor steps into finer increments. For example you might see an 8x microstepper so that each motor pulse moves 0.225 degrees instead of the full 1.8 degrees. Microstepping is a mixed bag and it is debatable how much you should apply. More microsteps means finer resolving power, less excitation of natural resonances in your machine, and less noise. But it comes at the expense of lower torque and higher step frequency--two resources that may be at a premium in a home built CNC. Conventional wisdom is to use microstepping as sparingly as possible while still achieving the resolution that you want. For me that means 8x microstepping.
 
-### Servo Motors
+## Servo Motors
 
 ![Clearpath Servo](/images/clearpath.png "Some Clearpath Servo Motors")
 
@@ -220,7 +222,7 @@ GCode commands exist to move around in straight lines and in circular arcs, to s
 
 The GCode interpreter is the tiny computer that sits on your machine awaiting instructions in the form of GCode. As it receives instructions, it performs thousands of computations per second to generate the appropriate step/direction pulses for your stepper motor controllers, causing the actual movement to occur.
 
-### GRBL
+## GRBL
 
 ![Arduino Uno](/images/arduino.jpg "An Arduino Uno")
 
@@ -230,7 +232,7 @@ To use GRBL you must configure it so it knows how your machine works. You have t
 
 If you don't know where to start, start with GRBL.
 
-### TinyG
+## TinyG
 
 ![TinyG Board](/images/tinyg.jpg "The TinyG Board")
 
@@ -242,7 +244,7 @@ The drawbacks are cost and complexity. GRBL will cost you $25 all-in. A [TinyG b
 
 TinyG is a great piece of software and hardware that was once cutting edge, but for a new build it has largely been surpassed by its successor, G2Core.
 
-### G2Core
+## G2Core
 
 ![Arduino Due](/images/due.jpg "An Arduino Due")
 
@@ -252,79 +254,115 @@ G2Core is a fork of TinyG (itself a fork of GRBL) that is meant to run on an Ard
 
 The only drawback is complexity. You really need to understand what you're doing before you jump in to G2Core, so it isn't a great choice for your very first 3-axis CNC router. But if you're already comfortable with CNC or you really need the extra axes, G2Core is a fantastic choice.
 
-### Smoothieware
+## Smoothieware
+
+![SmoothieBoard](/images/smoothieboard.jpg)
+
+Smoothieware, the company that develops [Smoothieware](http://smoothieware.org/) the software and Smoothieboard the hardware, tries to support all kinds of machines including 3D printers, laser cutters, CNC routers, CNC lathes, and more. Consequently, Smoothieboards are jam packed full of motor ports, high-power mosfet ports, thermrister ports, everything. The boards are large and [expensive](https://www.robosprout.com/product/smoothieboard-5xc/), but they are a great option if you need a single integrated solution.
+
+A cheaper option is that Smoothieware can also be made to run on lesser hardware furnished by third party vendors. It won't be as well supported, but it can absolutely get you by on the cheap.
+
+Just keep in mind that over generalization can sometimes be frustrating as it prevents the specialization that makes other tools easy to use. If you're setting up your smoothieboard to run your CNC router, there will be loads of settings you need to be sure to ignore because they aren't relevant to your machine.
+
+But some designers want to build a [single machine](https://www.v1engineering.com/specifications/) capable of being a 3D printer, a laser cutter, and a CNC router just by changing out the tool. If that is your goal, Smoothieware is by far the best option.
+
+Another big pro for the Smoothieboard is that their documentation is very [comprehensive](https://smoothieware.github.io/Webif-pack/documentation/web/html/cnc-mill-guide.html). There is a big community of users online, just know that they are mostly in the 3D printer camp.
+
+Lastly, one huge benefit of the Smoothieboard is that it incorporates both the GCode interpreter and the GCode sender all in a single board. This means you have one fewer component to worry about, and makes Smoothieboard overall a very compelling, batteries-included solution.
 
 ---
 
 # GCode sender
 
-A GCode sender is responsible for reading gcode lines out of a large file and streaming them down to the GCode interpreter, usually over a USB connection. GCode senders are programs that run on regular laptops, raspberry pi's, or equivalents. They provide higher-level operations like pausing and resuming a tool path, jogging the cutter around using a pendant, or adjusting the z-height offset when changing to a different tool.
+A GCode sender is responsible for reading gcode lines out of a large file and streaming them down to the GCode interpreter, usually over a USB connection. GCode senders are usually programs that run on regular laptops or raspberry pi's, but it is possible to integrate the GCode sender and GCoder interpreter together on a single board. Senders provide higher-level operations like pausing and resuming a tool path, jogging the cutter around using a pendant, or adjusting the z-height offset when changing to a different tool.
 
 Senders provide you with a user interface of some kind that lets you actuate your CNC machine at a much more intuitive level than at the GCode level.
 
-### Universal GCode Sender
+## Universal GCode Sender
 
 ![Universal GCode Sender](/images/ugs.png "A Screenshot of UGS")
 
-A tried and true program, [UGS](https://winder.github.io/ugs_website/) has been around a long time and is looking somewhat long in the tooth. It requires quite an old Java runtime in order to function, its UI consumes 100% CPU on my 2018 Macbook Pro, and it looks, well, old.
+A tried and true program, [UGS](https://winder.github.io/ugs_website/) has been a trusted favorite for a long time but it is looking somewhat long in the tooth. It requires quite an old Java runtime in order to function, its UI consumes 100% CPU on my 2018 Macbook Pro, and it looks, well, old.
 
-One benefit of UGS is that it can to several different GCode interpreters such as GRBL and G2Core. UGS does technically run on any operating system, but on a mac that means creating an Oracle account, digging through their archives to find a JRE old enough, downloading the huge JRE and then putting up with Java updates for the rest of your life. If nothing else works for you, UGS is a great fallback but I don't recommend it for most users.
+One benefit of UGS is that it can talk to several different GCode interpreters such as GRBL, G2Core, etc. UGS does technically run on any operating system, but on a mac that means creating an Oracle account, digging through their archives to find a JRE old enough, downloading the huge JRE and then putting up with Java updates for the rest of your life.
 
-### CNCJS
+If nothing else works for you UGS is a great fallback but I don't recommend it for most users.
+
+## CNCJS
 
 ![CNCJS](/images/cncjs.png "Screenshot of CNCJS")
 
-[CNCJS](https://cnc.js.org/) is probably the most beautiful GCode sender available. It talks to all the major GCode interpreters, runs on any operating system, and most importantly it presents its UI as a web application.
+[CNCJS](https://cnc.js.org/) is probably the most beautiful GCode sender available today. It talks to all the major GCode interpreters, runs on any operating system, and most importantly it presents its UI as a web application.
 
 This is staggeringly useful because it means you can run your GCode sender on a cheap raspberry pi which is tethered to your CNC over USB, but you can set up your pi to host the CNCJS web UI globally on your local network. That means you can keep an eye on your CNC's progress, even pausing it or resuming it, from your laptop on the other side of your house.
 
-### bCNC
+Before you try anything else, give CNCJS a try. It will likely meet your needs.
+
+## bCNC
 
 ![bCNC](/images/bcnc.png "Screenshot of bCNC")
 
 To me, [bCNC](https://github.com/vlachoudis/bCNC) looks pretty ugly. It is written in python and can be easily pip installed. Its super power is that it comes with auto bed levelling that probes a grid of points, applying correction to get you very close to the surface for situations where z height *really* matters. If you are using engraving bits to carve your own PCBs, you should try out bCNC.
 
-### Carbide Motion
+## Carbide Motion
 
 ![Carbide Motion](/images/carbide_motion.png "Screenshot of Carbide Motion")
 
 By all accounts a decent GCode sender, [Carbide Motion](https://carbide3d.com/carbidemotion/) only works with the Nomad or Shapeoko CNC routers. For a homebuilt router, this is just not an option.
 
-### Smoothieboard
+## Smoothieboard
 
-The Smoothieboard approach is much more batteries-included than any options mentioned above.
+![Smoothieboard Web UI](/images/smoothieboard_ui.png "Screenshot of Smoothieboard Web UI")
 
-### Marlin
+As mentioned above, Smoothieboards combine the GCode sender and GCoder interpreter into a single piece of hardware. You can connect a Smoothieboard to the internet with an ethernet cable and it'll host a little web UI you can access from your laptop to control the router.
 
-### Others not fit to mention
+It's a bit light on features, for example there is no 3D graphical display of your tool path, but it should be sufficient to get the job done.
 
-There are loads of Gcode senders I didn't have time to investigate: Easel, Candle, Candle2, Goko, Grbl-Panel, Gcode-sender, and more.
+## Others Not Mentioned
+
+There are loads of Gcode senders I didn't have time to investigate: Easel, Candle, Candle2, Goko, Grbl-Panel, Gcode-sender, OpenCNCPilot, ChiliPeppr and more. I will add reviews as I have time to learn about them.
 
 ---
 
 # Spindle
 
-### Air Cooled Spindle
+The spindle is the shaft that rotates very fast. It is attached to a big motor on one side and your cutting bit (or a holder that holds your bit) on the other side. For CNC routers, a spindle speed of 10,000-20,000 RPM is standard. For CNC mills, the spindle is generally much slower at 1,000-10,000 RPM, but with significantly more torque.
 
-### Water Cooled Spindle
+## Palm Router
 
-### Palm Router
+By far the most common choice for hobby grade CNC routers, a palm router like the [Makita RT0701C](https://www.amazon.com/Makita-RT0701C-1-1-Compact-Router/dp/B00E7D3V4S/ref=sr_1_1) or [DeWalt DW611](https://www.dewalt.com/products/power-tools/routers-planers-and-joiners/routers/114-hp-max-torque-variable-speed-compact-router/dwp611) is a great starting spindle.
+
+## Air Cooled Spindle
+
+## Water Cooled Spindle
 
 ---
 
 # Dust Collection
 
-### Vacuum Boot
+## Vacuum Boot
 
-### Enclosure
+## Enclosure
+
+---
+
+# Work Holding
+
+# Interesting examples
+
+## Onefinity
+
+## Shapeoko
+
+## Vulcan Machine Co
 
 ---
 
 # Miscellanous Improvements
 
-### Spindle control
+## Spindle control
 
-### Z Axis probe
+## Z Axis probe
 
 ---
 
