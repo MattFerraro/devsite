@@ -336,15 +336,39 @@ Technically you could buy the components separately to design your own custom sp
 
 By far the most common choice for hobby grade CNC routers, a palm router like the [Makita RT0701C](https://www.amazon.com/Makita-RT0701C-1-1-Compact-Router/dp/B00E7D3V4S/ref=sr_1_1) or [DeWalt DW611](https://www.dewalt.com/products/power-tools/routers-planers-and-joiners/routers/114-hp-max-torque-variable-speed-compact-router/dwp611) is a great starting spindle.
 
-The big advantages are cost and availability. These routers are usually about $100 and if they break you can run to the nearest home depot and get a drop-in replacement same day. They are also very commonly used by hobbyists so there are loads of resources on optimal feeds and speeds, how to trigger them via GRBL, etc.
+The big advantages are cost and availability. These routers are usually about $100 and if they break you can run to the nearest home depot and get a drop-in replacement same day. They are also very commonly used by hobbyists so there are loads of resources on optimal feeds and speeds, how to trigger them via GRBL, etc. They are also small and simple and plug directly into the wall.
 
-One big disadvantage is that the collets in these small routers are only capable of holding bits of 1/4 inch shank size. To fit smaller bits you'll need an adapter sleeve and larger bits just won't work. The follow on effect of skinny bits is that their lack of rigidity can become a limiting factor on the accuracy of your cuts.
+One big disadvantage is that the collets in these small routers are only capable of holding bits of 1/4 inch shank size. To fit smaller bits you'll need an adapter sleeve and larger bits just won't work. The follow on effect of skinny bits is that their lack of rigidity can become a limiting factor on the accuracy of your cuts, as can the runout of the router, which is just not designed to be a high precision tool.
 
-Another big disadvantage is noise. It seems like a non-issue at first, but when you're pulling a 10 hour job and you can't escape the incessant whining of the router, you may regret taking the cheap, noisy option.
+Another big disadvantage is noise. It seems like a non-issue at first, but when you're pulling a 10 hour job and you can't escape the incessant whining of the router, you may regret taking the cheap, noisy option. On the topic of long-running jobs, palm routers are not designed to run continuously for hours at a time so you may end up with overheating issues if you run for too long.
 
 ## Air Cooled Spindle
 
+![Air Cooled Spindle](/images/air_cooled.jpg "An Air Cooled Spindle")
+
+Air cooled spindles are generally much more performant than the palm routers. They tend to have much more powerful motors with better speed control, the spindle itself has much less runout, and the tool holder has a much bigger, more general purpose collet. Some spindles even support automatic tool changing, and all of them are designed for continuous output for many hours at a time.
+
+Spindles are usually based on brushless motors rather brushed, so while a palm router might need its brushes changed after 1000 hours of use, a spindle would be expected to keep working 10 times as long before needing any maintainence.
+
+Their drawbacks are higher cost ($300-$600), long lead time because you usually have to order one from China, and much heavier weight, usually 3x higher than a palm router. Another drawback is that the control electronics live in a separate box that needs to be stored somewhere on your machine. If you really want the highest performance out of your machine, buy a real spindle.
+
 ## Water Cooled Spindle
+
+![Water Cooled](/images/water_cooled.jpg "A water cooled spindle")
+
+Water cooled spindles are identical to air cooled spindles, but they require you to buy and run a separate water-based cooling system. This can be a messy undertaking, but the benefits of water cooling are twofold:
+
+The first is that your router can run *indefinitely*. This is important if you're building a huge system that will carve detailed 3D shapes onto whole 4' by 8' sheets of wood, as d!oing this takes days of CNC time.
+
+The second big advantage is [low noise](https://www.youtube.com/watch?v=Wlhjn8lvKVI). Water cooled spindles are exceptionally quiet compared to air cooled spindles or palm routers.
+
+## DC Spindle
+
+![DC Spindle](/images/dc_spindle.jpg "A DC spindle")
+
+Beware of any DC spindles you find. These are typically extremely low quality devices made to look similar to real spindles but they are much smaller with just a fraction of the output power and brushed DC motors.
+
+From what I can tell, these are meant to trick people into thinking they are buying high quality spindles while in fact giving you the lowest quality product imaginable. If you see a spindle with just a red and black wire coming out of it, or if you see a spindle for [<$200](https://www.aliexpress.com/item/32899321348.html), it is likely not worth buying.
 
 ---
 
