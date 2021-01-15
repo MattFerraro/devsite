@@ -61,6 +61,8 @@ If you are comfortable cutting, welding, and powder coating steel then you shoul
 
 With a steel frame you can hit tight tolerances and cut almost any material. Your machine's primary limitation won't be its frame. See This Old Tony's excellent steel-framed CNC router build [here](https://www.youtube.com/watch?v=K9UA9ZRFwWU)
 
+## Epoxy Granite
+
 ---
 
 # Linear Guides
@@ -358,7 +360,7 @@ Their drawbacks are higher cost ($300-$600), long lead time because you usually 
 
 Water cooled spindles are identical to air cooled spindles, but they require you to buy and run a separate water-based cooling system. This can be a messy undertaking, but the benefits of water cooling are twofold:
 
-The first is that your router can run *indefinitely*. This is important if you're building a huge system that will carve detailed 3D shapes onto whole 4' by 8' sheets of wood, as d!oing this takes days of CNC time.
+The first is that your router can run *indefinitely*. This is important if you're building a huge system that will carve detailed 3D shapes onto whole 4' by 8' sheets of wood, as doing this takes days of CNC time.
 
 The second big advantage is [low noise](https://www.youtube.com/watch?v=Wlhjn8lvKVI). Water cooled spindles are exceptionally quiet compared to air cooled spindles or palm routers.
 
@@ -366,53 +368,168 @@ The second big advantage is [low noise](https://www.youtube.com/watch?v=Wlhjn8lv
 
 ![DC Spindle](/images/dc_spindle.jpg "A DC spindle")
 
-Beware of any DC spindles you find. These are typically extremely low quality devices made to look similar to real spindles but they are much smaller with just a fraction of the output power and brushed DC motors.
+Beware of any DC spindles you find. These are typically extremely low quality devices made to look similar to real spindles but they are much smaller with just a fraction of the output power.
 
 From what I can tell, these are meant to trick people into thinking they are buying high quality spindles while in fact giving you the lowest quality product imaginable. If you see a spindle with just a red and black wire coming out of it, or if you see a spindle for [<$200](https://www.aliexpress.com/item/32899321348.html), it is likely not worth buying.
 
 ---
 
+# Work Holding
+
+Holding your work securely is incredibly important. It doesn't matter how good the rest of your machine is--if the work is held poorly, the results will be poor.
+
+## Fixing Directly to the Spoilboard
+
+![Single Spoilboard](/images/single_spoilboard.jpg "Single Spoilboard")
+
+A Spoilboard is a single sheet of dimensionally stable material, usually MDF, that you can fix your work to directly. You can screw, nail, or clamp the work piece directly onto the spoilboard to create a rigid connection. This does some damage to the spoilboard, but MDF is so cheap that you just use it until it the damage is starting to get in your way, then you make a new spoilboard. Another technique is to deliberately use a thicker spoilboard than you need at first, then instead of replacing the entire MDF sheet you can just use the CNC router to take a layer off the top, giving you a freshly flattened surface to work on.
+
+The main idea behind a spoilboard is that it wears out and you replace it. Some people cut their spoil board into many thin slats so that they only need to replace a few if only a few are damaged. Some people fashion a cutting surface out of many small squares of MDF so they only have to replace the individual tiles that are damaged. These are all considered spoilboard, just different approaches.
+
+The biggest advantage of directly fixing your work piece to spoilboard is that you have no extra work holding hardware to worry about accidentally crashing your spindle into.
+
+This is an incredibly popular design for CNC routers. Unless you have a specific reason to avoid spoilboard, you should probably incorporate one into your design.
+
+## T Track and Clamps
+
+![T Track](/images/t_track.jpg "T Track")
+
+T Track is a type of metal channel that lets you fix clamps and stops in place just by screwing them down. These are very helpful if you need to make repeatable jigs for manufacturing large numbers of parts, and generally don't get damaged with use.
+
+The big disadvantage of T Track for work holding is that you inevitably end up with clamps on the work surface that the cutting bit needs to avoid. This requires lots of planning and foresight on your part so that you don't mistakenly destroy your clamps or worse, destroy your spindle. This can be eased somewhat by modeling your clamps as part of your setup in your CAM software, but that too takes time and effort.
+
+A second disadvantage is that many CNC routers just don't have much z-axis clearance from the work surface to the gantry. If you have tall clamps, a thick spoilboard in place, or a particularly thick work piece, the clamps can get caught on the gantry. All this requires further planning or modeling on your part to avoid, which can be a real headache.
+
+Many designs combine spoilboard and T track together by using thin slats of spoilboard between the tracks. This offers you the flexibility to use one or the other depending what you're cutting.
+
+## Machinist Vise
+
+![Machinist Vise](/images/vise.jpg "Example Machinist Vise")
+
+If you really need high precision, repeatable, extremely rigid work holding then a machinist vise is a great choice. The biggest downsides are cost and clearance. A good machinist vise is about $1000 and most CNC routers lack the gantry clearance to fit a vice. But if your CNC router is more of a CNC mill in terms of rigidity, axis arrangement, and material to cut, a vice might be for you.
+
+---
+
 # Dust Collection
+
+CNC routers kick up a lot of dust and chips. These get everywhere, making a huge mess and making you cough. While it is technically optional, you will want to seriously consider your dust collection solution during the design stage rather than tacking one on at the end when your machine is built.
 
 ## Vacuum Boot
 
+![Dust Boot](/images/dust_boot.jpg "A Dust Collection Boot from Etsy")
+
+Vacuum boots can eliminate a ton of dust but they usually don't get it all. Their big advantages are that they are cheap to get ahold of, easy to remove, and only require you to own a shop-vac.
+
+The big disadvantages are imperfect dust collection, and that the boot can sometimes get in the way with the part you are trying to cut. Imagine cutting a very deep pocket in a solid block of wood. There is just no way for a dust boot to accomodate this while still being effective. For shallow cuts over large areas though, a dust boot is a fantastic choice.
+
 ## Enclosure
 
----
+![Enclosure](/images/enclosure.jpg "Example CNC Enclosure")
 
-# Work Holding
+Enclosures are cages that trap all the dust and chips. You can make one out of wood, plastic, metal, even cardboard.
 
-# Interesting examples
+The best things about enclosures are that they can often reduce the sound of your router substantially. They also offer fantastic dust protection and will never get in the way of your cuts.
 
-## Onefinity
-
-## Shapeoko
-
-## Vulcan Machine Co
-
----
-
-# Miscellanous Improvements
-
-## Spindle control
-
-## Z Axis probe
+The disadvantages are that they are big and expensive, sometimes feeling like entire projects unto themselves. They also complicate the ergonomics of using your router, especially if you nail your work pieces directly to spoilboard, or need to change tools often.
 
 ---
 
 # Axis Arrangement
 
+The overall layout of your machine's frame will make a big impact on what your machine can do.
+
+## Sliding Gantry
+
+![A typical sliding gantry cnc router](/images/big_cnc_router.webp "Sliding Gantry CNC Router")
+
+Almost all large CNC routers are sliding gantry designs where the work piece stays completely still, with a sliding gantry that holds the spindle. In these designs, the x, y, and z axes are in a way stacked on top of each other in series.
+
+One problem with triple stacked designs can come from cable routing to power the motors, and sense the end stops since they all move. You need to be sure that there is no way for the machine to yank out its own power, for flying debris to cause a short circuit, and you need to be sure that the electrical noise from the power wires doesn't accidentally trip the end stop circuits. This means careful planning, cable tracks, and strain relief. Also twisted pair wiring everywhere if not full on optically isolated switches. Obviously these are concerns no matter what your overall layout, but triple stacked designs have it the worst of any.
+
+Further problems include paying a rigidity penalty. With each stacked axis, slop is compounded and lever arms get longer. It is possible to stack three axis which are each on their own sufficiently rigid, and still end up with a final product which is insufficiently rigid. For this reason whenever you see a high quality sliding gantry machine in person, it always seems overbuilt from thicker, more expensive material than you would guess is necessary.
+
+Despite the added design complexity, sliding gantry is the only practical way to accommodate very large bed sizes because the floor footprint of the machine need only be as large as the working envelope, plus a small buffer on all sides. If you want to cut 4' by 8' sheets in a real shop where space is at a premium, this is essentially the only way.
+
+On a sliding gantry the spindle is 3 moving axes away from the frame.
+
+## Fixed Gantry
+
+![A typical 3018 import router from China](/images/3018.png "3018 CNC Router")
+
+Fixed gantry designs are very popular with small desktop CNC routers and 3D printers. Moving the work piece on just a single axis is a great compromise because it reduces the stacked-axis problems significantly, simplifying the design and resulting in a lighter-weight machine. The drawback is that the footprint of a fixed gantry machine must be larger than the working envelope by a factor of 2! For that reason alone, you don't see many large machines with this axis arrangement.
+
+On a fixed gantry the spindle is 2 moving axes away from the frame.
+
+## Column Mill
+
+![Column Mill](/images/column_mill_router.jpg "A CNC router arranged like a column mill")
+
+Benchtop mills are typically laid out as column mills. In these designs the central feature is a frame consisting of a single tall column on which the spindle rides up and down. At the bottom of the column are the x and y axes stacked on top of each other, with the work piece stacked on top of that.
+
+When designed with care, the column mill layout is excellent for rigidity, which means you can more easily achieve great surface finishes on harder metals, you can take deeper cuts, and you can make the most of a beefy spindle. There is a reason small mills are laid out this way, and that reason is rigidity.
+
+The major drawback is how much floor space these designs take up for how small of a working envelope they provide. If you are going this route you should probably consider your design a CNC mill rather than a router--you are starting to blur the line.
+
+On a column mill the spindle is 1 moving axis away from the frame.
+
+## Knee Mill
+
+![Knee Mill](/images/knee_mill.jpg "An Example Knee Mill")
+
+A knee mill is an axis layout where the spindle is completely fixed to the frame, while the work piece moves around on all three axes. This is the most rigid design I know of, with the only real drawback being that the working envelope is much smaller than the footprint of the machine on the floor. If you wanted a 4' by 8' working volume, you would need at minimum an 8' by 16' floor footprint.
+
+Because it is so rigid but scales up so poorly in space efficiency, these designs are almost exclusively used for metal mills. It is not practical to build a CNC router this way, because in CNC routing you are usually working with relatively soft materials and your parts are usually relatively large.
+
+On a knee mill the spindle is 0 moving axes away from the frame.
+
+---
+
+# Usability Improvements
+
+## Automatic tool changer
+
+## Z Axis probe
+
+---
+
+# Cutting Tools
+
+## Flat end mill
+
+## Round end mill
+
+## Spoilboard Surfacer
+
+## Engraving bits
+
+---
+
+## Conclusion
+
+---
+
+# Interesting examples
+
+## MPCNC
+
+## Shapeoko
+
+## Onefinity
+
+## Vulcan Machine Co
+
+## Datron
 <!-- When 2020 began, my theme for the year was to learn how to design and produce physical objects and mechanical systems. When lockdown began I decided to learn these skills by designing and building my own 3-axis CNC router.
 
 I started by looking at routers I could buy, comparing overall layouts and high-level design choices. Cheap little routers like the [3018](https://www.banggood.com/3018-3-Axis-Mini-DIY-CNC-Router-Standard-Spindle-Motor-Wood-Engraving-Machine-Milling-Engraver-p-1274569.html) are well liked and affordable but they come with serious limitations--namely small working volume and low rigidity which lead to slow cutting speed and limited ability to cut materials harder than wood. Usually these machines are underpowered and some come with sketchy software. -->
 
-![A typical 3018 import router from China](/images/3018.png "3018 CNC Router")
+
 
 <!-- This style of router has a fixed gantry where the work piece slides back and forth on a moving table. -->
 
 <!-- Larger, [more expensive](https://www.toolots.com/6040.html?cid=10311468392) CNC routers tend to leave the work piece fixed and use a sliding gantry instead. -->
 
-![A typical 6040 import router from China](/images/6040.png "6040 CNC Router")
+
 
 <!-- I opted to go with a scaled up version of the 3018 layout because I thought I could build a stiffer frame that way. -->
 
