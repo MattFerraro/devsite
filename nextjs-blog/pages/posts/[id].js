@@ -26,12 +26,20 @@ export default function Post({ postData }) {
       <Head>
         <title>{postData.title}</title>
         <meta
-          name="description"
-          content={postData.teaser}
+          property="og:title"
+          content={postData.title}
         />
         <meta
           property="og:image"
           content={postData.teaserImage}
+        />
+        <meta
+          name="description"
+          content={postData.teaser}
+        />
+        <meta
+          property="og:description"
+          content={postData.teaser}
         />
       </Head>
       <article>
