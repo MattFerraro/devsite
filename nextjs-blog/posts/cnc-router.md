@@ -55,13 +55,39 @@ The main disadvantages of 8020 are that it is more costly than extruded aluminum
 
 ![Steel Frame Router](/images/steel_frame_router.png "Steel Frame Router")
 
-A Steel frame is a fantastic choice for its high mass and high rigidity. The biggest downsides are that metalworking requires tools that many hobbyists don't have access to.
+A Steel frame is a fantastic choice for its high mass and high rigidity. The biggest downsides are that metalworking requires tools that many hobbyists don't have access to, and that steel frames do not damp vibration well.
 
 If you are comfortable cutting, welding, and powder coating steel then you should probably go ahead and build the frame out of steel. Some large surfaces will need to be milled flat to hold linear guides, so make sure you plan everything out before you start welding.
 
 With a steel frame you can hit tight tolerances and cut almost any material. Your machine's primary limitation won't be its frame. See This Old Tony's excellent steel-framed CNC router build [here](https://www.youtube.com/watch?v=K9UA9ZRFwWU)
 
+## Cast Iron
+
+![Cast Iron Frame](/images/cast_iron.jpg "A CNC machine with cast iron frame")
+
+Mills and lathes very often have frames made of cast iron for its superior vibration damping, extreme rigidity, and reduced part count by combining many parts together into a single casting.
+
+This technique requires a tremendous amount of pre-planning, experience, and access to a metal foundry. It is prohibitively expensive and difficult for most hobbyists, but it produces some of the finest CNC machines that can be produced.
+
+Other disadvantages are that cast iron parts can easily rust in open air or corrode if attacked with solvents. Cast parts generally need to be sand blasted and painted to survive industrial environments.
+
+The casting process does not leave you with precision surfaces, so surface machining will be required on any parts that must be within a specified tolerance.
+
+There is significant upfront engineering cost to produce the required molds, but once you have molds the per-unit cost of casting can be cost competitive. If you are designing an extremely high quality CNC router specifically to be mass produced and sold to others, consider cast iron for your frame.
+
 ## Epoxy Granite
+
+![Epoxy Granite Frame](/images/epoxy_granite.webp "A CNC machine with epoxy granite frame")
+
+An exotic choice for frame building is epoxy granite--crushed up natural granite suspended in an epoxy binder that you cast into whatever shape you want, at room temperature.
+
+The advantages of epoxy granite are that it is very dimensionally stable, it is resistent to chemical solvents, it does not require painting, and it can damp vibrations up to 30 times better than an equivalent steel frame, or 10 times better than cast iron. Epoxy granite can be cast into any shape you like using only at-home equipment and techniques. Pre-made threaded inserts and linear guides can be inserted at casting time, greatly reducing the need for machine finishing the final cast parts. For ultra high precision builds, epoxy granite is a fantastic choice.
+
+The disdvantages are that epoxy granite has low tensile strength, and generally needs to be quite thick in all parts of the frame.
+
+Epoxy granite is a rare choice among hobbyists, but I believe it is mostly because the design and build process are so foreign. Frames made from steel beams are easy to visualize and intuitive to link together. Frames made from cast material require a very different design approach that is just not well understood by most hobbyists.
+
+If you are really looking to build an incredibly high performance machine, especially if you plan to make many machines, epoxy granite might be a good choice for you.
 
 ---
 
@@ -81,7 +107,7 @@ They carry the secondary advantage of being extremely massive, which helps reduc
 
 Despite all these advantages they are almost never incorporated into CNC routers because they are too expensive per unit length, their large mass makes them unweildy, and their wear patterns are not a good match for computer controlled machining.
 
-The issue with wear is that if a small problem does develop on the ways, it can quickly cascade into a serious issue that causes further damage. Repairing ways, especially in situ, is a tremendously tedious and therefore expensive process. A human machinist is likely to notice such problems developing on a manual mill, but the computer operatoring a CNC mill will not notice.
+The issue with wear is that if a small problem does develop on the ways, it can quickly cascade into a serious issue that causes further damage. Repairing ways, especially in situ, is a tremendously tedious and therefore expensive process. A human machinist is likely to notice such problems developing on a manual mill, but the computer operating a CNC mill will not notice.
 
 In contrast all following linear guides are cheap and easy to replace when worn.
 
@@ -91,7 +117,7 @@ In contrast all following linear guides are cheap and easy to replace when worn.
 
 Supported shafts are precision ground steel with aluminum support structure underneath that allows you to fix the shaft firmly to the frame of the CNC machine. The linear bearings that run on the shaft are free to rotate about 20 degrees back and forth on the long axis of the shaft, meaning they actually offer two distinct degrees of freedom, one of which must be further constrained by some other aspect of your design. The bearings are usually easy to remove and replace.
 
-These shafts introduce a lot of separation between the fixed surface and the moving surface, giving you space to put lead screws, run wires, or access the back side of the movable part.
+These shafts introduce a lot of separation between the fixed surface and the moving surface, giving you space to put lead screws, run wires, or access the back side of the movable part. The disadvantage of extra separation is that it makes lever arms longer, amplifying torques on the frame.
 
 ## Ground Rails
 
@@ -109,6 +135,8 @@ Also if you get this type of rail, be very careful **never** to remove the slide
 Very cheap, low-quality builds will use unsupported linear shafts which are held only at two points. This is a [terrible idea](http://www.mycncuk.com/threads/4356-Why-not-use-unsupported-rails) because the deflection for a given force is several orders of magnitude larger, leading to very low precision and lots of chatter, which leads to poor surface finish, slower cutting speeds, and shorter tool lifetime.
 
 This solution works for laser cutters and 3D printers where tool forces are negligible, but this approach is inadequate for a CNC router. Despite the drawbacks, many cheap designs still use this type of linear guide. Avoid this if at all possible.
+
+The one exception to this rule is if you design in much thicker shafts than would otherwise be used. A 2" diameter unsupported shaft may well be more rigid than a 1/2" diameter supported shaft, provided the end supports are also extremely strong.
 
 ---
 
@@ -152,13 +180,13 @@ For backlash reasons alone, lead screws are not generally used on high quality C
 
 ![Ball Screw](/images/ball_screw.jpg "Example ball screw")
 
-Ball screws look a lot like lead screws but they are better. Their thread profile is specially matched to the recirculating ball bearings in the nut so there is no friction, no wear, and no backlash. Many high quality CNC routers use ball screws because they offer fantastic performance, even if they are much more expensive than other options.
+Ball screws look a lot like lead screws but they are better. Their thread profile is specially matched to the recirculating ball bearings in the nut so there is low friction, low wear, and no backlash. Many high quality CNC routers use ball screws because they offer fantastic performance, even if they are much more expensive than other options.
 
-Their fundamental drawbacks, shared with lead screws, are that longer shafts can lead to vibration issues (screw whip) if spun too quickly. This limits the useful maximum length of ball screws and lead screws to about 4 feet.  For any length less than that, ball screws are the most expensive and performant choice. For anything longer than that, belts or R&P start to function better.
+Their fundamental drawback, shared with lead screws, are that longer shafts can lead to vibration issues (screw whip) if spun too quickly. This limits the useful maximum length of ball screws and lead screws to about 4 feet.  For any length less than that, ball screws are the most expensive and performant choice. For anything longer than that, belts or R&P start to function better.
 
 A primary concern with lead screws and ball screws is that neither solution is backdrivable so when the power is turned off the axis is still effectively locked in place. For big heavy equipment this can be a great safety feature. For small hobby machines this can sometimes prove annoying.
 
-Lead screws and ball screws also offer built-in mechanical reduction. A single rotation of the shaft might move the axis as little as 1mm or as much as 30mm depending on the purpose of the shaft. A typical value for hobby grade machines is 5mm/turn. This limits the maximum travel speed of the machine, but that is usually not a primary concern unless you are working in a job shop where time is money. The mechanical reduction buys you spatial resolution.
+Lead screws and ball screws also offer built-in mechanical reduction. A single rotation of the shaft might move the axis as little as 1mm or as much as 30mm depending on the purpose of the shaft. A typical value for hobby grade machines is 5mm/turn. This limits the maximum travel speed of the machine, but that is usually not a primary concern unless you are working in a job shop where time is money. The mechanical reduction buys you increased spatial resolution and higher resistence to skipped steps.
 
 ## Threaded Rod
 
@@ -190,7 +218,7 @@ A common mistake is to attach a lead screw directly to the shaft of the stepper 
 
 One gotcha with steppers is that if your cutting forces even momentarily exceed the torque available, they slip. This is called skipping steps and it means your parts come out with severe defects, usually over every surface of the part machined after the skip. The only solution is to over spec your motors and run them at higher torque than you ever expect your machine to need.
 
-Some stepper motor controllers allow for microstepping, which is a way of artifically splitting the motor steps into finer increments. For example you might see an 8x microstepper so that each motor pulse moves 0.225 degrees instead of the full 1.8 degrees. Microstepping is a mixed bag and it is debatable how much you should apply. More microsteps means finer resolving power, less excitation of natural resonances in your machine, and less noise. But it comes at the expense of lower torque and higher step frequency--two resources that may be at a premium in a home built CNC. Conventional wisdom is to use microstepping as sparingly as possible while still achieving the resolution that you want. For me that means 8x microstepping.
+Some stepper motor controllers allow for microstepping, which is a way of artifically splitting the motor steps into finer increments. For example you might see an 8x microstepper so that each motor pulse moves 0.225 degrees instead of the full 1.8 degrees. Microstepping is a mixed bag and it is debatable how much you should apply. More microsteps means finer resolving power, less excitation of natural resonances in your machine, and less noise. But it comes at the expense of lower torque and higher step frequency--two resources that may be at a premium in a home built CNC. Conventional wisdom is to use microstepping as sparingly as possible while still achieving the resolution that you want. For me that means 4x microstepping.
 
 ## Servo Motors
 
@@ -200,11 +228,11 @@ A servo motor is a complex feedback control system in its own right. It consists
 
 Any type of motor can be used, including DC, AC, or stepper motors. The sensor is usually a digital rotary encoder, but some systems use rotary resolvers or HAL effect sensors. The controller is usually some sort of microcontroller that has configurable gains so you can tune in the response characteristics that you want. Some controllers consist purely of discrete electrical components and may be tuned by moving potentiometers.
 
-Compared to steppers, servo motors are generally much faster, quieter, smoother, and stronger. Their drawbacks are complexity and price. A single servo motor for a single axis of a CNC router might cost $40. A drop in replacement servo motor may cost $400 and require tuning after installation.
+Compared to steppers, servo motors are generally much faster, quieter, smoother, and stronger. Their drawbacks are complexity and price. A single stepper motor for a single axis of a CNC router might cost $40. A drop in replacement servo motor may cost $400 and require tuning after installation.
 
 That said, servo motors don't skip steps. Even if you do temporarily overwhelm the available torque, the defects on the resulting part will be limited to only the immediate area where the problem occurred.
 
-If you are considering going with servo motors, Teknik Clearpath are considered great value. If you are comfortable choosing your own motors, soldering wires, and programming in python, you should look into buying an [ODrive](https://odriverobotics.com/). With an ODrive controller, you can turn almost any motor into a servo.
+If you are considering going with servo motors, Teknik Clearpath are considered great value. If you are comfortable choosing your own motors, soldering wires, and programming in python, you should look into buying an [ODrive](https://odriverobotics.com/). With an [ODrive controller](https://www.youtube.com/watch?v=FUh36RUHzdU), you can turn almost any motor into a [servo](https://www.youtube.com/watch?v=WT4E5nb3KtY).
 
 Servos can usually be configured to take in the same step/direction pulses that are used to control stepper motors, so that nothing upstream of the motors needs to change if you decide to start with steppers and move to servos later on.
 
@@ -218,11 +246,13 @@ GCode is a command language for CNC machines. A command looks like:
 G01 X7Y43 F98
 ```
 
-Which instructs the machine to move linearly to the new X, Y coordinate `(7, 43)` at a speed of 98 inches/min.
+Which instructs the machine to move linearly to the new X, Y coordinate `(7, 43)` at a speed of 98 inches per minute (assuming you have set the units to imperial).
 
 GCode commands exist to move around in straight lines and in circular arcs, to start and stop the spindle and coolant, to change spindle speed or change cutting tool, and many other actions. Specialized extensions exist for certain types of machines. For example, 3D printers support commands for heating the print bed, extruding plastic, or waiting for a temperature to be reached.
 
 The GCode interpreter is the tiny computer that sits on your machine awaiting instructions in the form of GCode. As it receives instructions, it performs thousands of computations per second to generate the appropriate step/direction pulses for your stepper motor controllers, causing the actual movement to occur.
+
+GCode is the interface between software and hardware. Everything upstream of the GCode interpreter speaks in the language of software. Everything downstream speaks in the language of hardware.
 
 ## GRBL
 
@@ -250,11 +280,11 @@ TinyG is a great piece of software and hardware that was once cutting edge, but 
 
 ![Arduino Due](/images/due.jpg "An Arduino Due")
 
-G2Core is a fork of TinyG (itself a fork of GRBL) that is meant to run on an Arduino Due [Arduino Due](https://store.arduino.cc/usa/due). It has all the advantages of TinyG software with none of the disadvantages of TinyG hardware.
+G2Core is a fork of TinyG (itself a fork of GRBL) that is meant to run on an [Arduino Due](https://store.arduino.cc/usa/due). It has all the advantages of TinyG software with none of the disadvantages of TinyG hardware.
 
 [G2Core](https://github.com/synthetos/g2) can support up to *nine* machine axes, configurable tool offset, safety interlocks, fifth order motion planning, the works.
 
-The only drawback is complexity. You really need to understand what you're doing before you jump in to G2Core, so it isn't a great choice for your very first 3-axis CNC router. But if you're already comfortable with CNC or you really need the extra axes, G2Core is a fantastic choice.
+The only drawback is complexity. You really need to understand what you're doing before you jump in to G2Core, so it isn't a great choice for your very first 3-axis CNC router. But if you're already comfortable with CNC or you really need the extra axes, G2Core is a fantastic, economical choice.
 
 ## Smoothieware
 
@@ -276,7 +306,7 @@ Lastly, one huge benefit of the Smoothieboard is that it incorporates both the G
 
 # GCode sender
 
-A GCode sender is responsible for reading gcode lines out of a large file and streaming them down to the GCode interpreter, usually over a USB connection. GCode senders are usually programs that run on regular laptops or raspberry pi's, but it is possible to integrate the GCode sender and GCoder interpreter together on a single board. Senders provide higher-level operations like pausing and resuming a tool path, jogging the cutter around using a pendant, or adjusting the z-height offset when changing to a different tool.
+A GCode sender is responsible for reading GCode lines out of a large file and streaming them down to the GCode interpreter, usually over a USB connection. GCode senders are usually programs that run on regular laptops or raspberry pi's, but it is possible to integrate the GCode sender and GCoder interpreter together on a single board. Senders provide higher-level operations like pausing and resuming a tool path, jogging the cutter around using a pendant, or adjusting the z-height offset when changing to a different tool.
 
 Senders provide you with a user interface of some kind that lets you actuate your CNC machine at a much more intuitive level than at the GCode level.
 
@@ -320,7 +350,7 @@ As mentioned above, Smoothieboards combine the GCode sender and GCoder interpret
 
 It's a bit light on features, for example there is no 3D graphical display of your tool path, but it should be sufficient to get the job done.
 
-## Others Not Mentioned
+## Others
 
 There are loads of Gcode senders I didn't have time to investigate: Easel, Candle, Candle2, Goko, Grbl-Panel, Gcode-sender, OpenCNCPilot, ChiliPeppr and more. I will add reviews as I have time to learn about them.
 
@@ -342,7 +372,9 @@ The big advantages are cost and availability. These routers are usually about $1
 
 One big disadvantage is that the collets in these small routers are only capable of holding bits of 1/4 inch shank size. To fit smaller bits you'll need an adapter sleeve and larger bits just won't work. The follow on effect of skinny bits is that their lack of rigidity can become a limiting factor on the accuracy of your cuts, as can the runout of the router, which is just not designed to be a high precision tool.
 
-Another big disadvantage is noise. It seems like a non-issue at first, but when you're pulling a 10 hour job and you can't escape the incessant whining of the router, you may regret taking the cheap, noisy option. On the topic of long-running jobs, palm routers are not designed to run continuously for hours at a time so you may end up with overheating issues if you run for too long.
+Another big disadvantage is noise. It seems like a non-issue at first, but when you're pulling a 10 hour job and you can't escape the incessant whining of the router, you may regret taking the cheap, noisy option. On the topic of long-running jobs, palm routers are not designed to run continuously for hours at a time so you may end up with overheating issues if you run for too long. I have run my Makita RT0701C for 10 hours at a time and by the end it is very hot.
+
+The last disadvantage worth mentioning is that palm routers are not designed to have their speed controlled by an external controller. To get your GCoder interpreter to control the spindle speed you'll need to open it up and do some rewiring, which can be daunting or downright unsafe if you don't already know what you're doing. Most hobbyists instead use a [relay-controlled AC power strip](https://www.amazon.com/Iot-Relay-Enclosed-High-Power-Raspberry/dp/B00WV7GMA2/ref=sr_1_5) so that your GCode interpreter can just switch the router on and off, rather than giving full speed control.
 
 ## Air Cooled Spindle
 
@@ -384,7 +416,7 @@ Holding your work securely is incredibly important. It doesn't matter how good t
 
 A Spoilboard is a single sheet of dimensionally stable material, usually MDF, that you can fix your work to directly. You can screw, nail, or clamp the work piece directly onto the spoilboard to create a rigid connection. This does some damage to the spoilboard, but MDF is so cheap that you just use it until it the damage is starting to get in your way, then you make a new spoilboard. Another technique is to deliberately use a thicker spoilboard than you need at first, then instead of replacing the entire MDF sheet you can just use the CNC router to take a layer off the top, giving you a freshly flattened surface to work on.
 
-The main idea behind a spoilboard is that it wears out and you replace it. Some people cut their spoil board into many thin slats so that they only need to replace a few if only a few are damaged. Some people fashion a cutting surface out of many small squares of MDF so they only have to replace the individual tiles that are damaged. These are all considered spoilboard, just different approaches.
+The main idea behind a spoilboard is that it wears out and you replace it. Some people cut their spoil board into many thin [strips](https://www.festoolownersgroup.com/member-projects/new-cnc-spoilboard/) so that they only need to replace a few if only a few are damaged. Some people fashion a cutting surface out of many small [tiles](https://www.routerforums.com/threads/cnc-table-setups.135951/#lg=thread-135951&slide=11) of MDF so they only have to replace the individual tiles that are damaged. These are all considered spoilboard, just different approaches.
 
 The biggest advantage of directly fixing your work piece to spoilboard is that you have no extra work holding hardware to worry about accidentally crashing your spindle into.
 
@@ -420,7 +452,7 @@ CNC routers kick up a lot of dust and chips. These get everywhere, making a huge
 
 Vacuum boots can eliminate a ton of dust but they usually don't get it all. Their big advantages are that they are cheap to get ahold of, easy to remove, and only require you to own a shop-vac.
 
-The big disadvantages are imperfect dust collection, and that the boot can sometimes get in the way with the part you are trying to cut. Imagine cutting a very deep pocket in a solid block of wood. There is just no way for a dust boot to accomodate this while still being effective. For shallow cuts over large areas though, a dust boot is a fantastic choice.
+The big disadvantages are imperfect dust collection, and that the boot can sometimes get in the way with the part you are trying to cut. Imagine cutting a deep, conical pocket in a solid block of wood. There is just no way for a dust boot to accomodate this while still being effective. For shallow cuts over large areas though, a dust boot is a fantastic choice.
 
 ## Enclosure
 
@@ -446,7 +478,7 @@ Almost all large CNC routers are sliding gantry designs where the work piece sta
 
 One problem with triple stacked designs can come from cable routing to power the motors and sense the end stops because they all move. You need to be sure that there is no way for the machine to yank out its own power, for flying debris to cause a short circuit, and you need to be sure that the electrical noise from the power wires doesn't accidentally trip the end stop circuits. This means careful planning, cable tracks, and strain relief. Also twisted pair wiring everywhere if not full on optically isolated switches. Obviously these are concerns no matter what your overall layout, but triple stacked designs have it the worst of any.
 
-Further problems include paying a rigidity penalty. With each stacked axis, slop is compounded and lever arms get longer. It is possible to stack three axis which are each on their own sufficiently rigid, and still end up with a final product which is insufficiently rigid. For this reason whenever you see a high quality sliding gantry machine in person, it always seems overbuilt from thicker, more expensive material than you would guess is necessary.
+Further problems include paying a rigidity penalty. With each stacked axis, slop is compounded and lever arms get longer. It is possible to stack three axis which are each on their own sufficiently rigid, and still end up with a final product which is insufficiently rigid. For this reason whenever you see a high quality sliding gantry machine in person, it always seems overbuilt from thicker, more expensive material than you might guess is necessary.
 
 Despite the added design complexity, sliding gantry is the only practical way to accommodate very large bed sizes because the floor footprint of the machine need only be as large as the working envelope, plus a small buffer on all sides. If you want to cut 4' by 8' sheets in a real shop where space is at a premium, this is essentially the only way.
 
@@ -478,7 +510,7 @@ On a column mill the spindle is 1 moving axis away from the frame.
 
 A knee mill is an axis layout where the spindle is completely fixed to the frame, while the work piece moves around on all three axes. This is the most rigid design I know of, with the only real drawback being that the working envelope is much smaller than the footprint of the machine on the floor. If you wanted a 4' by 8' working volume, you would need at minimum an 8' by 16' floor footprint.
 
-Because it is so rigid but scales up so poorly in space efficiency, these designs are almost exclusively used for metal mills. It is not practical to build a CNC router this way, because in CNC routing you are usually working with relatively soft materials and your parts are usually relatively large.
+Because it is so rigid but scales up so poorly, these designs are almost exclusively used for metal mills which have relatively small working envelopes compared to CNC routers. It is not practical to build a CNC router this way, because in CNC routing you are usually working with relatively soft materials and your parts are usually relatively large.
 
 On a knee mill the spindle is 0 moving axes away from the frame.
 
@@ -494,21 +526,21 @@ The most important properties to consider in any bit are the material it is made
 
 The big material choice is carbide vs high speed steel. If you are cutting lots of wood it won't matter which you choose. If you are cutting aluminum, high speed steel will probably perform better for you. If you are cutting steel, carbide will probably perform better for you. There are many different colored coatings that some manufacturers apply but I suspect these are just marketing hype.
 
-The shank is the thickest part of the tool, where the spindle grips it. You want to use the thickest-shank tool you can in any particular operation because it maximizes rigidity to have a thicker shank. For palm routers that limit is often 1/4 inch. For bigger spindles 1/2 inch is available.
+The shank is the part of the tool where the spindle grips it. You want to use the thickest-shank tool you can in any particular operation because it maximizes rigidity to have a thicker shank. For palm routers that limit is often 1/4 inch. For bigger spindles 1/2 inch is available.
 
-The cut direction does **not** refer to if the bit cuts spinning clockwise or counterclockwise. All bits are intended spin the same direction and many spindles can only spin in that direction. Cut direction refers to direction that chips are evacuated from the cut. Up-cut bits have flutes shaped in a spiral that grabs and pulls chips up and out of the pocket that you are cutting. These leave a great surface finish on the bottom but on many woods in particular, this leaves an untidy mess at the top of the part that will need to be cleaned later. The opposite is a down-cut spiral bit that forces chips down into the cut. This leaves a clean finish on the top surface of your part but a poor finish on the bottom. A more exotic option is the compression bit which is shaped so that the very bottom of the bit is an up-cut bit but the rest of the bit is a down-cut bit--a compromise that gives the advantages of both provided your depth of cut is deep enough. Lastly are flat bits which don't spiral at all--a compromise that sits right in the middle ground. Flat bits are more rigid and can consequently be made longer with the same cutting performance for cutting deep pockets.
+The cut direction does **not** refer to if the bit cuts spinning clockwise or counterclockwise. All bits are intended spin the same direction and many spindles can only spin in that direction. Cut direction refers to the direction that chips are evacuated from the cut. Up-cut bits have flutes shaped in a spiral that grabs and pulls chips up and out of the pocket that you are cutting, like a standard drill bit. These leave a great surface finish on the bottom but on many woods in particular, this leaves an untidy mess at the top of the part that will need to be cleaned later. The opposite is a down-cut spiral bit that forces chips down into the cut. This leaves a clean finish on the top surface of your part but a poor finish on the bottom. A more exotic option is the compression bit which is shaped so that the very bottom of the bit is an up-cut bit but the rest of the bit is a down-cut bit--a compromise that gives the advantages of both provided your depth of cut is deep enough. Lastly are flat bits which don't spiral at all--a compromise that sits right in the middle ground. Flat bits are more rigid and can consequently be made longer with the same cutting performance for cutting deep pockets.
 
 ## Flat Nose
 
 ![Flat Nose Bit](/images/flat_nose.jpg "Flat nose bit")
 
-This may well be your most-used bit. The flat nose means it can cut clear large areas leaving behind a smooth flat surface, and that it can cut sharp-bottomed corners. For large amounts of material removal, this is a fantastic default bit.
+This may well be your most-used bit. The flat nose means it can clear large areas leaving behind a smooth flat surface, and that it can cut sharp-bottomed corners. For large amounts of material removal, this is a fantastic default bit.
 
 The biggest drawback of this bit is the relatively fragile tips which if chipped, ruin the whole bit.
 
 You may notice that the cutting surface is not actually *flat*, but comes to a very shallow 'v' on top. This is intentional and helps flat nose bits make cleaner cuts. Don't worry, it will not leave any 'v' shaped groves on your finished part!
 
-If you are on a palm router, start by buying an up-cut flat nose bit made of carbide, in the maximum shank diameter that your router can hold, likely 1/4 inch. If you want to be able to cut tigher inside corners, buy a 10-pack of the smaller 1/8 inch bits and a set of adapter sleeves so they can be held in your router's collet.
+If you are on a palm router, start by buying an up-cut flat nose bit made of carbide, in the maximum shank diameter that your router can hold, likely 1/4 inch. If you want to be able to cut tighter inside corners, buy a 10-pack of the smaller 1/8 inch bits and a set of adapter sleeves so they can be held in your router's collet.
 
 ## Ball Nose
 
@@ -556,9 +588,11 @@ If you don't want to deal with this at first that's okay, they are easy to add t
 
 ![Automatic Tool Changer](/images/atc.jpg "Automatic Tool Changer")
 
-Automatic tool changers do exactly what their name suggests. You can have a fixed library of tools assigned to tool holding slots, and the machine can be made to switch between them whenever it needs to. This is incredibly convenient for complex jobs, jobs that are very long running, and jobs that you have to repeat over and over.
+[Automatic tool changers](https://www.youtube.com/watch?v=tYdq_86dJyU) do exactly what their name suggests. You can have a fixed library of tools assigned to tool holding slots, and the machine can be made to switch between them whenever it needs to. This is incredibly convenient for complex jobs, jobs that are very long running, and jobs that you have to repeat over and over.
 
-Generally hobbyists do without, but if you're thinking of starting a small business around your router then you should definitely consider adding an ATC. They require a nontrivial amount of engineering to add to an existing design, and are only possible when using larger spindle machines. ATCs add cost, but they make up for it in saved time.
+Generally hobbyists do without, but if you're thinking of starting a small business around your router then you should definitely consider adding an ATC. It is usually somewhat difficult to add an ATC to an existing CNC router, but then again it is also difficult to design one in from the start. ATCs can only work with spindles that support quick change tools.
+
+ATCs add cost, but they make up for it in saved time.
 
 ---
 
@@ -570,7 +604,7 @@ There are many components to consider when designing your CNC router. From the f
 
 # Contact me
 
-If you have questions about your CNC router, feel free to @ me on [twitter](https://twitter.com/MFerraro89) and I will do my best to reply.
+If you have questions about your CNC router, feel free to @ me on [twitter](https://twitter.com/flaminhottweeto) and I will do my best to reply.
 
 <!-- ---
 
