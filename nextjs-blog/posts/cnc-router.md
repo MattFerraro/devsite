@@ -1,6 +1,6 @@
 ---
 title: 'Anatomy of a CNC Router'
-teaser: 'Everything you need to know to design your own CNC router'
+teaser: 'During quarantine I designed and built my own CNC router from scratch. This is everything you need to know if you want to do the same.'
 teaserImage: 'https://www.mattferraro.dev/images/my_router_small.jpeg'
 date: '2020-01-17'
 ---

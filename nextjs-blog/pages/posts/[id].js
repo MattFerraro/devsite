@@ -30,6 +30,10 @@ export default function Post({ postData }) {
           content={postData.title}
         />
         <meta
+          property="twitter:title"
+          content={postData.title}
+        />
+        <meta
           property="og:image"
           content={postData.teaserImage}
         />
@@ -39,6 +43,10 @@ export default function Post({ postData }) {
         />
         <meta
           property="og:description"
+          content={postData.teaser}
+        />
+        <meta
+          property="twitter:description"
           content={postData.teaser}
         />
       </Head>
