@@ -1,6 +1,6 @@
 ---
 title: 'Anatomy of a CNC Router'
-date: '2020-01-08'
+date: '2020-01-17'
 ---
 
 ![My Homemade CNC Router](/images/my_router.jpg "My Homemade CNC Router")
