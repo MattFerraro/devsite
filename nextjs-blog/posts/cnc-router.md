@@ -444,7 +444,7 @@ The overall layout of your machine's frame will make a big impact on what your m
 
 Almost all large CNC routers are sliding gantry designs where the work piece stays completely still, with a sliding gantry that holds the spindle. In these designs, the x, y, and z axes are in a way stacked on top of each other in series.
 
-One problem with triple stacked designs can come from cable routing to power the motors, and sense the end stops since they all move. You need to be sure that there is no way for the machine to yank out its own power, for flying debris to cause a short circuit, and you need to be sure that the electrical noise from the power wires doesn't accidentally trip the end stop circuits. This means careful planning, cable tracks, and strain relief. Also twisted pair wiring everywhere if not full on optically isolated switches. Obviously these are concerns no matter what your overall layout, but triple stacked designs have it the worst of any.
+One problem with triple stacked designs can come from cable routing to power the motors and sense the end stops because they all move. You need to be sure that there is no way for the machine to yank out its own power, for flying debris to cause a short circuit, and you need to be sure that the electrical noise from the power wires doesn't accidentally trip the end stop circuits. This means careful planning, cable tracks, and strain relief. Also twisted pair wiring everywhere if not full on optically isolated switches. Obviously these are concerns no matter what your overall layout, but triple stacked designs have it the worst of any.
 
 Further problems include paying a rigidity penalty. With each stacked axis, slop is compounded and lever arms get longer. It is possible to stack three axis which are each on their own sufficiently rigid, and still end up with a final product which is insufficiently rigid. For this reason whenever you see a high quality sliding gantry machine in person, it always seems overbuilt from thicker, more expensive material than you would guess is necessary.
 
@@ -484,29 +484,95 @@ On a knee mill the spindle is 0 moving axes away from the frame.
 
 ---
 
-# Usability Improvements
-
-## Automatic tool changer
-
-## Z Axis probe
-
----
-
 # Cutting Tools
 
-## Flat end mill
+To achieve most projects you will need multiple cutting tools. These can be bought in kits or starter sets, but all you really need at first are listed here.
 
-## Round end mill
+If this is your very first experience with CNC then buy the cheapest bits you can find because you will certainly screw up and run your bits into things, inevitably breaking a few in the process while you learn how to better control the spindle. If you can make a single cheap bit last long enough that you start to feel its limitations, then go ahead and splurge on a high-quality, big-name equivalent.
+
+The most important properties to consider in any bit are the material it is made of, the thickness of the shank, and the cut direction.
+
+The big material choice is carbide vs high speed steel. If you are cutting lots of wood it won't matter which you choose. If you are cutting aluminum, high speed steel will probably perform better for you. If you are cutting steel, carbide will probably perform better for you. There are many different colored coatings that some manufacturers apply but I suspect these are just marketing hype.
+
+The shank is the thickest part of the tool, where the spindle grips it. You want to use the thickest-shank tool you can in any particular operation because it maximizes rigidity to have a thicker shank. For palm routers that limit is often 1/4 inch. For bigger spindles 1/2 inch is available.
+
+The cut direction does **not** refer to if the bit cuts spinning clockwise or counterclockwise. All bits are intended spin the same direction and many spindles can only spin in that direction. Cut direction refers to direction that chips are evacuated from the cut. Up-cut bits have flutes shaped in a spiral that grabs and pulls chips up and out of the pocket that you are cutting. These leave a great surface finish on the bottom but on many woods in particular, this leaves an untidy mess at the top of the part that will need to be cleaned later. The opposite is a down-cut spiral bit that forces chips down into the cut. This leaves a clean finish on the top surface of your part but a poor finish on the bottom. A more exotic option is the compression bit which is shaped so that the very bottom of the bit is an up-cut bit but the rest of the bit is a down-cut bit--a compromise that gives the advantages of both provided your depth of cut is deep enough. Lastly are flat bits which don't spiral at all--a compromise that sits right in the middle ground. Flat bits are more rigid and can consequently be made longer with the same cutting performance for cutting deep pockets.
+
+## Flat Nose
+
+![Flat Nose Bit](/images/flat_nose.jpg "Flat nose bit")
+
+This may well be your most-used bit. The flat nose means it can cut clear large areas leaving behind a smooth flat surface, and that it can cut sharp-bottomed corners. For large amounts of material removal, this is a fantastic default bit.
+
+The biggest drawback of this bit is the relatively fragile tips which if chipped, ruin the whole bit.
+
+You may notice that the cutting surface is not actually *flat*, but comes to a very shallow 'v' on top. This is intentional and helps flat nose bits make cleaner cuts. Don't worry, it will not leave any 'v' shaped groves on your finished part!
+
+If you are on a palm router, start by buying an up-cut flat nose bit made of carbide, in the maximum shank diameter that your router can hold, likely 1/4 inch. If you want to be able to cut tigher inside corners, buy a 10-pack of the smaller 1/8 inch bits and a set of adapter sleeves so they can be held in your router's collet.
+
+## Ball Nose
+
+![Ball Nose Bit](/images/ball_nose.jpg "Ball nose bit")
+
+A ball nose bit is just like a flat nose bit except it has a rounded nose. This type of bit is very helpful for cutting fillets and for cutting irregular contours such as a 3d model of a face. The ball nose bit lacks sharp, fragile corners making it tougher and better equipped to remove material more aggressively than a flat nose bit. Some people will use a ball nose bit to clear tremendous amounts of material away as a preparatory step before using a different bit to cut the part to final dimensions.
+
+A single large ball nose bit is probably enough to get you by on material clearing, but the real value is in carving intricate surface details using a small radius ball nose bit. For that you'll want to find a tapered ball nose that starts out at the full 1/4 inch thickness and tapers down to something like 1/16, ending in a 1/32 radius ball nose. In both cases up-cut and carbide are fine defaults.
 
 ## Spoilboard Surfacer
 
-## Engraving bits
+![Spoilboard Surfacing Bit](/images/spoilboard_surfacing.webp "Example Spoilboard Surfacing Bit")
+
+If your design includes a spoilboard it will be critical to flatten it before use. This is typically done using the router itself, programmed in a back-and-forth path to cut a consistent reference height into the possibly-uneven surface. Clearing a large spoilboard with a small bit is a pain, so you can use a spoilboard surfacing bit to remove huge amounts of material very quickly.
+
+A typical spoilboard surfacing bit might clear 1" at a time, up from the 1/4" flat nose bit you might otherwise be stuck using.
+
+## Engraving
+
+![Engraving bits](/images/engraving.jpg "Example engraving bits")
+
+An engraving bit is shaped like a V, typically at 90 degrees or 60 degrees full angle. They cut V's into the material, which is very common in sign making. You can use this type of bit to write letters and numbers, draw stylized designs, cut chamfers, and countersink holes. A bit like this is also critical for v-carve inlays, which are a popular type of art made with CNC routers.
+
+## Others
+
+There are thousands of different types of bits available. Solid manufacturers include Amana tool, Whiteside, and Kennametal. Check out their websites to learn about all the different specialty bits and how they can help you with your project.
 
 ---
 
-## Conclusion
+# Usability Improvements
+
+Designing and building a CNC router is only the first step. If your goal is to actually *use* your CNC router, there are a few quality of life improvements to keep in mind.
+
+## Z Axis probe
+
+![Z axis probe](/images/z_axis_probe.jpg)
+
+Every time you change tools, the height will be slightly different. You'll have to manually find the new height of the tool, a process usually involving a sheet of paper and some trial and error. While the manual approach is not difficult, it gets extraordinarily tedious if you have many tool changes per job, and many jobs to run.
+
+A z-axis probe measures the electrical conductivity of a circuit that runs through the cutting tool down into a metal plate that you fix onto the spoilboard. The CNC controller can automatically lower the height of the cutting tool until electical contact is made, accurately and repeatably determining the height of the tool. This requires some setup in hardware and software, but it a huge time saver in practice.
+
+If you don't want to deal with this at first that's okay, they are easy to add to existing machines later on.
+
+## Automatic Tool Changing
+
+![Automatic Tool Changer](/images/atc.jpg "Automatic Tool Changer")
+
+Automatic tool changers do exactly what their name suggests. You can have a fixed library of tools assigned to tool holding slots, and the machine can be made to switch between them whenever it needs to. This is incredibly convenient for complex jobs, jobs that are very long running, and jobs that you have to repeat over and over.
+
+Generally hobbyists do without, but if you're thinking of starting a small business around your router then you should definitely consider adding an ATC. They require a nontrivial amount of engineering to add to an existing design, and are only possible when using larger spindle machines. ATCs add cost, but they make up for it in saved time.
 
 ---
+
+# Conclusion
+
+There are many components to consider when designing your CNC router. From the frame to the linear actuators to the cutting tool itself, at every step of the way remember that rigidity is king.
+
+---
+
+# Contact me
+
+If you have questions about your CNC router, feel free to @ me on [twitter](https://twitter.com/MFerraro89) and I will do my best to reply.
+
+<!-- ---
 
 # Interesting examples
 
@@ -518,7 +584,7 @@ On a knee mill the spindle is 0 moving axes away from the frame.
 
 ## Vulcan Machine Co
 
-## Datron
+## Datron -->
 <!-- When 2020 began, my theme for the year was to learn how to design and produce physical objects and mechanical systems. When lockdown began I decided to learn these skills by designing and building my own 3-axis CNC router.
 
 I started by looking at routers I could buy, comparing overall layouts and high-level design choices. Cheap little routers like the [3018](https://www.banggood.com/3018-3-Axis-Mini-DIY-CNC-Router-Standard-Spindle-Motor-Wood-Engraving-Machine-Milling-Engraver-p-1274569.html) are well liked and affordable but they come with serious limitations--namely small working volume and low rigidity which lead to slow cutting speed and limited ability to cut materials harder than wood. Usually these machines are underpowered and some come with sketchy software. -->
