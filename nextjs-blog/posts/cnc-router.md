@@ -1,5 +1,6 @@
 ---
 title: 'Anatomy of a CNC Router'
+teaser: 'Everything you need to know to design your own CNC router'
 date: '2020-01-17'
 ---
 
