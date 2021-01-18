@@ -29,6 +29,10 @@ export default function Post({ postData }) {
           name="description"
           content={postData.teaser}
         />
+        <meta
+          property="og:image"
+          content={postData.teaserImage}
+        />
       </Head>
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
