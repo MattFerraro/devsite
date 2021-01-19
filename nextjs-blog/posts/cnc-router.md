@@ -184,7 +184,7 @@ For backlash reasons alone, lead screws are not generally used on high quality C
 
 Ball screws look a lot like lead screws but they are better. Their thread profile is specially matched to the recirculating ball bearings in the nut so there is low friction, low wear, and no backlash. Many high quality CNC routers use ball screws because they offer fantastic performance, even if they are much more expensive than other options.
 
-Their fundamental drawback, shared with lead screws, are that longer shafts can lead to vibration issues (screw whip) if spun too quickly. This limits the useful maximum length of ball screws and lead screws to about 4 feet.  For any length less than that, ball screws are the most expensive and performant choice. For anything longer than that, belts or R&P start to function better.
+Their fundamental drawback, shared with lead screws, is that longer shafts can lead to vibration issues (screw whip) if spun too quickly. This limits the useful maximum length of ball screws and lead screws to about 4 feet.  For any length less than that, ball screws are the most expensive and performant choice. For anything longer than that, belts or R&P start to function better.
 
 A primary concern with lead screws and ball screws is that neither solution is backdrivable so when the power is turned off the axis is still effectively locked in place. For big heavy equipment this can be a great safety feature. For small hobby machines this can sometimes prove annoying.
 
@@ -228,7 +228,7 @@ Some stepper motor controllers allow for microstepping, which is a way of artifi
 
 A servo motor is a complex feedback control system in its own right. It consists of a motor, a measurement system to determine its exact position, and a controller with on board logic that keeps the motor in the exact position specified even when changing external torques try to drive the motor away from its position.
 
-Any type of motor can be used, including DC, AC, or stepper motors. The sensor is usually a digital rotary encoder, but some systems use rotary resolvers or HAL effect sensors. The controller is usually some sort of microcontroller that has configurable gains so you can tune in the response characteristics that you want. Some controllers consist purely of discrete electrical components and may be tuned by moving potentiometers.
+Any type of motor can be used, including DC, AC, or stepper motors. The sensor is usually a digital rotary encoder, but some systems use rotary resolvers or hall-effect sensors. The controller is usually some sort of microcontroller that has configurable gains so you can tune in the response characteristics that you want. Some controllers consist purely of discrete electrical components and may be tuned by moving potentiometers.
 
 Compared to steppers, servo motors are generally much faster, quieter, smoother, and stronger. Their drawbacks are complexity and price. A single stepper motor for a single axis of a CNC router might cost $40. A drop in replacement servo motor may cost $400 and require tuning after installation.
 
@@ -384,7 +384,7 @@ The last disadvantage worth mentioning is that palm routers are not designed to 
 
 Air cooled spindles are generally much more performant than the palm routers. They tend to have much more powerful motors with better speed control, the spindle itself has much less runout, and the tool holder has a much bigger, more general purpose collet. Some spindles even support automatic tool changing, and all of them are designed for continuous output for many hours at a time.
 
-Spindles are usually based on brushless motors rather brushed, so while a palm router might need its brushes changed after 1000 hours of use, a spindle would be expected to keep working 10 times as long before needing any maintainence.
+Spindles are usually based on brushless motors rather than brushed, so while a palm router might need its brushes changed after 1000 hours of use, a spindle would be expected to keep working 10 times as long before needing any maintainence.
 
 Their drawbacks are higher cost ($300-$600), long lead time because you usually have to order one from China, and much heavier weight, usually 3x higher than a palm router. Another drawback is that the control electronics live in a separate box that needs to be stored somewhere on your machine. If you really want the highest performance out of your machine, buy a real spindle.
 
