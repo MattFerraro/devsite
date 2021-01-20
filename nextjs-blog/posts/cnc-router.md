@@ -2,7 +2,7 @@
 title: 'Anatomy of a CNC Router'
 teaser: 'During quarantine I designed and built my own CNC router from scratch. This is everything you need to know if you want to do the same.'
 teaserImage: 'https://www.mattferraro.dev/images/my_router_small.jpeg'
-date: '2020-01-17'
+date: '2021-01-17'
 ---
 
 ![My Homemade CNC Router](/images/my_router.jpg "My Homemade CNC Router")

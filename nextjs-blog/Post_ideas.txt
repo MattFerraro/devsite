@@ -48,3 +48,7 @@ Misc Ideas:
 Iron-man-like design program with different libraries which are different disciplines
 Ant type search algorith for finding good enough, short paths. Could be used for neurons to connect far away parts of the brain?
 Processors with integrated antennas at many frequencies. Can they just talk to each other directly? Starting to feel like minds
+
+
+Fixes:
+CNC router post: talk about linuxcnc and vacuum tables
