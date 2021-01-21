@@ -17,6 +17,21 @@ export default function Layout({ children, home }) {
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
+
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-05L8G0THHM"
+        />
+        <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '[Tracking ID]');
+                `,
+            }}
+          />
       </Head>
       <header className={styles.header}>
         {home ? (
