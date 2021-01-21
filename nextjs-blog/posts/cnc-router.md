@@ -607,4 +607,3 @@ There are many components to consider when designing your CNC router. From the f
 # Contact me
 
 If you have questions about your CNC router, feel free to @ me on [twitter](https://twitter.com/mferraro89) and I will do my best to reply.
-
