@@ -608,16 +608,3 @@ There are many components to consider when designing your CNC router. From the f
 
 If you have questions about your CNC router, feel free to @ me on [twitter](https://twitter.com/mferraro89) and I will do my best to reply.
 
-<!--
-
-# Interesting examples
-
-## MPCNC
-
-## Shapeoko
-
-## Onefinity
-
-## Vulcan Machine Co
-
-## Datron -->
