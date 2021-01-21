@@ -55,7 +55,7 @@ The main disadvantages of 8020 are that it is more costly than extruded aluminum
 
 ## Steel Beams
 
-![Steel Frame Router](/images/steel_frame_router.png "Steel Frame Router")
+![Steel Frame Router](/images/steel_frame_router.jpg "Steel Frame Router")
 
 A Steel frame is a fantastic choice for its high mass and high rigidity. The biggest downsides are that metalworking requires tools that many hobbyists don't have access to, and that steel frames do not damp vibration well.
 
@@ -115,7 +115,7 @@ In contrast all following linear guides are cheap and easy to replace when worn.
 
 ## Supported Shafts
 
-![Supported Shaft linear guides](/images/supported_shafts.png "Supported Shafts")
+![Supported Shaft linear guides](/images/supported_shafts.jpg "Supported Shafts")
 
 Supported shafts are precision ground steel with aluminum support structure underneath that allows you to fix the shaft firmly to the frame of the CNC machine. The linear bearings that run on the shaft are free to rotate about 20 degrees back and forth on the long axis of the shaft, meaning they actually offer two distinct degrees of freedom, one of which must be further constrained by some other aspect of your design. The bearings are usually easy to remove and replace.
 
@@ -123,7 +123,7 @@ These shafts introduce a lot of separation between the fixed surface and the mov
 
 ## Ground Rails
 
-![Ground Rail linear guides](/images/linear_rails.png "Ground Rails")
+![Ground Rail linear guides](/images/linear_rails.jpg "Ground Rails")
 
 Precision ground linear rails are much lower profile than supported shafts. Their short height allows you to produce a much more compact design which can be good for rigidity, but the lack of space can make it difficult to fit a lead screw.
 
@@ -132,7 +132,7 @@ Also if you get this type of rail, be very careful **never** to remove the slide
 
 ## Unsupported Shafts
 
-![Unsupported linear shafts](/images/unsupported_shaft.png "Unsupported Shaft")
+![Unsupported linear shafts](/images/unsupported_shaft.jpg "Unsupported Shaft")
 
 Very cheap, low-quality builds will use unsupported linear shafts which are held only at two points. This is a [terrible idea](http://www.mycncuk.com/threads/4356-Why-not-use-unsupported-rails) because the deflection for a given force is several orders of magnitude larger, leading to very low precision and lots of chatter, which leads to poor surface finish, slower cutting speeds, and shorter tool lifetime.
 
@@ -148,7 +148,7 @@ The job of the linear actuator is to turn rotational movement into linear moveme
 
 ## Belt Drives
 
-![Belt Drive](/images/belt_drive.png "A Typical Belt Drive")
+![Belt Drive](/images/belt_drive.jpg "A Typical Belt Drive")
 
 Belt Drives are extremely inexpensive, lightweight, and their cost is not dependent on the length you want to actuate. Very cheap ones do have a tiny amount of give under load and they may stretch a little over time, but not over the course of a single job.
 
@@ -224,7 +224,7 @@ Some stepper motor controllers allow for microstepping, which is a way of artifi
 
 ## Servo Motors
 
-![Clearpath Servo](/images/clearpath.png "Some Clearpath Servo Motors")
+![Clearpath Servo](/images/clearpath.jpg "Some Clearpath Servo Motors")
 
 A servo motor is a complex feedback control system in its own right. It consists of a motor, a measurement system to determine its exact position, and a controller with on board logic that keeps the motor in the exact position specified even when changing external torques try to drive the motor away from its position.
 
@@ -314,7 +314,7 @@ Senders provide you with a user interface of some kind that lets you actuate you
 
 ## Universal GCode Sender
 
-![Universal GCode Sender](/images/ugs.png "A Screenshot of UGS")
+![Universal GCode Sender](/images/ugs.jpg "A Screenshot of UGS")
 
 A tried and true program, [UGS](https://winder.github.io/ugs_website/) has been a trusted favorite for a long time but it is looking somewhat long in the tooth. It requires quite an old Java runtime in order to function, its UI consumes 100% CPU on my 2018 Macbook Pro, and it looks, well, old.
 
@@ -324,7 +324,7 @@ If nothing else works for you UGS is a great fallback but I don't recommend it f
 
 ## CNCJS
 
-![CNCJS](/images/cncjs.png "Screenshot of CNCJS")
+![CNCJS](/images/cncjs.jpg "Screenshot of CNCJS")
 
 [CNCJS](https://cnc.js.org/) is probably the most beautiful GCode sender available today. It talks to all the major GCode interpreters, runs on any operating system, and most importantly it presents its UI as a web application.
 
@@ -334,19 +334,19 @@ Before you try anything else, give CNCJS a try. It will likely meet your needs.
 
 ## bCNC
 
-![bCNC](/images/bcnc.png "Screenshot of bCNC")
+![bCNC](/images/bcnc.jpg "Screenshot of bCNC")
 
 To me, [bCNC](https://github.com/vlachoudis/bCNC) looks pretty ugly. It is written in python and can be easily pip installed. Its super power is that it comes with auto bed levelling that probes a grid of points, applying correction to get you very close to the surface for situations where z height *really* matters. If you are using engraving bits to carve your own PCBs, you should try out bCNC.
 
 ## Carbide Motion
 
-![Carbide Motion](/images/carbide_motion.png "Screenshot of Carbide Motion")
+![Carbide Motion](/images/carbide_motion.jpg "Screenshot of Carbide Motion")
 
 By all accounts a decent GCode sender, [Carbide Motion](https://carbide3d.com/carbidemotion/) only works with the Nomad or Shapeoko CNC routers. For a homebuilt router, this is just not an option.
 
 ## Smoothieboard
 
-![Smoothieboard Web UI](/images/smoothieboard_ui.png "Screenshot of Smoothieboard Web UI")
+![Smoothieboard Web UI](/images/smoothieboard_ui.jpg "Screenshot of Smoothieboard Web UI")
 
 As mentioned above, Smoothieboards combine the GCode sender and GCoder interpreter into a single piece of hardware. You can connect a Smoothieboard to the internet with an ethernet cable and it'll host a little web UI you can access from your laptop to control the router.
 
@@ -366,7 +366,7 @@ Technically you could buy the components separately to design your own custom sp
 
 ## Palm Router
 
-![Makita Router](/images/makita_router.png "An Example Makita Palm Router")
+![Makita Router](/images/makita_router.jpg "An Example Makita Palm Router")
 
 By far the most common choice for hobby grade CNC routers, a palm router like the [Makita RT0701C](https://www.amazon.com/Makita-RT0701C-1-1-Compact-Router/dp/B00E7D3V4S/ref=sr_1_1) or [DeWalt DW611](https://www.dewalt.com/products/power-tools/routers-planers-and-joiners/routers/114-hp-max-torque-variable-speed-compact-router/dwp611) is a great starting spindle.
 
@@ -488,7 +488,7 @@ On a sliding gantry the spindle is 3 moving axes away from the frame.
 
 ## Fixed Gantry
 
-![A typical 3018 import router from China](/images/3018.png "3018 CNC Router")
+![A typical 3018 import router from China](/images/3018.jpg "3018 CNC Router")
 
 Fixed gantry designs are very popular with small desktop CNC routers and 3D printers. Moving the work piece on just a single axis is a great compromise because it reduces the stacked-axis problems significantly, simplifying the design and resulting in a lighter-weight machine. The drawback is that the footprint of a fixed gantry machine must be larger than the working envelope by a factor of 2! For that reason alone, you don't see many large machines with this axis arrangement.
 

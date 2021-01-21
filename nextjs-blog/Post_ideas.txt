@@ -51,4 +51,10 @@ Processors with integrated antennas at many frequencies. Can they just talk to e
 
 
 Fixes:
-CNC router post: talk about linuxcnc and vacuum tables
+CNC router post:
+- linuxcnc
+- mach3, mach4
+- vacuum tables
+- way more about dust collection
+- mechaduino
+- 4 word explanation at the top of what a CNC router is
