@@ -57,4 +57,3 @@ CNC router post:
 - vacuum tables
 - way more about dust collection
 - mechaduino
-- 4 word explanation at the top of what a CNC router is
