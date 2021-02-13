@@ -5,7 +5,7 @@ teaserImage: 'https://www.mattferraro.dev/images/my_router_small.jpeg'
 date: '2021-01-17'
 ---
 
-![My Homemade CNC Router](/images/my_router.jpg "My Homemade CNC Router")
+![My Homemade CNC Router](/images/cnc-router/my_router.jpg "My Homemade CNC Router")
 
 This is the encyclopedic blog post I wish I could have read when I started designing my CNC router
 
@@ -25,7 +25,7 @@ The frame is the main body of your machine. You should use the most rigid materi
 
 ## Wood
 
-![Wooden Frame Router](/images/wooden_frame.jpg "Example Wooden Frame Router")
+![Wooden Frame Router](/images/cnc-router/wooden_frame.jpg "Example Wooden Frame Router")
 
 If you only have access to woodworking equipment, then [wood is your only choice](https://www.youtube.com/watch?v=jjdXpp77MdU). The main advantages of wood are that it is cheap and easy to work with. The main disadvantage is that wood is not rigid enough to resist cutting forces, leading to chatter and low-quality surface finishes. A secondary concern is that wood is very dimensionally unstable, easily fluctuating with temperature and humidity changes.
 
@@ -33,7 +33,7 @@ If you never intend to cut any material harder than wood and you are comfortable
 
 ## Metal tube with 3D Printed Joints
 
-![Mostly Printed CNC](/images/mpcnc.jpg "The Mostly Printed CNC")
+![Mostly Printed CNC](/images/cnc-router/mpcnc.jpg "The Mostly Printed CNC")
 
 The Mostly Printed CNC and [others](https://www.youtube.com/watch?v=Njs0FU6PfPg) like it make use of cheap extruded metal tube to serve as bones and 3D printed parts to serve as joints. Many of these designs don't require metalworking skills of any kind except to cut metal tubes to length. Given the ubiquity of 3D printers nowadays, these designs are extremely accessible, maybe moreso than wooden designs.
 
@@ -43,7 +43,7 @@ I should mention that "low-precision" for a CNC router might mean give or take 3
 
 ## Extruded Aluminum aka 8020
 
-![Avid CNC](/images/avidcnc.jpg "Avid CNC")
+![Avid CNC](/images/cnc-router/avidcnc.jpg "Avid CNC")
 
 A very popular choice for router frames is aluminum 8020. The extruded profiles can be ordered in many dimensions and some providers like [Misumi](https://us.misumi-ec.com/vona2/mech/M1500000000/M1501000000/M1501010000/?searchFlow=results2category&KWSearch=Aluminum%20extrusions) will not only cut them to length for you, they will drill and countersink holes, they will tap ends, and perform many other operations for you right in their factory.
 
@@ -55,7 +55,7 @@ The main disadvantages of 8020 are that it is more costly than extruded aluminum
 
 ## Steel Beams
 
-![Steel Frame Router](/images/steel_frame_router.jpg "Steel Frame Router")
+![Steel Frame Router](/images/cnc-router/steel_frame_router.jpg "Steel Frame Router")
 
 A Steel frame is a fantastic choice for its high mass and high rigidity. The biggest downsides are that metalworking requires tools that many hobbyists don't have access to, and that steel frames do not damp vibration well.
 
@@ -65,7 +65,7 @@ With a steel frame you can hit tight tolerances and cut almost any material. You
 
 ## Cast Iron
 
-![Cast Iron Frame](/images/cast_iron.jpg "A CNC machine with cast iron frame")
+![Cast Iron Frame](/images/cnc-router/cast_iron.jpg "A CNC machine with cast iron frame")
 
 Mills and lathes very often have frames made of cast iron for its superior vibration damping, extreme rigidity, and reduced part count by combining many parts together into a single casting.
 
@@ -79,7 +79,7 @@ There is significant upfront engineering cost to produce the required molds, but
 
 ## Epoxy Granite
 
-![Epoxy Granite Frame](/images/epoxy_granite.webp "A CNC machine with epoxy granite frame")
+![Epoxy Granite Frame](/images/cnc-router/epoxy_granite.webp "A CNC machine with epoxy granite frame")
 
 An exotic choice for frame building is epoxy granite--crushed up natural granite suspended in an epoxy binder that you cast into whatever shape you want, at room temperature.
 
@@ -99,7 +99,7 @@ The role of the linear guide is to constrain movement onto a single axis, preven
 
 ## Box Ways or Dovetail Ways
 
-![Dovetail Ways](/images/dovetail_ways.jpg "Dovetail ways")
+![Dovetail Ways](/images/cnc-router/dovetail_ways.jpg "Dovetail ways")
 
 Mills and lathes generally use box ways or dovetail ways, which are precision machined surfaces floating over each other on a microscopically thin film of oil, kept tight with a small insert called a gibbs. When kept clean of damaging debris and maintained properly with oil, ways [do not wear whatsoever](https://www.youtube.com/watch?v=cwdoUjynpEk&t=125) and will last longer than every other part of the machine.
 
@@ -115,7 +115,7 @@ In contrast all following linear guides are cheap and easy to replace when worn.
 
 ## Supported Shafts
 
-![Supported Shaft linear guides](/images/supported_shafts.jpg "Supported Shafts")
+![Supported Shaft linear guides](/images/cnc-router/supported_shafts.jpg "Supported Shafts")
 
 Supported shafts are precision ground steel with aluminum support structure underneath that allows you to fix the shaft firmly to the frame of the CNC machine. The linear bearings that run on the shaft are free to rotate about 20 degrees back and forth on the long axis of the shaft, meaning they actually offer two distinct degrees of freedom, one of which must be further constrained by some other aspect of your design. The bearings are usually easy to remove and replace.
 
@@ -123,7 +123,7 @@ These shafts introduce a lot of separation between the fixed surface and the mov
 
 ## Ground Rails
 
-![Ground Rail linear guides](/images/linear_rails.jpg "Ground Rails")
+![Ground Rail linear guides](/images/cnc-router/linear_rails.jpg "Ground Rails")
 
 Precision ground linear rails are much lower profile than supported shafts. Their short height allows you to produce a much more compact design which can be good for rigidity, but the lack of space can make it difficult to fit a lead screw.
 
@@ -132,7 +132,7 @@ Also if you get this type of rail, be very careful **never** to remove the slide
 
 ## Unsupported Shafts
 
-![Unsupported linear shafts](/images/unsupported_shaft.jpg "Unsupported Shaft")
+![Unsupported linear shafts](/images/cnc-router/unsupported_shaft.jpg "Unsupported Shaft")
 
 Very cheap, low-quality builds will use unsupported linear shafts which are held only at two points. This is a [terrible idea](http://www.mycncuk.com/threads/4356-Why-not-use-unsupported-rails) because the deflection for a given force is several orders of magnitude larger, leading to very low precision and lots of chatter, which leads to poor surface finish, slower cutting speeds, and shorter tool lifetime.
 
@@ -148,7 +148,7 @@ The job of the linear actuator is to turn rotational movement into linear moveme
 
 ## Belt Drives
 
-![Belt Drive](/images/belt_drive.jpg "A Typical Belt Drive")
+![Belt Drive](/images/cnc-router/belt_drive.jpg "A Typical Belt Drive")
 
 Belt Drives are extremely inexpensive, lightweight, and their cost is not dependent on the length you want to actuate. Very cheap ones do have a tiny amount of give under load and they may stretch a little over time, but not over the course of a single job.
 
@@ -160,7 +160,7 @@ Backlash can be a problem with belts if your pully and belt teeth don't mesh per
 
 ## Rack and Pinion
 
-![Rack and Pinion](/images/rack_and_pinion.jpg "Example Rack and Pinion")
+![Rack and Pinion](/images/cnc-router/rack_and_pinion.jpg "Example Rack and Pinion")
 
 The primary advantage of a Rack and Pinion system is that extremely long lengths can be achieved. If you need >8 feet of travel, R&P is the way to go. These systems are typically geared very aggressively to be able to travel long distances quickly with some sacrifice in spatial resolution.
 
@@ -168,7 +168,7 @@ Like belt drives, R&P systems are easily backdrivable which can be good for manu
 
 ## Lead Screws/Acme Screws
 
-![Lead Screw](/images/lead_screw.jpg "Example lead screw")
+![Lead Screw](/images/cnc-router/lead_screw.jpg "Example lead screw")
 
 Lead screws are commonly found in manual mills and lathes for their superior load carrying ability. Lead screws are inexpensive, wear predictably, can be easily replaced, and offer low friction movement.
 
@@ -180,7 +180,7 @@ For backlash reasons alone, lead screws are not generally used on high quality C
 
 ## Ball Screws
 
-![Ball Screw](/images/ball_screw.jpg "Example ball screw")
+![Ball Screw](/images/cnc-router/ball_screw.jpg "Example ball screw")
 
 Ball screws look a lot like lead screws but they are better. Their thread profile is specially matched to the recirculating ball bearings in the nut so there is low friction, low wear, and no backlash. Many high quality CNC routers use ball screws because they offer fantastic performance, even if they are much more expensive than other options.
 
@@ -192,7 +192,7 @@ Lead screws and ball screws also offer built-in mechanical reduction. A single r
 
 ## Threaded Rod
 
-![Threaded Rod](/images/threaded_rod.jpg "Example Threaded Rod")
+![Threaded Rod](/images/cnc-router/threaded_rod.jpg "Example Threaded Rod")
 
 It is tempting to use threaded rod, aka "all-thread", or even just a big bolt with a nut on it to produce linear motion. This approach is much cheaper and after all, it looks a lot like the lead screw doesn't it? But **do not fall into this trap.** The two systems are nothing alike.
 
@@ -210,7 +210,7 @@ Motors turn electrical power into the mechanical rotation which powers the lead 
 
 ## Stepper Motors
 
-![Stepper Motors](/images/steppers.jpg "Example Nema23 Stepper Motors")
+![Stepper Motors](/images/cnc-router/steppers.jpg "Example Nema23 Stepper Motors")
 
 Far and away the most popular option, stepper motors have multiple sets of wires (motor poles) that you energize in a particular pattern in order to *step* the motor by some small angular increment like 1.8 degrees. The logic to control this is trivial to implement on an Arduino, but the power required is often far too high for an Arduino to source, so you generally buy a motor controller that takes in step and direction pulses, and powers the motor poles directly.
 
@@ -224,7 +224,7 @@ Some stepper motor controllers allow for microstepping, which is a way of artifi
 
 ## Servo Motors
 
-![Clearpath Servo](/images/clearpath.jpg "Some Clearpath Servo Motors")
+![Clearpath Servo](/images/cnc-router/clearpath.jpg "Some Clearpath Servo Motors")
 
 A servo motor is a complex feedback control system in its own right. It consists of a motor, a measurement system to determine its exact position, and a controller with on board logic that keeps the motor in the exact position specified even when changing external torques try to drive the motor away from its position.
 
@@ -258,7 +258,7 @@ GCode is the interface between software and hardware. Everything upstream of the
 
 ## GRBL
 
-![Arduino Uno](/images/arduino.jpg "An Arduino Uno")
+![Arduino Uno](/images/cnc-router/arduino.jpg "An Arduino Uno")
 
 For small hobby CNC machines, [GRBL](https://github.com/gnea/grbl/wiki) is the dominant GCode interpeter. It is free to use and runs smoothly on an [Arduino Uno](https://store.arduino.cc/usa/arduino-uno-rev3). It can control up to 3 axes of movement with spare outputs to control your spindle and coolant.
 
@@ -268,7 +268,7 @@ If you don't know where to start, start with GRBL.
 
 ## TinyG
 
-![TinyG Board](/images/tinyg.jpg "The TinyG Board")
+![TinyG Board](/images/cnc-router/tinyg.jpg "The TinyG Board")
 
 TinyG is a [high performance](https://github.com/synthetos/TinyG/wiki/What-is-TinyG) version of GRBL that forked away in 2010. It can handle up to 6 axes of control: XYZ translation but also ABC axes of rotation. Its motors and axes are remappable, allowing you more design freedom for how to actuate your axes. It also uses a 3rd order motion planner instead of a 2nd order controller, capping maximum jerk instead of maximum acceleration. This leads to much smoother, quieter operation.
 
@@ -280,7 +280,7 @@ TinyG is a great piece of software and hardware that was once cutting edge, but 
 
 ## G2Core
 
-![Arduino Due](/images/due.jpg "An Arduino Due")
+![Arduino Due](/images/cnc-router/due.jpg "An Arduino Due")
 
 G2Core is a fork of TinyG (itself a fork of GRBL) that is meant to run on an [Arduino Due](https://store.arduino.cc/usa/due). It has all the advantages of TinyG software with none of the disadvantages of TinyG hardware.
 
@@ -298,7 +298,7 @@ Senders provide you with a user interface of some kind that lets you actuate you
 
 ## Universal GCode Sender
 
-![Universal GCode Sender](/images/ugs.jpg "A Screenshot of UGS")
+![Universal GCode Sender](/images/cnc-router/ugs.jpg "A Screenshot of UGS")
 
 A tried and true program, [UGS](https://winder.github.io/ugs_website/) has been a trusted favorite for a long time but it is looking somewhat long in the tooth. It requires quite an old Java runtime in order to function, its UI consumes 100% CPU on my 2018 Macbook Pro, and it looks, well, old.
 
@@ -308,7 +308,7 @@ If nothing else works for you UGS is a great fallback but I don't recommend it f
 
 ## CNCJS
 
-![CNCJS](/images/cncjs.jpg "Screenshot of CNCJS")
+![CNCJS](/images/cnc-router/cncjs.jpg "Screenshot of CNCJS")
 
 [CNCJS](https://cnc.js.org/) is probably the most beautiful GCode sender available today. It talks to all the major GCode interpreters, runs on any operating system, and most importantly it presents its UI as a web application.
 
@@ -318,13 +318,13 @@ Before you try anything else, give CNCJS a try. It will likely meet your needs.
 
 ## bCNC
 
-![bCNC](/images/bcnc.jpg "Screenshot of bCNC")
+![bCNC](/images/cnc-router/bcnc.jpg "Screenshot of bCNC")
 
 To me, [bCNC](https://github.com/vlachoudis/bCNC) looks pretty ugly. It is written in python and can be easily pip installed. Its super power is that it comes with auto bed levelling that probes a grid of points, applying correction to get you very close to the surface for situations where z height *really* matters. If you are using engraving bits to carve your own PCBs, you should try out bCNC.
 
 ## Carbide Motion
 
-![Carbide Motion](/images/carbide_motion.jpg "Screenshot of Carbide Motion")
+![Carbide Motion](/images/cnc-router/carbide_motion.jpg "Screenshot of Carbide Motion")
 
 By all accounts a decent GCode sender, [Carbide Motion](https://carbide3d.com/carbidemotion/) only works with the Nomad or Shapeoko CNC routers. For a homebuilt router, this is just not an option.
 
@@ -340,7 +340,7 @@ Despite their reputations, don't be scared to choose one of these. They can be i
 
 ## Smoothieware/Smoothieboard
 
-![SmoothieBoard](/images/smoothieboard.jpg)
+![SmoothieBoard](/images/cnc-router/smoothieboard.jpg)
 
 Smoothieware is the name of the company that develops *Smoothieware* the [software](http://smoothieware.org/) and *Smoothieboard* the [hardware](http://smoothieware.org/getting-smoothieboard). The company tries to support all kinds of machines including 3D printers, laser cutters, CNC routers, CNC lathes, and more. Consequently, Smoothieboards are jam packed full of motor ports, high-power mosfet ports, thermrister ports, everything. The boards are large and [expensive](https://www.robosprout.com/product/smoothieboard-5xc/), but they are a great option if you need a single integrated solution.
 
@@ -350,7 +350,7 @@ But some designers want to build a [single machine](https://www.v1engineering.co
 
 Another big pro for the Smoothieboard is that their documentation is very [comprehensive](https://smoothieware.github.io/Webif-pack/documentation/web/html/cnc-mill-guide.html). There is a big community of users online, just know that they are mostly in the 3D printer camp.
 
-![Smoothieboard Web UI](/images/smoothieboard_ui.jpg "Screenshot of Smoothieboard Web UI")
+![Smoothieboard Web UI](/images/cnc-router/smoothieboard_ui.jpg "Screenshot of Smoothieboard Web UI")
 
 You can connect a Smoothieboard to the internet with an ethernet cable and it'll host a little web UI you can access from your laptop to control the router.
 
@@ -358,11 +358,18 @@ It's a bit light on features, for example there is no 3D graphical display of yo
 
 ## LinuxCNC
 
+![LinuxCNC](/images/cnc-router//linuxcnc.jpg)
+
 [LinuxCNC](https://linuxcnc.org/) is a distro of Linux that you can install on any PC, even very old ones. The primary idea here is that a full-on desktop computer has many orders of magnitude more resources than a small microcontroller, so it should be capable of controlling a much more complex CNC. You can almost always find an old PC for free on Craigslist and LinuxCNC is free to use, so for many people this is actually the cheapest option!
 
 LinuxCNC is a full-on operating system very familiar to anyone who has used Linux in the past. It makes heavy use of configuration files that describe all the parameters of your machine, including its equations of motion. If you plan to build a simple XYZ cartesian setup, LinuxCNC will be easy to configure from example files.
 
-The super power of LinuxCNC is that it models a coordinate transformation framework for you. It can control [robot arms](https://www.youtube.com/watch?v=rZoLP0v50rw), [delta configurations](https://www.youtube.com/watch?v=2STkBhUiKwg), polar configurations, basically any exotic system you can dream up, you can model in LinuxCNC. By configuring the coordinate transformation correctly, LinuxCNC can interpret GCode commands in XYZ coordinates, and compute the inverse kinematics necessary to move your cutting head to the correct spot in the [correct orientation](https://www.youtube.com/watch?v=hPE3Qr-ECtQ).
+The super power of LinuxCNC is that it includes a coordinate transformation and inverse kinematics framework. It can control [robot arms](https://www.youtube.com/watch?v=rZoLP0v50rw), [delta configurations](https://www.youtube.com/watch?v=2STkBhUiKwg), [polar configurations](https://www.youtube.com/watch?v=i6POrjVXgsk)**, basically any exotic system you can dream up, you can model in LinuxCNC. The beauty here is that all the complexity of the coordinate transformation lives inside LinuxCNC, allowing it to consume GCode commands in standard format!
+
+It is also very capable of controlling tool [orientation](https://www.youtube.com/watch?v=hPE3Qr-ECtQ), not just position. This is otherwise known as four, five, or six axis machining.
+
+
+**I don't know if LinuxCNC is the controller for this robot or not, the video is just illustrative of novel kinematics
 
 ## Others
 
@@ -378,7 +385,7 @@ Technically you could buy the components separately to design your own custom sp
 
 ## Palm Router
 
-![Makita Router](/images/makita_router.jpg "An Example Makita Palm Router")
+![Makita Router](/images/cnc-router/makita_router.jpg "An Example Makita Palm Router")
 
 By far the most common choice for hobby grade CNC routers, a palm router like the [Makita RT0701C](https://www.amazon.com/Makita-RT0701C-1-1-Compact-Router/dp/B00E7D3V4S/ref=sr_1_1) or [DeWalt DW611](https://www.dewalt.com/products/power-tools/routers-planers-and-joiners/routers/114-hp-max-torque-variable-speed-compact-router/dwp611) is a great starting spindle.
 
@@ -392,7 +399,7 @@ The last disadvantage worth mentioning is that palm routers are not designed to 
 
 ## Air Cooled Spindle
 
-![Air Cooled Spindle](/images/air_cooled.jpg "An Air Cooled Spindle")
+![Air Cooled Spindle](/images/cnc-router/air_cooled.jpg "An Air Cooled Spindle")
 
 Air cooled spindles are generally much more performant than the palm routers. They tend to have much more powerful motors with better speed control, the spindle itself has much less runout, and the tool holder has a much bigger, more general purpose collet. Some spindles even support automatic tool changing, and all of them are designed for continuous output for many hours at a time.
 
@@ -402,7 +409,7 @@ Their drawbacks are higher cost ($300-$600), long lead time because you usually 
 
 ## Water Cooled Spindle
 
-![Water Cooled](/images/water_cooled.jpg "A water cooled spindle")
+![Water Cooled](/images/cnc-router/water_cooled.jpg "A water cooled spindle")
 
 Water cooled spindles are identical to air cooled spindles, but they require you to buy and run a separate water-based cooling system. This can be a messy undertaking, but the benefits of water cooling are twofold:
 
@@ -412,7 +419,7 @@ The second big advantage is [low noise](https://www.youtube.com/watch?v=Wlhjn8lv
 
 ## DC Spindle
 
-![DC Spindle](/images/dc_spindle.jpg "A DC spindle")
+![DC Spindle](/images/cnc-router/dc_spindle.jpg "A DC spindle")
 
 Beware of any DC spindles you find. These are typically extremely low quality devices made to look similar to real spindles but they are much smaller with just a fraction of the output power.
 
@@ -426,7 +433,7 @@ Holding your work securely is incredibly important. It doesn't matter how good t
 
 ## Fixing Directly to the Spoilboard
 
-![Single Spoilboard](/images/single_spoilboard.jpg "Single Spoilboard")
+![Single Spoilboard](/images/cnc-router/single_spoilboard.jpg "Single Spoilboard")
 
 A Spoilboard is a single sheet of dimensionally stable material, usually MDF, that you can fix your work to directly. You can screw, nail, or clamp the work piece directly onto the spoilboard to create a rigid connection. This does some damage to the spoilboard, but MDF is so cheap that you just use it until it the damage is starting to get in your way, then you make a new spoilboard. Another technique is to deliberately use a thicker spoilboard than you need at first, then instead of replacing the entire MDF sheet you can just use the CNC router to take a layer off the top, giving you a freshly flattened surface to work on.
 
@@ -438,7 +445,7 @@ This is an incredibly popular design for CNC routers. Unless you have a specific
 
 ## T Track and Clamps
 
-![T Track](/images/t_track.jpg "T Track")
+![T Track](/images/cnc-router/t_track.jpg "T Track")
 
 T Track is a type of metal channel that lets you fix clamps and stops in place just by screwing them down. These are very helpful if you need to make repeatable jigs for manufacturing large numbers of parts, and generally don't get damaged with use.
 
@@ -450,7 +457,7 @@ Many designs combine spoilboard and T track together by using thin slats of spoi
 
 ## Machinist Vise
 
-![Machinist Vise](/images/vise.jpg "Example Machinist Vise")
+![Machinist Vise](/images/cnc-router/vise.jpg "Example Machinist Vise")
 
 If you really need high precision, repeatable, extremely rigid work holding then a machinist vise is a great choice. The biggest downsides are cost and clearance. A good machinist vise is about $1000 and most CNC routers lack the gantry clearance to fit a vice. But if your CNC router is more of a CNC mill in terms of rigidity, axis arrangement, and material to cut, a vice might be for you.
 
@@ -462,7 +469,7 @@ CNC routers kick up a lot of dust and chips. These get everywhere, making a huge
 
 ## Vacuum Boot
 
-![Dust Boot](/images/dust_boot.jpg "A Dust Collection Boot from Etsy")
+![Dust Boot](/images/cnc-router/dust_boot.jpg "A Dust Collection Boot from Etsy")
 
 Vacuum boots can eliminate a ton of dust but they usually don't get it all. Their big advantages are that they are cheap to get ahold of, easy to remove, and only require you to own a shop-vac.
 
@@ -470,7 +477,7 @@ The big disadvantages are imperfect dust collection, and that the boot can somet
 
 ## Enclosure
 
-![Enclosure](/images/enclosure.jpg "Example CNC Enclosure")
+![Enclosure](/images/cnc-router/enclosure.jpg "Example CNC Enclosure")
 
 Enclosures are cages that trap all the dust and chips. You can make one out of wood, plastic, metal, even cardboard.
 
@@ -486,7 +493,7 @@ The overall layout of your machine's frame will make a big impact on what your m
 
 ## Sliding Gantry
 
-![A typical sliding gantry cnc router](/images/big_cnc_router.webp "Sliding Gantry CNC Router")
+![A typical sliding gantry cnc router](/images/cnc-router/big_cnc_router.webp "Sliding Gantry CNC Router")
 
 Almost all large CNC routers are sliding gantry designs where the work piece stays completely still, with a sliding gantry that holds the spindle. In these designs, the x, y, and z axes are in a way stacked on top of each other in series.
 
@@ -500,7 +507,7 @@ On a sliding gantry the spindle is 3 moving axes away from the frame.
 
 ## Fixed Gantry
 
-![A typical 3018 import router from China](/images/3018.jpg "3018 CNC Router")
+![A typical 3018 import router from China](/images/cnc-router/3018.jpg "3018 CNC Router")
 
 Fixed gantry designs are very popular with small desktop CNC routers and 3D printers. Moving the work piece on just a single axis is a great compromise because it reduces the stacked-axis problems significantly, simplifying the design and resulting in a lighter-weight machine. The drawback is that the footprint of a fixed gantry machine must be larger than the working envelope by a factor of 2! For that reason alone, you don't see many large machines with this axis arrangement.
 
@@ -508,7 +515,7 @@ On a fixed gantry the spindle is 2 moving axes away from the frame.
 
 ## Column Mill
 
-![Column Mill](/images/column_mill_router.jpg "A CNC router arranged like a column mill")
+![Column Mill](/images/cnc-router/column_mill_router.jpg "A CNC router arranged like a column mill")
 
 Benchtop mills are typically laid out as column mills. In these designs the central feature is a frame consisting of a single tall column on which the spindle rides up and down. At the bottom of the column are the x and y axes stacked on top of each other, with the work piece stacked on top of that.
 
@@ -520,7 +527,7 @@ On a column mill the spindle is 1 moving axis away from the frame.
 
 ## Knee Mill
 
-![Knee Mill](/images/knee_mill.jpg "An Example Knee Mill")
+![Knee Mill](/images/cnc-router/knee_mill.jpg "An Example Knee Mill")
 
 A knee mill is an axis layout where the spindle is completely fixed to the frame, while the work piece moves around on all three axes. This is the most rigid design I know of, with the only real drawback being that the working envelope is much smaller than the footprint of the machine on the floor. If you wanted a 4' by 8' working volume, you would need at minimum an 8' by 16' floor footprint.
 
@@ -546,7 +553,7 @@ The cut direction does **not** refer to if the bit cuts spinning clockwise or co
 
 ## Flat Nose
 
-![Flat Nose Bit](/images/flat_nose.jpg "Flat nose bit")
+![Flat Nose Bit](/images/cnc-router/flat_nose.jpg "Flat nose bit")
 
 This may well be your most-used bit. The flat nose means it can clear large areas leaving behind a smooth flat surface, and that it can cut sharp-bottomed corners. For large amounts of material removal, this is a fantastic default bit.
 
@@ -558,7 +565,7 @@ If you are on a palm router, start by buying an up-cut flat nose bit made of car
 
 ## Ball Nose
 
-![Ball Nose Bit](/images/ball_nose.jpg "Ball nose bit")
+![Ball Nose Bit](/images/cnc-router/ball_nose.jpg "Ball nose bit")
 
 A ball nose bit is just like a flat nose bit except it has a rounded nose. This type of bit is very helpful for cutting fillets and for cutting irregular contours such as a 3d model of a face. The ball nose bit lacks sharp, fragile corners making it tougher and better equipped to remove material more aggressively than a flat nose bit. Some people will use a ball nose bit to clear tremendous amounts of material away as a preparatory step before using a different bit to cut the part to final dimensions.
 
@@ -566,7 +573,7 @@ A single large ball nose bit is probably enough to get you by on material cleari
 
 ## Spoilboard Surfacer
 
-![Spoilboard Surfacing Bit](/images/spoilboard_surfacing.webp "Example Spoilboard Surfacing Bit")
+![Spoilboard Surfacing Bit](/images/cnc-router/spoilboard_surfacing.webp "Example Spoilboard Surfacing Bit")
 
 If your design includes a spoilboard it will be critical to flatten it before use. This is typically done using the router itself, programmed in a back-and-forth path to cut a consistent reference height into the possibly-uneven surface. Clearing a large spoilboard with a small bit is a pain, so you can use a spoilboard surfacing bit to remove huge amounts of material very quickly.
 
@@ -574,7 +581,7 @@ A typical spoilboard surfacing bit might clear 1" at a time, up from the 1/4" fl
 
 ## Engraving
 
-![Engraving bits](/images/engraving.jpg "Example engraving bits")
+![Engraving bits](/images/cnc-router/engraving.jpg "Example engraving bits")
 
 An engraving bit is shaped like a V, typically at 90 degrees or 60 degrees full angle. They cut V's into the material, which is very common in sign making. You can use this type of bit to write letters and numbers, draw stylized designs, cut chamfers, and countersink holes. A bit like this is also critical for v-carve inlays, which are a popular type of art made with CNC routers.
 
@@ -590,7 +597,7 @@ Designing and building a CNC router is only the first step. If your goal is to a
 
 ## Z Axis probe
 
-![Z axis probe](/images/z_axis_probe.jpg)
+![Z axis probe](/images/cnc-router/z_axis_probe.jpg)
 
 Every time you change tools, the height will be slightly different. You'll have to manually find the new height of the tool, a process usually involving a sheet of paper and some trial and error. While the manual approach is not difficult, it gets extraordinarily tedious if you have many tool changes per job, and many jobs to run.
 
@@ -600,7 +607,7 @@ If you don't want to deal with this at first that's okay, they are easy to add t
 
 ## Automatic Tool Changing
 
-![Automatic Tool Changer](/images/atc.jpg "Automatic Tool Changer")
+![Automatic Tool Changer](/images/cnc-router/atc.jpg "Automatic Tool Changer")
 
 [Automatic tool changers](https://www.youtube.com/watch?v=tYdq_86dJyU) do exactly what their name suggests. You can have a fixed library of tools assigned to tool holding slots, and the machine can be made to switch between them whenever it needs to. This is incredibly convenient for complex jobs, jobs that are very long running, and jobs that you have to repeat over and over.
 
