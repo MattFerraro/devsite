@@ -12,9 +12,13 @@ Let's say you find a [cool 3D model](https://www.etsy.com/listing/786911813/3d-s
 
 # Unzip and Look Around
 
+Inside the zip file are some images of the 3D model, and also a nested zip file. After unzipping that nested file we've got two stl files, one of which is the stl file we want to carve
+
+![File structure](/images/this-is-the-way/file_structure.jpg)
 
 # Import the .stl into Fusion 360
 
+![Inserting the Mesh](/images/this-is-the-way/insert_mesh.png)
 
 # Make a Setup
 
