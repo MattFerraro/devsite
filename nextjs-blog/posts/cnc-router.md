@@ -378,15 +378,33 @@ Pulse signaling problems come from the fact that most desktop-grade processors r
 
 In practice, almost everyone using LinuxCNC on a desktop pairs it up with a [Mesa board](http://store.mesanet.com/index.php?route=product/product&product_id=311) purpose built to do pulse generation. LinuxCNC then communicates over Ethernet or PCIe to the dedicated card, sending high-level commands which are translated into pulses. This greatly alleviates the workload on your desktop and guarantees very stable pulse signaling to your motors.
 
-[Picking the right Mesa board](https://www.forum.linuxcnc.org/27-driver-boards/36122-choosing-the-right-mesa-boards) is an important topic that you will need to research yourself if you go this route. Expect to spend $100-$200 on this component.
+So in practice, LinuxCNC is the "all-in-one" software package that almost inevitably needs to be connected to a purpose-built pulse generation card, which needs to be connected to a driver card that can power your motors. Sometimes the pulse generation and driver cards are combined in to one. It's on you to [research](https://www.forum.linuxcnc.org/27-driver-boards/36122-choosing-the-right-mesa-boards) which cards are compatible with your computer and with each other. Expect to spend $100-$300 on the add-on cards.
 
-Lastly, LinuxCNC provides a variety of different GUIs at varying levels of polish. Some of these are optimized for touch screens, making for a very shop-friendly experience.
+LinuxCNC also provides a variety of different GUIs at varying levels of polish. Some of these are optimized for touch screens, making for a very shop-friendly experience.
 
 *I don't know if LinuxCNC is the controller for this robot or not, the video is just illustrative of novel kinematics
 
-## Mach 3/Mach 4
+## Mach3/Mach4
 
+![Mach4](/images/cnc-router/mach4.jpg "A screenshot of Mach4")
 
+Mach3 and its successor Mach4 are Windows-only software packages that are similar to LinuxCNC.
+
+Compared the LinuxCNC, the advantages of Mach4 are:
+* You can buy hands-on support to help you get set up or to fix bugs
+* The setup process is friendlier for people who don't know much about software or Linux
+* Seems to be more popular in the running-an-actual-shop category of users
+
+The disadvantages are:
+* Mach4 costs money
+* It expects to run on more modern hardware
+* It does not contain a general purpose inverse kinematics engine
+* Runs on Windows only
+* Less popular with the cutting edge researchers and garage tinkerers
+
+Both have good user forums, a strong catalog of youtube tutorials, and a long history of online blog posts detailing how to get started. Both require you to buy a separate add-on card(s) manufactured by third party vendors for pulse generation and motor driving. Both systems allow for the use of hardware pendants, z-probes, etc.
+
+Between LinuxCNC and Mach4, which you choose comes down to your attitude. If you're a busy pragmatist and you're willing to just pay more money and have it work, go with Mach4. If you're a curious tinkerer willing to spend a lot of time learning, or if you have no extra money, go with LinuxCNC (or use a GRBL-based alternative).
 
 ---
 
