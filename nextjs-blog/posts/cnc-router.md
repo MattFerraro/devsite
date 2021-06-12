@@ -328,6 +328,10 @@ To me, [bCNC](https://github.com/vlachoudis/bCNC) looks pretty ugly. It is writt
 
 By all accounts a decent GCode sender, [Carbide Motion](https://carbide3d.com/carbidemotion/) only works with the Nomad or Shapeoko CNC routers. For a homebuilt router, this is just not an option.
 
+## Others
+
+There are loads of Gcode senders I didn't have time to investigate: Easel, Candle, Candle2, Goko, Grbl-Panel, Gcode-sender, OpenCNCPilot, ChiliPeppr and more. I will add reviews as I have time to learn about them.
+
 ---
 
 # Full Motion Control Solutions
@@ -358,22 +362,31 @@ It's a bit light on features, for example there is no 3D graphical display of yo
 
 ## LinuxCNC
 
-![LinuxCNC](/images/cnc-router//linuxcnc.jpg)
+![LinuxCNC](/images/cnc-router/linuxcnc.jpg)
 
 [LinuxCNC](https://linuxcnc.org/) is a distro of Linux that you can install on any PC, even very old ones. The primary idea here is that a full-on desktop computer has many orders of magnitude more resources than a small microcontroller, so it should be capable of controlling a much more complex CNC. You can almost always find an old PC for free on Craigslist and LinuxCNC is free to use, so for many people this is actually the cheapest option!
 
-LinuxCNC is a full-on operating system very familiar to anyone who has used Linux in the past. It makes heavy use of configuration files that describe all the parameters of your machine, including its equations of motion. If you plan to build a simple XYZ cartesian setup, LinuxCNC will be easy to configure from example files.
+LinuxCNC is a full-on operating system. It uses configuration files that describe all the parameters of your machine. If you plan to build a simple XYZ cartesian setup, LinuxCNC will be easy to configure from example files.
 
-The super power of LinuxCNC is that it includes a coordinate transformation and inverse kinematics framework. It can control [robot arms](https://www.youtube.com/watch?v=rZoLP0v50rw), [delta configurations](https://www.youtube.com/watch?v=2STkBhUiKwg), [polar configurations](https://www.youtube.com/watch?v=i6POrjVXgsk)**, basically any exotic system you can dream up, you can model in LinuxCNC. The beauty here is that all the complexity of the coordinate transformation lives inside LinuxCNC, allowing it to consume GCode commands in standard format!
+The super power of LinuxCNC is that it includes an inverse kinematics framework. It can control [robot arms](https://www.youtube.com/watch?v=rZoLP0v50rw), [delta configurations](https://www.youtube.com/watch?v=2STkBhUiKwg), [polar configurations](https://www.youtube.com/watch?v=i6POrjVXgsk)*, basically any exotic system you can dream up, you can control in LinuxCNC. The beauty here is that all the complexity of the coordinate transformation lives inside LinuxCNC, allowing it to consume GCode commands in the standard format!
 
 It is also very capable of controlling tool [orientation](https://www.youtube.com/watch?v=hPE3Qr-ECtQ), not just position. This is otherwise known as four, five, or six axis machining.
 
+The main drawbacks of LinuxCNC are complexity and pulse signalling. The complexity problem is that there is just a [lot to learn](http://wiki.linuxcnc.org/cgi-bin/wiki.pl) and configure.
 
-**I don't know if LinuxCNC is the controller for this robot or not, the video is just illustrative of novel kinematics
+Pulse signaling problems come from the fact that most desktop-grade processors running desktop-grade operating systems are not intended for realtime applications. When asked to output a square wave of exactly 10 MHz, most processors will emit some jitter, sometimes switching just a little too late. LinuxCNC does offer a realtime variant but it is not guaranteed to work on every machine. Furthermore, even if your processor can generate a stable signal, the only way for it to get that value out is over a parallel port, which is absent on all modern desktops.
 
-## Others
+In practice, almost everyone using LinuxCNC on a desktop pairs it up with a [Mesa board](http://store.mesanet.com/index.php?route=product/product&product_id=311) purpose built to do pulse generation. LinuxCNC then communicates over Ethernet or PCIe to the dedicated card, sending high-level commands which are translated into pulses. This greatly alleviates the workload on your desktop and guarantees very stable pulse signaling to your motors.
 
-There are loads of Gcode senders I didn't have time to investigate: Easel, Candle, Candle2, Goko, Grbl-Panel, Gcode-sender, OpenCNCPilot, ChiliPeppr and more. I will add reviews as I have time to learn about them.
+[Picking the right Mesa board](https://www.forum.linuxcnc.org/27-driver-boards/36122-choosing-the-right-mesa-boards) is an important topic that you will need to research yourself if you go this route. Expect to spend $100-$200 on this component.
+
+Lastly, LinuxCNC provides a variety of different GUIs at varying levels of polish. Some of these are optimized for touch screens, making for a very shop-friendly experience.
+
+*I don't know if LinuxCNC is the controller for this robot or not, the video is just illustrative of novel kinematics
+
+## Mach 3/Mach 4
+
+
 
 ---
 
