@@ -5,6 +5,12 @@ import remark from 'remark'
 import slug from 'remark-slug'
 import html from 'remark-html'
 import toc from 'remark-toc'
+import math from 'remark-math'
+import remark2rehype from 'remark-rehype'
+import katex from 'rehype-katex'
+import markdown from 'remark-parse'
+import stringify from 'rehype-stringify'
+import unified from 'unified'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -69,15 +75,19 @@ export async function getPostData(id) {
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents)
-
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
+  
+  const processor = await unified()
+    .use(markdown)
     .use(slug)
     .use(toc, {tight: true})
-    .use(html)
-    .process(matterResult.content)
-  const contentHtml = processedContent.toString()
-
+    .use(math)
+    .use(remark2rehype)
+    .use(katex, {"output": "mathml"})
+    .use(stringify)
+    .process(matterResult.content);
+  
+  const contentHtml = processor.contents;
+  
   // Combine the data with the id and contentHtml
   return {
     id,
