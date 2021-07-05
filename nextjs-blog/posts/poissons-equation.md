@@ -1,7 +1,7 @@
 ---
 title: "Poisson's Equation is the Most Powerful Tool not yet in your Toolbox"
 teaser: "Every engineer should know how to solve it"
-teaserImage: 'https://www.mattferraro.dev/images/laplace/poisson_line_source.png'
+teaserImage: 'https://www.mattferraro.dev/images/laplace/combined_heat.png'
 date: '2021-06-13'
 ---
 
