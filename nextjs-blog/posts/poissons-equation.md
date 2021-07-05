@@ -2,7 +2,7 @@
 title: "Poisson's Equation is the Most Powerful Tool not yet in your Toolbox"
 teaser: "Every engineer should know how to solve it"
 teaserImage: 'https://www.mattferraro.dev/images/laplace/combined_heat.png'
-date: '2021-06-13'
+date: '2021-07-05'
 ---
 
 If you aren't used to staring at math, Poisson's equation looks a little intimidating:
@@ -14,6 +14,8 @@ $$
 What does $\nabla^2f$ even mean? What is $h$? Why should I care?
 
 In this post I'll walk you through what it means, how you can solve it, and what you might use it for.
+
+# Table of Contents
 
 # What Does it Mean?
 
