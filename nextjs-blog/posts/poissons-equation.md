@@ -1,7 +1,7 @@
 ---
 title: "Poisson's Equation is the Most Powerful Tool not yet in your Toolbox"
 teaser: "Poisson's Equation is an incredibly powerful tool..."
-teaserImage: 'https://www.mattferraro.dev/images/laplace/combined_heat.png'
+teaserImage: 'https://www.mattferraro.dev/images/laplace/separatrix_heightmap.png'
 date: '2021-07-05'
 ---
 
@@ -352,9 +352,9 @@ And is pronounced "negative grad f" or "the negative gradient of f". The gradien
 
 The gradient produces arrows which point uphill, from cold to hot. The *negative* gradient is just the gradient with a minus sign in front of each $x$ and $y$ component, so it points downhill.
 
-Using $-\nabla f$ we can simulate stepping a particle through this field to produce its trajectory.
+Using $-\nabla f$ we can simulate stepping a particle through this field to produce its trajectory, a problem similar to numerically integrating an ordinary differential equation.
 
-TODO: trajectory visualization
+<!-- TODO: trajectory visualization -->
 
 # Poisson's Equation
 
@@ -524,17 +524,17 @@ Again the main feature is that the arrows get longer as they get closer to the p
 
 All three of these are valid solutions to Poisson's equation, so we can just add them together to end up with a new solution which has elements from each! The combined potential function looks like:
 
-![Single Point Source](/images/laplace/combined_heat.png)
+![Combined Potential](/images/laplace/combined_heat.png)
 
-TODO: Add a heightmap
+![Combined Heightmap](/images/laplace/separatrix_heightmap.png)
 
-Remembering that for the gradient, arrows flow from blue to red:
+Remembering that for the gradient, arrows point uphill:
 
 ![Combined Flow](/images/laplace/combined_flow.png)
 
 The flow field we've created is very interesting! From a distance, uniform flow dominates the velocity field, but there are two localized regions which look like a source and sink. If we trace the velocity field carefully, we actually find that every single bit of air blown out of the source gets absorbed by the sink! This is no coincidence as they were created to be equal and opposite strengths.
 
-It might not be obvious at first glance but we can draw an oval on this flow field which is tangent to the velocity field at all points.
+It might not be obvious at first glance but we can draw an oval on this flow field which is tangent to the velocity field at all points. This corresponds to a [watershed boundary](https://www.usgs.gov/core-science-systems/ngp/ngtoc/watershed-boundary-dataset) in the heightmap.
 
 ![Separatrix](/images/laplace/separatrix2.png)
 
