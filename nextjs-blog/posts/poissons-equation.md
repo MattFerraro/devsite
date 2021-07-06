@@ -29,7 +29,7 @@ It means:
 
 > Find me a function $f$ where every value everywhere is the average of the values around it. 
 
-This problem statement applies in 2, 3, or 4 dimensions, for continuous problems and for discrete problems. But in this post, when we talk about a function $f$ we're talking about a 2D matrix where each element is some scalar value like temperature or pressure or electric potential. Like this:
+This problem statement applies in any number of dimensions, for continuous problems and for discrete problems. But in this post, when we talk about a function $f$ we mean a 2D matrix where each element is some scalar value like temperature or pressure or electric potential. Like this:
 
 $$
 f = \begin{pmatrix}

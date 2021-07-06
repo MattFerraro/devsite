@@ -274,7 +274,7 @@ TinyG is a [high performance](https://github.com/synthetos/TinyG/wiki/What-is-Ti
 
 Another huge difference is that you can buy TinyG pre-loaded onto a custom PCB, purpose built with on board motor controllers to be the ideal hardware for running TinyG. It can generate higher frequency stepper pulses for smoother microstepping, and it frees you from having to buy dedicated stepper controllers.
 
-The drawbacks are cost and complexity. GRBL will cost you $25 all-in. A [TinyG board](https://synthetos.myshopify.com/collections/assembled-electronics/products/tinyg) will cost $130. GRBL only requires configuring a few settings. TinyG requires much more configuration. Lastly, the TinyG board has a maximum motor current of 2 amps per motor. This is plenty for most hobby uses but won't cut it for large machines.
+The drawbacks are cost and complexity. GRBL will cost you \$25 all-in. A [TinyG board](https://synthetos.myshopify.com/collections/assembled-electronics/products/tinyg) will cost \$130. GRBL only requires configuring a few settings. TinyG requires much more configuration. Lastly, the TinyG board has a maximum motor current of 2 amps per motor. This is plenty for most hobby uses but won't cut it for large machines.
 
 TinyG is a great piece of software and hardware that was once cutting edge, but for a new build it has largely been surpassed by its successor, G2Core.
 
@@ -340,7 +340,7 @@ Instead of keeping your GCode sender and GCoder interpreter separate, it is poss
 
 These systems naturally encompass a lot of complexity and so they have reputations for being hard to learn. But keep in mind that you need to learn the complexities of GCode sending and of GCode interpretation either way. Whether you learn about them separately or together doesn't make much difference in terms of total difficulty.
 
-Despite their reputations, don't be scared to choose one of these. They can be incredibly effective in practice, which is why many of the big expensive CNC machines opt for all-in-on solutions.
+Despite their reputations, don't be scared to choose one of these. They can be incredibly effective in practice, which is why many of the big expensive CNC machines opt for all-in-one solutions.
 
 ## Smoothieware/Smoothieboard
 
@@ -378,7 +378,7 @@ Pulse signaling problems come from the fact that most desktop-grade processors r
 
 In practice, almost everyone using LinuxCNC on a desktop pairs it up with a [Mesa board](http://store.mesanet.com/index.php?route=product/product&product_id=311) purpose built to do pulse generation. LinuxCNC then communicates over Ethernet or PCIe to the dedicated card, sending high-level commands which are translated into pulses. This greatly alleviates the workload on your desktop and guarantees very stable pulse signaling to your motors.
 
-So in practice, LinuxCNC is the "all-in-one" software package that almost inevitably needs to be connected to a purpose-built pulse generation card, which needs to be connected to a driver card that can power your motors. Sometimes the pulse generation and driver cards are combined in to one. It's on you to [research](https://www.forum.linuxcnc.org/27-driver-boards/36122-choosing-the-right-mesa-boards) which cards are compatible with your computer and with each other. Expect to spend $100-$300 on the add-on cards.
+So in practice, LinuxCNC is the "all-in-one" software package that almost inevitably needs to be connected to a purpose-built pulse generation card, which needs to be connected to a driver card that can power your motors. Sometimes the pulse generation and driver cards are combined in to one. It's on you to [research](https://www.forum.linuxcnc.org/27-driver-boards/36122-choosing-the-right-mesa-boards) which cards are compatible with your computer and with each other. Expect to spend \$100-\$300 on the add-on cards.
 
 LinuxCNC also provides a variety of different GUIs at varying levels of polish. Some of these are optimized for touch screens, making for a very shop-friendly experience.
 
