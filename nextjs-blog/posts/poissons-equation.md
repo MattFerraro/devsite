@@ -250,7 +250,7 @@ If we want to run a higher-resolution simulation on say a $100x100$ square grid,
 
 ### Update in place
 
-The first optimization is to just update the values in place rather than creating a new matrix for each step. See example3.jl for a reference implementation. This trick allows information to flow faster because cells that have already been updated can contribute their new value to cells that have yet to be updated. 
+The first optimization is to just update the values in place rather than creating a new matrix for each step. See [example3.jl](https://github.com/MattFerraro/devsite/blob/master/nextjs-blog/code/laplace/example3.jl) for a reference implementation. This trick allows information to flow faster because cells that have already been updated can contribute their new value to cells that have yet to be updated. 
 
 For example, if we start with
 
@@ -456,7 +456,7 @@ Where we're only interested in the centermost copy, and we need to smooth over a
     delta = (f[y_up, x] + f[y_down, x] + f[y, x_left] + f[y, x_right] - 4 * f[y, x] + h[y, x])
     f[y, x] += 1.94 * delta / 4.0
 
-See poisson2.jl for the full source code.
+See [poisson2.jl](https://github.com/MattFerraro/devsite/blob/master/nextjs-blog/code/laplace/poisson2.jl) for the full source code.
 
 Looking back, we notice that Dirichlet boundaries often produce sharp ramps at the edges of the simulation. In contrast, Neumann boundaries always produce smooth, flat edges:
 

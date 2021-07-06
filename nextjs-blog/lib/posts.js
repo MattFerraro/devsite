@@ -82,7 +82,7 @@ export async function getPostData(id) {
     .use(toc, {tight: true})
     .use(math)
     .use(remark2rehype)
-    .use(katex, {"output": "mathml"})
+    .use(katex, {"output": "html"})
     .use(stringify)
     .process(matterResult.content);
   
