@@ -29,7 +29,7 @@ It means:
 
 > Find me a function $f$ where every value everywhere is the average of the values around it. 
 
-In this post, when we talk about a function $f$ we're talking about a 2D matrix where each element is some scalar value like temperature or pressure or electric potential. Like this:
+This problem statement applies in 2, 3, or 4 dimensions, for continuous problems and for discrete problems. But in this post, when we talk about a function $f$ we're talking about a 2D matrix where each element is some scalar value like temperature or pressure or electric potential. Like this:
 
 $$
 f = \begin{pmatrix}
@@ -246,6 +246,8 @@ In its simplest form, solving Laplace's equation is as easy as just calculating 
 The only problem with this approach is that it takes a long time.
 
 # Optimize for speed
+
+*This section is interesting but optional! Skip to [Visualizing the Outputs](#visualizing-the-outputs) if you don't care about speeding up our solver by 70x!*
 
 We generally run a relaxation until the values stabilize. We set some threshold like $1e^{-10}$ and if all updates are smaller than the threshold, we say it has stabilized.
 

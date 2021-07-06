@@ -33,9 +33,16 @@ export default function Post({ postData }) {
           property="twitter:title"
           content={postData.title}
         />
+        <meta name="twitter:title" content={postData.title} />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:image:src" content={postData.teaserImage}/>
         <meta
           property="og:image"
           content={postData.teaserImage}
+        />
+        <meta
+          property="og:type"
+          content="article"
         />
         <meta
           name="description"
