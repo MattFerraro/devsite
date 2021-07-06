@@ -35,17 +35,17 @@ export default function Post({ postData }) {
         />
         <meta name="twitter:title" content={postData.title} />
         {/* <meta name="twitter:card" content="summary" /> */}
-        <meta name="twitter:image:src" content={postData.teaserImage}/>
+        {/* <meta name="twitter:image:src" content={postData.teaserImage}/> */}
         <meta name="twitter:site:id" content="@mferraro89" />
         <meta name="twitter:creator:id" content="@mferraro89" />
         <meta
           property="og:image"
           content={postData.teaserImage}
         />
-        <meta
+        {/* <meta
           property="og:type"
           content="article"
-        />
+        /> */}
         <meta
           name="description"
           content={postData.teaser}
