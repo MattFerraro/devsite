@@ -381,7 +381,7 @@ It means:
 
 > Find me a function $f$ where every value everywhere is the average of the values around it, *plus some pointwise offsets.*
 
-In the land of matrices, this means we now have to deal a matrix $h$ which is the same shape as $f$, and is full of user-specified offsets.
+In the land of matrices, this means we now have to deal with a matrix $h$ which is the same shape as $f$, and is full of user-specified offsets.
 
 The modification to our code is straightforward. Instead of replacing $f(i, j)$ with the average of the cells around it, we replace  $f(i, j)$ with the average of the cells around it *plus an offset $h(i, j)$*, which is just the $(i, j)$ value of the matrix $h$. That's really it!
 
