@@ -156,12 +156,17 @@ Let's loop over every cell and replace its value with the average of the cells a
         # For every cell in the matrix
         for x = 1:width
             for y = 1:height
-                if x == 1 || x == width || y == 1 || y == height
-                    # If we're on the edge, just copy over the value
+                if (x == 1 || x == width
+                    || y == 1 || y == height)
+                    # If we're on the edge,
+                    # just copy over the value
                     new_f[y, x] = f[y, x]
                 else
-                    # For interior cells, replace with the average
-                    new_f[y, x] = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
+                    # For interior cells,
+                    # replace with the average
+                    new_f[y, x] = (
+                        f[y-1, x] + f[y+1, x] +
+                        f[y, x-1] + f[y, x+1]) / 4.0
                 end     
             end
         end
@@ -169,7 +174,7 @@ Let's loop over every cell and replace its value with the average of the cells a
     end
 
     f = zeros(6, 6)
-    f[1:6, 6] .= 1.0  # Set the right side equal to ones
+    f[1:6, 6] .= 1.0  # Set the right side to ones
     display(f)
 
     for step_number = 1:3
@@ -392,7 +397,10 @@ Where the extra factor of $\frac{1}{4}$ comes from the fact that in 2D, a cell h
 
 To accommodate overrelaxation we write it:
 
-    delta = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1] - 4 * f[y, x] + h[y, x]) / 4.0
+    delta = (f[y-1, x] + f[y+1, x]
+             + f[y, x-1] + f[y, x+1]
+             - 4 * f[y, x]
+             + h[y, x]) / 4.0
     f[y, x] += 1.94 * delta
 
 And again we achieve excellent performance. When $h=0$, our simulation simplifies to just solving Laplace's equation.
@@ -447,13 +455,14 @@ Where we're only interested in the centermost copy, and we need to smooth over a
     x_left = x - 1
     x_right = x + 1
 
-    # But if we're on a boundary, we have to simulate reflection across it
+    # But if we're on a boundary, we have to simulate reflection
     if x == 1; x_left = x + 1 end
     if x == width; x_right = x - 1 end
     if y == 1; y_up = y + 1 end
     if y == height; y_down = y - 1 end
     
-    delta = (f[y_up, x] + f[y_down, x] + f[y, x_left] + f[y, x_right] - 4 * f[y, x] + h[y, x])
+    delta = (f[y_up, x] + f[y_down, x]
+             + f[y, x_left] + f[y, x_right] - 4 * f[y, x] + h[y, x])
     f[y, x] += 1.94 * delta / 4.0
 
 See [poisson2.jl](https://github.com/MattFerraro/devsite/blob/master/nextjs-blog/code/laplace/poisson2.jl) for the full source code.
