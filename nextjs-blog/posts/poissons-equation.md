@@ -395,7 +395,7 @@ To solve Poisson:
     average = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
     f[y, x] = average + h[y, x] / 4.0
 
-Where the extra factor of $\frac{1}{4}$ comes from the fact that in 2D, a cell has four neighbors. In 3D that factor is $\frac{1}{6}$.
+Where the extra factor of $\frac{1}{4}$ comes from the fact that in 2D, a square cell has four neighbors. In 3D that factor is $\frac{1}{6}$ because a cube has 6 neighbors. Can you intuit what that factor is for a 4D hypercube?
 
 To accommodate overrelaxation we write it:
 
@@ -515,7 +515,7 @@ $$
 
 ![Uniform Flow](/images/laplace/uniform_flow.png)
 
-Where we can interpret the arrows as the wind. This particular potential function models a uniform airflow from left to right. Remember that the positive gradient points from blue to red.
+Where we can interpret the arrows as the wind. This particular potential function models a uniform airflow from left to right. Remember that the positive gradient points uphill from blue to red.
 
 Separately we can create a point source of air, with Dirichlet boundaries fixed at zero. Think of this like a hose injecting air into a sealed, square chamber.
 
