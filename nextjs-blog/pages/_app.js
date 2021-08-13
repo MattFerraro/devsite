@@ -1,3 +1,4 @@
+import '../styles/prism.css'
 import '../styles/global.css'
 import '../node_modules/katex/dist/katex.min.css'
 

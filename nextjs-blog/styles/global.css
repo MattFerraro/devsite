@@ -25,3 +25,17 @@ img {
   max-width: 100%;
   display: block;
 }
+
+pre, .math {
+  overflow-x: scroll;
+  font-size: 16px;
+}
+
+code[class*="language-"], pre[class*="language-"] {
+  font-size: 14px;
+}
+
+code {
+  font-size: 14px;
+}
+

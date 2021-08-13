@@ -8,6 +8,7 @@ import toc from 'remark-toc'
 import math from 'remark-math'
 import remark2rehype from 'remark-rehype'
 import katex from 'rehype-katex'
+import rehypePrism from '@mapbox/rehype-prism'
 import markdown from 'remark-parse'
 import stringify from 'rehype-stringify'
 import unified from 'unified'
@@ -84,6 +85,7 @@ export async function getPostData(id) {
     .use(remark2rehype)
     .use(katex, {"output": "html"})
     .use(stringify)
+    .use(rehypePrism)
     .process(matterResult.content);
   
   const contentHtml = processor.contents;

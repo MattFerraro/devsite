@@ -148,40 +148,43 @@ Where the bold values at the edges are fixed. Maybe the values represent tempera
 
 Let's loop over every cell and replace its value with the average of the cells around it. In [Julia](https://docs.julialang.org/en/v1/manual/getting-started/), something like:
 
-    function step(f::Matrix{Float64})
-        # Create a new matrix for our return value
-        height, width = size(f)
-        new_f = zeros(height, width)
-        
-        # For every cell in the matrix
-        for x = 1:width
-            for y = 1:height
-                if (x == 1 || x == width
-                    || y == 1 || y == height)
-                    # If we're on the edge,
-                    # just copy over the value
-                    new_f[y, x] = f[y, x]
-                else
-                    # For interior cells,
-                    # replace with the average
-                    new_f[y, x] = (
-                        f[y-1, x] + f[y+1, x] +
-                        f[y, x-1] + f[y, x+1]) / 4.0
-                end     
-            end
-        end
-        return new_f
-    end
 
-    f = zeros(6, 6)
-    f[1:6, 6] .= 1.0  # Set the right side to ones
-    display(f)
-
-    for step_number = 1:3
-        println("\n")
-        global f = step(f)
-        display(f)
+```julia
+function step(f::Matrix{Float64})
+  # Create a new matrix for our return value
+  height, width = size(f)
+  new_f = zeros(height, width)
+    
+  # For every cell in the matrix
+  for x = 1:width
+    for y = 1:height
+      if (x == 1 || x == width
+        || y == 1 || y == height)
+        # If we're on the edge,
+        # just copy over the value
+        new_f[y, x] = f[y, x]
+      else
+        # For interior cells,
+        # replace with the average
+        new_f[y, x] = (
+          f[y-1, x] + f[y+1, x] +
+          f[y, x-1] + f[y, x+1]) / 4.0
+      end     
     end
+  end
+  return new_f
+end
+
+f = zeros(6, 6)
+f[1:6, 6] .= 1.0  # Set the right side to ones
+display(f)
+
+for step_number = 1:3
+  println("\n")
+  global f = step(f)
+  display(f)
+end
+```
 
 The output looks like:
 
@@ -297,10 +300,12 @@ The difference between a cell's current value and the value we're about to repla
 
 In Julia, something like 
 
-    old_value = f[y, x]
-    average = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
-    correction = average - old_value
-    f[y, x] += correction * overcorrection_factor
+```julia
+old_value = f[y, x]
+average = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
+correction = average - old_value
+f[y, x] += correction * overcorrection_factor
+```
 
 The overcorrection trick profoundly boosts performance:
 
@@ -386,24 +391,30 @@ In the land of matrices, this means we now have to deal with a matrix $h$ which 
 The modification to our code is straightforward. Instead of replacing $f(i, j)$ with the average of the cells around it, we replace  $f(i, j)$ with the average of the cells around it *plus an offset $h(i, j)$*, which is just the $(i, j)$ value of the matrix $h$. That's really it!
 
 To solve Laplace:
-    
-    average = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
-    f[y, x] = average
+
+```julia
+average = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
+f[y, x] = average
+```
 
 To solve Poisson:
 
-    average = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
-    f[y, x] = average + h[y, x] / 4.0
+```julia
+average = (f[y-1, x] + f[y+1, x] + f[y, x-1] + f[y, x+1]) / 4.0
+f[y, x] = average + h[y, x] / 4.0
+```
 
 Where the extra factor of $\frac{1}{4}$ comes from the fact that in 2D, a square cell has four neighbors. In 3D that factor is $\frac{1}{6}$ because a cube has 6 neighbors. Can you intuit what that factor is for a 4D hypercube?
 
 To accommodate overrelaxation we write it:
 
-    delta = (f[y-1, x] + f[y+1, x]
-             + f[y, x-1] + f[y, x+1]
-             - 4 * f[y, x]
-             + h[y, x]) / 4.0
-    f[y, x] += 1.94 * delta
+```julia
+delta = (f[y-1, x] + f[y+1, x]
+          + f[y, x-1] + f[y, x+1]
+          - 4 * f[y, x]
+          + h[y, x]) / 4.0
+f[y, x] += 1.94 * delta
+```
 
 And again we achieve excellent performance. When $h=0$, our simulation simplifies to just solving Laplace's equation.
 
@@ -451,21 +462,23 @@ The clearest way to simulate this condition is to just mirror the function acros
 
 Where we're only interested in the centermost copy, and we need to smooth over all the edges so that the mirrored copies blend seemlessly into each other. Of course we don't need to _actually_ copy the matrix 9 times, we can just simulate mirroring across boundaries like this:
 
-    # These are the indices that we pull from for the inner cells
-    y_up = y - 1
-    y_down = y + 1
-    x_left = x - 1
-    x_right = x + 1
+```julia
+# These are the indices that we pull from for the inner cells
+y_up = y - 1
+y_down = y + 1
+x_left = x - 1
+x_right = x + 1
 
-    # But if we're on a boundary, we have to simulate reflection
-    if x == 1; x_left = x + 1 end
-    if x == width; x_right = x - 1 end
-    if y == 1; y_up = y + 1 end
-    if y == height; y_down = y - 1 end
-    
-    delta = (f[y_up, x] + f[y_down, x]
-             + f[y, x_left] + f[y, x_right] - 4 * f[y, x] + h[y, x])
-    f[y, x] += 1.94 * delta / 4.0
+# But if we're on a boundary, we have to simulate reflection
+if x == 1; x_left = x + 1 end
+if x == width; x_right = x - 1 end
+if y == 1; y_up = y + 1 end
+if y == height; y_down = y - 1 end
+
+delta = (f[y_up, x] + f[y_down, x]
+          + f[y, x_left] + f[y, x_right] - 4 * f[y, x] + h[y, x])
+f[y, x] += 1.94 * delta / 4.0
+```
 
 See [poisson2.jl](https://github.com/MattFerraro/devsite/blob/master/nextjs-blog/code/laplace/poisson2.jl) for the full source code.
 
@@ -553,7 +566,7 @@ This oval (called a separatrix) has the special property that no wind flows thro
 
 From here we could use Bernoulli's equation to find the pressure distribution, which we could integrate over the surface to find drag and lift and so on. With a few tweaks we could simulate rotational flow, vortex panels, real wing profiles, and so on.
 
-With just a few simple building block we're already edging up on real computational fluid dynamics. All this just by adding up some matrices!
+With just a few simple building blocks we're already edging up on real computational fluid dynamics. All this just by adding up some matrices!
 
 # Conclusion
 
