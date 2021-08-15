@@ -87,6 +87,52 @@ Given the $(x, y)$ locations of all the lens grid points, simple geometry lets u
 
 The condition we're hoping for is that every lens grid cell $(i, j)$ has an area which is proportional to the brightness of image pixel $(i, j)$. We can compute a "loss image" by subtracting the area of each grid cell from the brightness of each pixel.
 
+We start by taking a normal image, in this case 500x500 pixels, and we convert it to black and white to find brightness, which ranges from 0-255:
+
+[original image --> B&W]
+
+Then we set up the physical parameters of our magic window by choosing a width and height. Here I use 10cm x 10cm.
+
+```julia
+w = .1
+h = .1
+
+```
+
+Now for each cell we just look at the brightness we want and subtract the area that we have. The output is a "loss image".
+
+[regular loss image]
+
+But we've been sloppy and mixed units of area with units of pixel brightness so the resulting image is difficult to interpret. We can fix that by normalizing the loss image to range from -1 to 1.
+
+[normalized, colorized loss image]
+
+Red areas indicate regions where our image is too bright and blue areas are where the image is too dark.
+
+### Stepping to Reduce Loss
+
+The loss image (or any image) can be thought of as a scalar field $L(x, y)$. The gradient of a scalar field yields a vector field, which we could call $\nabla L(x,y)$. We can step each grid point slowly in the direction of the gradient field, and in doing so the cells that are too small will get bigger and the cells that are too big will get smaller. Our loss will shrink, and we'll create our image.
+
+But in practice this doesn't work at all! The loss image is not smooth at all, in fact it is exactly as patchy and discontinuous as our input image. This means that in regions of high contrast, two neighboring cells will need to step in drastically different directions. This creates a situation where improving one cell's loss will necessarily worsen its neighbor's losses, which means that in practice this method can never converge. It's a dead end.
+
+Instead let's draw an analogy to Computational Fluid Dynamics. We need to dilate certain cells and shrink others according to a per-cell brightness function. This is similar to modeling compressible air flow where each cell has a per-cell pressure function. If every cell in a 2D grid has some initial pressure, how does the system relax over time? The regions with high pressure expand and the regions of low pressure contract, with regions of middling pressure getting shoved around in a sort of global tug-of-war.
+
+So, how is this problem solved in CFD simulations? The standard approach is to define a **Velocity Potential** called $\Phi$ (read: *phi*). If you've ever seen the Gravitational Potential used to simulate orbits, or the Electric Potential to simulate the paths of charged particles, know that all of the math is identical in all three cases.
+
+The Velocity Potential is a scalar field defined at each cell. Its units are $meters^2 / second$ which at first glance is a not very easy to interpret. But the reason $\Phi$ is convenient is that its spatial derivatives are measured in $meters/second$. In other words:
+
+$$
+\nabla \Phi = \vec{v}
+$$
+
+[Example phi with example velocity field]
+
+So 
+
+$$
+\nabla^2 \phi = h
+$$
+
 # Snell's Law
 
 # Finding the Heightmap
