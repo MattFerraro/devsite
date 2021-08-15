@@ -117,25 +117,200 @@ But in practice this doesn't work at all! The loss image is not smooth at all, i
 
 Instead let's draw an analogy to Computational Fluid Dynamics. We need to dilate certain cells and shrink others according to a per-cell brightness function. This is similar to modeling compressible air flow where each cell has a per-cell pressure function. If every cell in a 2D grid has some initial pressure, how does the system relax over time? The regions with high pressure expand and the regions of low pressure contract, with regions of middling pressure getting shoved around in a sort of global tug-of-war.
 
-So, how is this problem solved in CFD simulations? The standard approach is to define a **Velocity Potential** called $\Phi$ (read: *phi*). If you've ever seen the Gravitational Potential used to simulate orbits, or the Electric Potential to simulate the paths of charged particles, know that all of the math is identical in all three cases.
+So, how is this problem solved in CFD simulations? The standard approach is to define a **Velocity Potential** called $\Phi$ (read: *phi*). If you've ever seen the Gravitational Potential used to simulate orbits, or the Electric Potential to simulate the paths of charged particles, know that we're dealing with a similar object here.
 
-The Velocity Potential is a scalar field defined at each cell. Its units are $meters^2 / second$ which at first glance is a not very easy to interpret. But the reason $\Phi$ is convenient is that its spatial derivatives are measured in $meters/second$. In other words:
+The Velocity Potential $\Phi$ is a scalar field defined at each cell, so we might write it as $\Phi(i, j)$. Its units are $meters^2 / second$ which at first glance is not very easy to interpret. But the reason $\Phi$ is convenient is that its spatial derivatives are measured in $meters/second$. In other words, the gradient of $\Phi$ gives a vector whose units are velocity:
 
 $$
+\tag{1.0}
 \nabla \Phi = \vec{v}
 $$
 
 [Example phi with example velocity field]
 
-So 
+So if we can find a $\Phi$ that describes our pressure distribution, all we need to do is calculate $\vec{v} = \nabla \Phi$ and we'll be able to step all of our points according to $\vec{v}$ to decrease our loss.
+
+So how do we find a suitable $\Phi$? Well, the property we already know about each cell is its normalized loss, which encodes how much that cell needs to grow or shrink. This property, how much a cell grows or shrinks over time as it moves with a velocity field, is called the **divergence** of that field. Divergence is written as $\nabla \cdot$ so in our case, we know that we need to find a velocity fields whose divergence equals the loss:
 
 $$
-\nabla^2 \phi = h
+\tag{1.1}
+\nabla \cdot \vec{v} = L(x, y)
 $$
 
-# Snell's Law
+<!-- Remember that $L$ is the loss field we've already calculated, and $\vec{v}$ is some unknown velocity field. $\vec{v}$ is the thing we want to solve for. -->
+
+We don't yet know the velocity field $\vec{v}$, we just know that whatever $\vec{v}$ is, its divergence equals the loss field calculated above.
+
+Unfortunately we cannot easily invert this equation to find $\vec{v}$ directly. But we can plug equation $(1.0)$ in to equation $(1.1)$ to yield:
+
+$$
+\tag{1.2}
+\nabla \cdot \nabla \Phi = L(x, y)
+$$
+
+Which we read as *The divergence of the gradient of the potential field $\Phi$ equals the loss*.
+
+This equation comes up surprisingly frequently in many branches of physics and math. It is usually written in a more convenient shorthand:
+
+$$
+\tag{1.3}
+\nabla ^2 \Phi = L
+$$
+
+Which you may recognize as [Poisson's Equation](https://mattferraro.dev/posts/poissons-equation)!
+
+This is fantastic news because Poisson's equation is [extremely straightforward](https://mattferraro.dev/posts/poissons-equation#how-do-i-solve-it) to solve! If you aren't familiar with it, just think of this step like inverting a big matrix, or numerically integrating an ODE, or finding the square root of a real number. It's an intricate, tedious task that would be painful to do with a paper and pencil, but it's the kind of thing computers are *really* good at.
+
+Now that we've written down the problem as Poisson's Equation, it is as good as solved. We can use any off the shelf solver, plug in our known $L(x, y)$ and out pops $\Phi(x,y)$ as if by magic.
+
+[Image of cat Phi]
+
+This is an example of [Neumann boundary conditions](https://mattferraro.dev/posts/poissons-equation#neumann-boundary-conditions) where $\nabla \Phi = 0$ along the edges because we can't have any grid cells flying off the edges of the acrylic!
+
+<!-- TODO: copy paste my earlier description of the Gradient -->
+
+We plug $\Phi$ in to Equation $(1.0)$ to find $\vec{v}$ and we take a look at the vector field:
+
+[Image of the cat vector field]
+
+This vector field is everywhere smooth and continuous. We simply march the grid points along this vector field and we'll get exactly what we need: The cells which need to grow will grow because the local vector field has positive divergence. The cells which need to shrink will shrink because the local vector field has negative divergence. Cells which are already the right size will migrate and distort but their areas will not change because the local vector field has zero divergence.
+
+We step all the lens grid points forward some small amount in the direction of $\vec{v}$, dilating bright parts of the image and shrinking dark parts. After morphing the grid a tiny amount we recompute the loss function $L$, find a new $\Phi$ and new $\vec{v}$, and take another small step.
+
+```julia
+image = read_image("cat.png")
+gray = convert_to_grayscale(image)
+grid = create_initial_grid(gray.size + 1)
+
+L = compute_loss(gray, grid)
+
+while maximum(L) > 0.01:
+    ϕ = poisson_solver(L, "neumann", 0)
+    v = compute_gradient(ϕ)
+    grid = step_grid(grid, v)
+    L = compute_loss(gray, grid)
+```
+
+After three or four iterations the loss gets very small and we've got our morphed cells!
+
+[image of morphed cells]
+
+Again, this morphed grid has the special property that every cell in this grid has an area proportional to the brightness of the desired image.
+
+# Snell's Law and Normal Vectors
+
+Snell's law tells us how light bends when passing from one material to another. 
+
+![Snell's Law](https://uploads-cdn.omnicalculator.com/images/snells-law2.png)
+
+$$
+\tag{1.4}
+\frac{\sin(\theta_2)}{\sin(\theta_1)} = \frac{n_1}{n_2}
+$$
+
+Where $n_1 = 1.49$ is the [Refractive Index](https://en.wikipedia.org/wiki/Refractive_index) of acrylic and $n_2 = 1$ is the refractive index of air.
+
+Snell's law is not some arbitrary axiom of physics. It is a direct consequence of Fermat's [Principle of Least Time](https://en.wikipedia.org/wiki/Fermat%27s_principle), which is a fascinating and critical link between wave optics and ray optics.
+
+In our case, each lens cell $(i, j)$ has migrated to position $(x, y)$, and it needs to send its light to the image plane at $(u, v)$.
+
+There is some distance between the lens and the image which we can label $d$. Using a little trigonometry we can find the angle between $(x, y)$ and $(u, v)$ which we can call $\theta_2$:
+
+[diagram of this trig]
+
+$$
+\tag{1.5}
+\theta_2 = {\tan}^{-1} \left( \frac{\sqrt{(u - x)^2 + (v - y)^2}}{d} \right)
+$$
+
+Plugging $\theta_2$ into $(1.4)$ gives us $\theta_1$. The incoming light rays are assumed to be horizontal and parallel, so $\theta_1$ gives us the angle of the surface normal.
+
+Now we can define a 3D normal vector $\vec{N}(x, y)$ which everywhere points normal to our heightmap. If we normalize $\vec{N}$ so that the its z coordinate is $-1$, we can write it:
+
+$$
+\tag{1.6}
+\vec{N} = (\frac{\partial{h}}{\partial{x}}, \frac{\partial{h}}{\partial{y}}, -1)
+$$
+
+If you consider just the $x$ and $y$ components, we recognize that
+
+$$
+\tag{1.7}
+\vec{N}_{xy} = \nabla h
+$$
+
+Which is a property often used in computer graphics applications, as well as geospatial applications involving [Digital Elevation Models](https://en.wikipedia.org/wiki/Digital_elevation_model).
+
+<!-- TODO: Actually derive this! -->
+
+After some tedious geometry and a small angle approximation, we find the $x$ and $y$ components of the normal vector $\vec{N}$:
+
+$$
+\tag{1.8}
+N_x(i, j) = \tan \frac{\tan^{-1} \left( \frac{u - x} {d} \right)} {(n_1 - n_2)}
+$$
+$$
+\tag{1.9}
+N_y(i, j) = \tan \frac{\tan^{-1} \left( \frac{v - y} {d} \right)} {(n_1 - n_2)}
+$$
 
 # Finding the Heightmap
+
+At this point we have our morphed grid cells and we've found all our surface normals. All we have to do is find a heightmap $h(x,y)$ that has the required surface normals.
+
+We could try to integrate the normals manually, starting at one corner and working our way down the grid, but this method causes small errors to stack up quickly and can't be performed stably.
+
+A much better approach is to reach back to equation $(1.7)$, repeated here:
+
+$$
+\tag{1.7}
+\vec{N}_{xy} = \nabla h
+$$
+
+And to take the divergence of both sides:
+
+$$
+\tag{1.10}
+\nabla \cdot \vec{N}_{xy} = \nabla \cdot \nabla h
+$$
+
+Adopting shorthand and swapping sides:
+$$
+\tag{1.11}
+\nabla ^2 h = \nabla \cdot \vec{N}_{xy}
+$$
+
+We arrive at yet another instance of Poisson's Equation! We found $\vec{N}_{xy}$ in the previous section, and calculating the divergence of a known vector field is easy:
+
+$$
+\tag{1.12}
+\nabla \cdot \vec{N}_{xy} = \left( \frac{\partial}{\partial{x}}, \frac{\partial}{\partial{y}} \right) \cdot (\vec{N}_x, \vec{N}_y) = \frac{\partial{\vec{N}_x}}{\partial{x}} + \frac{\partial{\vec{N}_y}}{\partial{y}}
+$$
+
+In code it looks like:
+
+```julia
+δx = (Nx[i+1, j] - Nx[i, j])
+δy = (Ny[i, j+1] - Ny[i, j])
+divergence[i, j] = δx + δy
+```
+
+All that's left is to plug our known $\nabla \cdot \vec{N}_{xy}$ in to a Poisson solver with Neumann boundary conditions and out pops $h(x, y)$, ready to use!
+
+[example h field]
+
+Well, that's not quite accurate. By modifying the height of each point we've actually changed the distance from each lens point to the image, so the lens-image distance is no longer a constant $d$ it is actually a function $D(x,y)$. With our heightmap in hand we can easily calculate:
+
+$$
+\tag{1.13}
+D(x,y) = d - h(x,y)
+$$
+
+And repeat the process by calculating new normals using $D(x,y)$ instead of $d$, which lets us create a new heightmap. We can loop this process and measure changes to ensure convergence, but in practice just 2 or 3 iterations is all you need.
+
+# Finishing Touches
+
+At this stage we have a heightmap, not a solid 3D object.
 
 # Alternative Approaches
 
