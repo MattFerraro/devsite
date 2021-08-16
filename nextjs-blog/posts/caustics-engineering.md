@@ -184,11 +184,12 @@ grid = create_initial_grid(gray.size + 1)
 
 L = compute_loss(gray, grid)
 
-while maximum(L) > 0.01:
+while maximum(L) > 0.01
     ϕ = poisson_solver(L, "neumann", 0)
     v = compute_gradient(ϕ)
     grid = step_grid(grid, v)
     L = compute_loss(gray, grid)
+end
 ```
 
 After three or four iterations the loss gets very small and we've got our morphed cells!
@@ -274,7 +275,7 @@ $$
 \nabla \cdot \vec{N}_{xy} = \nabla \cdot \nabla h
 $$
 
-Adopting shorthand and swapping sides:
+Do you recognize the form of this equation? Adopting shorthand and swapping sides:
 $$
 \tag{1.11}
 \nabla ^2 h = \nabla \cdot \vec{N}_{xy}
@@ -306,25 +307,64 @@ $$
 D(x,y) = d - h(x,y)
 $$
 
-And repeat the process by calculating new normals using $D(x,y)$ instead of $d$, which lets us create a new heightmap. We can loop this process and measure changes to ensure convergence, but in practice just 2 or 3 iterations is all you need.
+And repeat the process by calculating new normals using $D(x,y)$ instead of $d$, which lets us create a new heightmap.
 
-# Finishing Touches
+We can loop this process and measure changes to ensure convergence, but in practice just 2 or 3 iterations is all you need:
 
-At this stage we have a heightmap, not a solid 3D object.
+```julia
+d = .2 # meters
+D = d .* array_of_ones(n, n)
 
-# Alternative Approaches
+for i in 1:3
+    Nx, Ny = compute_normals(grid, D)
+    divergence = compute_divergence(Nx, Ny)
+    h = poisson_solver(divergence, "neumann", 0)
+    D = copy(h)
+end
+```
 
-It does not work well to embed a grid of small lenses onto the surface, where each micro lens constitutes something like a pixel. Such an approach could make individual points in the image brighter or darker, something akin to pointilism, but it would not distribute light globally over the image correctly. It would be unable to form an image with large bright or dark areas. You could try angling the micro lenses to redirect light to different parts of the image, but [the results are not so great](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.410.8628&rep=rep1&type=pdf). Machining such an object, akin to a [Fresnel lens](https://en.wikipedia.org/wiki/Fresnel_lens), is a nightmare.
+If you're familiar with 3D meshes and obj files, the resulting heightmap can easily be converted to a solid object:
 
+[image of final solid object]
+
+# Manufacturing
+
+We can bring our object into Fusion360 or any other CAM software. From there we can set up a roughing toolpath left to right, and a finishing toolpath top to bottom.
+
+I designed and built my own CNC router last year. If you want to do the same you can learn how [here](https://mattferraro.dev/posts/cnc-router).
+
+After carving on your CNC router or mill, the surface finish is rough and transluscent. We need to wet sand using $200, 400, 600, 1000$ and $1500$ grit sandpapers, then finish with a soft rag and some automotive polish. Polishing takes about half an hour for a $10 cm \times 10 cm$ magic window.
+
+[picture of sanding or finished product]
+
+If you're interesting in making one of these yourself, I used a $\frac{1}{4}$ inch diameter, ball-nosed, carbide bit for both roughing and finishing passes, which took 10 minutes and 90 minutes respectively.
+
+# Acknowledgements
+
+All of the math for this post came from [Poisson-Based Continuous Surface Generation for Goal-Based Caustics](http://nishitalab.org/user/egaku/tog14/yue-continuous-caustics-lens.pdf), a phenomenal 2014 paper by Yue et al. If you continue this work in some way, please cite them.
+
+<!-- # Alternative Approaches
+
+The [first paper I saw in this field](https://gfx.cs.princeton.edu/pubs/Weyrich_2009_FMF/weyrich09fabricating.pdf) used a grid of microfacets and treated the problem reflectively rather than refractively; more like a magic mirror than a magic window.
+
+It does not work well to embed a grid of small lenses onto the surface, where each micro lens constitutes something like a pixel. Such an approach could make individual points in the image brighter or darker, but it would not distribute light globally over the image correctly. It would be unable to form an image with large bright or dark areas. You could try angling the micro lenses to redirect light to different parts of the image, but [the results are not so great](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.410.8628&rep=rep1&type=pdf). Machining such an object, akin to a [Fresnel lens](https://en.wikipedia.org/wiki/Fresnel_lens), is a nightmare. -->
 
 # My Code
 
-Source code is available [here](https://github.com/MattFerraro/causticsEngineering). I am very new to programming in Julia so if you have suggestions for how to improve this code, in terms of correctness or speed or clarity, please give me a shout or make a pull request!
+My source code is available [here](https://github.com/MattFerraro/causticsEngineering). I am very new to programming in Julia so if you have suggestions for how to improve this code, please reach out or make a pull request!
 
 # Licensing
 
-I want as many people as possible to have access to this technique. Please feel free to use this code for anything you want, free from any restrictions whatsoever. I only ask that if you make something, please show me!
+I want as many people as possible to have access to this technique, so I've posted it under the MIT license. Please feel free to use this code for anything you want, free from any restrictions whatsoever. I only ask that if you make something, please show me!
 
 # Contact me
 
-If you use my code to make your own magic windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89)
+If you use my code to make your own magic windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). I will gladly help if you get stuck!
+
+# One Last Thing
+
+I know what you're thinking. *What about the hologram?!*
+
+Does the math above imply that a hologram will always be created, or is this one cat hologram just an incredible coincidence?
+
+Well you see, I've discovered a truly marvelous proof of this, which this website's margin is too narrow to contain.
