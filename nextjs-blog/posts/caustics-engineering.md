@@ -448,7 +448,7 @@ In short: To me this code is a fun side project. If you want to build a business
 
 # Licensing
 
-I want as many people as possible to have access to this technique, so I've posted it under the MIT license. Please feel free to use this code for anything you want, including hobbyist, educational, and business uses. I only ask that if you make something, please show me!
+I've posted it all under the MIT license. Please feel free to use this code for anything you want, including hobbyist, educational, and business uses. I only ask that if you make something, please show me!
 
 The cat in this post is named Mitski and she approves of you using her image as the new standard reference image for image processing papers.
 
