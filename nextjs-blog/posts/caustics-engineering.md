@@ -1,5 +1,5 @@
 ---
-title: "The Physics Behind Magic Windows"
+title: "The Physics Of Magic Windows"
 teaser: "I recently made a physical object that defies all intuition. It's a square of acrylic, smooth on both sides, totally transparent..."
 teaserImage: 'https://devsite-h6c79m66x-mattferraro2.vercel.app/images/caustics/2D_image.jpg'
 date: '2021-08-17'
