@@ -1,13 +1,14 @@
 ---
 title: "Magic Windows"
 teaser: "IDK yet"
-teaserImage: 'https://www.mattferraro.dev/images/laplace/separatrix_heightmap.png'
-date: '2021-08-14'
+teaserImage: 'https://www.mattferraro.dev/images/caustics/teaser.png'
+date: '2021-08-15'
 ---
 
-I recently made a physical object that defies all intuition. It's a square of acrylic, smooth on both sides, totally transparent. A small window.
+I recently made a physical object that defies all intuition. It's a square of acrylic, smooth on both sides, totally transparent. A tiny window.
 
-![Clear Acrylic](/images/caustics/clear_acrylic.jpg)
+<!-- ![Clear Acrylic](/images/caustics/clear_acrylic.jpg) -->
+![Clear Acrylic](/images/caustics/window_clear.jpg)
 
 But it has the magic property that if you shine a flashlight on it, it projects an image:
 
@@ -36,7 +37,7 @@ The most interesting aspect of caustics is that they arise from even the tiniest
 <!-- ![Water Caustics](https://upload.wikimedia.org/wikipedia/commons/e/ea/Great_Barracuda%2C_corals%2C_sea_urchin_and_Caustic_%28optics%29_in_Kona%2C_Hawaii_2009.jpg) -->
 ![Water Caustics](https://courses.cs.ut.ee/MTAT.03.015/2017_fall/uploads/Main/pattern.jpg)
 
-The reason my acrylic square can project an image is because I've embedded just the right amount of concavity and convexity into the surface so that the refracted light forms a caustic image.
+The reason my acrylic square can project an image is because I've distributed just the right amount of concavity and convexity into the surface so that the refracted light forms a caustic image.
 
 To gain some intuition for how it is done, consider a traditional convex lens:
 
@@ -45,27 +46,31 @@ To gain some intuition for how it is done, consider a traditional convex lens:
 This lens forms the simplest possible caustic. It focuses *all* of its incoming light into a single point. The caustic image from this lens is dark everywhere with one very bright spot in the center.
 
 Zooming in on one small section of the lens we notice a few properties:
-1. The thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the left side of this lens and nothing would change.
+1. The thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the left side of this lens and nothing would change
 2. The angle formed between the incoming light rays and the glass has a strong effect on the refracted ray angle
 3. Whether two rays converge or diverge is controlled by how *curved* the lens is where the rays meet the glass
 
-In other words, the thickness of the glass $t(x)$ is not on its own important. But the slope of the glass, $\frac{\mathrm{d}t}{\mathrm{d}x}$, gives us the outgoing ray angle via Snell's law. Where rays converge the image is brighter than the light source. Where rays diverge the image is darker. Therefore the brightness of the image (at that point, where the rays fall) is controlled by $\frac{\mathrm{d}^2t}{\mathrm{d}x^2}$.
+In other words, the height of the glass $h(x)$ is not on its own important. But the slope of the glass, $\frac{\mathrm{d}h}{\mathrm{d}x}$, gives us the outgoing ray angle via Snell's law. Where rays converge the image is brighter than the light source. Where rays diverge the image is darker. Therefore the brightness of the image (at that point, where the rays fall) is related to $\frac{\mathrm{d}^2h}{\mathrm{d}x^2}$.
 
-The thickness of my acrylic slab varies across the entire $xy$ plane. I could call this $t(x,y)$ but I hate using $t$ to mean anything other than *time*, so I'll use $h(x,y)$ and we'll think of it as a *heightmap* instead of a *thickness* map.
+The thickness of my acrylic slab varies across the entire $xy$ plane, so I'll call it $h(x,y)$ and we'll think of it as a **heightmap**.
 
-By controlling $\frac{\partial h}{\partial x}$, $\frac{\partial h}{\partial y}$, $\frac{\partial ^2 h}{\partial x^2}$, and $\frac{\partial ^2 h}{\partial y^2}$, we can steer all of our incoming light to the correct locations in the image, while contributing the right brightness to make it recognizable. By making some simplifying assumptions we can guarantee that the resulting heightmap will be smooth and continuous.
+By controlling $\nabla h = (\frac{\partial h}{\partial x}, \frac{\partial h}{\partial y}$), and $\nabla ^2 h = (\frac{\partial ^2 h}{\partial x^2} + \frac{\partial ^2 h}{\partial y^2})$, we can steer all of our incoming light to the correct locations in the image, while contributing the right brightness to make it recognizable. By making some simplifying assumptions we can guarantee that the resulting heightmap will be smooth and continuous.
 
-For the cat image shown above, the total height variation over the 10cm x 10cm surface is about 1.5mm.
+For the magic window shown above, the total height variation over the $10cm \times 10cm$ surface is about $2.0mm$.
 
 ![Slight Refraction](/images/caustics/slight_refraction.jpg)
 
-Notice how the slight variations in surface height distort the straight line of the floor molding.
+See how the slight variations in surface height distort the straight line of the floor moulding? Our magic window works like any other lens--by bending light.
+
+# Table of Contents
 
 # Formulating the Problem
 
-We want to find a heightmap $h(x,y)$ whose caustic image has brightness $b(u,v)$, equal to some input image. To achieve this we can imagine a grid of cells, akin to pixels, on the surface of the acrylic lens. Here each "pixel" on the lens corresponds to a pixel in the image and both grids are square and perfectly aligned. Image pixels and their corresponding lens-space "pixels" are labeled with shared $(i, j)$ coordinates. Remember that $(i, j)$ are integers labeling the column and row of the pixel, whereas $(x, y)$ and $(u, v)$ are real numbers measured in something like meters or inches.
+We want to find a heightmap $h(x,y)$ whose caustic image has brightness $b(u,v)$, equal to some input image. To achieve this we can imagine a grid of cells, akin to pixels, on the surface of the acrylic lens. Here each "pixel" on the lens corresponds to a pixel in the image. Image pixels and their corresponding lens-space "pixels" are labeled with shared $(i, j)$ coordinates.
 
-[Add a diagram here]
+![Diagram](/images/caustics/diagram.png)
+
+Remember that $(i, j)$ are integers labeling the column and row of the pixel, whereas $(x, y)$ and $(u, v)$ are real numbers measured in something like meters or inches.
 
 # Steps to a Solution
 
@@ -77,74 +82,116 @@ We want to find a heightmap $h(x,y)$ whose caustic image has brightness $b(u,v)$
 
 # Morphing the Cells
 
-For an image with $n \times n$ pixels, the lens grid will need $(n+1) \times (n+1)$ points, so that each cell in the lens grid is defined by four points. Technically we should adopt yet another coordinate system to label the _points_ in the lens grid since they are distinct from the _cells_ in the lens grid, but I think it's easier to just reuse $(i, j)$ and we can say that for grid cell $(i, j)$, the point in the upper left is defined as grid point $(i, j)$. This leaves us with one row and one column of extra grid points along the bottom and right edges, but that will be trivial to deal with when it comes up.
+For an image with $n \times n$ pixels, the lens grid will need $(n+1) \times (n+1)$ points, so that each cell in the lens grid is defined by four points. Technically we should adopt yet another coordinate system to label the _points_ in the lens grid since they are distinct from the _cells_ in the lens grid, but I think it's easier to just reuse $(i, j)$ and we can say that for grid cell $(i, j)$, the point in the upper left is defined as grid point $(i, j)$.
 
-Each _point_ in the lens grid $p(i,j)$ has an $(x, y)$ coordinate. A point's $(i, j)$ coordinates never change but the $(x, y)$ coordinates will change as we morph the cells more and more.
+![Diagram 2](/images/caustics/diagram2.png)
 
-### Computing the Loss
+This leaves us with one row and one column of extra grid points along the bottom and right edges, but that will be trivial to deal with when it comes up.
+
+Each _point_ in the lens grid $(i,j)$ has an $(x, y)$ coordinate. A point's $(i, j)$ coordinates never change but the $(x, y)$ coordinates will change as we morph the cells more and more.
+
+## Computing the Loss
 
 Given the $(x, y)$ locations of all the lens grid points, simple geometry lets us calculate the area of each lens grid cell. Of course at first every cell has the same area, but that will change as soon as we start morphing things.
 
-The condition we're hoping for is that every lens grid cell $(i, j)$ has an area which is proportional to the brightness of image pixel $(i, j)$. We can compute a "loss image" by subtracting the area of each grid cell from the brightness of each pixel.
+The condition we want is that every lens grid *cell* $(i, j)$ has an *area* which scales with the *brightness* of image pixel $b(i, j)$.
 
-We start by taking a normal image, in this case 500x500 pixels, and we convert it to black and white to find brightness, which ranges from 0-255:
-
-[original image --> B&W]
-
-Then we set up the physical parameters of our magic window by choosing a width and height. Here I use 10cm x 10cm.
-
-```julia
-w = .1
-h = .1
-
-```
-
-Now for each cell we just look at the brightness we want and subtract the area that we have. The output is a "loss image".
-
-[regular loss image]
-
-But we've been sloppy and mixed units of area with units of pixel brightness so the resulting image is difficult to interpret. We can fix that by normalizing the loss image to range from -1 to 1.
-
-[normalized, colorized loss image]
-
-Red areas indicate regions where our image is too bright and blue areas are where the image is too dark.
-
-### Stepping to Reduce Loss
-
-The loss image (or any image) can be thought of as a scalar field $L(x, y)$. The gradient of a scalar field yields a vector field, which we could call $\nabla L(x,y)$. We can step each grid point slowly in the direction of the gradient field, and in doing so the cells that are too small will get bigger and the cells that are too big will get smaller. Our loss will shrink, and we'll create our image.
-
-But in practice this doesn't work at all! The loss image is not smooth at all, in fact it is exactly as patchy and discontinuous as our input image. This means that in regions of high contrast, two neighboring cells will need to step in drastically different directions. This creates a situation where improving one cell's loss will necessarily worsen its neighbor's losses, which means that in practice this method can never converge. It's a dead end.
-
-Instead let's draw an analogy to Computational Fluid Dynamics. We need to dilate certain cells and shrink others according to a per-cell brightness function. This is similar to modeling compressible air flow where each cell has a per-cell pressure function. If every cell in a 2D grid has some initial pressure, how does the system relax over time? The regions with high pressure expand and the regions of low pressure contract, with regions of middling pressure getting shoved around in a sort of global tug-of-war.
-
-So, how is this problem solved in CFD simulations? The standard approach is to define a **Velocity Potential** called $\Phi$ (read: *phi*). If you've ever seen the Gravitational Potential used to simulate orbits, or the Electric Potential to simulate the paths of charged particles, know that we're dealing with a similar object here.
-
-The Velocity Potential $\Phi$ is a scalar field defined at each cell, so we might write it as $\Phi(i, j)$. Its units are $meters^2 / second$ which at first glance is not very easy to interpret. But the reason $\Phi$ is convenient is that its spatial derivatives are measured in $meters/second$. In other words, the gradient of $\Phi$ gives a vector whose units are velocity:
+Area and brightness are not compatible units so it is helpful to normalize cell area by the full window area, and pixel brightness by total image brightness, so that each is measured in a unitless "percentage".
 
 $$
 \tag{1.0}
-\nabla \Phi = \vec{v}
+\frac{A_{ij}}{\Sigma A} = \frac{b_{ij}}{\Sigma b}
 $$
 
-[Example phi with example velocity field]
+Intuitively, this means:
 
-So if we can find a $\Phi$ that describes our pressure distribution, all we need to do is calculate $\vec{v} = \nabla \Phi$ and we'll be able to step all of our points according to $\vec{v}$ to decrease our loss.
+> If a single pixel contributes $x\%$ of the brightness of the entire image, the corresponding window cell should take up $x\%$ of the area of the entire window.
 
-So how do we find a suitable $\Phi$? Well, the property we already know about each cell is its normalized loss, which encodes how much that cell needs to grow or shrink. This property, how much a cell grows or shrinks over time as it moves with a velocity field, is called the **divergence** of that field. Divergence is written as $\nabla \cdot$ so in our case, we know that we need to find a velocity fields whose divergence equals the loss:
+Equation $(1.0)$ is the goal, but it will not be not be true until after we've morphed the window grid. Until we've done that, we need to compute a loss function which tells us how badly we're missing our target. Something like:
 
 $$
 \tag{1.1}
+L = \frac{b_{ij}}{\Sigma b} - \frac{A_{ij}}{\Sigma A}
+$$
+
+In code:
+
+```julia
+brightness = Gray.(load("cat.png"))
+total_brightness = sum(brightness)
+brightness = brightness ./ total_brightness
+
+w = .1 # meters
+h = .1 # meters
+area_total = w * h
+loss = compute_pixel_area(grid) ./ area_total - brightness
+```
+![Image and Loss Function](/images/caustics/image_and_loss.jpg)
+
+Where I've colorized the loss function so that red areas indicate regions where our grid cells need to grow and blue regions indicate where our grid cells need to shrink.
+
+This image is the loss function $L$ and I'll refer to it a lot. 
+
+## Stepping to Reduce Loss
+
+The loss image can be thought of as a scalar field $L(x, y)$. The gradient of a scalar field yields a vector field, which we could call $\nabla L(x,y)$. We can step each grid point slowly in the direction of the gradient field, and in doing so the cells that are too small will get bigger and the cells that are too big will get smaller. Our loss will shrink, and we'll create our image!
+
+The first thing to do is compute $\nabla L$ and look at the vector field:
+
+![Gradient of L as a vector field](/images/caustics/grad_L.png)
+
+Crap.
+
+$\nabla L$ is a very poorly behaved vector field. It is noisy, discontinuous, and in many places equal to zero.
+
+Almost everywhere, neighboring points need to step in drastically different directions. This creates a situation where improving one cell's loss will necessarily worsen its neighbor's losses, which means that in practice this method can never converge. It's a dead end.
+
+---
+
+Instead let's draw an analogy to Computational Fluid Dynamics. We need to dilate certain cells and shrink others according to a brightness function. This is similar to modeling compressible air flow where each cell has pressure defined as a pressure function.
+
+If every cell in a 2D grid has some initial pressure, how does the system relax over time? The regions with high pressure expand and the regions of low pressure contract, with regions of middling pressure getting shoved around in a sort of global tug-of-war. Clearly, our problem is analogous.
+
+So, how is this problem solved in CFD simulations? A standard approach is to define a **Velocity Potential** called $\Phi$ (read: *phi*). The Velocity Potential $\Phi$ is a scalar field defined at each cell. Its units are $meters^2 / second$ which at first glance is not very easy to interpret. But the reason $\Phi$ is convenient is that its spatial derivatives are measured in $meters/second$. In other words, the gradient of $\Phi$ gives a vector whose units are velocity:
+
+$$
+\tag{1.2}
+\nabla \Phi = \left( \frac{\partial{\Phi}}{\partial{x}}, \frac{\partial{\Phi}}{\partial{y}} \right) = \vec{v}
+$$
+
+![Phi](/images/caustics/example_phi.png)
+
+Here is an example $\Phi$. It is just some scalar field best viewed as a heightmap.
+
+![Gradient of Phi](/images/caustics/example_grad_phi.png)
+
+And here is the gradient of that same $\Phi$. These vectors are velocity vectors that point uphill. If we were performing computational fluid dynamics, these vectors would indicate how fluid might flow from regions of high pressure to regions of low pressure. 
+
+Notice how well behaved this vector field is! There is gentle variation across the field but any two neighbors are very similar to each other. None of the arrows pierce the boundary.
+
+In our case we don't have fluid pressure, we have light pressure. Regions in our image which are too bright have high light pressure, which is quantified in our loss function $L$.
+
+If we can somehow use $L$ to find a $\Phi$ that describes our light pressure distribution, all we need to do is calculate $\vec{v} = \nabla \Phi$ and we'll be able to morph all of our lens grid points according to $\vec{v}$ to decrease our loss!
+
+So how do we find a suitable $\Phi$? Well, the property we know about each cell is its loss, which encodes how much that cell needs to grow or shrink. 
+
+> This property, how much a cell grows or shrinks over time as it moves with a velocity field, is called the **divergence** of that field.
+
+Divergence is written as "$\nabla \cdot$" so in our case, we know that we need to find a velocity field $\vec{v}$ whose divergence equals the loss:
+
+$$
+\tag{1.3}
 \nabla \cdot \vec{v} = L(x, y)
 $$
 
 <!-- Remember that $L$ is the loss field we've already calculated, and $\vec{v}$ is some unknown velocity field. $\vec{v}$ is the thing we want to solve for. -->
 
-We don't yet know the velocity field $\vec{v}$, we just know that whatever $\vec{v}$ is, its divergence equals the loss field calculated above.
+<!-- We don't yet know the velocity field $\vec{v}$, but we've already found the loss field. -->
 
-Unfortunately we cannot easily invert this equation to find $\vec{v}$ directly. But we can plug equation $(1.0)$ in to equation $(1.1)$ to yield:
+Unfortunately there is no "inverse divergence" operator so we cannot easily invert this equation to find $\vec{v}$ directly. But we *can* plug equation $(1.2)$ in to equation $(1.3)$ to yield:
 
 $$
-\tag{1.2}
+\tag{1.4}
 \nabla \cdot \nabla \Phi = L(x, y)
 $$
 
@@ -153,29 +200,37 @@ Which we read as *The divergence of the gradient of the potential field $\Phi$ e
 This equation comes up surprisingly frequently in many branches of physics and math. It is usually written in a more convenient shorthand:
 
 $$
-\tag{1.3}
+\tag{1.5}
 \nabla ^2 \Phi = L
 $$
 
 Which you may recognize as [Poisson's Equation](https://mattferraro.dev/posts/poissons-equation)!
 
-This is fantastic news because Poisson's equation is [extremely straightforward](https://mattferraro.dev/posts/poissons-equation#how-do-i-solve-it) to solve! If you aren't familiar with it, just think of this step like inverting a big matrix, or numerically integrating an ODE, or finding the square root of a real number. It's an intricate, tedious task that would be painful to do with a paper and pencil, but it's the kind of thing computers are *really* good at.
+This is fantastic news because Poisson's equation is [extremely easy](https://mattferraro.dev/posts/poissons-equation#how-do-i-solve-it) to solve! If you aren't familiar with it, just think of this step like inverting a big matrix, or numerically integrating an ODE, or finding the square root of a real number. It's an intricate, tedious task that would be painful to do with a paper and pencil, but it's the kind of thing computers are *really* good at.
 
-Now that we've written down the problem as Poisson's Equation, it is as good as solved. We can use any off the shelf solver, plug in our known $L(x, y)$ and out pops $\Phi(x,y)$ as if by magic.
+Now that we've written down the problem as Poisson's Equation, it is as good as solved. We can use any off the shelf solver, plug in our known $L(x, y)$ using Neumann boundary conditions and boom, and out pops $\Phi(x,y)$ as if by magic.
 
-[Image of cat Phi]
+![Phi](/images/caustics/clearly_cat_phi.png)
 
-This is an example of [Neumann boundary conditions](https://mattferraro.dev/posts/poissons-equation#neumann-boundary-conditions) where $\nabla \Phi = 0$ along the edges because we can't have any grid cells flying off the edges of the acrylic!
+Can you figure out why the cat appears so clearly in this 3D rendering of $\Phi$? What controls the brightness of each pixel in a render like this?
 
-<!-- TODO: copy paste my earlier description of the Gradient -->
+We plug $\Phi$ in to Equation $(1.2)$ to find $\vec{v}$ and we take a look at the vector field:
 
-We plug $\Phi$ in to Equation $(1.0)$ to find $\vec{v}$ and we take a look at the vector field:
+![Gradient of Phi](/images/caustics/example_grad_phi.png)
 
-[Image of the cat vector field]
+Disappointingly, it does not look like a kitty to me.
 
-This vector field is everywhere smooth and continuous. We simply march the grid points along this vector field and we'll get exactly what we need: The cells which need to grow will grow because the local vector field has positive divergence. The cells which need to shrink will shrink because the local vector field has negative divergence. Cells which are already the right size will migrate and distort but their areas will not change because the local vector field has zero divergence.
+And technically we need to march our points in the direction of _negative_ $\nabla L$ if we want to _decrease_ $L$. Here's $-\nabla L$:
 
-We step all the lens grid points forward some small amount in the direction of $\vec{v}$, dilating bright parts of the image and shrinking dark parts. After morphing the grid a tiny amount we recompute the loss function $L$, find a new $\Phi$ and new $\vec{v}$, and take another small step.
+![Negative Gradient of Phi](/images/caustics/negative_grad_phi.png)
+
+But the good news is that this vector field is smooth and well-behaved. We simply march the grid points along this vector field and we'll get exactly what we need. 
+
+If you squint you can almost see how the bright background will expand and the cat's dark fur will shrink.
+
+![Image and Vector Field](/images/caustics/side_by_side.jpg)
+
+We step all the lens grid points forward some small amount in the direction of $-\vec{v}$. After morphing the grid a tiny amount we recompute the loss function $L$, find a new $\Phi$ and new $-\vec{v}$, and take another small step.
 
 ```julia
 image = read_image("cat.png")
@@ -184,19 +239,39 @@ grid = create_initial_grid(gray.size + 1)
 
 L = compute_loss(gray, grid)
 
-while maximum(L) > 0.01
+while max(L) > 0.01
     ϕ = poisson_solver(L, "neumann", 0)
     v = compute_gradient(ϕ)
-    grid = step_grid(grid, v)
+    grid = step_grid(grid, -v)
     L = compute_loss(gray, grid)
 end
 ```
 
 After three or four iterations the loss gets very small and we've got our morphed cells!
 
-[image of morphed cells]
+![Grid After Warping](/images/caustics/side_by_side_warped.jpg)
 
-Again, this morphed grid has the special property that every cell in this grid has an area proportional to the brightness of the desired image.
+Look at how this cat's chin ballooned out but her nose and forehead shrunk. Her left ear is noticably longer and thinner because the bright background had to grow to take up more light. Her pupils went from oblong to sharp.
+
+Note that image on the right is just a screenshot of Fusion360's default mesh rendering with the wireframe turned on:
+
+![Screenshot of Fusion360](/images/caustics/Fusion360.png)
+
+The reason it is darker in some areas is because the mesh is more tightly packed in those areas. Let's zoom in on the eye:
+
+![Zoom in on the Eye](/images/caustics/zoom_eye.png)
+
+Look at how detailed that is! We've managed to capture even the bright reflections in her eyes. Zooming in farther to just the pupil:
+
+![Zoom in on the Pupil](/images/caustics/zoom_pupil.png)
+
+We can see the fine structure of the grid cells. Our formulation of the problem is only concerned with cells as quadralaterals. The triangles you see are just an artifact of converting our quadralateral grid into a triangle mesh more suitable for other software to deal with.
+
+So again, in summary:
+
+![Overall Flow](/images/caustics/overall_flow.png)
+
+If we follow these steps we will successfully morph our grid points. Now we've got to do some geometry!
 
 # Snell's Law and Normal Vectors
 
@@ -205,17 +280,17 @@ Snell's law tells us how light bends when passing from one material to another.
 ![Snell's Law](https://uploads-cdn.omnicalculator.com/images/snells-law2.png)
 
 $$
-\tag{1.4}
+\tag{2.0}
 \frac{\sin(\theta_2)}{\sin(\theta_1)} = \frac{n_1}{n_2}
 $$
 
-Where $n_1 = 1.49$ is the [Refractive Index](https://en.wikipedia.org/wiki/Refractive_index) of acrylic and $n_2 = 1$ is the refractive index of air.
+Where $n_1 = 1.49$ is the [Refractive Index](https://en.wikipedia.org/wiki/Refractive_index) of acrylic and $n_2 = 1$ is the refractive index of air. If we know $\theta_2$, Snell's Law gives us $\theta_1$.
 
-Snell's law is not some arbitrary axiom of physics. It is a direct consequence of Fermat's [Principle of Least Time](https://en.wikipedia.org/wiki/Fermat%27s_principle), which is a fascinating and critical link between wave optics and ray optics.
+Snell's law is not some arbitrary axiom of physics. It is a direct consequence of Fermat's [Principle of Least Time](https://en.wikipedia.org/wiki/Fermat%27s_principle), which is a fascinating and critical link between ray optics and wave optics. But that's a topic for another day.
 
 In our case, each lens cell $(i, j)$ has migrated to position $(x, y)$, and it needs to send its light to the image plane at $(u, v)$.
 
-There is some distance between the lens and the image which we can label $d$. Using a little trigonometry we can find the angle between $(x, y)$ and $(u, v)$ which we can call $\theta_2$:
+<!-- There is some distance between the lens and the image which we can label $d$. Using a little trigonometry we can find the angle between $(x, y)$ and $(u, v)$ which we can call $\theta_2$:
 
 [diagram of this trig]
 
@@ -224,19 +299,19 @@ $$
 \theta_2 = {\tan}^{-1} \left( \frac{\sqrt{(u - x)^2 + (v - y)^2}}{d} \right)
 $$
 
-Plugging $\theta_2$ into $(1.4)$ gives us $\theta_1$. The incoming light rays are assumed to be horizontal and parallel, so $\theta_1$ gives us the angle of the surface normal.
+Plugging $\theta_2$ into $(1.4)$ gives us $\theta_1$. The incoming light rays are assumed to be horizontal and parallel, so $\theta_1$ gives us the angle of the surface normal. -->
 
-Now we can define a 3D normal vector $\vec{N}(x, y)$ which everywhere points normal to our heightmap. If we normalize $\vec{N}$ so that the its z coordinate is $-1$, we can write it:
+We start by defining a 3D normal vector $\vec{N}(x, y)$ which everywhere points normal to our heightmap $h(x, y)$. If we normalize $\vec{N}$ so that its $z$ coordinate is $-1$, we can write it:
 
 $$
-\tag{1.6}
+\tag{2.1}
 \vec{N} = (\frac{\partial{h}}{\partial{x}}, \frac{\partial{h}}{\partial{y}}, -1)
 $$
 
 If you consider just the $x$ and $y$ components, we recognize that
 
 $$
-\tag{1.7}
+\tag{2.2}
 \vec{N}_{xy} = \nabla h
 $$
 
@@ -244,22 +319,26 @@ Which is a property often used in computer graphics applications, as well as geo
 
 <!-- TODO: Actually derive this! -->
 
-After some tedious geometry and a small angle approximation, we find the $x$ and $y$ components of the normal vector $\vec{N}$:
+Using Snell's Law, a small angle approximation, and a lot of tedious geometry, we find the $x$ and $y$ components of the normal vector $\vec{N}$:
 
 $$
-\tag{1.8}
+\tag{2.3}
 N_x(i, j) = \tan \frac{\tan^{-1} \left( \frac{u - x} {d} \right)} {(n_1 - n_2)}
 $$
 $$
-\tag{1.9}
+\tag{2.4}
 N_y(i, j) = \tan \frac{\tan^{-1} \left( \frac{v - y} {d} \right)} {(n_1 - n_2)}
 $$
+
+There is nothing interesting about this derivation so I've skipped it here.
 
 # Finding the Heightmap
 
 At this point we have our morphed grid cells and we've found all our surface normals. All we have to do is find a heightmap $h(x,y)$ that has the required surface normals.
 
-We could try to integrate the normals manually, starting at one corner and working our way down the grid, but this method causes small errors to stack up quickly and can't be performed stably.
+Unfortunately, this is not a problem that is solvable in the general case.
+
+We could try to integrate the normals manually, starting at one corner and working our way down the grid, but this method is not usually possible. If you have a grid of arbitrary normal vectors, in general there is no solid, continuous surface that can be constructed that has those normals.
 
 A much better approach is to reach back to equation $(1.7)$, repeated here:
 
@@ -357,6 +436,8 @@ My source code is available [here](https://github.com/MattFerraro/causticsEngine
 
 I want as many people as possible to have access to this technique, so I've posted it under the MIT license. Please feel free to use this code for anything you want, free from any restrictions whatsoever. I only ask that if you make something, please show me!
 
+The cat in this post is named Mitski and she approves of you using her image as the new standard reference image for image processing papers.
+
 # Contact me
 
 If you use my code to make your own magic windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). I will gladly help if you get stuck!
@@ -367,4 +448,4 @@ I know what you're thinking. *What about the hologram?!*
 
 Does the math above imply that a hologram will always be created, or is this one cat hologram just an incredible coincidence?
 
-Well you see, I've discovered a truly marvelous proof of this, which this website's margin is too narrow to contain.
+Well you see, I've discovered a truly marvelous proof of this, which this website's margin is unfortunately too narrow to contain :)
