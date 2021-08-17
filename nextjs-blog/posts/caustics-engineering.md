@@ -15,7 +15,7 @@ But it has the magic property that if you shine a flashlight on it, it projects 
 
 And if you take it out in the sun, it produces this 3D hologram:
 
-[![Hologram Preview](https://i.imgur.com/nVz7ZF0.png)](https://www.youtube.com/watch?v=7tO8SiZAOvY)
+<video width="607" height="580" autoplay muted controls><source src="/images/caustics/3dcat.mp4" type="video/mp4"></video> 
 
 This post describes the math that went into making the object, and how you can create your own.
 
@@ -23,24 +23,25 @@ This post describes the math that went into making the object, and how you can c
 
 Let's focus on the 2D image before talking about the hologram.
 
+<!--  -->
+<!-- For real? You're looking at my HTML? Super rude. -->
+<!--  -->
+
 The physical phenomenon we're looking at is called a *caustic*.
 
-![Example Caustic](https://courses.cs.ut.ee/MTAT.03.015/2017_fall/uploads/Main/glass.jpg)
+![Example Caustic](/images/caustics/glass_caustic.jpg)
 
 Caustics are the bright patches of light we see when illuminating a transparent object. All the photons which _don't_ pass through the object are what form the object's shadow. All those photons have to go somewhere; they contribute to the caustic pattern.
 
-<!-- Light bouncing around, reflecting and refracting and dispersing, sometimes even back in the direction of the light source, is what gives a diamond it's brilliance. -->
-
 The most interesting aspect of caustics is that they arise from even the tiniest of variations in surface flatness. Even the gentlest waves on the surface of a pool form powerful lenses that cast intense caustics on the floor below.
 
-<!-- ![Water Caustics](https://upload.wikimedia.org/wikipedia/commons/e/ea/Great_Barracuda%2C_corals%2C_sea_urchin_and_Caustic_%28optics%29_in_Kona%2C_Hawaii_2009.jpg) -->
-![Water Caustics](https://courses.cs.ut.ee/MTAT.03.015/2017_fall/uploads/Main/pattern.jpg)
+![Water Caustics](/images/caustics/pool_caustic.jpg)
 
 The reason my acrylic square can project an image is because I've distributed just the right amount of concavity and convexity into the surface so that the refracted light forms a caustic image.
 
 To gain some intuition for how it is done, consider a traditional convex lens:
 
-![Parabolic Lens](https://static.wixstatic.com/media/484e6e_d974eb7c1c8e4b0ea914f971873ea866.gif)
+![Parabolic Lens](/images/caustics/traditional_lens.gif)
 
 This lens forms the simplest possible caustic. It focuses *all* of its incoming light into a single point. The caustic image from this lens is dark everywhere with one very bright spot in the center.
 
@@ -183,10 +184,6 @@ $$
 \nabla \cdot \vec{v} = L(x, y)
 $$
 
-<!-- Remember that $L$ is the loss field we've already calculated, and $\vec{v}$ is some unknown velocity field. $\vec{v}$ is the thing we want to solve for. -->
-
-<!-- We don't yet know the velocity field $\vec{v}$, but we've already found the loss field. -->
-
 Unfortunately there is no "inverse divergence" operator so we cannot easily invert this equation to find $\vec{v}$ directly. But we *can* plug equation $(1.2)$ in to equation $(1.3)$ to yield:
 
 $$
@@ -287,7 +284,7 @@ Where $n_1 = 1.49$ is the [Refractive Index](https://en.wikipedia.org/wiki/Refra
 
 Snell's law is not some arbitrary axiom of physics. It is a direct consequence of Fermat's [Principle of Least Time](https://en.wikipedia.org/wiki/Fermat%27s_principle), which is a fascinating and critical link between ray optics and wave optics. But that's a topic for another day.
 
-In our case, each lens cell $(i, j)$ has migrated to position $(x, y)$, and it needs to send its light to the image plane at $(u, v)$.
+In our case, each lens cell $(i, j)$ has migrated to position $(x, y)$, and it needs to send its light to the image plane at $(u, v)$, which sits some distance away $d$.
 
 <!-- There is some distance between the lens and the image which we can label $d$. Using a little trigonometry we can find the angle between $(x, y)$ and $(u, v)$ which we can call $\theta_2$:
 
@@ -399,7 +396,7 @@ for i in 1:3
 end
 ```
 
-The resulting heightmap be converted to a solid object by adopting a triangular grid and closing off the back surface.
+The resulting heightmap can be converted to a solid object by adopting a triangular grid and closing off the back surface.
 
 ![Final Object](/images/caustics/final_object_1.jpg)
 

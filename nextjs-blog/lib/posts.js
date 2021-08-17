@@ -82,9 +82,9 @@ export async function getPostData(id) {
     .use(slug)
     .use(toc, {tight: true})
     .use(math)
-    .use(remark2rehype)
+    .use(remark2rehype, {allowDangerousHtml: true})
     .use(katex, {"output": "html"})
-    .use(stringify)
+    .use(stringify, {allowDangerousHtml: true})
     .use(rehypePrism)
     .process(matterResult.content);
   
