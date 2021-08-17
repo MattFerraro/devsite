@@ -138,7 +138,7 @@ The loss image can be thought of as a scalar field $L(x, y)$. The gradient of a 
 
 The first thing to do is compute $\nabla L$ and look at the vector field:
 
-![Gradient of L as a vector field](/images/caustics/grad_L.png)
+![Gradient of L as a vector field](/images/caustics/grad_L.jpg)
 
 Crap.
 
@@ -159,11 +159,11 @@ $$
 \nabla \Phi = \left( \frac{\partial{\Phi}}{\partial{x}}, \frac{\partial{\Phi}}{\partial{y}} \right) = \vec{v}
 $$
 
-![Phi](/images/caustics/example_phi.png)
+![Phi](/images/caustics/example_phi.jpg)
 
 Here is an example $\Phi$. It is just some scalar field best viewed as a heightmap.
 
-![Gradient of Phi](/images/caustics/example_grad_phi.png)
+![Gradient of Phi](/images/caustics/example_grad_phi.jpg)
 
 And here is the gradient of that same $\Phi$. These vectors are velocity vectors that point uphill. If we were performing computational fluid dynamics, these vectors would indicate how fluid might flow from regions of high pressure to regions of low pressure. 
 
@@ -210,19 +210,19 @@ This is fantastic news because Poisson's equation is [extremely easy](https://ma
 
 Now that we've written down the problem as Poisson's Equation, it is as good as solved. We can use any off the shelf solver, plug in our known $L(x, y)$ using Neumann boundary conditions and boom, and out pops $\Phi(x,y)$ as if by magic.
 
-![Phi](/images/caustics/clearly_cat_phi.png)
+![Phi](/images/caustics/clearly_cat_phi.jpg)
 
 Can you figure out why the cat appears so clearly in this 3D rendering of $\Phi$? What controls the brightness of each pixel in a render like this?
 
 We plug $\Phi$ in to Equation $(1.2)$ to find $\vec{v}$ and we take a look at the vector field:
 
-![Gradient of Phi](/images/caustics/example_grad_phi.png)
+![Gradient of Phi](/images/caustics/example_grad_phi.jpg)
 
 Disappointingly, it does not look like a kitty to me.
 
 And technically we need to march our points in the direction of _negative_ $\nabla L$ if we want to _decrease_ $L$. Here's $-\nabla L$:
 
-![Negative Gradient of Phi](/images/caustics/negative_grad_phi.png)
+![Negative Gradient of Phi](/images/caustics/negative_grad_phi.jpg)
 
 But the good news is that this vector field is smooth and well-behaved. We simply march the grid points along this vector field and we'll get exactly what we need. 
 
@@ -255,21 +255,21 @@ Look at how this cat's chin ballooned out but her nose and forehead shrunk. Her 
 
 Note that image on the right is just a screenshot of Fusion360's default mesh rendering with the wireframe turned on:
 
-![Screenshot of Fusion360](/images/caustics/Fusion360.png)
+![Screenshot of Fusion360](/images/caustics/Fusion360.jpg)
 
 The reason it is darker in some areas is because the mesh is more tightly packed in those areas. Let's zoom in on the eye:
 
-![Zoom in on the Eye](/images/caustics/zoom_eye.png)
+![Zoom in on the Eye](/images/caustics/zoom_eye.jpg)
 
 Look at how detailed that is! We've managed to capture even the bright reflections in her eyes. Zooming in farther to just the pupil:
 
-![Zoom in on the Pupil](/images/caustics/zoom_pupil.png)
+![Zoom in on the Pupil](/images/caustics/zoom_pupil.jpg)
 
 We can see the fine structure of the grid cells. Our formulation of the problem is only concerned with cells as quadralaterals. The triangles you see are just an artifact of converting our quadralateral grid into a triangle mesh more suitable for other software to deal with.
 
 So again, in summary:
 
-![Overall Flow](/images/caustics/overall_flow.png)
+![Overall Flow](/images/caustics/overall_flow.jpg)
 
 If we follow these steps we will successfully morph our grid points. Now we've got to do some geometry!
 
@@ -338,32 +338,32 @@ At this point we have our morphed grid cells and we've found all our surface nor
 
 Unfortunately, this is not a problem that is solvable in the general case.
 
-We could try to integrate the normals manually, starting at one corner and working our way down the grid, but this method is not usually possible. If you have a grid of arbitrary normal vectors, in general there is no solid, continuous surface that can be constructed that has those normals.
+We could try to integrate the normals manually, starting at one corner and working our way down the grid, but this method is not usually possible while remaining continuous. If the integral of the normals running left to right pulls your surface up, but the integral of the normals running top to bottom pulls your surface down, there is just no smooth solution.
 
-A much better approach is to reach back to equation $(1.7)$, repeated here:
+A much better approach is to reach back to equation $(2.2)$, repeated here:
 
 $$
-\tag{1.7}
+\tag{2.2}
 \vec{N}_{xy} = \nabla h
 $$
 
 And to take the divergence of both sides:
 
 $$
-\tag{1.10}
+\tag{2.5}
 \nabla \cdot \vec{N}_{xy} = \nabla \cdot \nabla h
 $$
 
 Do you recognize the form of this equation? Adopting shorthand and swapping sides:
 $$
-\tag{1.11}
+\tag{2.6}
 \nabla ^2 h = \nabla \cdot \vec{N}_{xy}
 $$
 
-We arrive at yet another instance of Poisson's Equation! We found $\vec{N}_{xy}$ in the previous section, and calculating the divergence of a known vector field is easy:
+We arrive at yet another instance of [Poisson's Equation](https://mattferraro.dev/posts/poissons-equation)! We found $\vec{N}_{xy}$ in the previous section, and calculating the divergence of a known vector field is easy:
 
 $$
-\tag{1.12}
+\tag{2.7}
 \nabla \cdot \vec{N}_{xy} = \left( \frac{\partial}{\partial{x}}, \frac{\partial}{\partial{y}} \right) \cdot (\vec{N}_x, \vec{N}_y) = \frac{\partial{\vec{N}_x}}{\partial{x}} + \frac{\partial{\vec{N}_y}}{\partial{y}}
 $$
 
@@ -377,12 +377,10 @@ divergence[i, j] = δx + δy
 
 All that's left is to plug our known $\nabla \cdot \vec{N}_{xy}$ in to a Poisson solver with Neumann boundary conditions and out pops $h(x, y)$, ready to use!
 
-[example h field]
-
-Well, that's not quite accurate. By modifying the height of each point we've actually changed the distance from each lens point to the image, so the lens-image distance is no longer a constant $d$ it is actually a function $D(x,y)$. With our heightmap in hand we can easily calculate:
+Well, there's one thing left to improve. By modifying the height of each point we've actually changed the distance from each lens point to the image, so the lens-image distance is no longer a constant $d$ it is actually a function $D(x,y)$. With our heightmap in hand we can easily calculate:
 
 $$
-\tag{1.13}
+\tag{2.8}
 D(x,y) = d - h(x,y)
 $$
 
@@ -402,21 +400,33 @@ for i in 1:3
 end
 ```
 
-If you're familiar with 3D meshes and obj files, the resulting heightmap can easily be converted to a solid object:
+The resulting heightmap be converted to a solid object by adopting a triangular grid and closing off the back surface.
 
-[image of final solid object]
+![Final Object](/images/caustics/final_object_1.jpg)
+
+Note that the image looks mirrored when looking at it head on. That's because the heightmap forms the _back_ surface of the magic window. The front surface is factory flat.
+
+![Final Object](/images/caustics/final_object_2.jpg)
+
+The height differences are subtle but certainly enough to get the job done.
+
+![Finished Product](/images/caustics/finished_product.jpg)
 
 # Manufacturing
 
-We can bring our object into Fusion360 or any other CAM software. From there we can set up a roughing toolpath left to right, and a finishing toolpath top to bottom.
+The process of manufacturing our Magic Window is identical to carving any other 2.5D object.
 
-I designed and built my own CNC router last year. If you want to do the same you can learn how [here](https://mattferraro.dev/posts/cnc-router).
+We bring our object into Fusion360 or any other CAM software. We set up a roughing toolpath left to right, and a finishing toolpath top to bottom just like you find in most tutorials.
 
-After carving on your CNC router or mill, the surface finish is rough and transluscent. We need to wet sand using $200, 400, 600, 1000$ and $1500$ grit sandpapers, then finish with a soft rag and some automotive polish. Polishing takes about half an hour for a $10 cm \times 10 cm$ magic window.
+Any old CNC router or mill will work. I designed and built my own router last year. If you want to do the same I recommend you start [here](https://mattferraro.dev/posts/cnc-router).
 
-[picture of sanding or finished product]
+I used a $\frac{1}{4}$ inch diameter, ball-nosed, carbide bit for both roughing and finishing passes, which took 10 minutes and 90 minutes respectively.
 
-If you're interesting in making one of these yourself, I used a $\frac{1}{4}$ inch diameter, ball-nosed, carbide bit for both roughing and finishing passes, which took 10 minutes and 90 minutes respectively.
+![On the Router](/images/caustics/on_the_router.jpg)
+
+After carving the surface finish is rough and transluscent. We need to wet sand using $200, 400, 600, 1000$ and $1500$ grit sandpapers, then finish with a soft rag and some automotive polish. Sanding and polishing takes about half an hour for a $10 cm \times 10 cm$ Magic Window.
+
+![After Sanding](/images/caustics/after_sanding.jpg)
 
 # Acknowledgements
 
@@ -430,11 +440,15 @@ It does not work well to embed a grid of small lenses onto the surface, where ea
 
 # My Code
 
-My source code is available [here](https://github.com/MattFerraro/causticsEngineering). I am very new to programming in Julia so if you have suggestions for how to improve this code, please reach out or make a pull request!
+My source code is available [here](https://github.com/MattFerraro/causticsEngineering). I am a novice at programming in Julia so if you have suggestions for how to improve this code, please reach out or make a pull request!
+
+**Caveats**: There are a lot of issues with my code. I confuse $x$ and $y$ in several places. I have extra negative signs that I inserted that make the code work but I don't know why. My units and notation are inconsistent throughout. The original paper suggests a better way of calculating loss but I didn't implement it because the naive way was easier, yet I rolled by own mesh utilities and Poisson solver because I enjoyed the challenge.
+
+In short: To me this code is a fun side project. If you want to build a business off of this code you should probably hire someone who knows how to program professionally in Julia.
 
 # Licensing
 
-I want as many people as possible to have access to this technique, so I've posted it under the MIT license. Please feel free to use this code for anything you want, free from any restrictions whatsoever. I only ask that if you make something, please show me!
+I want as many people as possible to have access to this technique, so I've posted it under the MIT license. Please feel free to use this code for anything you want, including hobbyist, educational, and business uses. I only ask that if you make something, please show me!
 
 The cat in this post is named Mitski and she approves of you using her image as the new standard reference image for image processing papers.
 
