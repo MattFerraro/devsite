@@ -15,7 +15,7 @@ But it has the magic property that if you shine a flashlight on it, it projects 
 
 And if you take it out in the sun, it produces this 3D hologram:
 
-<video width="607" height="580" autoplay muted controls><source src="/images/caustics/3dcat.mp4" type="video/mp4"></video> 
+<video width="607" height="580" autoplay muted controls loop><source src="/images/caustics/3dcat.mp4" type="video/mp4"></video> 
 
 This post describes the math that went into making the object, and how you can create your own.
 
@@ -43,10 +43,10 @@ To gain some intuition for how it is done, consider a traditional convex lens:
 
 ![Parabolic Lens](/images/caustics/traditional_lens.gif)
 
-This lens forms the simplest possible caustic. It focuses *all* of its incoming light into a single point. The caustic image from this lens is dark everywhere with one very bright spot in the center.
+This lens forms the simplest possible caustic. If all the incoming light is from a single, very distant light source like the Sun, this lens focuses all of its incoming light into a single point. The caustic image from this lens is dark everywhere with one very bright spot in the center.
 
 Zooming in on one small section of the lens we notice a few properties:
-1. The thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the left side of this lens and nothing would change
+1. The overall thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the left side of this lens and nothing would change
 2. The angle formed between the incoming light rays and the glass has a strong effect on the refracted ray angle
 3. Whether two rays converge or diverge is controlled by how *curved* the lens is where the rays meet the glass
 
@@ -407,6 +407,20 @@ Note that the image looks mirrored when looking at it head on. That's because th
 The height differences are subtle but certainly enough to get the job done.
 
 ![Finished Product](/images/caustics/finished_product.jpg)
+
+<!-- # Testing
+
+We can verify in software whether or not we did our math right. [Blender](https://www.blender.org/) is a piece of software made for making 3D renderings. It is feature-rich and optimized for speed. It has a rich ecosystem of plugins.
+
+Separate from Blender, [LuxCoreRenderer](/https://luxcorerender.org/) is a physically-accurate rendering engine capable of accurately simulating caustics. It is optimized for correctness.
+
+Amazingly, you use LuxCoreRenderer from within Blender by using [BlendLuxCore](https://luxcorerender.org/download/). This gives you the convenience of Blender when setting up your scene, and the accuracy of LuxCore so you know your caustic simulations will come out correct.
+
+We can import our Magic Window into Blender, set up a light source and an image plane, and test it out!
+
+![Simulated Image](/images/caustics/blender.jpg)
+
+I've included an example project in the github repo.  -->
 
 # Manufacturing
 
