@@ -15,7 +15,7 @@ But it has the magic property that if you shine a flashlight on it, it forms an 
 
 And if you take it out in the sun, it produces this 3D hologram:
 
-<video width="607" height="580" autoplay muted controls loop><source src="/images/caustics/3dcat.mp4" type="video/mp4"></video> 
+<video width="100%" height="auto" autoplay muted controls loop><source src="/images/caustics/3dcat.mp4" type="video/mp4"></video> 
 
 This post describes the math that went into making the object, and how you can create your own.
 
