@@ -39,3 +39,14 @@ code {
   font-size: 14px;
 }
 
+blockquote {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #eee
+}
+
+.comment {
+  font-style:italic;
+}

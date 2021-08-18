@@ -31,7 +31,7 @@ The physical phenomenon we're looking at is called a *caustic*.
 
 ![Example Caustic](/images/caustics/glass_caustic.jpg)
 
-Caustics are the bright patches of light we see when illuminating a transparent object. All the photons which _don't_ pass through the object are what form the object's shadow. All those photons have to go somewhere; they contribute to the caustic pattern.
+Caustics are the bright patches of light we see when illuminating a transparent object. All the photons that _don't_ pass through the object are what form the object's shadow. All those photons have to go somewhere; they contribute to the caustic pattern.
 
 The most interesting aspect of caustics is that they arise from even the tiniest of variations in surface flatness. Even the gentlest waves on the surface of a pool form powerful lenses that cast intense caustics on the floor below.
 
@@ -56,11 +56,11 @@ The thickness of my acrylic slab varies across the entire $xy$ plane, so I'll ca
 
 By controlling $\nabla h = (\frac{\partial h}{\partial x}, \frac{\partial h}{\partial y}$), and $\nabla ^2 h = (\frac{\partial ^2 h}{\partial x^2} + \frac{\partial ^2 h}{\partial y^2})$, we can steer all of our incoming light to the correct locations in the image, while contributing the right brightness to make it recognizable. By making some simplifying assumptions we can guarantee that the resulting heightmap will be smooth and continuous.
 
-For the magic window shown above, the total height variation over the $10cm \times 10cm$ surface is about $2.0mm$.
+For the Magic Window shown above, the total height variation over the $10cm \times 10cm$ surface is about $2.0mm$.
 
 ![Slight Refraction](/images/caustics/slight_refraction.jpg)
 
-See how the slight variations in surface height distort the straight line of the floor moulding? Our magic window works like any other lens--by bending light.
+See how the slight variations in surface height distort the straight line of the floor moulding? Our Magic Window works like any other lens—by bending light.
 
 # Table of Contents
 
@@ -74,7 +74,7 @@ Remember that $(i, j)$ are integers labeling the column and row of the pixel, wh
 
 # Steps to a Solution
 
-**Step 1:** We morph the cells on the lens, making them bigger or smaller, so that the area of lens cell $(i, j)$ is proportional to the brightness of image cell $(i, j)$. The resulting lens grid is no longer square--lots of warping and skew have to be introduced to maintain continuity. This step is by far the hardest part and must be solved iteratively.
+**Step 1:** We morph the cells on the lens, making them bigger or smaller, so that the area of lens cell $(i, j)$ is proportional to the brightness of image cell $(i, j)$. The resulting lens grid is no longer square—lots of warping and skew have to be introduced to maintain continuity. This step is by far the hardest part and must be solved iteratively.
 
 **Step 2:** For each cell $(i, j)$ we need to find the angle from the lens cell to image cell and use Snell's law to find the required surface normal. This step is straightforward geometry.
 
@@ -117,7 +117,9 @@ $$
 In code:
 
 ```julia
-brightness = Gray.(load("cat.png"))
+# In Julia-flavored psuedocode
+img = read_image("cat.png")
+brightness = convert_to_grayscale(img)
 total_brightness = sum(brightness)
 brightness = brightness ./ total_brightness
 
@@ -165,7 +167,7 @@ Here is an example $\Phi$. It is just some scalar field best viewed as a heightm
 
 ![Gradient of Phi](/images/caustics/example_grad_phi.jpg)
 
-And here is the gradient of that same $\Phi$. These vectors are velocity vectors that point uphill. If we were performing computational fluid dynamics, these vectors would indicate how fluid might flow from regions of high pressure to regions of low pressure. 
+And here is the gradient of that same $\Phi$. These vectors are velocity vectors that point uphill. If we were performing Computational Fluid Dynamics, these vectors would indicate how fluid might flow from regions of high pressure to regions of low pressure. 
 
 Notice how well behaved this vector field is! There is gentle variation across the field but any two neighbors are very similar to each other. None of the arrows pierce the boundary.
 
@@ -177,7 +179,7 @@ So how do we find a suitable $\Phi$? Well, the property we know about each cell 
 
 > This property, how much a cell grows or shrinks over time as it moves with a velocity field, is called the **divergence** of that field.
 
-Divergence is written as "$\nabla \cdot$" so in our case, we know that we need to find a velocity field $\vec{v}$ whose divergence equals the loss:
+Divergence is written as $\nabla \cdot$, so in our case, we know that we need to find a velocity field $\vec{v}$ whose divergence equals the loss:
 
 $$
 \tag{1.3}
@@ -229,6 +231,7 @@ If you squint you can almost see how the bright background will expand and the c
 We step all the lens grid points forward some small amount in the direction of $-\vec{v}$. After morphing the grid a tiny amount we recompute the loss function $L$, find a new $\Phi$ and new $-\vec{v}$, and take another small step.
 
 ```julia
+# In Julia-flavored psuedocode
 image = read_image("cat.png")
 gray = convert_to_grayscale(image)
 grid = create_initial_grid(gray.size + 1)
@@ -257,7 +260,7 @@ The reason it is darker in some areas is because the mesh is more tightly packed
 
 ![Zoom in on the Eye](/images/caustics/zoom_eye.jpg)
 
-Look at how detailed that is! We've managed to capture even the bright reflections in her eyes. Zooming in farther to just the pupil:
+Look at how detailed that is! We've managed to capture even the bright reflections in her eyes. Zooming in further to just the pupil:
 
 ![Zoom in on the Pupil](/images/caustics/zoom_pupil.jpg)
 
@@ -297,7 +300,13 @@ $$
 
 Plugging $\theta_2$ into $(1.4)$ gives us $\theta_1$. The incoming light rays are assumed to be horizontal and parallel, so $\theta_1$ gives us the angle of the surface normal. -->
 
-We start by defining a 3D normal vector $\vec{N}(x, y)$ which everywhere points normal to our heightmap $h(x, y)$. If we normalize $\vec{N}$ so that its $z$ coordinate is $-1$, we can write it:
+We start by defining a 3D normal vector $\vec{N}(x, y)$ which everywhere points normal to our heightmap $h(x, y)$.
+
+![Example Surface Normals](/images/caustics/surface_normals.svg)
+
+Normal vectors always point perpendicular to the surface they start on. They generally encode meaning in their direction, not their length, so we're free to scale them to any length that is convenient for our purposes. Very often people choose to make their Normal vectors of length $1$.
+
+But if we normalize $\vec{N}$ so that its $z$ coordinate is $-1$, we can write it:
 
 $$
 \tag{2.1}
@@ -334,7 +343,9 @@ At this point we have our morphed grid cells and we've found all our surface nor
 
 Unfortunately, this is not a problem that is solvable in the general case.
 
-We could try to integrate the normals manually, starting at one corner and working our way down the grid, but this method is not usually possible while remaining continuous. If the integral of the normals running left to right pulls your surface up, but the integral of the normals running top to bottom pulls your surface down, there is just no smooth solution.
+We could try to integrate the normals manually, starting at one corner and working our way down the grid, but this method does not usually result in a physically realizable object. 
+
+If the integral of the normals running left to right pulls your surface up, but the integral of the normals running top to bottom pulls your surface down, there is just no solution that results in a solid, unbroken surface.
 
 A much better approach is to reach back to equation $(2.2)$, repeated here:
 
@@ -385,6 +396,7 @@ And repeat the process by calculating new normals using $D(x,y)$ instead of $d$,
 We can loop this process and measure changes to ensure convergence, but in practice just 2 or 3 iterations is all you need:
 
 ```julia
+# In Julia-flavored psuedocode
 d = .2 # meters
 D = d .* array_of_ones(n, n)
 
@@ -396,11 +408,15 @@ for i in 1:3
 end
 ```
 
+<!--  -->
+<!-- Honestly you should turn back before you see something you aren't supposed to see -->
+<!--  -->
+
 The resulting heightmap can be converted to a solid object by adopting a triangular grid and closing off the back surface.
 
 ![Final Object](/images/caustics/final_object_1.jpg)
 
-Note that the image looks mirrored when looking at it head on. That's because the heightmap forms the _back_ surface of the magic window. The front surface is factory flat.
+Note that the image looks mirrored when looking at it head on. That's because the heightmap forms the _back_ surface of the Magic Window. The front surface is factory flat.
 
 ![Final Object](/images/caustics/final_object_2.jpg)
 
@@ -464,7 +480,7 @@ The cat in this post is named Mitski and she approves of you using her image as 
 
 # Contact me
 
-If you use my code to make your own magic windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). I will gladly help if you get stuck!
+If you use my code to make your own Magic Windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). I will gladly help if you get stuck!
 
 # One Last Thing
 
