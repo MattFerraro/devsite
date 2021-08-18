@@ -9,7 +9,7 @@ I recently made a physical object that defies all intuition. It's a square of ac
 
 ![Clear Acrylic](/images/caustics/window_clear.jpg)
 
-But it has the magic property that if you shine a flashlight on it, it projects an image:
+But it has the magic property that if you shine a flashlight on it, it forms an image:
 
 ![2D Image of Cat](/images/caustics/2D_image.jpg)
 
