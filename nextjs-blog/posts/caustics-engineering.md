@@ -1,5 +1,5 @@
 ---
-title: "The Physics Of Magic Windows"
+title: "Hiding Images in Plain Sight: The Physics Of Magic Windows"
 teaser: "I recently made a physical object that defies all intuition. It's a square of acrylic, smooth on both sides, totally transparent..."
 teaserImage: 'https://mattferraro.dev/images/caustics/2D_image.jpg'
 date: '2021-08-18'
