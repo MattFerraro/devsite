@@ -31,13 +31,13 @@ The physical phenomenon we're looking at is called a *caustic*.
 
 ![Example Caustic](/images/caustics/glass_caustic.jpg)
 
-Caustics are the bright patches of light we see when illuminating a transparent object. All the photons that _don't_ pass through the object are what form the object's shadow. All those photons have to go somewhere; they contribute to the caustic pattern.
+Caustics are the bright patches of light we see when illuminating a transparent object. All the photons that don't pass directly through the object are what form the object's shadow. All those photons still have to go somewhere; they contribute to the caustic pattern.
 
 The most interesting aspect of caustics is that they arise from even the tiniest of variations in surface flatness. Even the gentlest waves on the surface of a pool form powerful lenses that cast intense caustics on the floor below.
 
 ![Water Caustics](/images/caustics/pool_caustic.jpg)
 
-The reason my acrylic square can project an image is because I've distributed just the right amount of concavity and convexity into the surface so that the refracted light forms a caustic image.
+The reason my acrylic square can form an image is because I've distributed just the right amount of concavity and convexity into the surface so that the refracted light forms a caustic image.
 
 To gain some intuition for how it is done, consider a traditional convex lens:
 
