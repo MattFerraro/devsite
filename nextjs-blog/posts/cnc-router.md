@@ -230,7 +230,7 @@ A servo motor is a complex feedback control system in its own right. It consists
 
 Any type of motor can be used, including DC, AC, or stepper motors. The sensor is usually a digital rotary encoder, but some systems use rotary resolvers or hall-effect sensors. The controller is usually some sort of microcontroller that has configurable gains so you can tune in the response characteristics that you want. Some controllers consist purely of discrete electrical components and may be tuned by moving potentiometers.
 
-Compared to steppers, servo motors are generally much faster, quieter, smoother, and stronger. Their drawbacks are complexity and price. A single stepper motor for a single axis of a CNC router might cost $40. A drop in replacement servo motor may cost $400 and require tuning after installation.
+Compared to steppers, servo motors are generally much faster, quieter, smoother, and stronger. Their drawbacks are complexity and price. A single stepper motor for a single axis of a CNC router might cost \$40. A drop in replacement servo motor may cost \$400 and require tuning after installation.
 
 That said, servo motors don't skip steps. Even if you do temporarily overwhelm the available torque, the defects on the resulting part will be limited to only the immediate area where the problem occurred.
 
@@ -420,7 +420,7 @@ Technically you could buy the components separately to design your own custom sp
 
 By far the most common choice for hobby grade CNC routers, a palm router like the [Makita RT0701C](https://www.amazon.com/Makita-RT0701C-1-1-Compact-Router/dp/B00E7D3V4S/ref=sr_1_1) or [DeWalt DW611](https://www.dewalt.com/products/power-tools/routers-planers-and-joiners/routers/114-hp-max-torque-variable-speed-compact-router/dwp611) is a great starting spindle.
 
-The big advantages are cost and availability. These routers are usually about $100 and if they break you can run to the nearest home depot and get a drop-in replacement same day. They are also very commonly used by hobbyists so there are loads of resources on optimal feeds and speeds, how to trigger them via GRBL, etc. They are also small and simple and plug directly into the wall.
+The big advantages are cost and availability. These routers are usually about \$100 and if they break you can run to the nearest home depot and get a drop-in replacement same day. They are also very commonly used by hobbyists so there are loads of resources on optimal feeds and speeds, how to trigger them via GRBL, etc. They are also small and simple and plug directly into the wall.
 
 One big disadvantage is that the collets in these small routers are only capable of holding bits of 1/4 inch shank size. To fit smaller bits you'll need an adapter sleeve and larger bits just won't work. The follow on effect of skinny bits is that their lack of rigidity can become a limiting factor on the accuracy of your cuts, as can the runout of the router, which is just not designed to be a high precision tool.
 
@@ -436,7 +436,7 @@ Air cooled spindles are generally much more performant than the palm routers. Th
 
 Spindles are usually based on brushless motors rather than brushed, so while a palm router might need its brushes changed after 1000 hours of use, a spindle would be expected to keep working 10 times as long before needing any maintainence.
 
-Their drawbacks are higher cost ($300-$600), long lead time because you usually have to order one from China, and much heavier weight, usually 3x higher than a palm router. Another drawback is that the control electronics live in a separate box that needs to be stored somewhere on your machine. If you really want the highest performance out of your machine, buy a real spindle.
+Their drawbacks are higher cost (\$300-\$600), long lead time because you usually have to order one from China, and much heavier weight, usually 3x higher than a palm router. Another drawback is that the control electronics live in a separate box that needs to be stored somewhere on your machine. If you really want the highest performance out of your machine, buy a real spindle.
 
 ## Water Cooled Spindle
 
@@ -454,7 +454,7 @@ The second big advantage is [low noise](https://www.youtube.com/watch?v=Wlhjn8lv
 
 Beware of any DC spindles you find. These are typically extremely low quality devices made to look similar to real spindles but they are much smaller with just a fraction of the output power.
 
-From what I can tell, these are meant to trick people into thinking they are buying high quality spindles while in fact giving you the lowest quality product imaginable. If you see a spindle with just a red and black wire coming out of it, or if you see a spindle for [<$200](https://www.aliexpress.com/item/32899321348.html), it is likely not worth buying.
+From what I can tell, these are meant to trick people into thinking they are buying high quality spindles while in fact giving you the lowest quality product imaginable. If you see a spindle with just a red and black wire coming out of it, or if you see a spindle for [<\$200](https://www.aliexpress.com/item/32899321348.html), it is likely not worth buying.
 
 ---
 
@@ -490,7 +490,7 @@ Many designs combine spoilboard and T track together by using thin slats of spoi
 
 ![Machinist Vise](/images/cnc-router/vise.jpg "Example Machinist Vise")
 
-If you really need high precision, repeatable, extremely rigid work holding then a machinist vise is a great choice. The biggest downsides are cost and clearance. A good machinist vise is about $1000 and most CNC routers lack the gantry clearance to fit a vice. But if your CNC router is more of a CNC mill in terms of rigidity, axis arrangement, and material to cut, a vice might be for you.
+If you really need high precision, repeatable, extremely rigid work holding then a machinist vise is a great choice. The biggest downsides are cost and clearance. A good machinist vise is about \$1000 and most CNC routers lack the gantry clearance to fit a vice. But if your CNC router is more of a CNC mill in terms of rigidity, axis arrangement, and material to cut, a vice might be for you.
 
 ---
 
