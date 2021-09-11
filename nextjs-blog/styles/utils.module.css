@@ -50,3 +50,14 @@
 .lightText {
   color: #999;
 }
+
+.postCard {
+  background-color: antiquewhite;
+}
+
+.postCard img {
+  height: 200px;
+  width: 300px;
+  border-radius: 8px;
+  object-fit: cover;
+}
