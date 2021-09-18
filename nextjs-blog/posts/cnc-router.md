@@ -7,7 +7,7 @@ date: '2021-01-17'
 
 ![My Homemade CNC Router](/images/cnc-router/my_router.jpg "My Homemade CNC Router")
 
-This is the encyclopedic blog post I wish I could have read when I started designing my CNC router
+This is the encyclopedic blog post I wish I could have read when I started designing my CNC router.
 
 I'll cover all the components and some of the design considerations you'll need to keep in mind when desiging your own CNC router.
 

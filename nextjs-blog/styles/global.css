@@ -50,3 +50,7 @@ blockquote {
 .comment {
   font-style:italic;
 }
+
+.attribution {
+  font-size: 12px;
+}

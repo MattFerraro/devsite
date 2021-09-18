@@ -29,19 +29,21 @@ Let's focus on the 2D image before talking about the hologram.
 
 The physical phenomenon we're looking at is called a *caustic*.
 
-![Example Caustic](/images/caustics/glass_caustic.jpg)
+![Example Caustic](/images/caustics/glass_caustic_pd.jpg)
+<div class="attribution">Photo from <a href="https://pixabay.com/photos/glass-water-kaleidoscope-1730518/">Pixabay</a>, licensed as <a href="https://pixabay.com/service/license/">public domain</a></div>
 
 Caustics are the bright patches of light we see when illuminating a transparent object. All the photons that don't pass directly through the object are what form the object's shadow. All those photons still have to go somewhere; they contribute to the caustic pattern.
 
 The most interesting aspect of caustics is that they arise from even the tiniest of variations in surface flatness. Even the gentlest waves on the surface of a pool form powerful lenses that cast intense caustics on the floor below.
 
-![Water Caustics](/images/caustics/pool_caustic.jpg)
+![Water Caustics](/images/caustics/water_caustics_cc.jpg)
+<div class="attribution">Photo by <a href="https://www.flickr.com/photos/fdecomite/244887979">fdecomite</a> via flickr, licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a></div>
 
 The reason my acrylic square can form an image is because I've distributed just the right amount of concavity and convexity into the surface so that the refracted light forms a caustic image.
 
 To gain some intuition for how it is done, consider a traditional convex lens:
 
-![Parabolic Lens](/images/caustics/traditional_lens.gif)
+![Parabolic Lens](/images/caustics/traditional_lens.svg)
 
 This lens forms the simplest possible caustic. If all the incoming light is from a single, very distant light source like the Sun, this lens focuses all of its incoming light into a single point. The caustic image from this lens is dark everywhere with one very bright spot in the center.
 
@@ -276,7 +278,7 @@ If we follow these steps we will successfully morph our grid points. Now we've g
 
 Snell's law tells us how light bends when passing from one material to another. 
 
-![Snell's Law](https://uploads-cdn.omnicalculator.com/images/snells-law2.png)
+![Snell's Law](/images/caustics/snells_law_2.svg)
 
 $$
 \tag{2.0}
@@ -303,6 +305,7 @@ Plugging $\theta_2$ into $(1.4)$ gives us $\theta_1$. The incoming light rays ar
 We start by defining a 3D normal vector $\vec{N}(x, y)$ which everywhere points normal to our heightmap $h(x, y)$.
 
 ![Example Surface Normals](/images/caustics/surface_normals.svg)
+<div class="attribution">Image modified from <a href="https://en.wikipedia.org/wiki/Normal_(geometry)#/media/File:Normal_vectors_on_a_curved_surface.svg">Chetvorno</a>, licensed as <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en">CC0</a></div>
 
 Normal vectors always point perpendicular to the surface they start on. They generally encode meaning in their direction, not their length, so we're free to scale them to any length that is convenient for our purposes. Very often people choose to make their Normal vectors of length $1$.
 
@@ -474,9 +477,11 @@ In short: To me this code is a fun side project. If you want to build a business
 
 # Licensing
 
-I've posted it all under the MIT license. Please feel free to use this code for anything you want, including hobbyist, educational, and business uses. I only ask that if you make something, please show me!
+I've posted all my code under the MIT license. Please feel free to use this code for anything you want, including hobbyist, educational, and commercial uses. I only ask that if you make something, please show me!
 
-The cat in this post is named Mitski and she approves of you using her image as the new standard reference image for image processing papers.
+Except where otherwise attributed, all images in this blog post and the blog post itself are my own work that I license as [CC-BY](https://creativecommons.org/licenses/by/2.0/).
+
+The cat in this post is named Mitski and she approves of you using her image as the new standard reference image for image processing papers. It's time for Lenna to [retire](https://en.wikipedia.org/wiki/Lenna#Criticism).
 
 # Contact me
 

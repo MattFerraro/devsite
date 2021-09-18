@@ -256,7 +256,7 @@ We generally run a relaxation until the values stabilize. We set some threshold 
 
 We can add this threshold check and run the loop until stablization. For this tiny example it takes $97$ steps to converge. 
 
-If we want to run a higher-resolution simulation on say a $100x100$ square grid, that takes $28,851$ steps.
+If we want to run a higher-resolution simulation on say a $100 \times 100$ square grid, that takes $28,851$ steps.
 
 ### Update in place
 
@@ -324,7 +324,7 @@ Instead of looking at $f$ as a table of numerical values between $0$ and $1$, le
 
 ![The function F interpreted as an image](/images/laplace/hot_right.png)
 
-This is the solution to our original boundary conditions of $0$ everywhere and $1$ on the rightmost boundary, just scaled up to 100x100 cells. If the value in question is heat, this output matches our expectation that heat flows in from the edge and heats up just the right side of the grid.
+This is the solution to our original boundary conditions of $0$ everywhere and $1$ on the rightmost boundary, just scaled up to $100 \times 100$ cells. If the value in question is heat, this output matches our expectation that heat flows in from the edge and heats up just the right side of the grid.
 
 ---
 
@@ -340,7 +340,7 @@ Instead of living in 2D and making images, we can interpret the values as height
 
 ![](/images/laplace/hot_right_mesh.png)
 
-(Here I've exaggerated the height by $30x$ just see it better)
+(Here I've exaggerated the height by $30x$ just to see it better)
 
 This is a common way to visualize electric potential functions because it is super easy to interpret: a negatively charged particle, if left to drift through this potential field, would roll downhill like a marble on a ramp. A positively charged particle, which is just a negatively charged particle with its time dimension reversed, would roll uphill. This gives us everything we need to know to plot the trajectory of a charged particle through an acceleration gap!
 
