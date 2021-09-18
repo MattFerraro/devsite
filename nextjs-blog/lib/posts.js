@@ -5,6 +5,7 @@ import remark from 'remark'
 import slug from 'remark-slug'
 import html from 'remark-html'
 import toc from 'remark-toc'
+import remarkGfm from 'remark-gfm'
 import math from 'remark-math'
 import remark2rehype from 'remark-rehype'
 import katex from 'rehype-katex'
@@ -82,6 +83,7 @@ export async function getPostData(id) {
     .use(slug)
     .use(toc, {tight: true})
     .use(math)
+    .use(remarkGfm)
     .use(remark2rehype, {allowDangerousHtml: true})
     .use(katex, {"output": "html"})
     .use(stringify, {allowDangerousHtml: true})
