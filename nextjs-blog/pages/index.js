@@ -4,6 +4,7 @@ import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
+import Image from "next/image"
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData()
@@ -23,7 +24,7 @@ export default function Home ({ allPostsData }) {
       <section className={utilStyles.headingMd}>
         <p>I'm an aerospace engineer and a software engineer. I love math and science, and I have two cats.</p>
 
-        <p>I try to post deep write-ups for a technical audience.</p>
+        <p>I try to post deep write-ups for a technical audience roughly once a month.</p>
 
         <p>If you want to subscribe to my content you can do so <a href="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i">here</a>.</p>
         
@@ -34,9 +35,10 @@ export default function Home ({ allPostsData }) {
           {allPostsData.map(({ id, date, title, teaser, teaserImage }) => (
             <li className={utilStyles.listItem} key={id}>
               <div className={utilStyles.postCard}>
-                <img src={teaserImage}></img>
+                {/* <img src={teaserImage}></img> */}
+                <Image src={teaserImage} height={200} width="612"></Image>
                 <div className={utilStyles.postCardTitle}>
-                  <Link href={`/posts/${id}`}>
+                  <Link href={`/posts/${id}`} prefetch={false}>
                     <a>{title}</a>
                   </Link>
                 </div>
