@@ -14,6 +14,7 @@ import markdown from 'remark-parse'
 import stringify from 'rehype-stringify'
 import unified from 'unified'
 import visit from 'unist-util-visit'
+import Image from "next/image"
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -91,8 +92,9 @@ function attacher() {
     visit(tree, 'element', visitor)
     function visitor(node, index, parent) {
       if (node.tagName == "img") {
-        console.log(node)
+        // console.log(node)
       }
+      // node.tagName = "Image"
     }
   }
 }
@@ -113,7 +115,7 @@ export async function getPostData(id) {
     .use(remark2rehype, {allowDangerousHtml: true})
     .use(katex, {"output": "html"})
     .use(stringify, {allowDangerousHtml: true})
-    .use(attacher)
+    // .use(attacher)
     .use(rehypePrism)
     .process(matterResult.content);
   
