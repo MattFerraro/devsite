@@ -13,6 +13,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 import markdown from 'remark-parse'
 import stringify from 'rehype-stringify'
 import unified from 'unified'
+import visit from 'unist-util-visit'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -81,6 +82,21 @@ export function getAllPostIds() {
   })
 }
 
+function attacher() {
+  return transformer
+
+  function transformer(tree, file) {
+    // console.info(tree)
+    // console.info(tree)
+    visit(tree, 'element', visitor)
+    function visitor(node, index, parent) {
+      if (node.tagName == "img") {
+        console.log(node)
+      }
+    }
+  }
+}
+
 export async function getPostData(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -97,6 +113,7 @@ export async function getPostData(id) {
     .use(remark2rehype, {allowDangerousHtml: true})
     .use(katex, {"output": "html"})
     .use(stringify, {allowDangerousHtml: true})
+    .use(attacher)
     .use(rehypePrism)
     .process(matterResult.content);
   
