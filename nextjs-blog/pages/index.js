@@ -23,7 +23,9 @@ export default function Home ({ allPostsData }) {
       <section className={utilStyles.headingMd}>
         <p>I'm an aerospace engineer and a software engineer. I love math and science, and I have two cats.</p>
 
-        <p>I try to post deep write-ups for an engineering audience</p>
+        <p>I try to post deep write-ups for a technical audience.</p>
+
+        <p>If you want to subscribe to my content you can do so <a href="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i">here</a>.</p>
         
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
@@ -42,13 +44,13 @@ export default function Home ({ allPostsData }) {
                   <Date dateString={date} />
                 </small>
               </div>
-              
-            
-            
-            
           </li>
           ))}
         </ul>
+      </section>
+
+      <section>
+      <iframe width="100%" height="390" src="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i" frameborder="0" scrolling="auto" allowfullscreen style={{display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%"}}></iframe>
       </section>
     </Layout>
   )

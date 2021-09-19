@@ -481,11 +481,11 @@ I've posted all my code under the MIT license. Please feel free to use this code
 
 Except where otherwise attributed, all images in this blog post and the blog post itself are my own work that I license as [CC-BY](https://creativecommons.org/licenses/by/2.0/).
 
-The cat in this post is named Mitski and she approves of you using her image as the new standard reference image for image processing papers. It's time for Lenna to [retire](https://en.wikipedia.org/wiki/Lenna#Criticism).
+The cat in this post is named Mitski and she approves of you using her image as the new standard reference image for image processing papers. It's time to let Lenna [retire](https://en.wikipedia.org/wiki/Lenna#Criticism).
 
 # Contact me
 
-If you use my code to make your own Magic Windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). I will gladly help if you get stuck!
+If you use my code to make your own Magic Windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). Email me at mattferraro.dev@gmail.com and I will gladly help if you get stuck!
 
 <iframe width="100%" height="390" src="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
 
