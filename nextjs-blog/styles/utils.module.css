@@ -52,12 +52,24 @@
 }
 
 .postCard {
-  background-color: antiquewhite;
+  background-color: #EEE;
+  border-radius: 8px;
+  padding-bottom: 10px;
 }
 
 .postCard img {
   height: 200px;
-  width: 300px;
-  border-radius: 8px;
+  width: 100%;
   object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.postCardTitle {
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.postCard .lightText {
+  padding-left: 20px;
 }

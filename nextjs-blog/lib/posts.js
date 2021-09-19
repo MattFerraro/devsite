@@ -16,9 +16,16 @@ import unified from 'unified'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
+const allowList = [
+  "cnc-router.md",
+  "poissons-equation.md",
+  "caustics-engineering.md",
+]
+
 export function getSortedPostsData() {
   // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory)
+  // const fileNames = fs.readdirSync(postsDirectory)
+  const fileNames = allowList;
   const allPostsData = fileNames.map(fileName => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '')
@@ -47,8 +54,6 @@ export function getSortedPostsData() {
 }
 
 export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory)
-
   // Returns an array that looks like this:
   // [
   //   {
@@ -62,6 +67,11 @@ export function getAllPostIds() {
   //     }
   //   }
   // ]
+
+  // To allow EVERYTHING:
+  const fileNames = fs.readdirSync(postsDirectory)
+  // To allow a subset, use allowList
+  
   return fileNames.map(fileName => {
     return {
       params: {

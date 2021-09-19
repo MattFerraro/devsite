@@ -33,11 +33,11 @@ export default function Home ({ allPostsData }) {
             <li className={utilStyles.listItem} key={id}>
               <div className={utilStyles.postCard}>
                 <img src={teaserImage}></img>
-
-                <Link href={`/posts/${id}`}>
-                  <a>{title}</a>
-                </Link>
-                <br />
+                <div className={utilStyles.postCardTitle}>
+                  <Link href={`/posts/${id}`}>
+                    <a>{title}</a>
+                  </Link>
+                </div>
                 <small className={utilStyles.lightText}>
                   <Date dateString={date} />
                 </small>

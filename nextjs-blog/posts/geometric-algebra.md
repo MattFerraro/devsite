@@ -46,7 +46,14 @@ $$
 \end{align}
 $$
 
-Its magnitude $\|\vec{v}\|$ is equal to its length, so we'll call them 1-Vectors or say they are "Grade 1" because length is a 1-dimensional quantity.
+Or equivalently, like this:
+
+$$
+\vec{v} = v_1\mathbf{\hat{x}} + v_2\mathbf{\hat{y}} + v_3\mathbf{\hat{z}}
+$$
+
+
+A vector's magnitude $\|\vec{v}\|$ is equal to its length, so we'll call them 1-Vectors or say they are "Grade 1" because length is a 1-dimensional quantity.
 
 That length is just:
 $$
@@ -65,7 +72,7 @@ The most efficient way to define a plane is to use the normal vector $\vec{n}$ w
 
 ![visual of a normal vector and a circle in the plane]
 
-But...wait that definition isn't consistent with our goal. This object *does* describe an oriented plane and it does have a degree of freedom to represent scale, but it's still just a vector so its magnitude is length, not area. This won't work.
+But...wait that definition isn't consistent with our goal. This object *does* describe an oriented plane and it does have a degree of freedom to represent scale, but it's still just a vector so its magnitude will be a length, not an area. This won't work.
 
 ---
 
@@ -140,7 +147,7 @@ But it comes at a cost. $2\vec{a}\wedge\vec{b}$ and $\vec{a}\wedge2\vec{b}$ are 
 
 The fact that we can write (and visualize) the same bivector multiple ways implies that even though we write down bivectors using 6 numbers, that there are really only 5 degrees of freedom in a bivector.
 
-If you've heard of quaternions, they famously use 4 numbers to represent 3 degrees of rotation. Their redundancy makes them much more algebraicly useful but also harder to visualize.
+If you've heard of quaternions, they famously use 4 numbers to represent 3 degrees of rotation. Their redundancy makes them much more algebraicly useful but also harder to visualize and understand.
 
 Bivectors might be similar. We'll pay close attention to this.
 
@@ -234,7 +241,7 @@ So I guess we're back at something that feels more like a scalar. In fact you mi
 
 Sure, just flip the balloon inside out first and then inflate!
 
-This might seem like a silly distinction but imagine what would happen with a right-handed latex glove balloon. If you flip it inside out and then inflate it, you end up with a left-handed glove balloon!
+This might seem like a meaningless distinction but imagine what would happen with a right-handed latex glove balloon. If you flip it inside out and then inflate it, you end up with a left-handed glove balloon!
 
 Left-handedness vs right-handedness is the sense in which volume can be negative. By convention we think of right-handed volume as positive and left-handed volume as negative, so
 
@@ -281,7 +288,7 @@ $$
 
 So now we see the implication of our earlier decision that clockwise and counterclockwise paralellograms were opposites! That decision implies that right handed and left handed volumes are opposites.
 
-We could have chosen to ignore bivector spin direction but if we'd have made that decision then to be self-consistent we would now be forced to ignore trivector coordinate handedness. Perhaps there is a useful algebraic system down that road, but it is not the one that seems most useful to me.
+We could have chosen to ignore bivector spin direction but if we'd have made that decision then to be self-consistent we would now be forced to ignore trivector coordinate handedness. Perhaps there is a useful algebraic system down that road, but it models a universe where handedness is not meaningful, which is not our universe.
 
 Trivectors are called 3-Vectors or thought of as "Grade 3" because their magnitude carries units of volume.
 
@@ -368,13 +375,13 @@ So there, adding disparate types is permitted it just doesn't simplify.
 
 # Choosing The Vector Product
 
-Now that we have objects called Geometrics, we can start to think about how we might multiply them together.
+<!-- Now that we have objects called Geometrics, we can start to think about how we might multiply them together.
 
-Let's start by considering two vectors.
+Let's start by considering two vectors. -->
 
 Earlier we talked about the extrusion operator which forms what we might call the *extrude product*. And you're already familiar with the *dot product* and maybe even the *cross product*.
 
-All of these seem like reasonable choices for our definition of the *vector product* but there's a serious problem with using all of these: they are all noninvertable.
+All of these seem like reasonable choices for our definition of the *vector product* but there's a serious problem with all of these: they are all noninvertable.
 
 The dot product is very lossy because it collapses two vectors onto a single scalar. 6 Input numbers collapsing into just 1 output number means the operation is very lossy and there is no hope of ever recovering the inputs.
 
@@ -396,9 +403,9 @@ But, given just the magnitude and orientation of the resulting bivector, there a
 
 ![diagram of ambiguous wedge products]
 
-You can extrude $\vec{a}$ just a little bit in a direction very perpendicular to $\vec{a}$ or you can extrude it a whole lot in a direction more parallel to $\vec{a}$, or anywhere in between. You can always end up with the same area parallelogram in the same plane.
+You can extrude $\vec{a}$ just a little bit in a direction very perpendicular to $\vec{a}$ or you can extrude it a whole lot in a direction more parallel to $\vec{a}$, or anywhere in between. You can always end up with the same area in the same plane.
 
-This ambiguity means there is no clear way to invert the extrude product. Actually this lack of constraint is what I was referring to earlier when I said that bivectors are written out using 6 numbers, but only encapsulate 5 degrees of freedom.
+This ambiguity means there is no clear way to invert the extrude product. This lack of constraint is what I was referring to earlier when I said that bivectors are written out using 6 numbers, but only encapsulate 5 degrees of freedom.
 
 Comparing the two (cross products are garbage) side by side we see:
 
@@ -412,6 +419,8 @@ Comparing the two (cross products are garbage) side by side we see:
 | Invertible   | No        | No
 | Commutivity | $\vec{a} \cdot \vec{b} = \vec{b} \cdot \vec{a}$ | $\vec{a} \wedge \vec{b} = -\vec{b} \wedge \vec{a}$
 | Squaring | $\vec{a} \cdot \vec{a} = \|a\|^2$ | $\vec{a} \wedge \vec{a} = 0$
+
+These two products are complementary in so many ways.
 
 A *Eureka* moment is upon us!
 
@@ -488,11 +497,11 @@ $$
 \vec{a}^{-1} = \frac{1}{\|\vec{a}\|^2} \vec{a}
 $$
 
-There's even a certain similarity between a vector's inverse and a scalar's:
+<!-- There's even a certain similarity between a vector's inverse and a scalar's:
 
 $$
 s^{-1} = \frac{1}{s} 1
-$$
+$$ -->
 
 <!-- Or how the inverse of a matrix $A$ always carries a factor of $\frac{1}{\det(A)}$. -->
 
@@ -560,6 +569,8 @@ $$
 \vec{a} \wedge \vec{b} = \frac{\vec{a}\vec{b} - \vec{b}\vec{a}}{2}
 $$
 
+These two equations aren't super useful on their own, it's just nice to get our hands dirty and do some algebraic manipulation.
+
 ---
 
 What if we plug in unit vectors?
@@ -576,7 +587,7 @@ $$
 
 This is an incredibly convenient result! It means that we can stop writing our unit bivectors as $\mathbf{\hat{x}} \wedge \mathbf{\hat{y}}$ and instead start writing them as $\mathbf{\hat{x}}\mathbf{\hat{y}}$ which is much more compact.
 
-Given that $\mathbf{\hat{x}} \wedge \mathbf{\hat{y}} = -\mathbf{\hat{y}} \wedge \mathbf{\hat{x}}$, it is clear that $\mathbf{\hat{x}}\mathbf{\hat{y}} = - \mathbf{\hat{y}}\mathbf{\hat{x}}$, so our freedom to swap the order of any two unit vectors at the cost of a minus sign still holds.
+Given that $\mathbf{\hat{x}} \wedge \mathbf{\hat{y}} = -\mathbf{\hat{y}} \wedge \mathbf{\hat{x}}$, it is clear that $\mathbf{\hat{x}}\mathbf{\hat{y}} = - \mathbf{\hat{y}}\mathbf{\hat{x}}$, so our freedom to swap the order of any two adjacent unit vectors at the cost of a minus sign still holds.
 
 ---
 
@@ -586,7 +597,9 @@ $$
 (\mathbf{\hat{x}}\mathbf{\hat{y}})\mathbf{\hat{z}} = (\mathbf{\hat{x}}\mathbf{\hat{y}}) \cdot \mathbf{\hat{z}} + (\mathbf{\hat{x}}\mathbf{\hat{y}}) \wedge \mathbf{\hat{z}}
 $$
 
-Well, what does it mean to take the dot product between the $\mathbf{\hat{x}}\mathbf{\hat{y}}$ plane and the $\mathbf{\hat{z}}$ vector? Normally we visualize the dot product by projecting one argument onto the other, but in this case the $\mathbf{\hat{z}}$ vector is completely orthogonal to the $\mathbf{\hat{x}}\mathbf{\hat{y}}$ plane. It casts no "shadow". So I think it makes sense to say that
+Well, what does it mean to take the dot product between the $\mathbf{\hat{x}}\mathbf{\hat{y}}$ plane and the $\mathbf{\hat{z}}$ vector? Normally we visualize the dot product by projecting one argument onto the other, and in this case the $\mathbf{\hat{z}}$ vector is completely orthogonal to the $\mathbf{\hat{x}}\mathbf{\hat{y}}$ plane. It casts no "shadow".
+
+So even though we haven't developed a formula for how to compute the dot product of a bivector with a vector, I think it makes sense to say that:
 
 $$
 (\mathbf{\hat{x}}\mathbf{\hat{y}}) \cdot \mathbf{\hat{z}} = 0
@@ -710,7 +723,7 @@ Whoa. Apparently, the unit bivector that lives in the $\mathbf{\hat{x}}\mathbf{\
 
 This property is so remarkable to stumble upon that I think we should feel free to refer to the $\mathbf{\hat{x}}\mathbf{\hat{y}}$ unit bivector as just $i$ for short!
 
-But there was nothing special about the $\mathbf{\hat{x}}\mathbf{\hat{y}}$ that gave us this strange property. Does it hold with the $\mathbf{\hat{y}}\mathbf{\hat{z}}$ plane?
+But there was nothing special about the $\mathbf{\hat{x}}\mathbf{\hat{y}}$ unit bivector that gave us this strange property. Does it hold with the $\mathbf{\hat{y}}\mathbf{\hat{z}}$ unit bivector?
 
 $$
 (\mathbf{\hat{y}}\mathbf{\hat{z}})^2 = \mathbf{\hat{y}}\mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{z}}
@@ -728,7 +741,7 @@ $$
 (\mathbf{\hat{y}}\mathbf{\hat{z}})^2 = -1
 $$
 
-Huh. So we have *two* imaginary numbers which are orthogonal to each other? We can't just call this one $i$ as well. Maybe we'll call this one $j$?
+Well this is weird! We apparently have *two* "imaginary numbers" and they are orthogonal to each other! We can't just call this one $i$ as well. Maybe we'll call this one $j$?
 
 For completeness' sake let's try the last one:
 
@@ -833,7 +846,9 @@ $$
 \mathbf{G} = 2\mathbf{\hat{y}}\mathbf{\hat{z}}
 $$
 
-And that's what it feels like to use our new algebra! We did all that work to define the vector product, but most of our actual manipulations boil down to just swapping orders and adding minus signs, or cancelling out squared unit vectors.
+And that's what it feels like to use our new algebra! We did all that work to define the vector product and derive a bunch of identities, but most of our actual manipulations boil down to just swapping vector order and adding minus signs, or cancelling out squared unit vectors.
+
+The system we've created behaves *just like normal algebra!*
 
 # Vectors as Transformations
 
@@ -843,22 +858,289 @@ $$
 A'=MAM^{-1}
 $$
 
-And when working with Quaternions rotate vectors we apply them like:
+And when working with Quaternions we can rotate vectors like:
 
 $$
 {\vec{v}\,}'=\mathbf{q}\vec{v}\mathbf{q}^{-1}
 $$
 
-So it isn't a huge leap to ask: What happens we use a *vector* as a transformation? We can invert them and multiply them now, so let's try!
+This form of equation is sometimes called the *sandwich product* for obvious reasons.
 
-Vectors of unit length are easier to invert so we'll make sure to use that kind of vector as our "transform". This is purely to make the math easier to write:
+So it isn't a huge leap to ask: What happens when we use a *vector* as a transformation? We can invert them and multiply them now, so let's try!
 
-Let's set $\vec{v} = (1\mathbf{\hat{x}} + 0\mathbf{\hat{y}} + 0\mathbf{\hat{z}})$ and $\vec{q} = \frac{1}{\sqrt{2}}(1\mathbf{\hat{x}} + 1\mathbf{\hat{y}} + 0\mathbf{\hat{z}})$
+The formula for applying a transformation (sandwich) is:
 
 $$
-{\vec{v}\,}'=\mathbf{a}\vec{v}\mathbf{q}^{-1}
+{\vec{v}\,}'=\vec{t}\vec{v}\vec{t}^{-1}
 $$
 
+Our input vector will be something simple like:
+$$
+\vec{v} = \mathbf{\hat{x}}
+$$
+
+The vector we'll transform it by will also be simple; let's use:
+
+$$
+\vec{t} = \mathbf{\hat{x}} + \mathbf{\hat{y}}
+$$
+
+We know we're going to need $\vec{t}^{-1}$ which is $\frac{1}{\|\vec{t}\|^2}\vec{t}$. We can tell just by looking at $\vec{t}$ that $\|\vec{t}\| = \sqrt{1^2 + 1^2 + 0^2}$ so $\frac{1}{\|\vec{t}\|^2} = \frac{1}{2}$ which means:
+
+$$
+\vec{t}^{-1} = \frac{1}{2}(\mathbf{\hat{x}} + \mathbf{\hat{y}})
+$$
+
+Plugging it all in:
+
+$$
+{\vec{v}\,}'=\vec{t}\vec{v}\vec{t}^{-1}
+$$
+
+$$
+{\vec{v}\,}'=(\mathbf{\hat{x}} + \mathbf{\hat{y}})(\mathbf{\hat{x}})\frac{1}{2}(\mathbf{\hat{x}} + \mathbf{\hat{y}})
+$$
+
+The scalar can be pulled to the front:
+
+$$
+{\vec{v}\,}'=\frac{1}{2}(\mathbf{\hat{x}} + \mathbf{\hat{y}})(\mathbf{\hat{x}})(\mathbf{\hat{x}} + \mathbf{\hat{y}})
+$$
+
+We can distribute the $\mathbf{\hat{x}}$:
+
+$$
+{\vec{v}\,}'=\frac{1}{2}(\mathbf{\hat{x}}\mathbf{\hat{x}} + \mathbf{\hat{y}}\mathbf{\hat{x}})(\mathbf{\hat{x}} + \mathbf{\hat{y}})
+$$
+
+Which simplifies to:
+
+$$
+{\vec{v}\,}'=\frac{1}{2}(1 + \mathbf{\hat{y}}\mathbf{\hat{x}})(\mathbf{\hat{x}} + \mathbf{\hat{y}})
+$$
+
+Now FOIL:
+
+$$
+{\vec{v}\,}'=\frac{1}{2}(\mathbf{\hat{x}} + \mathbf{\hat{y}} + \mathbf{\hat{y}}\mathbf{\hat{x}}\mathbf{\hat{x}} + \mathbf{\hat{y}}\mathbf{\hat{x}}\mathbf{\hat{y}})
+$$
+
+Simplifying and swapping:
+
+$$
+{\vec{v}\,}'=\frac{1}{2}(\mathbf{\hat{x}} + \mathbf{\hat{y}} + \mathbf{\hat{y}} - \mathbf{\hat{y}}\mathbf{\hat{y}}\mathbf{\hat{x}})
+$$
+
+$$
+{\vec{v}\,}'=\frac{1}{2}(\mathbf{\hat{x}} + \mathbf{\hat{y}} + \mathbf{\hat{y}} - \mathbf{\hat{x}})
+$$
+
+$$
+{\vec{v}\,}'=\frac{1}{2}(2\mathbf{\hat{y}})
+$$
+
+$$
+{\vec{v}\,}'=\mathbf{\hat{y}}
+$$
+
+![visual of reflecting]
+
+It looks like we reflected $\vec{v}$ across $\vec{t}$ as though it were a mirror!
+
+Let's verify that with a more 3D example, this time using:
+
+$$
+\vec{v} = \mathbf{\hat{x}} + \mathbf{\hat{y}} + \mathbf{\hat{z}}
+$$
+
+$$
+\vec{t} = \vec{t}^{-1} = \mathbf{\hat{x}} 
+$$
+
+Plugging into our transformation formula we see:
+
+$$
+{\vec{v}\,}'=(\mathbf{\hat{x}})(\mathbf{\hat{x}} + \mathbf{\hat{y}} + \mathbf{\hat{z}})(\mathbf{\hat{x}})
+$$
+
+$$
+{\vec{v}\,}'=(\mathbf{\hat{x}}\mathbf{\hat{x}} + \mathbf{\hat{x}}\mathbf{\hat{y}} + \mathbf{\hat{x}}\mathbf{\hat{z}})(\mathbf{\hat{x}})
+$$
+
+$$
+{\vec{v}\,}'=\mathbf{\hat{x}}\mathbf{\hat{x}}\mathbf{\hat{x}} + \mathbf{\hat{x}}\mathbf{\hat{y}}\mathbf{\hat{x}} + \mathbf{\hat{x}}\mathbf{\hat{z}}\mathbf{\hat{x}}
+$$
+
+$$
+{\vec{v}\,}'=\mathbf{\hat{x}} - \mathbf{\hat{x}}\mathbf{\hat{x}}\mathbf{\hat{y}} - \mathbf{\hat{x}}\mathbf{\hat{x}}\mathbf{\hat{z}}
+$$
+
+$$
+{\vec{v}\,}'=\mathbf{\hat{x}} - \mathbf{\hat{y}} - \mathbf{\hat{z}}
+$$
+
+![visual of this reflection]
+
+Which confirms our finding from the simpler, 2D case!
+
+This is a refreshing change in perspective. Ordinarily we think of reflections happening only in mirrors which are planes, but the tools we've derived here let us compute reflections across *vectors*, without having to define any sort of plane!
+
+So it turns out that vectors are more than just values, they are transformations.
+
+> When used in a sandwich product, vectors act as mirrors.
+
+# Transforming Twice
+
+What happens if we want to reflect $\vec{v}$ around $\vec{t}$ and then reflect the result around $\vec{u}$? Easy!
+
+$$
+{\vec{v}\,}' = \vec{t}\vec{v}\vec{t}^{-1}
+$$
+
+$$
+{\vec{v}\,}'' = \vec{u}(\vec{t}\vec{v}\vec{t}^{-1})\vec{u}^{-1}
+$$
+
+I'm finding this a little hard to read so I'll temporarily drop the arrow signs, but we're still talking about vectors:
+
+$$
+v'' = u(tvt^{-1})u^{-1}
+$$
+
+And we'll define:
+
+$$
+v = \mathbf{\hat{x}} + \mathbf{\hat{y}} + \mathbf{\hat{z}}
+$$
+
+$$
+t = t^{-1} = \mathbf{\hat{y}}
+$$
+
+$$
+u = u^{-1} = \mathbf{\hat{z}}
+$$
+
+So plugging it all in:
+
+$$
+v'' = \mathbf{\hat{z}}\mathbf{\hat{y}}(\mathbf{\hat{x}} + \mathbf{\hat{y}} + \mathbf{\hat{z}})\mathbf{\hat{y}}\mathbf{\hat{z}}
+$$
+
+$$
+v'' = (\mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{x}} + \mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{y}} + \mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{z}})\mathbf{\hat{y}}\mathbf{\hat{z}}
+$$
+
+$$
+v'' = \mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{x}}\mathbf{\hat{y}}\mathbf{\hat{z}} + \mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{y}}\mathbf{\hat{y}}\mathbf{\hat{z}} + \mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{z}}
+$$
+
+$$
+v'' = \mathbf{\hat{x}}\mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{y}}\mathbf{\hat{z}} + \mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{z}} - \mathbf{\hat{z}}\mathbf{\hat{z}}\mathbf{\hat{y}}\mathbf{\hat{y}}\mathbf{\hat{z}}
+$$
+
+$$
+v'' = \mathbf{\hat{x}}\mathbf{\hat{z}}\mathbf{\hat{z}} - \mathbf{\hat{y}}\mathbf{\hat{z}}\mathbf{\hat{z}} - \mathbf{\hat{y}}\mathbf{\hat{y}}\mathbf{\hat{z}}
+$$
+
+$$
+v'' = \mathbf{\hat{x}} - \mathbf{\hat{y}} - \mathbf{\hat{z}}
+$$
+
+![visual stressing the two reflections]
+
+We reflected our input vector across $\mathbf{\hat{y}}$ and then the result across $\mathbf{\hat{z}}$.
+
+But wait a second, if you reflect a right-handed glove you get a left-handed glove. If you reflect that one more time you're back to a right-handed glove, just rotated. Two reflections in series are equivalent to a single rotation!
+
+What rotation have we performed here?
+
+![visual stressing the rotation aspect]
+
+We have rotated our input vector by $\pi$ in the $\mathbf{\hat{y}}\mathbf{\hat{z}}$ plane.
+
+Somehow our simple algebraic rules of swapping and cancelling have produced an operation that normally involves trigonometry and "imaginary" numbers!
+
+The product of two vectors can therefore be thought of as a *Rotor*, because it rotates things.
+
+This post is getting very long so let me cut to the chase:
+
+> When used in a sandwich product, the rotor $\vec{a}\vec{b}$ will rotate the input by $2\theta$ in the $\vec{a}\vec{b}$ plane, where $\theta$ is the angle between $\vec{a}$ and $\vec{b}$.
+
+The extra factor of $2$ comes from the fact that the rotor is applied twice: once on the left and once on the right in the sandwich product.
+
+# Cross Product Considered Harmful
+
+Every student who starts learning physics stumbles when learning about angular momentum and torque.
+
+I believe the issue comes from introducing the cross product, which is a waste of time.
+
+The world of linear momentum and linear forces is relatively intuitive. It is self-consistent in the sense that vectors can be added together meaningfully, provided you are careful to use scalars where required to make units compatible.
+
+Then you learn about angular momentum and torque and because they are defined using the cross product, you have to introduce a [Bizarro World](https://en.wikipedia.org/wiki/Bizarro_World) version of vectors called "[psuedovectors](https://en.wikipedia.org/wiki/Pseudovector)" or "axial vectors" which are compatible with each other but are incompatible with regular vectors. And oh yes they reflect differently in a mirror than regular vectors do.
+
+Psuedovectors and cross products are a pedagogical misstep. They force us to remember a difference in **type** without introducing a difference in **form**.
+
+The equation we're all taught is:
+$$
+\tau = r \times F
+$$
+
+But it is equally correct and far simpler to teach:
+
+$$
+\tau = r \wedge F
+$$
+
+Which means torque is a bivector living in the plane defined by $r$ and $F$. The magnitude of the torque is the area of the bivector.
+
+This definition of torque works correctly because, like vectors, bivectors also consist of three components. But they are not written like vectors so we have our much-needed difference in form. All bivectors are also rotors, so we are also self-consistent in the colloqial sense that torque, being a rotor, *rotates things*.
+
+A similar problem occurs when students take the conceptual leap from electric fields to magnetic fields. The electric field is a vector field which makes sense, but then the magnetic field is a psuedovector field which just tosses their intuition out the window. The magnetic field, and in fact every psuedovector in physics, is better thought of as a bivector. 
+
+The word "Psuedoscalar" also comes up in physics to describe scalar-like quantities that change their sign under reflection. The basic examples we learn are Magnetic Charge and Magnetic Flux, but the concept crops up later in fluid dynamics as the Stream Function and in quantum mechanics as Helicity. All of these are in fact just trivectors. 
+
+Speaking of quantum mechanics, the one defining trait of the Pauli Spin Matricies is that they all square to one. They are just the regular unit vectors dressed up as matrices!
+
+The algebra we have learned today is a better, simpler model of the universe than the one we teach students in school. We should change what we teach, and we can start by forgetting about cross products.
+
+# Extension to Special Relativity
+
+# Geometric Algebra Cheat Sheet
+
+$$
+\mathbf{\hat{x}}^2 = \mathbf{\hat{y}}^2 = \mathbf{\hat{z}}^2 = 1
+$$
+
+$$
+(\mathbf{\hat{x}}\mathbf{\hat{y}})^2 = (\mathbf{\hat{y}}\mathbf{\hat{z}})^2 = (\mathbf{\hat{z}}\mathbf{\hat{x}})^2 = (\mathbf{\hat{x}}\mathbf{\hat{y}}\mathbf{\hat{z}})^2 = -1
+$$
+
+$$
+\vec{a}\vec{b} = \vec{a} \cdot \vec{b} + \vec{a} \wedge \vec{b}
+$$
+
+$$
+\vec{a} \cdot \vec{b} = \vec{b} \cdot \vec{a}
+$$
+
+$$
+\vec{a} \wedge \vec{b} = -\vec{b} \wedge \vec{a}
+$$
+
+$$
+(\vec{a}\vec{b})^{-1} = \vec{b}^{-1}\vec{a}^{-1}
+$$
+
+$$
+{\vec{v}\,}' = \vec{t}\vec{v}\vec{t}^{-1}
+$$
+
+$$
+{\vec{v}\,}'' = \vec{u}(\vec{t}\vec{v}\vec{t}^{-1})\vec{u}^{-1} = (\vec{u}\vec{t})\vec{v}(\vec{u}\vec{t})^{-1}
+$$
+
+# Historical Notes
 
 # Further Reading:
 - http://new.math.uiuc.edu/math198/MA198-2015/stelzer3/mathwriteup1.pdf 

@@ -43,12 +43,12 @@ The reason my acrylic square can form an image is because I've distributed just 
 
 To gain some intuition for how it is done, consider a traditional convex lens:
 
-![Parabolic Lens](/images/caustics/traditional_lens.svg)
+![Parabolic Lens](/images/caustics/traditional_lens_2.svg)
 
 This lens forms the simplest possible caustic. If all the incoming light is from a single, very distant light source like the Sun, this lens focuses all of its incoming light into a single point. The caustic image from this lens is dark everywhere with one very bright spot in the center.
 
 Zooming in on one small section of the lens we notice a few properties:
-1. The overall thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the right side of this lens and nothing would change
+1. The overall thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the left side of this lens and nothing would change
 2. The angle formed between the incoming light rays and the glass has a strong effect on the refracted ray angle
 3. Whether two rays converge or diverge is controlled by how *curved* the lens is where the rays meet the glass
 
