@@ -595,3 +595,5 @@ I hope that recognizing Poisson's equation and how to solve it will help you fee
 # Contact me
 
 If you wanna talk about Poisson's Equation and its million uses, hit me up on twitter [@mferraro89](https://twitter.com/mferraro89)
+
+If you want to be notified when I post new content, you can join my [google group](https://groups.google.com/g/mattferrarodotdev). Expect about 1 email per month.

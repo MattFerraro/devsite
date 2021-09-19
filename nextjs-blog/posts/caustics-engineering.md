@@ -487,6 +487,8 @@ The cat in this post is named Mitski and she approves of you using her image as 
 
 If you use my code to make your own Magic Windows, I'd love to see them! I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). I will gladly help if you get stuck!
 
+If you want to be notified when I post new content, you can join my [google group](https://groups.google.com/g/mattferrarodotdev). Expect about 1 email per month.
+
 # One Last Thing
 
 I know what you're thinking. *What about the hologram?!*
