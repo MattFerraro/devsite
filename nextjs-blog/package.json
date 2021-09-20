@@ -9,7 +9,10 @@
     "export": "next export"
   },
   "dependencies": {
+    "@babel/core": "^7.15.5",
     "@mapbox/rehype-prism": "^0.7.0",
+    "@mdx-js/loader": "^1.6.22",
+    "@next/mdx": "^11.1.2",
     "date-fns": "^2.16.1",
     "gray-matter": "^4.0.2",
     "katex": "^0.12.0",

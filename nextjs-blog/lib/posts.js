@@ -15,13 +15,17 @@ import stringify from 'rehype-stringify'
 import unified from 'unified'
 import visit from 'unist-util-visit'
 import Image from "next/image"
+import mdx from '@mdx-js/mdx'
+import babel from '@babel/core'
+import SimpleExample from '../posts/simple-test.mdx'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
 const allowList = [
-  "cnc-router.md",
-  "poissons-equation.md",
-  "caustics-engineering.md",
+  // "cnc-router.md",
+  // "poissons-equation.md",
+  // "caustics-engineering.md",
+  "simple-test.mdx"
 ]
 
 export function getSortedPostsData() {
@@ -30,7 +34,7 @@ export function getSortedPostsData() {
   const fileNames = allowList;
   const allPostsData = fileNames.map(fileName => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '')
+    const id = fileName.replace(/\.mdx$/, '')
 
     // Read markdown file as string
     const fullPath = path.join(postsDirectory, fileName)
@@ -71,36 +75,47 @@ export function getAllPostIds() {
   // ]
 
   // To allow EVERYTHING:
-  const fileNames = fs.readdirSync(postsDirectory)
+  // const fileNames = fs.readdirSync(postsDirectory)
+  const fileNames = allowList
   // To allow a subset, use allowList
+
   
   return fileNames.map(fileName => {
     return {
       params: {
-        id: fileName.replace(/\.md$/, '')
+        id: fileName.replace(/\.mdx$/, '')
       }
     }
   })
 }
 
-function attacher() {
-  return transformer
+export async function getPostDataMDX(id) {
+  const fullPath = path.join(postsDirectory, `${id}.mdx`)
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const matterResult = matter(fileContents)
+  const jsx = await mdx(fileContents, {skipExport: true})
+  console.info("LOGGGGGGGG")
+  
+  // const transform = code =>
+  //   babel.transform(code, {
+  //     plugins: [
+  //       '@babel/plugin-transform-react-jsx',
+  //       '@babel/plugin-proposal-object-rest-spread'
+  //     ]
+  // }).code
+  
+  // const code = transform(jsx)
+  // console.info(jsx)
 
-  function transformer(tree, file) {
-    // console.info(tree)
-    // console.info(tree)
-    visit(tree, 'element', visitor)
-    function visitor(node, index, parent) {
-      if (node.tagName == "img") {
-        // console.log(node)
-      }
-      // node.tagName = "Image"
-    }
+  return {
+    id,
+    fileContents,
+    ...matterResult.data
   }
 }
 
 export async function getPostData(id) {
-  const fullPath = path.join(postsDirectory, `${id}.md`)
+  const fullPath = path.join(postsDirectory, `${id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
   // Use gray-matter to parse the post metadata section
