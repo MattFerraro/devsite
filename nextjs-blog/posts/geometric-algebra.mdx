@@ -31,6 +31,8 @@ A **scalar** $s$ is a regular number like $-3$ or $1.618$ or $\frac{1}{137}$.
 
 A scalar is a point on a number line. Its magnitude $\|s\|$ is just its absolute value. We can call this a 0-Vector or refer to it as "Grade 0" to indicate that its magnitude carries no units.
 
+![A Typical Scalar](/images/ga/scalar.svg)
+
 ## Vectors
 <!-- A scalar carries no intrinsic units and it does not correspond to any geometric object. It's just a bare value. -->
 
@@ -52,6 +54,8 @@ $$
 \vec{v} = v_1\mathbf{\hat{x}} + v_2\mathbf{\hat{y}} + v_3\mathbf{\hat{z}}
 $$
 
+![A Typical Vector](/images/ga/vector.svg)
+
 
 A vector's magnitude $\|\vec{v}\|$ is equal to its length, so we'll call them 1-Vectors or say they are "Grade 1" because length is a 1-dimensional quantity.
 
@@ -70,7 +74,7 @@ If vectors are oriented chunks of length, then our new object is some sort of or
 
 The most efficient way to define a plane is to use the normal vector $\vec{n}$ which is perpendicular to the plane. The direction of the normal vector tells us the orientation of the plane, and we can encode magnitude as the length of that normal vector.
 
-![visual of a normal vector and a circle in the plane]
+![Our First Attempt at a Bivector](/images/ga/bivector_first_try.svg)
 
 But...wait that definition isn't consistent with our goal. This object *does* describe an oriented plane and it does have a degree of freedom to represent scale, but it's still just a vector so its magnitude will be a length, not an area. This won't work.
 
@@ -84,7 +88,7 @@ The plane that they both fall upon gives us an orientation. But how do we get an
 
 We've already got two vectors so the simplest possible solution might be to complete the triangle:
 
-![diagram of completed triangle]
+![Bivector Second Try](/images/ga/bivector_second_try.svg)
 
 Which has an area equal to:
 
@@ -96,9 +100,10 @@ Where $\theta$ is the angle between the vectors.
 
 This works but we'll have to carry around an inconvenient factor of $\frac{1}{2}$.
 
-On a lark, what if we borrow an idea from CAD software and try to *extrude* $\vec{a}$ in the direction of $\vec{b}$?
+On a lark, what if we borrow an idea from CAD software and try to sweep or *extrude* $\vec{a}$ in the direction of $\vec{b}$?
 
-![Example Bivector](/images/geometric-algebra/Exterior_calc_cross_product.svg)
+![Bivector Second Try](/images/ga/bivector_third_try.svg)
+
 
 <!-- If you aren't familiar with CAD software, just think of this like a noodle press that squishes dough through a hole to form a sheet for lasagna. $\vec{a}$ defines the length of the hole and $\vec{b}$ defines how long of a noodle to make. -->
 
@@ -121,7 +126,7 @@ So we've got our new object, a 2D parallelogram floating in 3D space. It takes t
 
 If we double the length of one of the input vectors, the output bivector stays in the same plane, it just doubles in area:
 
-![visual of doubling either one of the input vectors]
+![Doubling a Bivector](/images/ga/bivector_doubling.svg)
 
 Already we have a tough choice to make. Consider the bivectors $2\vec{a}\wedge\vec{b}$ and $\vec{a}\wedge2\vec{b}$. These two objects are obviously not identical. But they share the same plane and they have the same magnitude. Should we say that they are equal or not equal?
 
@@ -157,9 +162,17 @@ Bivectors might be similar. We'll pay close attention to this.
 
 But let's keep inspecting them first! What happens if we switch the input ordering? Does $\vec{a} \wedge \vec{b}$ equal $\vec{b} \wedge \vec{a}$?
 
-![visual of a wedge b vs b wedge a]
+![Reversing a Bivector](/images/ga/bivector_reversing.svg)
 
-Well, $\vec{a} \wedge \vec{b}$ forms a parallelogram counterclockwise but $\vec{b} \wedge \vec{a}$ forms a parallelogram clockwise. Again we get to choose if these should be considered equal.
+Well, $\vec{a} \wedge \vec{b}$ forms a red parallelogram but $\vec{b} \wedge \vec{a}$ forms a blue parallelogram. Again we get to choose if these should be considered equal.
+
+You may complain that vectors don't usually carry any intrinsic color, so how can we reliably use color as the basis of distinguishing bivectors?
+
+Your complaint is valid, and plus we don't always get to use color when we're sketching in a notebook so let's try looking at this situation a way that doesn't rely on color:
+
+![Reversing a Bivector View 2](/images/ga/bivector_reversing_2.svg)
+
+We can see now that $\vec{a} \wedge \vec{b}$ forms a parallelogram by spinning clockwise, but $\vec{b} \wedge \vec{a}$ forms a parallelogram by spinning anti-clockwise.
 
 Spin direction seems pretty important to me; these naturally feel like opposites rather than equals.
 
@@ -170,11 +183,11 @@ $$
 \vec{a} \wedge \vec{b} = -\vec{b} \wedge \vec{a}
 $$
 
-Note that we're not necessarily saying that clockwise spin = positive and counterclockwise = negative, we're just saying that whatever the two spin directions are, they're opposites.
+Note that we're not necessarily saying that clockwise spin is positive and counterclockwise is negative, we're just saying that whatever the two spin directions are, they're opposites.
 
 What happens if you extrude a vector by itself?
 
-![visuaal of a wedge a]
+![Extruding a vector by itself](/images/ga/vector_extrude_itself.svg)
 
 This parallelogram has zero area. So we can already write an identity!
 
@@ -185,7 +198,7 @@ $$
 
 What happens if we form a bivector from two unit vectors like $\mathbf{\hat{x}}$ and ${\mathbf{\hat{y}}}$?
 
-![visual of xhat wedge yhat]
+![x extrude y](/images/ga/x_extrude_y.svg)
 
 The parallelogram they form happens to be a square with unit area! We can use this to form three distinct unit bivectors:
 
@@ -193,9 +206,9 @@ The parallelogram they form happens to be a square with unit area! We can use th
 - $\mathbf{\hat{y}}\wedge\mathbf{\hat{z}}$ also known as the yz plane
 - $\mathbf{\hat{z}}\wedge\mathbf{\hat{x}}$ also known as the zx plane
 
-![visual of the three different unit bivectors]
+![The Unit Bivectors](/images/ga/unit_bivectors.svg)
 
-These three unit bivectors are clearly orthogonal to each other in the sense that if you project the yz plane onto the xy plane, its shadow occupies zero area. This is true for any pair of these planes.
+These three unit bivectors are orthogonal to each other, which just means that if you project the yz plane onto the xy plane, its shadow occupies zero area. This is true for any pair of these planes.
 
 This gives bivectors an interesting commonality with regular vectors. Any vector can be written as the weighted sum of basis vectors:
 
@@ -227,7 +240,7 @@ For bivectors we made progress by extruding one vector in the direction given by
 
 Why not! Extruding a parallelogram into 3D yields a parallelepiped. Basically a cube but all askew:
 
-![visual of trivector]
+![An Example Trivector](/images/ga/example_trivector_2.svg)
 
 Which we can write as $\vec{a}\wedge\vec{b}\wedge\vec{c}$
 

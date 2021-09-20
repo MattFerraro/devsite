@@ -48,9 +48,9 @@ To gain some intuition for how it is done, consider a traditional convex lens:
 This lens forms the simplest possible caustic. If all the incoming light is from a single, very distant light source like the Sun, this lens focuses all of its incoming light into a single point. The caustic image from this lens is dark everywhere with one very bright spot in the center.
 
 Zooming in on one small section of the lens we notice a few properties:
-1. The overall thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the left side of this lens and nothing would change
-2. The angle formed between the incoming light rays and the glass has a strong effect on the refracted ray angle
-3. Whether two rays converge or diverge is controlled by how *curved* the lens is where the rays meet the glass
+1. The overall thickness of the lens does not have a direct impact on the outgoing ray angle. We could add material to the left side of this lens and nothing would change. The first transition, from air to glass, can be entirely ignored.
+2. The angle between the incoming light rays and the glass-air boundary has a strong effect on the refracted ray angle.
+3. Whether two rays converge or diverge is controlled by how *curved* the lens is where the glass meets the air
 
 In other words, the height of the glass $h(x)$ is not on its own important. But the slope of the glass, $\frac{\mathrm{d}h}{\mathrm{d}x}$, gives us the outgoing ray angle via Snell's law. Where rays converge the image is brighter than the light source. Where rays diverge the image is darker. Therefore the brightness of the image (at that point, where the rays fall) is related to $\frac{\mathrm{d}^2h}{\mathrm{d}x^2}$.
 
