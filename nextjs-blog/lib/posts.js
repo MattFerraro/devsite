@@ -93,8 +93,7 @@ export async function getPostDataMDX(id) {
   const fullPath = path.join(postsDirectory, `${id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const matterResult = matter(fileContents)
-  const jsx = await mdx(fileContents, {skipExport: true})
-  console.info("LOGGGGGGGG")
+  // const jsx = await mdx(fileContents, {skipExport: true})
   
   // const transform = code =>
   //   babel.transform(code, {
@@ -108,9 +107,11 @@ export async function getPostDataMDX(id) {
   // console.info(jsx)
 
   return {
-    id,
-    fileContents,
-    ...matterResult.data
+    id: id,
+    rawContent: matterResult.content,
+    metadata: matterResult.data,
+    // content: matterResult.content,
+    // ...matterResult.data
   }
 }
 
