@@ -11,6 +11,11 @@ import utilStyles from '../../styles/utils.module.css'
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 
+import * as THREE from 'three';
+
+import React, { useEffect, useState } from 'react'
+
+
 export async function getStaticProps({ params }) {
   const postData = await getPostDataMDX(params.id)
 
@@ -41,9 +46,37 @@ const styledDiv = (props) => {
   return <div style={{ color: props.color }}>{props.children}</div>
 };
 
+const Vis3D = (props) => {
+  // const scene = new THREE.Scene();
+  // const camera = new THREE.PerspectiveCamera( 75, props.width / props.height, 0.1, 1000 );
+  // const renderer = new THREE.WebGLRenderer();
+  // renderer.setSize( props.width, props.height );
+  
+  return <div className="Vis3D" width={props.width} height={props.height} style={{backgroundColor: "lightgray", width:props.width, height:props.height}}>{props.children}</div>
+}
+
+const Arrow = (props) => {
+  return <div className="Arrow" {...props}></div>
+}
+
 const MDXComponents = {
-  styledDiv
+  styledDiv,
+  Vis3D,
+  Arrow
 };
+
+const Vis3DRealizer = () => {
+  const [isComponentMounted, setIsComponentMounted] = useState(false)
+  useEffect(() => {
+    console.log("wow for real?");
+    setIsComponentMounted(true)
+  }, [])
+  if(!isComponentMounted) {
+    return null
+  }
+
+  return <h1>I'm only executed on the client!</h1>
+}
 
 export default function Post({ metadata, mdxSource }) {
   return (
@@ -69,11 +102,11 @@ export default function Post({ metadata, mdxSource }) {
         <div className={utilStyles.lightText}>
           <Date dateString={metadata.date} />
         </div>
-        
-        
+          
         <MDXRemote {...mdxSource} components={MDXComponents} />
-        
-        {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
+
+        <Vis3DRealizer></Vis3DRealizer>
+
       </article>
     </Layout>
   )
