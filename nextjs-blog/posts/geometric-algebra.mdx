@@ -4,6 +4,29 @@ teaser: 'Vector algebra is extremely limited, but we can invent a much better ap
 teaserImage: 'https://openga.org/imgs/basis.svg'
 date: '2021-08-19'
 ---
+<!-- x
+red: FF0000
+
+y
+green: 00FF00
+
+z
+blue: 0000FF
+
+a
+orange: FF8000
+
+b
+purple: 8000FF
+
+c
+greenish: 00FF80 
+
+s
+gray: 808080
+
+-->
+
 
 Doing algebra with vectors is impossibly frustrating.
 
@@ -13,7 +36,7 @@ Sure, we learn about the dot product and the cross product but neither of these 
 
 If we had access to invertible vector multiplication then we would also have vector division! In fact we'd have a full-on vector algebra, just as expressive and flexible as scalar algebra!
 
-Invertible vector multiplication does exist and we can derive it ourselves.
+> Invertible vector multiplication does exist and we can derive it ourselves.
 
 In this post we will re-invent a forgotten form of math that is far superior to the one you learned in school. The only tools you need are from high-school algebra.
 
@@ -36,14 +59,14 @@ A scalar is a point on a number line. Its magnitude $\|s\|$ is just its absolute
 ## Vectors
 <!-- A scalar carries no intrinsic units and it does not correspond to any geometric object. It's just a bare value. -->
 
-For the purposes of this post a **vector** $\vec{v}$ is an arrow in 3D space. It points from the origin to some other point in space and is usually written like this:
+For the purposes of this post a **vector** $\vec{a}$ is an arrow in 3D space. It points from the origin to some other point in space and is usually written like this:
 
 $$
 \begin{align}
-    \vec{v} &= \begin{bmatrix}
-           v_{1} \\
-           v_{2} \\
-           v_{3}
+    \vec{a} &= \begin{bmatrix}
+           a_{1} \\
+           a_{2} \\
+           a_{3}
          \end{bmatrix}
 \end{align}
 $$
@@ -51,7 +74,7 @@ $$
 Or equivalently, like this:
 
 $$
-\vec{v} = v_1\mathbf{\hat{x}} + v_2\mathbf{\hat{y}} + v_3\mathbf{\hat{z}}
+\vec{a} = a_1\mathbf{\hat{x}} + a_2\mathbf{\hat{y}} + a_3\mathbf{\hat{z}}
 $$
 
 ![A Typical Vector](/images/ga/vector.svg)
@@ -93,14 +116,14 @@ We've already got two vectors so the simplest possible solution might be to comp
 Which has an area equal to:
 
 $$
-A_{triangle}=\frac{1}{2}\|\vec{a}\|\vec{b}\|\sin(\theta)
+A_{triangle}=\frac{1}{2}\|\textcolor{red}{\vec{a}}\|\textcolor{blue}{\vec{b}}\|\sin(\theta)
 $$
 
 Where $\theta$ is the angle between the vectors.
 
 This works but we'll have to carry around an inconvenient factor of $\frac{1}{2}$.
 
-On a lark, what if we borrow an idea from CAD software and try to sweep or *extrude* $\vec{a}$ in the direction of $\vec{b}$?
+On a lark, what if we borrow an idea from CAD software and try to sweep or *extrude* $\textcolor{red}{\vec{a}}$ in the direction of $\textcolor{blue}{\vec{b}}$?
 
 ![Bivector Second Try](/images/ga/bivector_third_try.svg)
 
@@ -110,7 +133,7 @@ On a lark, what if we borrow an idea from CAD software and try to sweep or *extr
 The resulting shape is a parallelogram which covers an area:
 
 $$
-A_{parallelogram}=\|\vec{a}\|\|\vec{b}\|\sin(\theta)
+A_{parallelogram}=\|\textcolor{red}{\vec{a}}\|\|\textcolor{blue}{\vec{b}}\|\sin(\theta)
 $$
 
 By choosing to extrude, we get to drop the extra factor of $\frac{1}{2}$, and we get a very hands-on, intuitive definition for what we're doing with our two vectors.
@@ -202,15 +225,17 @@ What happens if we form a bivector from two unit vectors like $\mathbf{\hat{x}}$
 
 The parallelogram they form happens to be a square with unit area! We can use this to form three distinct unit bivectors:
 
-- $\mathbf{\hat{x}}\wedge\mathbf{\hat{y}}$ also known as the xy plane
-- $\mathbf{\hat{y}}\wedge\mathbf{\hat{z}}$ also known as the yz plane
-- $\mathbf{\hat{z}}\wedge\mathbf{\hat{x}}$ also known as the zx plane
+- $\mathbf{\hat{x}}\wedge\mathbf{\hat{y}}$
+- $\mathbf{\hat{y}}\wedge\mathbf{\hat{z}}$
+- $\mathbf{\hat{z}}\wedge\mathbf{\hat{x}}$
 
 ![The Unit Bivectors](/images/ga/unit_bivectors.svg)
 
-These three unit bivectors are orthogonal to each other, which just means that if you project the yz plane onto the xy plane, its shadow occupies zero area. This is true for any pair of these planes.
+The ordering of the unit vectors doesn't really matter as long as you pick one thing and stick to it, but we should pick something that is easy to remember. I think we should use $\mathbf{\hat{x}}\wedge\mathbf{\hat{z}}$ instead of $\mathbf{\hat{z}}\wedge\mathbf{\hat{x}}$ because that way, every unit bivector is just spelled out alphabetically. This ruins our nice one-of-each-color pattern, but it makes for some easier manipulation later on.
 
-This gives bivectors an interesting commonality with regular vectors. Any vector can be written as the weighted sum of basis vectors:
+The three unit bivectors are orthogonal to each other, which just means that if you project the yz plane onto the xy plane, its shadow occupies zero area. This holds true for any pair of these planes.
+
+This orthogonality gives bivectors an interesting commonality with regular vectors. Any vector can be written as the weighted sum of basis vectors:
 
 $$
 \vec{v} = v_1 \mathbf{\hat{x}} + v_2\mathbf{\hat{y}} + v_3\mathbf{\hat{z}}
@@ -220,10 +245,10 @@ Where you find the coefficients $v_1$, $v_2$, $v_3$ by projecting $\vec{v}$ onto
 
 Similarly, any bivector can be written as the weighted sum of basis bivectors:
 $$
-\vec{a} \wedge \vec{b} = c_1(\mathbf{\hat{x}} \wedge \mathbf{\hat{y}}) + c_2(\mathbf{\hat{y}}\wedge\mathbf{\hat{z}}) + c_3(\mathbf{\hat{z}}\wedge\mathbf{\hat{x}})
+\vec{a} \wedge \vec{b} = c_1(\mathbf{\hat{x}} \wedge \mathbf{\hat{y}}) + c_2(\mathbf{\hat{y}}\wedge\mathbf{\hat{z}}) + c_3(\mathbf{\hat{x}}\wedge\mathbf{\hat{z}})
 $$
 
-Where you find the coefficients $c_1$, $c_2$, $c_3$ by projecting the parallelogram $\vec{a} \wedge \vec{b}$ onto the unit bivectors $\mathbf{\hat{x}} \wedge \mathbf{\hat{y}}$, $\mathbf{\hat{y}}\wedge\mathbf{\hat{z}}$, $\mathbf{\hat{z}}\wedge\mathbf{\hat{x}}$.
+Where you find the coefficients $c_1$, $c_2$, $c_3$ by projecting the parallelogram $\vec{a} \wedge \vec{b}$ onto the unit bivectors $\mathbf{\hat{x}} \wedge \mathbf{\hat{y}}$, $\mathbf{\hat{y}}\wedge\mathbf{\hat{z}}$, $\mathbf{\hat{x}}\wedge\mathbf{\hat{z}}$.
 
 So there we have it, a new type of object called a bivector which is an oriented chunk of area! Its magnitude carries units of area, so bivectors are considered 2-Vectors, or referred to as "Grade 2".
 
@@ -307,7 +332,7 @@ Trivectors are called 3-Vectors or thought of as "Grade 3" because their magnitu
 
 ## Recap
 
-|             | K aka Grade | Magnitude | Written                                 | Orthogonal Bases | Think
+|             | Grade | Magnitude | Written                                 | Bases | Think
 |:--          |:--      |:--              |:--                                    |:--               |:--
 |Scalars      |0        |-                | $s$                                   | 1                | Numbers
 |Vectors      |1        |length           | $\vec{a}$                             | 3                | Arrows
