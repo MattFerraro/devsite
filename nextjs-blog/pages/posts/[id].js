@@ -65,10 +65,56 @@ const MDXComponents = {
   Arrow
 };
 
+const initialize3D = (vis3D) => {
+  const attrs = vis3D.attributes;
+
+  console.log(attrs.width.value)
+  const width = parseInt(attrs.width.value.replace("px", ""))
+  const height = parseInt(attrs.height.value.replace("px", ""))
+  
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
+
+  const renderer = new THREE.WebGLRenderer();
+
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+  const cube = new THREE.Mesh( geometry, material );
+  scene.add( cube );
+
+  camera.position.z = 5;
+
+  renderer.setSize( width, height );
+  vis3D.appendChild( renderer.domElement );
+
+  return {renderer, scene, camera, cube};
+}
+
+
+
 const Vis3DRealizer = () => {
   const [isComponentMounted, setIsComponentMounted] = useState(false)
   useEffect(() => {
-    console.log("wow for real?");
+    const vis3Ds = document.querySelectorAll('.Vis3D')
+    
+    const renderPackages = [];
+    vis3Ds.forEach(function(vis3D) {
+      const rendererPackage = initialize3D(vis3D);
+      renderPackages.push(rendererPackage)
+    });
+
+    function animate() {
+      requestAnimationFrame( animate );
+      
+      renderPackages.forEach((rpackage) => {
+        rpackage.cube.rotation.x += 0.01;
+        rpackage.cube.rotation.y += 0.01;
+        rpackage.renderer.render( rpackage.scene, rpackage.camera );
+
+      })
+    }
+    animate();
+
     setIsComponentMounted(true)
   }, [])
   if(!isComponentMounted) {
