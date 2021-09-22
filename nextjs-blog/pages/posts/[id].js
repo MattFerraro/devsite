@@ -48,28 +48,42 @@ const styledDiv = (props) => {
 };
 
 const Vis3D = (props) => {
-  return <canvas className="Vis3D" width={props.width} height={props.height} style={{backgroundColor: "lightgray", width:props.width, height:props.height}}>{props.children}</canvas>
+  console.log("VIS3D PROPS")
+  console.log(props.width, props.height)
+  return <canvas className="Vis3D" width={props.width} height={props.height} style={{backgroundColor: "lightgray"}}>{props.children}</canvas>
 }
 
 const Arrow = (props) => {
   return <div className="Arrow" {...props}></div>
 }
 
+const DottedLine = (props) => {
+  return <div className="DottedLine" {...props}></div>
+}
+
 const MDXComponents = {
   styledDiv,
   Vis3D,
-  Arrow
+  Arrow,
+  DottedLine,
 };
 
 const initialize3D = (vis3D) => {
   const attrs = vis3D.attributes;
-  const width = parseInt(attrs.width.value.replace("px", ""))
-  const height = parseInt(attrs.height.value.replace("px", ""))
+  
+  const wholeArticle = document.getElementsByTagName("article")[0]
+  const width = wholeArticle.offsetWidth
+  const height = width * 9/16
+
+  console.log("from article", width, height)
+  vis3D.width = width
+  vis3D.height = height
   
   const scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xEEEEEE );
-  const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
-  const renderer = new THREE.WebGLRenderer({canvas:vis3D, antialias:true});
+  const camera = new THREE.PerspectiveCamera( 25, width / height, 0.1, 1000 );
+  camera.up = new THREE.Vector3(0, 0, 1)
+  const renderer = new THREE.WebGLRenderer({canvas:vis3D, antialias:true, powerPreference:"low-power"});
 
   // function drawLine(color, start, end) {
   //   const lineMaterial = new THREE.LineBasicMaterial( { color: color } );
@@ -82,28 +96,63 @@ const initialize3D = (vis3D) => {
   // }
 
   // Add the axis
-  scene.add(new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), 1.0, 0xff0000, 0.15, 0.08 ))
-  scene.add(new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 0 ), 1.0, 0x00ff00, 0.15, 0.08 ))
-  scene.add(new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 0, 0, 0 ), 1.0, 0x0000ff, 0.15, 0.08 ))
+  const headLength = 0.15
+  const headWidth = 0.08
+  const origin = new THREE.Vector3( 0, 0, 0 )
+  const xAxis = new THREE.Vector3(1, 0, 0)
+  const yAxis = new THREE.Vector3(0, 1, 0)
+  const zAxis = new THREE.Vector3(0, 0, 1)
+  const xColor = "red"
+  const yColor = "green"
+  const zColor = "blue"
+  scene.add(new THREE.ArrowHelper( xAxis, origin, 1.0, xColor, headLength, headWidth ))
+  scene.add(new THREE.ArrowHelper( yAxis, origin, 1.0, yColor, headLength, headWidth ))
+  scene.add(new THREE.ArrowHelper( zAxis, origin, 1.0, zColor, headLength, headWidth ))
   
 
   // Add any arrows that are called for
   for (let child of vis3D.children) {
     const childAttrs = child.attributes
-    let end = childAttrs.end.value.split(",").map(parseFloat)
-    let begin = childAttrs.begin.value.split(",").map(parseFloat)
-    let color = childAttrs.color.value
-    let dir = new THREE.Vector3(end[0] - begin[0], end[1] - begin[1], end[2] - begin[2])
-
-    scene.add(new THREE.ArrowHelper( dir, new THREE.Vector3( ...begin ), 1.0, color, 0.15, 0.08 ))
+    console.log(childAttrs)
+    console.log(childAttrs.class)
+    if (childAttrs.class.value === "Arrow") {
+      const end = new THREE.Vector3(...childAttrs.end.value.split(",").map(parseFloat))
+      const begin = new THREE.Vector3(...childAttrs.begin.value.split(",").map(parseFloat))
+      const color = childAttrs.color.value
+      const diff = end.sub(begin)
+      const length = diff.length()
+      const dir = diff.normalize()
+      scene.add(new THREE.ArrowHelper( dir, begin, length, color, headLength, headWidth ))  
+    } else if (childAttrs.class.value === "DottedLine") {
+      const end = new THREE.Vector3(...childAttrs.end.value.split(",").map(parseFloat))
+      const begin = new THREE.Vector3(...childAttrs.begin.value.split(",").map(parseFloat))
+      const color = childAttrs.color.value
+      
+      // const lineMaterial = new THREE.LineBasicMaterial( { color: color } )
+      const material = new THREE.LineDashedMaterial( {
+        color: color,
+        linewidth: 1,
+        scale: 2,
+        dashSize: .1,
+        gapSize: .1,
+      } );
+      const lineGeometry = new THREE.BufferGeometry().setFromPoints( [begin, end] )
+      const line = new THREE.Line( lineGeometry, material );
+      line.computeLineDistances()
+      scene.add( line );
+      
+      
+      // const diff = end.sub(begin)
+      // const length = diff.length()
+      // const dir = diff.normalize()
+      // scene.add(new THREE.ArrowHelper( dir, begin, length, "red", headLength, headWidth ))
+    }
   }
 
-
-  camera.position.z = 2;
-  camera.position.x = .5;
-  camera.position.y = 0.5;
-
-  renderer.setSize( width, height );
+  const scale = 2.5
+  camera.position.x = 2 * scale;
+  camera.position.y = 1 * scale;
+  camera.position.z = 1 * scale;
 
   const controls = new OrbitControls( camera, renderer.domElement );
 
