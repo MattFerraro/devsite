@@ -10,6 +10,7 @@ import utilStyles from '../../styles/utils.module.css'
 // import SimpleExample from '../../posts/simple-test.mdx'
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { OrbitControls } from '../../lib/OrbitControls';
 
 import * as THREE from 'three';
 
@@ -47,12 +48,7 @@ const styledDiv = (props) => {
 };
 
 const Vis3D = (props) => {
-  // const scene = new THREE.Scene();
-  // const camera = new THREE.PerspectiveCamera( 75, props.width / props.height, 0.1, 1000 );
-  // const renderer = new THREE.WebGLRenderer();
-  // renderer.setSize( props.width, props.height );
-  
-  return <div className="Vis3D" width={props.width} height={props.height} style={{backgroundColor: "lightgray", width:props.width, height:props.height}}>{props.children}</div>
+  return <canvas className="Vis3D" width={props.width} height={props.height} style={{backgroundColor: "lightgray", width:props.width, height:props.height}}>{props.children}</canvas>
 }
 
 const Arrow = (props) => {
@@ -67,27 +63,54 @@ const MDXComponents = {
 
 const initialize3D = (vis3D) => {
   const attrs = vis3D.attributes;
-
-  console.log(attrs.width.value)
   const width = parseInt(attrs.width.value.replace("px", ""))
   const height = parseInt(attrs.height.value.replace("px", ""))
   
   const scene = new THREE.Scene();
+  scene.background = new THREE.Color( 0xEEEEEE );
   const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
+  const renderer = new THREE.WebGLRenderer({canvas:vis3D, antialias:true});
 
-  const renderer = new THREE.WebGLRenderer();
+  // function drawLine(color, start, end) {
+  //   const lineMaterial = new THREE.LineBasicMaterial( { color: color } );
+  //   const points = [];
+  //   points.push( start );
+  //   points.push( end );
+  //   const lineGeometry = new THREE.BufferGeometry().setFromPoints( points );
+  //   const line = new THREE.Line( lineGeometry, lineMaterial );
+  //   scene.add( line );
+  // }
 
-  const geometry = new THREE.BoxGeometry();
-  const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-  const cube = new THREE.Mesh( geometry, material );
-  scene.add( cube );
+  // Add the axis
+  scene.add(new THREE.ArrowHelper( new THREE.Vector3( 1, 0, 0 ), new THREE.Vector3( 0, 0, 0 ), 1.0, 0xff0000, 0.15, 0.08 ))
+  scene.add(new THREE.ArrowHelper( new THREE.Vector3( 0, 1, 0 ), new THREE.Vector3( 0, 0, 0 ), 1.0, 0x00ff00, 0.15, 0.08 ))
+  scene.add(new THREE.ArrowHelper( new THREE.Vector3( 0, 0, 1 ), new THREE.Vector3( 0, 0, 0 ), 1.0, 0x0000ff, 0.15, 0.08 ))
+  
 
-  camera.position.z = 5;
+  // Add any arrows that are called for
+  for (let child of vis3D.children) {
+    const childAttrs = child.attributes
+    let end = childAttrs.end.value.split(",").map(parseFloat)
+    let begin = childAttrs.begin.value.split(",").map(parseFloat)
+    let color = childAttrs.color.value
+    let dir = new THREE.Vector3(end[0] - begin[0], end[1] - begin[1], end[2] - begin[2])
+
+    scene.add(new THREE.ArrowHelper( dir, new THREE.Vector3( ...begin ), 1.0, color, 0.15, 0.08 ))
+  }
+
+
+  camera.position.z = 2;
+  camera.position.x = .5;
+  camera.position.y = 0.5;
 
   renderer.setSize( width, height );
-  vis3D.appendChild( renderer.domElement );
 
-  return {renderer, scene, camera, cube};
+  const controls = new OrbitControls( camera, renderer.domElement );
+
+  function updater() {
+  }
+
+  return {renderer, scene, camera, updater};
 }
 
 
@@ -107,10 +130,8 @@ const Vis3DRealizer = () => {
       requestAnimationFrame( animate );
       
       renderPackages.forEach((rpackage) => {
-        rpackage.cube.rotation.x += 0.01;
-        rpackage.cube.rotation.y += 0.01;
         rpackage.renderer.render( rpackage.scene, rpackage.camera );
-
+        rpackage.updater()
       })
     }
     animate();
@@ -121,7 +142,7 @@ const Vis3DRealizer = () => {
     return null
   }
 
-  return <h1>I'm only executed on the client!</h1>
+  return <div></div>
 }
 
 export default function Post({ metadata, mdxSource }) {

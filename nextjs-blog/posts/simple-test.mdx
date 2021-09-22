@@ -4,18 +4,31 @@ teaser: 'Just a test'
 teaserImage: 'https://www.mattferraro.dev/images/my_router_small.jpeg'
 date: '2021-01-17'
 ---
+
+# Gray-Matter Parsing
+Firstly, this file includes gray-matter header information. If you don't see it immediately above this text, that's test #1 passed!
+
+
+# Latex Rendering (with color)
+
+So, can we render latex? Do you see color below?
+
 $$
-L = \frac{1}{2} \textcolor{blue}{\rho v^2} S C_L
+L = \textcolor{red}{\frac{1}{2}} \textcolor{blue}{\rho v^2} S C_L
 $$
+
+# Three.js viewpoints with Arrows
+
+Is the following interactible with orbit controls?
 
 <Vis3D width="612px" height="400px">
-  <Arrow start="0,0,0" end="1,1,1" color="red" label="x"></Arrow>
-  <Arrow start="0,0,0" end="0,-1,1" color="green" label="y"></Arrow>
+  <Arrow begin="0,0,0" end="0.5,0.5,0.5" color="orange" label="a"></Arrow>
+  <Arrow begin="0,0,0" end="1,.7,.5" color="purple" label="b"></Arrow>
 </Vis3D>
 
-Hello!
+# Code Rendering (with syntax highlighting)
 
-<Vis3D width="612px" height="400px">
-  <Arrow start="0,0,0" end="1,1,1" color="red" label="x"></Arrow>
-  <Arrow start="0,0,0" end="0,-1,1" color="green" label="y"></Arrow>
-</Vis3D>
+```julia
+a = 3 + 2
+println(a)
+```
