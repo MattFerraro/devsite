@@ -5,19 +5,15 @@ import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
-// import { MDXProvider } from '@mdx-js/react'
-// import SimpleExample from '../posts/simple-test.mdx'
-// import SimpleExample from '../../posts/simple-test.mdx'
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import katex from "katex"
 import { OrbitControls } from '../../lib/OrbitControls';
 
 import * as THREE from 'three';
-import { CSS3DRenderer, CSS3DObject } from '../../lib/CSS3DRenderer';
+import { CSS3DRenderer, CSS3DSprite } from '../../lib/CSS3DRenderer';
 
 import React, { useEffect, useState } from 'react'
-import { Vector3 } from 'three';
 
 
 const headLength = 0.15
@@ -103,22 +99,30 @@ const renderChild = (child, scene, scene2) => {
       const mesh = new THREE.Mesh( geometry, material );
       scene.add(mesh)
     } else if (childAttrs.class.value === "Latex") {
-      const msg = String.raw`b = \textcolor{blue}{\vec{v_1}}\wedge\vec{v_2}`
-
+      const root = new THREE.Vector3(...childAttrs.root.value.split(",").map(parseFloat)).multiplyScalar(arbitraryScaling)
+      const msg = childAttrs.msg.value;
       const element = document.createElement( 'div' );
+
+      element.style.width = 100 + 'px'
+      element.style.height = 100 + 'px'
+      element.style.verticalAlign = "middle"
+      element.style.lineHeight = "100px"
+      // element.style.opacity = 0.55
+      element.style.textAlign = 'center'
+      // element.style.background = "blue"
+
+      console.log("msg", msg)
       const simplev = katex.render(msg, element, {
         throwOnError: false
       });
 
-      element.style.width = 150 + 'px';
-      element.style.height = 150 + 'px';
-      element.style.opacity = 0.15;
-      element.style.background = "green";
-      element.style.backgroundColor = "green"
-
-      const object = new CSS3DObject( element );
-      object.position.copy( new THREE.Vector3(0, 1, 0) );
-      object.rotation.copy( new THREE.Euler( 0, 10 * THREE.MathUtils.DEG2RAD, 0 ) );
+      const object = new CSS3DSprite(element);
+      object.position.x = root.x
+      object.position.y = root.y
+      object.position.z = root.z
+      // const object = new CSS3DObject( element );
+      // object.position.copy( new THREE.Vector3(0, 1, 0) );
+      // object.rotation.copy( new THREE.Euler( 0, 10 * THREE.MathUtils.DEG2RAD, 0 ) );
       scene2.add( object );
     }
 }
@@ -127,7 +131,7 @@ const renderChild = (child, scene, scene2) => {
 const Vis3D = (props) => {
 
   return (
-      <div className="Vis3D-container" style={{height: props.height + "px", position: 'relative'}}>
+      <div className="Vis3D-container" camera={props.camera} style={{height: props.height + "px", position: 'relative'}}>
         <canvas className="Vis3D-WebGL" width={props.width} height={props.height} style={{backgroundColor: "#EEE", position: 'absolute'}}></canvas>
         <div className="Vis3D-CSS" style={{width: props.width, height: props.height + "px", backgroundColor: "#FFF0", position: 'absolute'}}></div>
         <div className="Vis3D-Elements">
@@ -167,6 +171,7 @@ const initialize3D = (vis3DContainer) => {
   const cssDiv = vis3DContainer.children[1]
 
   const attrs = vis3DContainer.attributes;
+  console.log("attrs", attrs)
 
   const wholeArticle = document.getElementsByTagName("article")[0]
   const width = wholeArticle.offsetWidth
@@ -184,25 +189,6 @@ const initialize3D = (vis3DContainer) => {
   
   renderer2.domElement.style.top = 0;
 
-  const element = document.createElement( 'div' );
-  const simplev = katex.render(String.raw`b = \textcolor{blue}{\vec{v_1}}\wedge\vec{v_2}`, element, {
-    throwOnError: false
-  });
-  element.classList.add("matt")
-  element.style.width = 150 + 'px';
-  element.style.height = 150 + 'px';
-  element.style.opacity = 0.15;
-  element.style.background = "green";
-  element.style.backgroundColor = "green"
-  console.log("EL", element)
-
-
-
-  const object = new CSS3DObject( element );
-  object.position.copy( new THREE.Vector3(0, 1, 0) );
-  object.rotation.copy( new THREE.Euler( 0, - 70 * THREE.MathUtils.DEG2RAD, 0 ) );
-  // scene2.add( object )
-
   // Add the axis
   scene.add(new THREE.ArrowHelper( xAxis, origin, 1.0 * arbitraryScaling, xColor, headLength * arbitraryScaling, headWidth*arbitraryScaling ))
   scene.add(new THREE.ArrowHelper( yAxis, origin, 1.0 * arbitraryScaling, yColor, headLength * arbitraryScaling, headWidth*arbitraryScaling ))
@@ -213,10 +199,10 @@ const initialize3D = (vis3DContainer) => {
     renderChild(child, scene, scene2)
   }
 
-  const scale = arbitraryScaling * 2
-  camera.position.x = 2 * scale;
-  camera.position.y = 1 * scale;
-  camera.position.z = 1 * scale;
+  const cameraPos = new THREE.Vector3(...attrs.camera.value.split(",").map(parseFloat)).multiplyScalar(arbitraryScaling)
+  camera.position.x = cameraPos.x
+  camera.position.y = cameraPos.y
+  camera.position.z = cameraPos.z
 
   const controls = new OrbitControls( camera, renderer2.domElement );
 

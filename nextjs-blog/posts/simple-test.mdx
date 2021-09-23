@@ -21,13 +21,16 @@ $$
 
 Is the following interactible with orbit controls?
 
-<Vis3D width="612px" height="344">
-  <Arrow begin="0,0,0" end="1,1,1" color="orange" label="a"></Arrow>
-  <DottedLine begin="1,1,1" end="1,1,0" color="orange" label="a"></DottedLine>
-  <DottedLine begin="1,1,0" end="1,0,0" color="orange" label="a"></DottedLine>
-  <DottedLine begin="1,1,0" end="0,1,0" color="orange" label="a"></DottedLine>
-  <Triangle v0="0,0,0" v1="1,1,1" v2="1,1,0" color="orange" opacity={0.2} label="a"></Triangle>
-  <Latex msg="$$\vec{a}\wedge\vec{b}$$"></Latex>
+<Vis3D width="612px" height="344" camera="5,2,2">
+  <Arrow begin="0,0,0" end="1,1,1" color="orange"></Arrow>
+  <DottedLine begin="1,1,1" end="1,1,0" color="orange"></DottedLine>
+  <DottedLine begin="1,1,0" end="1,0,0" color="orange"></DottedLine>
+  <DottedLine begin="1,1,0" end="0,1,0" color="orange"></DottedLine>
+  <Triangle v0="0,0,0" v1="1,1,1" v2="1,1,0" color="orange" opacity={0.2}></Triangle>
+  <Latex root="1.1,0,0" msg="\textcolor{red}{\hat{x}}"></Latex>
+  <Latex root="0,1.1,0" msg="\textcolor{green}{\hat{y}}"></Latex>
+  <Latex root="0,0,1.1" msg="\textcolor{blue}{\hat{z}}"></Latex>
+  <Latex root=".5,.5,.7" msg="\textcolor{orange}{\vec{v}}"></Latex>
 </Vis3D>
 
 # Code Rendering (with syntax highlighting)
