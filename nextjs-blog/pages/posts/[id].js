@@ -8,6 +8,8 @@ import utilStyles from '../../styles/utils.module.css'
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypePrism from '@mapbox/rehype-prism';
+import toc from 'remark-toc'
+import slug from 'remark-slug'
 import katex, { render } from "katex"
 import { OrbitControls } from '../../lib/OrbitControls';
 import * as THREE from 'three';
@@ -34,7 +36,7 @@ export async function getStaticProps({ params }) {
 
   const mdxSource = await serialize(postData.rawContent, {
     mdxOptions: {
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkMath, slug, [toc, {tight:true}]],
       rehypePlugins: [rehypeKatex, rehypePrism]
     }
   });
@@ -114,7 +116,7 @@ const renderChild = (child, scene, scene2) => {
       element.style.textAlign = 'center'
       // element.style.background = "blue"
 
-      // console.log("msg", msg)
+      
       const simplev = katex.render(msg, element, {
         throwOnError: false
       });
@@ -167,7 +169,6 @@ const initialize3D = (vis3DContainer) => {
   const cssDiv = vis3DContainer.children[1]
 
   const attrs = vis3DContainer.attributes;
-  console.log("attrs", attrs)
 
   const wholeArticle = document.getElementsByTagName("article")[0]
   const width = wholeArticle.offsetWidth
@@ -221,12 +222,10 @@ const onWindowResize = (renderPackages) => {
   const vis3Ds = document.querySelectorAll('.Vis3D-container')
 
   for (let div of cssDivs) {
-    console.log("A css div", div)
     div.style.width = width + "px"
     div.style.height = height + "px"
   }
   for (let canv of webGLCanvases) {
-    console.log("A webGL canvas", canv)
     canv.style.width = width + "px"
     canv.style.height = height + "px"
   }
@@ -275,6 +274,7 @@ const Vis3DRealizer = () => {
 }
 
 export default function Post({ metadata, mdxSource, imgDims }) {
+  let imgCount = 0
   return (
     <Layout>
       <Head>
@@ -299,6 +299,7 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           <Date dateString={metadata.date} />
         </div>
           
+        
         <MDXRemote {...mdxSource} components={{
           Vis3D,
           Arrow,
@@ -307,12 +308,25 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           Latex,
           img: OptimizedImage,
           p: (paragraph) => {
-            if (paragraph.children && paragraph.children.props && paragraph.children.props.mdxType) {
-              // console.log(paragraph.children.props.src)
+
+            if (paragraph.children && paragraph.children.props && paragraph.children.props.mdxType && paragraph.children.props.mdxType === 'img') {
+              const src = paragraph.children.props.src
+              console.log("WE have an image:", src)
+              if (src.endsWith(".mp4")) {
+                console.log("A VIDEO")
+                return <video width="100%" height="auto" autoPlay muted controls loop><source src={src} type="video/mp4"></source></video>
+              }
+              console.log("Looking for it in here:", imgDims)
               const dims = imgDims[paragraph.children.props.src]
+              console.log(dims)
+              console.log("done")
               const ratio = dims.height / dims.width
-              console.log(ratio)
-              return <Image src={paragraph.children.props.src} alt={paragraph.children.props.alt} width={imageWidth} height={imageWidth * ratio}/>
+              imgCount += 1
+              if (imgCount < 5) {
+                return <Image priority={true} src={paragraph.children.props.src} alt={paragraph.children.props.alt} width={imageWidth} height={imageWidth * ratio}/>
+              } else {
+                return <Image src={paragraph.children.props.src} alt={paragraph.children.props.alt} width={imageWidth} height={imageWidth * ratio}/>
+              }
             }
 
             return <p>{paragraph.children}</p>;

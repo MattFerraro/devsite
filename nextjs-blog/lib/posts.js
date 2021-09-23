@@ -96,23 +96,23 @@ export async function getPostDataMDX(id) {
   const matterResult = matter(fileContents)
 
   const imgDirectory = path.join(process.cwd(), `public/images/${id}`)
-  console.log("pub dir", imgDirectory)
 
   const imgDims = {}
-  const imgNames = fs.readdirSync(imgDirectory)
-  for (let img of imgNames) {
-    if (img.startsWith(".")) {
-      continue
+  if (fs.existsSync(imgDirectory)) {
+    const imgNames = fs.readdirSync(imgDirectory)
+    for (let img of imgNames) {
+      if (img.startsWith(".")) {
+        continue
+      }
+      if (img.endsWith(".mp4")) {
+        continue
+      }
+      const dimensions = imageSize(imgDirectory + "/" + img)
+      
+      imgDims[`/images/${id}/${img}`] = dimensions
     }
-    if (img.endsWith(".mp4")) {
-      continue
-    }
-    const dimensions = imageSize(imgDirectory + "/" + img)
-    
-    imgDims[`/images/${id}/${img}`] = dimensions
   }
-
-  console.log(imgDims)
+  
   
   return {
     id: id,

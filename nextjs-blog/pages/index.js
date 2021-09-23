@@ -35,7 +35,7 @@ export default function Home ({ allPostsData }) {
             <li className={utilStyles.listItem} key={id}>
               <div className={utilStyles.postCard}>
                 {/* <img src={teaserImage}></img> */}
-                <Image src={teaserImage} height={200} width="612"></Image>
+                <Image src={teaserImage} priority height={200} width="612"></Image>
                 <div className={utilStyles.postCardTitle}>
                   <Link href={`/posts/${id}`} prefetch={false}>
                     <a>{title}</a>
