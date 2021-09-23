@@ -7,14 +7,14 @@ import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import katex from "katex"
+import rehypePrism from '@mapbox/rehype-prism';
+import katex, { render } from "katex"
 import { OrbitControls } from '../../lib/OrbitControls';
-
 import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DSprite } from '../../lib/CSS3DRenderer';
-
 import React, { useEffect, useState } from 'react'
 
+import Image from 'next/image'
 
 const headLength = 0.15
 const headWidth = 0.08
@@ -25,7 +25,9 @@ const zAxis = new THREE.Vector3(0, 0, 1)
 const xColor = "red"
 const yColor = "green"
 const zColor = "blue"
-const arbitraryScaling = 100;
+const arbitraryScaling = 100
+const imageWidth = 612
+const imageHeight = imageWidth * 9/16
 
 export async function getStaticProps({ params }) {
   const postData = await getPostDataMDX(params.id)
@@ -33,14 +35,15 @@ export async function getStaticProps({ params }) {
   const mdxSource = await serialize(postData.rawContent, {
     mdxOptions: {
       remarkPlugins: [remarkMath],
-      rehypePlugins: [rehypeKatex]
+      rehypePlugins: [rehypeKatex, rehypePrism]
     }
   });
 
   return {
     props: {
       metadata: postData.metadata,
-      mdxSource: mdxSource
+      mdxSource: mdxSource,
+      imgDims: postData.imgDims
     }
   }
 }
@@ -53,8 +56,8 @@ export async function getStaticPaths() {
   }
 }
 
-const styledDiv = (props) => {
-  return <div style={{ color: props.color }}>{props.children}</div>
+const OptimizedImage = (props) => {
+  return <Image {...props} width={imageWidth} height={imageHeight}/>
 };
 
 const renderChild = (child, scene, scene2) => {
@@ -111,7 +114,7 @@ const renderChild = (child, scene, scene2) => {
       element.style.textAlign = 'center'
       // element.style.background = "blue"
 
-      console.log("msg", msg)
+      // console.log("msg", msg)
       const simplev = katex.render(msg, element, {
         throwOnError: false
       });
@@ -157,14 +160,7 @@ const Latex = (props) => {
   return <div className="Latex" {...props}></div>
 }
 
-const MDXComponents = {
-  styledDiv,
-  Vis3D,
-  Arrow,
-  DottedLine,
-  Triangle,
-  Latex,
-};
+// const MDXComponents = ;
 
 const initialize3D = (vis3DContainer) => {
   const webGLCanvas = vis3DContainer.children[0]
@@ -176,16 +172,19 @@ const initialize3D = (vis3DContainer) => {
   const wholeArticle = document.getElementsByTagName("article")[0]
   const width = wholeArticle.offsetWidth
   const height = width * 9/16
+  vis3DContainer.style.width = width + "px"
+  vis3DContainer.style.height = height + "px"
   
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color( 0xEEEEEE );
-  const camera = new THREE.PerspectiveCamera( 25, width / height, 0.1, 4000 );
+  const scene = new THREE.Scene()
+  scene.background = new THREE.Color( 0xEEEEEE )
+  const camera = new THREE.PerspectiveCamera( 25, width / height, 0.1, 4000 )
   camera.up = new THREE.Vector3(0, 0, 1)
-  const renderer = new THREE.WebGLRenderer({canvas:webGLCanvas, powerPreference:"low-power"});
+  const renderer = new THREE.WebGLRenderer({canvas:webGLCanvas, antialias: true, powerPreference:"low-power"});
 
-  const renderer2 = new CSS3DRenderer(cssDiv);
+  const renderer2 = new CSS3DRenderer(cssDiv)
   renderer2.setSize(width, height)
-  const scene2 = new THREE.Scene();
+  renderer.setSize(width, height)
+  const scene2 = new THREE.Scene()
   
   renderer2.domElement.style.top = 0;
 
@@ -212,6 +211,34 @@ const initialize3D = (vis3DContainer) => {
   return {renderer, renderer2, scene, scene2, camera, updater};
 }
 
+const onWindowResize = (renderPackages) => {
+  const wholeArticle = document.getElementsByTagName("article")[0]
+  const width = wholeArticle.offsetWidth
+  const height = width * 9/16
+
+  const webGLCanvases = document.querySelectorAll('.Vis3D-WebGL')
+  const cssDivs = document.querySelectorAll('.Vis3D-CSS')
+  const vis3Ds = document.querySelectorAll('.Vis3D-container')
+
+  for (let div of cssDivs) {
+    console.log("A css div", div)
+    div.style.width = width + "px"
+    div.style.height = height + "px"
+  }
+  for (let canv of webGLCanvases) {
+    console.log("A webGL canvas", canv)
+    canv.style.width = width + "px"
+    canv.style.height = height + "px"
+  }
+  for (let vis of vis3Ds) {
+    vis.style.width = width + "px"
+    vis.style.height = height + "px"
+  }
+  for (let rp of renderPackages) {
+    rp.renderer.setSize(width, height)
+    rp.renderer2.setSize(width, height)
+  }
+}
 
 
 const Vis3DRealizer = () => {
@@ -224,6 +251,8 @@ const Vis3DRealizer = () => {
       const rendererPackage = initialize3D(vis3D);
       renderPackages.push(rendererPackage)
     });
+
+    window.addEventListener( 'resize', () => {onWindowResize(renderPackages)} );
 
     function animate() {
       requestAnimationFrame( animate );
@@ -245,7 +274,7 @@ const Vis3DRealizer = () => {
   return <div></div>
 }
 
-export default function Post({ metadata, mdxSource }) {
+export default function Post({ metadata, mdxSource, imgDims }) {
   return (
     <Layout>
       <Head>
@@ -270,7 +299,25 @@ export default function Post({ metadata, mdxSource }) {
           <Date dateString={metadata.date} />
         </div>
           
-        <MDXRemote {...mdxSource} components={MDXComponents} />
+        <MDXRemote {...mdxSource} components={{
+          Vis3D,
+          Arrow,
+          DottedLine,
+          Triangle,
+          Latex,
+          img: OptimizedImage,
+          p: (paragraph) => {
+            if (paragraph.children && paragraph.children.props && paragraph.children.props.mdxType) {
+              // console.log(paragraph.children.props.src)
+              const dims = imgDims[paragraph.children.props.src]
+              const ratio = dims.height / dims.width
+              console.log(ratio)
+              return <Image src={paragraph.children.props.src} alt={paragraph.children.props.alt} width={imageWidth} height={imageWidth * ratio}/>
+            }
+
+            return <p>{paragraph.children}</p>;
+          },
+        }} />
 
         <Vis3DRealizer></Vis3DRealizer>
 

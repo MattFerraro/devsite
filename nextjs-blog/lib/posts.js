@@ -15,6 +15,7 @@ import stringify from 'rehype-stringify'
 import unified from 'unified'
 import visit from 'unist-util-visit'
 import Image from "next/image"
+import imageSize from 'image-size';
 import mdx from '@mdx-js/mdx'
 import babel from '@babel/core'
 import SimpleExample from '../posts/simple-test.mdx'
@@ -24,7 +25,7 @@ const postsDirectory = path.join(process.cwd(), 'posts')
 const allowList = [
   // "cnc-router.md",
   // "poissons-equation.md",
-  // "caustics-engineering.md",
+  "caustics-engineering.mdx",
   "simple-test.mdx"
 ]
 
@@ -93,23 +94,31 @@ export async function getPostDataMDX(id) {
   const fullPath = path.join(postsDirectory, `${id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const matterResult = matter(fileContents)
-  // const jsx = await mdx(fileContents, {skipExport: true})
-  
-  // const transform = code =>
-  //   babel.transform(code, {
-  //     plugins: [
-  //       '@babel/plugin-transform-react-jsx',
-  //       '@babel/plugin-proposal-object-rest-spread'
-  //     ]
-  // }).code
-  
-  // const code = transform(jsx)
-  // console.info(jsx)
 
+  const imgDirectory = path.join(process.cwd(), `public/images/${id}`)
+  console.log("pub dir", imgDirectory)
+
+  const imgDims = {}
+  const imgNames = fs.readdirSync(imgDirectory)
+  for (let img of imgNames) {
+    if (img.startsWith(".")) {
+      continue
+    }
+    if (img.endsWith(".mp4")) {
+      continue
+    }
+    const dimensions = imageSize(imgDirectory + "/" + img)
+    
+    imgDims[`/images/${id}/${img}`] = dimensions
+  }
+
+  console.log(imgDims)
+  
   return {
     id: id,
     rawContent: matterResult.content,
     metadata: matterResult.data,
+    imgDims: imgDims,
     // content: matterResult.content,
     // ...matterResult.data
   }
