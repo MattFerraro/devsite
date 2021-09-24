@@ -23,10 +23,10 @@ import SimpleExample from '../posts/simple-test.mdx'
 const postsDirectory = path.join(process.cwd(), 'posts')
 
 const allowList = [
-  // "cnc-router.md",
-  // "poissons-equation.md",
+  "cnc-router.mdx",
+  "poissons-equation.mdx",
   "caustics-engineering.mdx",
-  "simple-test.mdx"
+  // "simple-test.mdx"
 ]
 
 export function getSortedPostsData() {

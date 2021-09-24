@@ -94,7 +94,7 @@ The central constraint--that each element is the average of its neighbors--means
 
 We use Laplace's equation to model any physical phenomenon where a scalar field is allowed to relax over time and we're only interested in the final state.
 
-![Temperature on a square plate](/images/laplace/plate.jpg)
+![Temperature on a square plate](/images/poissons-equation/plate.jpg)
 The canonical example is simulating heat flow across a [square plate](https://blogs.solidworks.com/teacher/2011/08/fea-tutorial-nafems-steady-state-temperature-distribution-of-a-plate-in-solidworks.html), where the cell values represent temperature.
 
 It makes sense that there can be no local minima or maxima--Any spot of metal on the plate that is hotter than all its neighbors will spread its heat to them and cool off. When all such small scale gradients have been exhausted and all the heat has flowed to equilibrium, we're left with a situation that satisfies Laplace's constraint.
@@ -322,7 +322,7 @@ This optimization is called [Successive Over-Relaxation](https://en.wikipedia.or
 
 Instead of looking at $f$ as a table of numerical values between $0$ and $1$, let's interpret the matrix values as pixel brightness:
 
-![The function F interpreted as an image](/images/laplace/hot_right.png)
+![The function F interpreted as an image](/images/poissons-equation/hot_right.png "dno")
 
 This is the solution to our original boundary conditions of $0$ everywhere and $1$ on the rightmost boundary, just scaled up to $100 \times 100$ cells. If the value in question is heat, this output matches our expectation that heat flows in from the edge and heats up just the right side of the grid.
 
@@ -330,7 +330,7 @@ This is the solution to our original boundary conditions of $0$ everywhere and $
 
 It is customary when simulating heat flow to use a wacky color palette where red is hot and blue is cold, with all kinds of intermediate colors in between:
 
-![](/images/laplace/laplace_heatmap.png)
+![](/images/poissons-equation/laplace_heatmap.png)
 
 I think this colormap is a little tacky, but it's what you find in all the textbooks. Maybe it helps you see the fine structure of the answer better. Maybe it just subjectively *feels* more like heat because we're used to seeing red as hot. Use whatever colormap helps you the most.
 
@@ -338,7 +338,7 @@ I think this colormap is a little tacky, but it's what you find in all the textb
 
 Instead of living in 2D and making images, we can interpret the values as heights and build a 3D surface:
 
-![](/images/laplace/hot_right_mesh.png)
+![](/images/poissons-equation/hot_right_mesh.png)
 
 (Here I've exaggerated the height by $30x$ just to see it better)
 
@@ -346,13 +346,13 @@ This is a common way to visualize electric potential functions because it is sup
 
 A slightly more interesting example would be to charge both the side walls to create a saddle:
 
-![](/images/laplace/saddle_heat.png)
+![](/images/poissons-equation/saddle_heat.png)
 
-![](/images/laplace/saddle_height.png)
+![](/images/poissons-equation/saddle_height.png)
 
 Looking at the ramp it is obvious that a marble should roll down from the left or right edges and then fall off the top or bottom edges. To visualize the paths better we might draw little arrows which everywhere point in the direction most downhill.
 
-![](/images/laplace/saddle_grad.png)
+![](/images/poissons-equation/saddle_grad.png)
 
 This field full of arrows all pointing downhill is written
 
@@ -422,23 +422,23 @@ And again we achieve excellent performance. When $h=0$, our simulation simplifie
 
 If we use an $h$ which is everywhere zero, but at the center has a single $-1$, we are modeling adding a single heat source at the center of the metal plate:
 
-![](/images/laplace/poisson_single_point.png)
+![](/images/poissons-equation/poisson_single_point.png)
 
-![](/images/laplace/poisson_point_source_heightmap.png)
+![](/images/poissons-equation/poisson_point_source_heightmap.png)
 
 Just by modifying $h$ we can encode any distribution of heat sources and sinks anywhere in 2D space, rather than being limited to only having sources and sinks at the edges of the plate.
 
 This extra matrix $h$ gives us tremendously more modeling freedom! We can add a line source instead of a point source:
 
-![](/images/laplace/poisson_line_source.png)
+![](/images/poissons-equation/poisson_line_source.png)
 
-![](/images/laplace/poisson_line_source_heightmap.png)
+![](/images/poissons-equation/poisson_line_source_heightmap.png)
 
 Or any arrangement of heat sources and sinks that we desire!
 
-![](/images/laplace/poisson_complex.png)
+![](/images/poissons-equation/poisson_complex.png)
 
-![](/images/laplace/poisson_complex_heightmap.png)
+![](/images/poissons-equation/poisson_complex_heightmap.png)
 
 Note that in specifying Dirichlet boundary values, we were specifying the temperature directly. "The right edge is 1 degree and the left edge is 0 degrees". 
 
@@ -458,7 +458,7 @@ Being surrounded by perfect insulators is not a statement about the temperature 
 
 The clearest way to simulate this condition is to just mirror the function across all boundaries and treat edge cells the same way you treat interior points. So the new situation looks like this:
 
-![](/images/laplace/poisson_mirrored.png)
+![](/images/poissons-equation/poisson_mirrored.png)
 
 Where we're only interested in the centermost copy, and we need to smooth over all the edges so that the mirrored copies blend seemlessly into each other. Of course we don't need to _actually_ copy the matrix 9 times, we can just simulate mirroring across boundaries like this:
 
@@ -484,9 +484,9 @@ See [poisson2.jl](https://github.com/MattFerraro/devsite/blob/master/nextjs-blog
 
 Looking back, we notice that Dirichlet boundaries often produce sharp ramps at the edges of the simulation. In contrast, Neumann boundaries always produce smooth, flat edges:
 
-![](/images/laplace/neumann_heatmap.png)
+![](/images/poissons-equation/neumann_heatmap.png)
 
-![](/images/laplace/neumann_heightmap.png)
+![](/images/poissons-equation/neumann_heightmap.png)
 
 If you place a marble at rest on any edge of that heightmap, it will not tend to roll off the edge. It may roll downhill along the edge, but it won't fall. That's because on the left and right edges, the gradient from left to right must be zero. Along the top and bottom edges, the gradient from top to bottom must be zero.
 
@@ -518,7 +518,7 @@ This may seem surprising and I won't try to prove it here, but you can add toget
 
 For example, using Dirichlet boundaries we can fix the left side at 0 and the right side at 1, with a linear ramp on top and bottom. The solution $f$ is just a linear ramp:
 
-![Linear Gradient](/images/laplace/linear_gradient.png)
+![Linear Gradient](/images/poissons-equation/linear_gradient.png)
 
 In aerodynamics we might think of $f$ as the *aerodynamic potential*. The gradient of the aerodynamic potential gives us the velocity field:
 
@@ -526,41 +526,41 @@ $$
 \nabla f = \overrightarrow{V}
 $$
 
-![Uniform Flow](/images/laplace/uniform_flow.png)
+![Uniform Flow](/images/poissons-equation/uniform_flow.png)
 
 Where we can interpret the arrows as the wind. This particular potential function models a uniform airflow from left to right. Remember that the positive gradient points uphill from blue to red.
 
 Separately we can create a point source of air, with Dirichlet boundaries fixed at zero. Think of this like a hose injecting air into a sealed, square chamber.
 
-![Single Point Source](/images/laplace/left_source.png)
+![Single Point Source](/images/poissons-equation/left_source.png)
 
-![Point Source into Sealed Container](/images/laplace/source_flow.png)
+![Point Source into Sealed Container](/images/poissons-equation/source_flow.png)
 
 The air nearest the point source moves fast but slows down as it gains some distance. The velocity drops to zero at the edges because this chamber is sealed.
 
 In the same vein, we can make a point sink of air with the same sealed boundary conditions. This is a vacuum hose sucking air out of a sealed chamber:
 
-![Single Point Sink](/images/laplace/right_sink.png)
+![Single Point Sink](/images/poissons-equation/right_sink.png)
 
-![Point Sink from Sealed Container](/images/laplace/sink_flow.png)
+![Point Sink from Sealed Container](/images/poissons-equation/sink_flow.png)
 
 Again the main feature is that the arrows get longer as they get closer to the point sink.
 
 All three of these are valid solutions to Poisson's equation, so we can just add them together to end up with a new solution which has elements from each! The combined potential function looks like:
 
-![Combined Potential](/images/laplace/combined_heat.png)
+![Combined Potential](/images/poissons-equation/combined_heat.png)
 
-![Combined Heightmap](/images/laplace/separatrix_heightmap.png)
+![Combined Heightmap](/images/poissons-equation/separatrix_heightmap.png)
 
 Remembering that for the gradient, arrows point uphill:
 
-![Combined Flow](/images/laplace/combined_flow.png)
+![Combined Flow](/images/poissons-equation/combined_flow.png)
 
 The flow field we've created is very interesting! From a distance, uniform flow dominates the velocity field, but there are two localized regions which look like a source and sink. If we trace the velocity field carefully, we actually find that every single bit of air blown out of the source gets absorbed by the sink! This is no coincidence as they were created to be equal and opposite strengths.
 
 It might not be obvious at first glance but we can draw an oval on this flow field which is tangent to the velocity field at all points. This corresponds to a [watershed boundary](https://www.usgs.gov/core-science-systems/ngp/ngtoc/watershed-boundary-dataset) in the heightmap.
 
-![Separatrix](/images/laplace/separatrix2.png)
+![Separatrix](/images/poissons-equation/separatrix2.png)
 
 This oval (called a separatrix) has the special property that no wind flows through it at all. It acts just like a solid surface. We have already assembled a reasonably accurate simulation of how air flows around an ellipse in some confined space like a wind tunnel!
 
@@ -596,4 +596,4 @@ I hope that recognizing Poisson's equation and how to solve it will help you fee
 
 If you wanna talk about Poisson's Equation and its million uses, hit me up on twitter [@mferraro89](https://twitter.com/mferraro89) or email me at mattferraro.dev@gmail.com.
 
-<iframe width="100%" height="390" src="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
+<iframe width="100%" height="390" src="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i" frameBorder="0" scrolling="auto" allowFullScreen style={{display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%"}}></iframe>
