@@ -312,11 +312,9 @@ export default function Post({ metadata, mdxSource, imgDims }) {
             if (paragraph.children && paragraph.children.props && paragraph.children.props.mdxType && paragraph.children.props.mdxType === 'img') {
               const src = paragraph.children.props.src
               
-              console.log(paragraph.children.props)
               const childProps = paragraph.children.props
 
               if (src.endsWith(".mp4")) {
-                console.log("A VIDEO")
                 return <video width="100%" height="auto" autoPlay muted controls loop><source src={src} type="video/mp4"></source></video>
               }
               

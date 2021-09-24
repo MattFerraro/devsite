@@ -1,9 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import remark from 'remark'
 import slug from 'remark-slug'
-import html from 'remark-html'
 import toc from 'remark-toc'
 import remarkGfm from 'remark-gfm'
 import math from 'remark-math'
@@ -13,12 +11,7 @@ import rehypePrism from '@mapbox/rehype-prism'
 import markdown from 'remark-parse'
 import stringify from 'rehype-stringify'
 import unified from 'unified'
-import visit from 'unist-util-visit'
-import Image from "next/image"
 import imageSize from 'image-size';
-import mdx from '@mdx-js/mdx'
-import babel from '@babel/core'
-import SimpleExample from '../posts/simple-test.mdx'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
@@ -31,6 +24,8 @@ const allowList = [
 
 export function getSortedPostsData() {
   // Get file names under /posts
+
+  // This section controls what shows up on the front page
   // const fileNames = fs.readdirSync(postsDirectory)
   const fileNames = allowList;
   const allPostsData = fileNames.map(fileName => {
@@ -75,9 +70,10 @@ export function getAllPostIds() {
   //   }
   // ]
 
+  // This area controls what builds and is hosted, NOT what ends up on the front page
   // To allow EVERYTHING:
-  // const fileNames = fs.readdirSync(postsDirectory)
-  const fileNames = allowList
+  const fileNames = fs.readdirSync(postsDirectory)
+  // const fileNames = allowList
   // To allow a subset, use allowList
 
   
@@ -121,35 +117,5 @@ export async function getPostDataMDX(id) {
     imgDims: imgDims,
     // content: matterResult.content,
     // ...matterResult.data
-  }
-}
-
-export async function getPostData(id) {
-  const fullPath = path.join(postsDirectory, `${id}.mdx`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents)
-  
-  const processor = await unified()
-    .use(markdown)
-    .use(slug)
-    .use(toc, {tight: true})
-    .use(math)
-    .use(remarkGfm)
-    .use(remark2rehype, {allowDangerousHtml: true})
-    .use(katex, {"output": "html"})
-    .use(stringify, {allowDangerousHtml: true})
-    // .use(attacher)
-    .use(rehypePrism)
-    .process(matterResult.content);
-  
-  const contentHtml = processor.contents;
-  
-  // Combine the data with the id and contentHtml
-  return {
-    id,
-    contentHtml,
-    ...matterResult.data
   }
 }
