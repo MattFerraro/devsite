@@ -162,6 +162,12 @@ const Latex = (props) => {
   return <div className="Latex" {...props}></div>
 }
 
+const Attribution = (props) => {
+  const link = <a href={props.src}>{props.srcName}</a>
+  const name = <a href={props.license}>{props.licenseName}</a>
+  return <div className="attribution">Image from {link} licensed {name}</div>
+}
+
 // const MDXComponents = ;
 
 const initialize3D = (vis3DContainer) => {
@@ -306,6 +312,7 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           DottedLine,
           Triangle,
           Latex,
+          Attribution,
           img: OptimizedImage,
           p: (paragraph) => {
 
