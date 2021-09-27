@@ -18,8 +18,8 @@ import React, { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 
-const headLength = 0.15
-const headWidth = 0.08
+const headLength = 0.05
+const headWidth = 0.07
 const origin = new THREE.Vector3( 0, 0, 0 )
 const xAxis = new THREE.Vector3(1, 0, 0)
 const yAxis = new THREE.Vector3(0, 1, 0)
@@ -100,18 +100,39 @@ const renderChild = (child, scene, scene2) => {
       ] );
 
       geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
-      const material = new THREE.MeshBasicMaterial( { color: color, side: THREE.DoubleSide, transparent: true, opacity: .2 } );
-      const mesh = new THREE.Mesh( geometry, material );
-      scene.add(mesh)
+      // const frontMaterial = new THREE.MeshBasicMaterial( { color: color, side: THREE.FrontSide, transparent: true, opacity: opacity } );
+      // const mesh = new THREE.Mesh( geometry, frontMaterial );
+      // scene.add(mesh)
+
+      // const backMaterial = new THREE.MeshBasicMaterial( { color: color, side: THREE.BackSide, transparent: false } );
+      // const mesh2 = new THREE.Mesh( geometry, backMaterial );
+      // scene.add(mesh2)
+
+      const material = new THREE.MeshBasicMaterial( { color: color, side: THREE.DoubleSide, transparent: true, opacity: opacity, depthWrite: false } );
+      const mesh3 = new THREE.Mesh( geometry, material );
+      scene.add(mesh3)
+    } else if (childAttrs.class.value==="Circle") {
+      const radius = .7 * arbitraryScaling
+      const geometry = new THREE.CircleGeometry(radius, 52)
+      const color = childAttrs.color.value
+      const opacity = childAttrs.opacity.value
+      const material = new THREE.MeshBasicMaterial( { color: color, side: THREE.DoubleSide, transparent: true, opacity: opacity } );
+      const circle = new THREE.Mesh( geometry, material );
+      console.log(childAttrs.props)
+      const xrotation = childAttrs.rotateX.value
+      circle.rotateOnWorldAxis(xAxis, xrotation * 3.14159/180)
+      const yrotation = childAttrs.rotateY.value
+      circle.rotateOnWorldAxis(yAxis, yrotation * 3.14159/180)
+      scene.add(circle)
     } else if (childAttrs.class.value === "Latex") {
       const root = new THREE.Vector3(...childAttrs.root.value.split(",").map(parseFloat)).multiplyScalar(arbitraryScaling)
       const msg = childAttrs.msg.value;
       const element = document.createElement( 'div' );
 
-      element.style.width = 100 + 'px'
-      element.style.height = 100 + 'px'
+      element.style.width = 150 + 'px'
+      element.style.height = 150 + 'px'
       element.style.verticalAlign = "middle"
-      element.style.lineHeight = "100px"
+      element.style.lineHeight = "150px"
       // element.style.opacity = 0.55
       element.style.textAlign = 'center'
       // element.style.background = "blue"
@@ -137,7 +158,7 @@ const Vis3D = (props) => {
 
   return (
       <div className="Vis3D-container" camera={props.camera} style={{height: props.height + "px", position: 'relative'}}>
-        <canvas className="Vis3D-WebGL" width={props.width} height={props.height} style={{backgroundColor: "#EEE", position: 'absolute'}}></canvas>
+        <canvas className="Vis3D-WebGL" width={props.width} height={props.height} style={{backgroundColor: "#FFF", position: 'absolute'}}></canvas>
         <div className="Vis3D-CSS" style={{width: props.width, height: props.height + "px", backgroundColor: "#FFF0", position: 'absolute'}}></div>
         <div className="Vis3D-Elements">
           {props.children}
@@ -156,6 +177,10 @@ const DottedLine = (props) => {
 
 const Triangle = (props) => {
   return <div className="Triangle" {...props}></div>
+}
+
+const Circle = (props) => {
+  return <div className="Circle" {...props}></div>
 }
 
 const Latex = (props) => {
@@ -183,7 +208,7 @@ const initialize3D = (vis3DContainer) => {
   vis3DContainer.style.height = height + "px"
   
   const scene = new THREE.Scene()
-  scene.background = new THREE.Color( 0xEEEEEE )
+  scene.background = new THREE.Color( 0xFFFFFF )
   const camera = new THREE.PerspectiveCamera( 25, width / height, 0.1, 4000 )
   camera.up = new THREE.Vector3(0, 0, 1)
   const renderer = new THREE.WebGLRenderer({canvas:webGLCanvas, antialias: true, powerPreference:"low-power"});
@@ -311,6 +336,7 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           Arrow,
           DottedLine,
           Triangle,
+          Circle,
           Latex,
           Attribution,
           img: OptimizedImage,
@@ -347,7 +373,14 @@ export default function Post({ metadata, mdxSource, imgDims }) {
             }
 
             return <p>{paragraph.children}</p>;
-          },
+          } 
+        }} scope={{
+          "ax": .5, "ay": .5, "az": .8,
+          "acolor": "orange",
+          "bx": .5, "by": .5, "bz": 0,
+          "bcolor": "purple",
+          "cx": -.3, "cy": .5, "cz": 0,
+          "ccolor": "aqua"
         }} />
 
         <Vis3DRealizer></Vis3DRealizer>
