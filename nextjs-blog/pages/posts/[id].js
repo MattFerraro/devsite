@@ -112,13 +112,24 @@ const renderChild = (child, scene, scene2) => {
       const mesh3 = new THREE.Mesh( geometry, material );
       scene.add(mesh3)
     } else if (childAttrs.class.value==="Circle") {
-      const radius = .7 * arbitraryScaling
+      const radius = parseFloat(childAttrs.r.value) * arbitraryScaling
       const geometry = new THREE.CircleGeometry(radius, 52)
+      
       const color = childAttrs.color.value
       const opacity = childAttrs.opacity.value
       const material = new THREE.MeshBasicMaterial( { color: color, side: THREE.DoubleSide, transparent: true, opacity: opacity } );
       const circle = new THREE.Mesh( geometry, material );
-      console.log(childAttrs.props)
+      
+      if (childAttrs.root && childAttrs.root.value) {
+        const root = new THREE.Vector3(...childAttrs.root.value.split(",").map(parseFloat)).multiplyScalar(arbitraryScaling)
+        console.log("Okay neat, this one has a root", childAttrs.root.value, root)
+        circle.position.x = root.x
+        circle.position.y = root.y
+        circle.position.z = root.z
+      } else {
+        console.log("This circle has no root")
+      }
+       
       const xrotation = childAttrs.rotateX.value
       circle.rotateOnWorldAxis(xAxis, xrotation * 3.14159/180)
       const yrotation = childAttrs.rotateY.value
