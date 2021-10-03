@@ -63,7 +63,7 @@ class OrbitControls extends EventDispatcher {
 
 		// This option actually enables dollying in and out; left as "zoom" for backwards compatibility.
 		// Set to false to disable zooming
-		this.enableZoom = true;
+		this.enableZoom = false;
 		this.zoomSpeed = 1.0;
 
 		// Set to false to disable rotating
@@ -71,7 +71,7 @@ class OrbitControls extends EventDispatcher {
 		this.rotateSpeed = 1.0;
 
 		// Set to false to disable panning
-		this.enablePan = true;
+		this.enablePan = false;
 		this.panSpeed = 1.0;
 		this.screenSpacePanning = true; // if false, pan orthogonal to world-space direction camera.up
 		this.keyPanSpeed = 7.0;	// pixels moved per arrow key push
@@ -468,6 +468,7 @@ class OrbitControls extends EventDispatcher {
 			if ( scope.object.isPerspectiveCamera ) {
 
 				scale /= dollyScale;
+				console.log("Scale", scale)
 
 			} else if ( scope.object.isOrthographicCamera ) {
 
@@ -485,9 +486,9 @@ class OrbitControls extends EventDispatcher {
 		}
 
 		function dollyIn( dollyScale ) {
-
+			console.log("dolly in")
 			if ( scope.object.isPerspectiveCamera ) {
-
+				console.log("scaling dolly in", scale, dollyScale)
 				scale *= dollyScale;
 
 			} else if ( scope.object.isOrthographicCamera ) {

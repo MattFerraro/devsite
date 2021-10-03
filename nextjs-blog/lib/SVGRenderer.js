@@ -28,7 +28,7 @@ SVGObject.prototype.isSVGObject = true;
 
 class SVGRenderer {
 
-	constructor() {
+	constructor(domEl) {
 
 		let _renderData, _elements, _lights,
 			_svgWidth, _svgHeight, _svgWidthHalf, _svgHeightHalf,
@@ -64,16 +64,18 @@ class SVGRenderer {
 
 			_svgPathPool = [],
 
-			_projector = new Projector(),
-			_svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+			_projector = new Projector();
+			// _svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
 
-		this.domElement = _svg;
+		// this.domElement = _svg;
+        const _svg = domEl
+        this.domElement = domEl
 
 		this.autoClear = true;
 		this.sortObjects = true;
 		this.sortElements = true;
 
-		this.overdraw = 0.5;
+		this.overdraw = 0.0;
 
 		this.info = {
 

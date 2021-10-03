@@ -14,6 +14,8 @@ import katex, { render } from "katex"
 import { OrbitControls } from '../../lib/OrbitControls';
 import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DSprite } from '../../lib/CSS3DRenderer';
+import { SVGRenderer } from '../../lib/SVGRenderer';
+
 import React, { useEffect, useState } from 'react'
 
 import Image from 'next/image'
@@ -169,7 +171,7 @@ const Vis3D = (props) => {
 
   return (
       <div className="Vis3D-container" camera={props.camera} style={{height: props.height + "px", position: 'relative'}}>
-        <canvas className="Vis3D-WebGL" width={props.width} height={props.height} style={{backgroundColor: "#FFF", position: 'absolute'}}></canvas>
+        <svg className="Vis3D-SVG" xmlns="http://www.w3.org/2000/svg" version="1.1" baseProfile="full" width={props.width} height={props.height} style={{backgroundColor: "#FFF", position: 'absolute'}}></svg>
         <div className="Vis3D-CSS" style={{width: props.width, height: props.height + "px", backgroundColor: "#FFF0", position: 'absolute'}}></div>
         <div className="Vis3D-Elements">
           {props.children}
@@ -207,7 +209,7 @@ const Attribution = (props) => {
 // const MDXComponents = ;
 
 const initialize3D = (vis3DContainer) => {
-  const webGLCanvas = vis3DContainer.children[0]
+  const svgEl = vis3DContainer.children[0]
   const cssDiv = vis3DContainer.children[1]
 
   const attrs = vis3DContainer.attributes;
@@ -222,7 +224,8 @@ const initialize3D = (vis3DContainer) => {
   scene.background = new THREE.Color( 0xFFFFFF )
   const camera = new THREE.PerspectiveCamera( 25, width / height, 0.1, 4000 )
   camera.up = new THREE.Vector3(0, 0, 1)
-  const renderer = new THREE.WebGLRenderer({canvas:webGLCanvas, antialias: true, powerPreference:"low-power"});
+  
+  const renderer = new SVGRenderer(svgEl)
 
   const renderer2 = new CSS3DRenderer(cssDiv)
   renderer2.setSize(width, height)
@@ -260,6 +263,7 @@ const onWindowResize = (renderPackages) => {
   const height = width * 9/16
 
   const webGLCanvases = document.querySelectorAll('.Vis3D-WebGL')
+  const svgAreas = document.querySelectorAll('.Vis3D-SVG')
   const cssDivs = document.querySelectorAll('.Vis3D-CSS')
   const vis3Ds = document.querySelectorAll('.Vis3D-container')
 
@@ -270,6 +274,10 @@ const onWindowResize = (renderPackages) => {
   for (let canv of webGLCanvases) {
     canv.style.width = width + "px"
     canv.style.height = height + "px"
+  }
+  for (let s of svgAreas) {
+    s.style.width = width + "px"
+    s.style.height = height + "px"
   }
   for (let vis of vis3Ds) {
     vis.style.width = width + "px"
