@@ -448,7 +448,7 @@ $$
 
 Where you find the coefficients $b_1$, $b_2$, $b_3$ by projecting the bivector $\overset{\Rightarrow}{b}$ onto the unit bivectors $(\textcolor{red}{\hat{x}} \wedge \textcolor{green}{\hat{y}})$, $(\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}})$, $(\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}})$.
 
-Because bivectors can be written as three coefficients, they behave very similarly to vectors. You can add two bivectors the same way you add two vectors. You can multiply a bivector by a scalar the same way you would with a vector. The similarities are so striking that we might think of them as "psuedovectors":
+Because bivectors can be written as three coefficients, they behave very similarly to vectors. You can add two bivectors the same way you add two vectors. You can multiply a bivector by a scalar the same way you would with a vector. The similarities are so striking that we might think of them as "pseudovectors":
 
 $$
 \begin{align} 
@@ -659,7 +659,7 @@ $$
 \overset{\Rrightarrow}{t} = t_1\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}
 $$
 
-So I guess we're back at something that has just one degree of freedom and feels more like a scalar. In fact you might even think of trivectors as *psuedoscalars* because they behave so similarly.
+So I guess we're back at something that has just one degree of freedom and feels more like a scalar. In fact you might even think of trivectors as *pseudoscalars* because they behave so similarly.
 
 Remember that we only arrived at equation $1.0$ because we decided that bivector spin direction was important—that clockwise and anticlockwise are opposites.
 
@@ -667,7 +667,7 @@ We could have chosen to ignore bivector spin direction but if we'd have made tha
 
 Trivectors are called 3-Vectors or thought of as "Grade 3" because their magnitude carries units of volume.
 
-In the same way that bivectors behave as psuedovectors, trivectors behave as psuedoscalars.
+In the same way that bivectors behave as pseudovectors, trivectors behave as pseudoscalars.
 
 ## Recap and Higher Dimensional Concerns
 
@@ -1595,19 +1595,33 @@ The product of two vectors can therefore be thought of as a *rotor*, because it 
 
 The extra factor of $2$ comes from the fact that the rotor is applied twice: once on the left and once on the right in the sandwich product.
 
-# Cross Product Considered Harmful
+Every rotor includes a bivector part and scalar part which might equal zero. That means every bivector is a rotor.
 
-Every student who starts learning physics stumbles when learning about angular momentum and torque.
+If vectors perform reflection, bivectors perform rotation.
 
-I believe the issue comes from introducing the cross product, which is a waste of time.
+Can you figure out for yourself what action trivectors perform?
 
-The world of linear momentum and linear forces is relatively intuitive. It is self-consistent in the sense that vectors can be added together meaningfully, provided you are careful to use scalars where required to make units compatible.
+# A New Foundation for Physics
 
-Then you learn about angular momentum and torque and because they are defined using the cross product, you have to introduce a [Bizarro World](https://en.wikipedia.org/wiki/Bizarro_World) version of vectors called "[psuedovectors](https://en.wikipedia.org/wiki/Pseudovector)" or "axial vectors" which are compatible with each other but are incompatible with regular vectors. And oh yes they reflect differently in a mirror than regular vectors do.
+Every new physics student stumbles when learning about angular momentum and torque.
 
-Psuedovectors and cross products are a pedagogical misstep. They force us to remember a difference in **type** without introducing a difference in **form**.
+The world of linear momentum and linear forces is relatively intuitive. It is self-consistent in the sense that vectors can be added together meaningfully, provided you use scalars where required to make units compatible.
 
-The equation we're all taught is:
+Then you learn about angular momentum and torque and you have to introduce a [Bizarro World](https://en.wikipedia.org/wiki/Bizarro_World) version of vectors called "[pseudovectors](https://en.wikipedia.org/wiki/Pseudovector)" or "axial vectors" which are compatible with each other but are incompatible with regular vectors. It is *never* correct to add a pseudovector like angular momentum to a regular vector like linear momentum and you just have to memorize which ones belong to which camp.
+
+Even worse, some physics curriculums don't even call out the difference between axial vectors and regular vectors, they just assume you will pick up on their patterns implicitly. Many students never pick up this intuition and consequently believe themselves to be "bad at physics".
+
+Pseudovectors as we typically teach them are actually bivectors. They can be written using 3 numbers, but their true nature is tied to the fact that they are oriented pieces of area, not length.
+
+If we teach students about bivectors and if we write them using their full notation like:
+
+$$
+\overset{\Rightarrow}{b} = b_1\textcolor{red}{\hat{x}}  \textcolor{green}{\hat{y}} + b_2\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + b_3\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}
+$$
+
+It is obvious from the beginning that pseudovectors and vectors are similar but incompatible types.
+
+The equation for torque that we're taught in high school physics is:
 $$
 \tau = r \times F
 $$
@@ -1618,19 +1632,46 @@ $$
 \tau = r \wedge F
 $$
 
-Which means torque is a bivector living in the plane defined by $r$ and $F$. The magnitude of the torque is the area of the bivector.
+Which means torque is a bivector living in the plane defined by $r$ and $F$, not a pseudovector perpendicular to them. There is no need to introduce the cross product or the right-hand rule at all when teaching rotational dynamics.
 
-This definition of torque works correctly because, like vectors, bivectors also consist of three components. But they are not written like vectors so we have our much-needed difference in form. All bivectors are also rotors, so we are also self-consistent in the colloqial sense that torque, being a rotor, *rotates things*.
+All bivectors are also rotors, so this new definition is self-consistent in the colloqial sense that torque, being a rotor, *rotates things*. Angular velocity, also a rotor, is a measure of how much rotation is occurring!
 
-A similar problem occurs when students take the conceptual leap from electric fields to magnetic fields. The electric field is a vector field which makes sense, but then the magnetic field is a psuedovector field which just tosses their intuition out the window. The magnetic field, and in fact every psuedovector in physics, is better thought of as a bivector. 
+A similar problem occurs when students take the conceptual leap from electric fields to magnetic fields. The electric field is a vector field which lets them build intuition, but then the magnetic field is a pseudovector field which just tosses their intuition out the window.
 
-The word "Psuedoscalar" also comes up in physics to describe scalar-like quantities that change their sign under reflection. The basic examples we learn are Magnetic Charge and Magnetic Flux, but the concept crops up later in fluid dynamics as the Stream Function and in quantum mechanics as Helicity. All of these are in fact just trivectors. 
+The magnetic field, like torque and every other pseudovector in physics, is better thought of as a bivector.
 
-Speaking of quantum mechanics, the one defining trait of the Pauli Spin Matricies is that they all square to one. They are just the regular unit vectors dressed up as matrices!
+Pseudovectors require special care when transforming from a right-handed coordinate system to a left-handed system. But bivectors manage such transformations automatically and without issue.
 
-The algebra we have learned today is a better, simpler model of the universe than the one we teach students in school. We should change what we teach, and we can start by forgetting about cross products.
+<!-- You'll notice that nowhere in the algebra we've developed did we ever rely on the right-hand rule, only on the oppositeness of the right and left hands.
 
-# Extension to Special Relativity
+Instead of occupying a central place in the halls of physics, the right-hand rule has been laid bare as just a notational convention, which is all it ever was.  -->
+
+The word "Pseudoscalar" also comes up in physics to describe scalar-like quantities that change their sign under reflection. The basic examples we learn are Magnetic Charge and Magnetic Flux, but the concept crops up later in fluid dynamics as the Stream Function and in quantum mechanics as Helicity. All of these are in fact just trivectors. In a mirror, trivectors behave differently than scalars do because mirrors change handedness.
+
+Speaking of quantum mechanics, the defining traits of the [Pauli Spin Matricies](https://en.wikipedia.org/wiki/Pauli_matrices) are that they all square to one and they are mutually orthogonal. They are just the unit vectors $\textcolor{red}{\hat{x}}$, $\textcolor{green}{\hat{y}}$, $\textcolor{blue}{\hat{z}}$ dressed up as matrices!
+
+The algebra we have learned today is a better, simpler model of the universe than the one we teach students in school. It is easier to learn and easier to teach. It extends beautifully to the concept of 4D spacetime, which makes special relativity far easier to understand.
+
+The normal approach to physics notation is to learn standard 3D vector notation, then patch over it as needed to reconcile the physical reality with the limits of the notation:
+- Complex Numbers
+- Quaternions 
+- Pauli Spinors
+- Minkowski 4-Vectors
+- Dirac Spinors
+
+All of these are band-aids over a fundamentally broken system. The alternative is to teach the Geometric Algebra we've started learning today, which encompasses the dynamics of all of these lesser systems.
+
+# Conclusion
+
+We started with a question that seemed almost nonsensical: What is the inverse of a vector?
+
+In stumbling toward an answer, we developed a much richer understanding of what a vector is and what it does. Along the way we derived the foundation of a branch of Math that is usually only taught to Math graduate students, but is actually suitable for high school students.
+
+We built a set of algebraic tools so powerful and elegant that they make the dominant system of mathematical notation in science and engineering seem almost nonsensical.
+
+I believe that in 200 years, Geometric Algebra will be the dominant way of introducing students to mathematical physics. In the same way that Newton's notation for Calculus is no longer the dominant one, or that Maxwell's actual equations for Electromagnetism have been replaced by Heaviside's, textbooks will change because a better system has come along.
+
+Unlike those examples, the change from Gibb's vector notation to Geometric Algebra is something we're living through right now. New [Youtube](https://www.youtube.com/watch?v=60z_hpEAtD8) [videos](https://www.youtube.com/watch?v=2hBWCCAiCzQ&list=PLVuwZXwFua-0Ks3rRS4tIkswgUmDLqqRy) and textbooks are coming out all the time that incorporate this superior approach. Pick one up [and](https://smile.amazon.com/Space-Time-Algebra-David-Hestenes/dp/3319184121/ref=sr_1_18?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-18) [be](https://smile.amazon.com/Introduction-Clifford-Algebras-Spinors/dp/0198836287/ref=sr_1_24?dchild=1&keywords=geometric+algebra+physics&qid=1633233021&sr=8-24) [part](https://smile.amazon.com/Geometric-Algebra-Electrical-Engineers-electromagnetism/dp/1987598970/ref=sr_1_10?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-10) [of](https://smile.amazon.com/New-Foundations-Mathematics-Geometric-Concept/dp/0817683844/ref=sr_1_19?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-19) [the](https://smile.amazon.com/Geometric-Invitation-Space-Time-SpringerBriefs-Mathematics/dp/331990664X/ref=sr_1_7?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-7) [revolution](https://smile.amazon.com/Geometric-Multiplication-Vectors-Introduction-Mathematics/dp/3030017559/ref=sr_1_6?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-6)!
 
 # Geometric Algebra Cheat Sheet
 
@@ -1666,44 +1707,16 @@ $$
 {\vec{v}\,}'' = \vec{u}(\vec{t}\vec{v}\vec{t}^{-1})\vec{u}^{-1} = (\vec{u}\vec{t})\vec{v}(\vec{u}\vec{t})^{-1}
 $$
 
-# Historical Notes
+# Coda
 
-# Further Reading:
-- http://new.math.uiuc.edu/math198/MA198-2015/stelzer3/mathwriteup1.pdf 
+The area of math we explored today is called Geometric Algebra, also known as the Clifford Algebra. It was invented on a similar time frame to the Gibbs vector notation that is in wide use today, but it languished in obscurity for a long time. David Hestenes is largely responsible for the modern resurgence in interest and has written many great papers about it.
 
-Honestly cross products are probably a mistake.
+In this post I took several liberties with notation and naming. What I called the "extrude product" is usually called the "wedge product" or "exterior product". Bivectors are often written like this: $\vec{B}$ rather than: $\overset{\Rightarrow}{b}$.
 
-Special relativity as a modification of what "space" is.
+I am not a mathematician. I often sacrificed rigor for speed. My goal is only to light a spark.
 
-## Just checking
+# Contact me
 
-We started out by asking a question that seemed almost nonsensical: How do you invert a vector?
+If you would like to tell me in excruciating detail exactly what I said wrong in this post, I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). Email me at mattferraro.dev@gmail.com if you prefer to shame me privately.
 
-In stumbling toward an answer, we derived an entire branch of mathematics. We built a set of algebraic tools so powerful and elegant that they make the dominant system of mathematics in science and engineering seem almost nonsensical. Maybe we should teach **this** in high school.
-
-Actually, we can readily extend our framework to accomodate Einstein's theory of *spacetime*, where vectors look like $p_1\textcolor{brown}{\hat{t}} - p_2\textcolor{red}{\hat{x}} - p_3\textcolor{green}{\hat{y}} - p_4\textcolor{blue}{\hat{z}}$ but that's a topic for another day.
-
-
-What happens if we use a trivector as a transformation? What physical operation does it correspond to?
-
-<!-- The cross product takes in 2 input vectors and outputs just a single vector. Collapsing six numbers into three means it also can't be inverted.
-
-$$
-\begin{align}
-\vec{c} &= \textcolor{orange}{\vec{a}} \times \textcolor{purple}{\vec{b}} \\
-\begin{bmatrix}
-c_1\\
-c_2\\
-c_3
-\end{bmatrix} &=
-\begin{bmatrix}
-a_2 b_3 - a_3 b_2 \\
-a_3 b_1 - a_1 b_3 \\
-a_1 b_2 - a_2 b_1
-\end{bmatrix}
-\end{align}
-$$
-
-![diagram of ambiguous cross products] -->
-
-<!-- Given arbitrary $\vec{c}$ and $\textcolor{purple}{b_1}, \textcolor{purple}{b_2}, \textcolor{purple}{b_3}$, there is generally no valid solution for $\textcolor{orange}{a_1}, \textcolor{orange}{a_2}, \textcolor{orange}{a_3}$. In the special case where the resulting equations are solvable, they yield infinitely many solutions. -->
+<iframe width="100%" height="390" src="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i" frameBorder="0" scrolling="auto" allowFullScreen style={{display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%"}}></iframe>
