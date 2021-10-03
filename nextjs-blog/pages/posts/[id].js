@@ -148,6 +148,7 @@ const renderChild = (child, scene, scene2) => {
       element.style.lineHeight = "150px"
       // element.style.opacity = 0.55
       element.style.textAlign = 'center'
+      element.classList.add("noselect")
       // element.style.background = "blue"
 
       
