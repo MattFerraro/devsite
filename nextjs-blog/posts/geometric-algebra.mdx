@@ -343,7 +343,7 @@ So we have to choose: Do we want our algebra to encapsulate a concept of spin di
 There is probably a useful algebra to be found down either of these roads. But to me, spin direction feels pretty important so let's define our second axiom:
 
 $$
-\tag{1.0}
+\tag{1.1}
 \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} = -\textcolor{purple}{\vec{b}} \wedge \textcolor{orange}{\vec{a}}
 $$
 
@@ -371,7 +371,7 @@ What happens if you extrude a vector by itself?
 Well, any vector $\textcolor{purple}{\vec{b}}$ is always parallel to itself, so the extruded parallelogram will always have zero area. We can already write an identity!
 
 $$
-\tag{1.1}
+\tag{1.2}
 \textcolor{purple}{\vec{b}} \wedge \textcolor{purple}{\vec{b}} = 0
 $$
 
@@ -643,9 +643,10 @@ $$
 
 Which is really just another way of saying that we can freely move coefficients around, even negative coefficients. 
 
-Remembering equation $1.0$, which lets us swap the order of any two vectors at the cost of a minus sign:
+Remembering equation $1.1$, which lets us swap the order of any two vectors at the cost of a minus sign:
 
 $$
+\tag{1.3}
 \begin{align}
 -(\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}) &= \textcolor{green}{\vec{y}}\wedge\textcolor{red}{\vec{x}}\wedge\textcolor{blue}{\vec{z}} \\
 &= \textcolor{red}{\vec{x}}\wedge\textcolor{blue}{\vec{z}}\wedge\textcolor{green}{\vec{y}} \\
@@ -663,7 +664,7 @@ $$
 
 So I guess we're back at something that has just one degree of freedom and feels more like a scalar. In fact you might even think of trivectors as *pseudoscalars* because they behave so similarly.
 
-Remember that we only arrived at equation $1.0$ because we decided that bivector spin direction was important—that clockwise and anticlockwise are opposites.
+Remember that we only arrived at equation $1.1$ because we decided that bivector spin direction was important—that clockwise and anticlockwise are opposites.
 
 We could have chosen to ignore bivector spin direction but if we'd have made that decision then to be self-consistent we would now be forced to ignore trivector handedness. Perhaps there is a useful algebraic system down that road, but it models a universe where inside-out and rightside-in are not distinguishable, which is not our universe.
 
@@ -673,12 +674,12 @@ In the same way that bivectors behave as pseudovectors, trivectors behave as pse
 
 ## Recap and Higher Dimensional Concerns
 
-|             | Grade | Magnitude | Written                                 | Bases | Think
-|:--          |:--      |:--              |:--                                    |:--               |:--
-|Scalars      |0        |-                | $s$                                   | 1                | Numbers
-|Vectors      |1        |length           | $\textcolor{orange}{\vec{a}}$                             | 3                | Arrows
-|Bivectors    |2        |area             | $\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}$                | 3                | Parallelograms
-|Trivectors   |3        |volume           | $\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}\wedge\textcolor{aqua}{\vec{c}}$   | 1                | Squished Cubes 
+|             | Grade | Magnitude | Written                                 | Bases 
+|:--          |:--      |:--              |:--                                    |:--               
+|Scalars      |0        |-                | $s$                                   | 1                
+|Vectors      |1        |length           | $\textcolor{orange}{\vec{a}}$                             | 3                
+|Bivectors    |2        |area             | $\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}$                | 3                
+|Trivectors   |3        |volume           | $\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}\wedge\textcolor{aqua}{\vec{c}}$   | 1                 
 
 The concept of Grade extends out to any number of dimensions, so we might ask what about quadvectors?
 
@@ -693,6 +694,7 @@ We all know how to add scalars together: Just add the values.
 Vectors can be added together in a simple way: Project the input vectors onto three orthogonal unit vectors then add up the components
 
 $$
+\tag{2.0}
 \begin{align}
 \textcolor{orange}{\vec{a}} + \textcolor{purple}{\vec{b}} &= (\textcolor{orange}{a_1}\textcolor{red}{\hat{x}} + \textcolor{orange}{a_2}\textcolor{green}{\hat{y}} + \textcolor{orange}{a_3}\textcolor{blue}{\hat{z}}) + (\textcolor{purple}{b_1}\textcolor{red}{\hat{x}} + \textcolor{purple}{b_2}\textcolor{green}{\hat{y}} + \textcolor{purple}{b_3}\textcolor{blue}{\hat{z}}) \\
 &= (\textcolor{orange}{a_1} + \textcolor{purple}{b_1})\textcolor{red}{\hat{x}} + (\textcolor{orange}{a_2}+\textcolor{purple}{b_2})\textcolor{green}{\hat{y}} + (\textcolor{orange}{a_3}+\textcolor{purple}{b_3})\textcolor{blue}{\hat{z}}
@@ -703,7 +705,8 @@ Bivectors behave a lot like vectors:
 
 $$
 \begin{align}
-\overset{\Rightarrow}{c} + \overset{\Rightarrow}{d} &= (c_1\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + c_2\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + c_3\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}}) + (d_1\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + d_2\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + d_3\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}}) \\
+\tag{2.1}
+\overset{\Rightarrow}{c} + \overset{\Rightarrow}{d} &= c_1\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + c_2\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + c_3\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}} \\ &+ d_1\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + d_2\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + d_3\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}} \\
 &= (c_1+d_1)\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + (c_2+d_2)\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + (c_3+d_3)\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}}
 \end{align}
 $$
@@ -714,6 +717,7 @@ We could go ahead and develop explicit formulas for how to project a bivector on
 Trivectors are just fancy scalars. There's only one meaningful unit trivector so you just write your trivectors in terms of $\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}$ and add the components you end up with
 
 $$
+\tag{2.2}
 \begin{align}
 \overset{\Rrightarrow}{t} + \overset{\Rrightarrow}{u} &= t_1 (\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}) + u_1 (\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}) \\
 &= (t_1 + u_1)(\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}})
@@ -752,6 +756,7 @@ Is perfectly valid, but it cannot be simplified into anything else. We just acce
 
 Writing it all out, we can see that in general a Geometric has eight orthogonal components:
 $$
+\tag{3.0}
 \begin{align}
 \mathbf{G} &= g \\
  &+ g_x\textcolor{red}{\hat{x}}\\
@@ -769,6 +774,7 @@ This might feel like a lot to deal with, but remember that most of the time most
 If orthogonal objects don't mix, then the sum of any two geometrics, $\mathbf{G_1}$ and $\mathbf{G_2}$, is just the pairwise sum of their scalar, vector, bivector, and trivector components. You'll never need this giant equation, but just for illustrative purposes:
 
 $$
+\tag{3.1}
 \begin{align}
 \mathbf{G_1} + \mathbf{G_2} &= g_1 + g_2 \\
  &+ (g_{1x} + g_{2x})\textcolor{red}{\hat{x}}\\
@@ -877,7 +883,7 @@ A *Eureka* moment is upon us!
 What if we define the Vector Product as:
 
 $$
-\tag{2.0}
+\tag{4.0}
 \textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}
 $$
 
@@ -919,7 +925,7 @@ The Vector Product is very important so let's examine it a few ways.
 What happens when we plug in two of the same vector?
 
 $$
-\tag{2.2}
+\tag{5.0}
 \begin{align}
 \textcolor{orange}{\vec{a}}\textcolor{orange}{\vec{a}} &= \textcolor{orange}{\vec{a}} \cdot \textcolor{orange}{\vec{a}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{orange}{\vec{a}} \\
 &= \|\textcolor{orange}{\vec{a}}\| \|\textcolor{orange}{\vec{a}}\| \cos{\theta} + \|\textcolor{orange}{\vec{a}}\| \|\textcolor{orange}{\vec{a}}\| \sin{\theta} \\
@@ -932,7 +938,7 @@ $$
 And just like that we've learned what it means to take the square of a vector!
 
 $$
-\tag{2.3}
+\tag{5.1}
 \textcolor{orange}{\vec{a}}^2 = \|\textcolor{orange}{\vec{a}}\|^2
 $$
 
@@ -945,21 +951,21 @@ Buckle up because we're really going to start moving quickly now.
 Consider the quantity $\frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}$. What happens if you multiply it by $\textcolor{orange}{\vec{a}}$?
 
 $$
-\tag{2.3}
+\tag{5.2}
 \left(\frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}\right) \textcolor{orange}{\vec{a}} = \frac{\textcolor{orange}{\vec{a}}^2}{\textcolor{orange}{\vec{a}}^2} = 1
 $$
 
-$\textcolor{orange}{\vec{a}}$ times the quantity $\frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}$ equals $1$. That means $\frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}$ is the inverse of the vector $\textcolor{orange}{\vec{a}}$:
+$\textcolor{orange}{\vec{a}}$ times the quantity $\frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}$ equals $1$. That means $\frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}$ is the inverse of $\textcolor{orange}{\vec{a}}$:
 
 $$
-\tag{2.4}
+\tag{5.3}
 \textcolor{orange}{\vec{a}}^{-1} = \frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}
 $$
 
 Just like scalars, vectors can be meaningfully inverted! Apparently the inverse of a vector is just that same vector, but scaled so that its new magnitude squared is the inverse of its old magnitude squared. Writing in a more suggestive way with help from equation $2.3$:
 
 $$
-\tag{2.4}
+\tag{5.4}
 \textcolor{orange}{\vec{a}}^{-1} = \frac{1}{\|\textcolor{orange}{\vec{a}}\|^2} \textcolor{orange}{\vec{a}}
 $$
 
@@ -978,40 +984,41 @@ What happens if we swap the order of the input vectors?
 The dot product is commutative:
 
 $$
-\tag{2.5}
+\tag{5.5}
 \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} = \textcolor{purple}{\vec{b}} \cdot \textcolor{orange}{\vec{a}}
 $$
 
-And we know from equation $1.0$ that the extrude product is anticommutative: 
+And we know from equation $1.1$ that the extrude product is anticommutative: 
 $$
-\tag{1.0}
+\tag{1.1}
 \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} = -\textcolor{purple}{\vec{b}} \wedge \textcolor{orange}{\vec{a}}
 $$
 
 So the vector product $\textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}$:
 
 $$
-\tag{2.6}
+\tag{5.6}
 \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} = \textcolor{purple}{\vec{b}} \cdot \textcolor{orange}{\vec{a}} + \textcolor{purple}{\vec{b}} \wedge \textcolor{orange}{\vec{a}}
 $$
 
 Can be rewritten as:
 
 $$
-\tag{2.6}
+\tag{5.7}
 \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} = \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} - \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}
 $$
 
 Which is more similar to our original definition:
 
 $$
-\tag{2.0}
+\tag{4.0}
 \textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}
 $$
 
-Just for practice, let's add equations $2.6$ and $2.0$ to get:
+Just for practice, let's add equations $5.7$ and $4.0$ to get:
+
 $$
-\tag{2.7}
+\tag{5.8}
 \begin{align}
 \textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} + \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} &= \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} - \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} \\
 &= 2 \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}}
@@ -1021,13 +1028,13 @@ $$
 Dividing both sides by $2$ gives us an explicit formula for the dot product in terms of the vector product!
 
 $$
-\tag{2.8}
+\tag{5.9}
 \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} = \frac{\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} + \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}}{2}
 $$
 
-If we subtract equation $2.6$ from equation $2.0$ we get:
+If we subtract equation $5.7$ from equation $4.0$ we get:
 $$
-\tag{2.9}
+\tag{5.10}
 \begin{align}
 \textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} - \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} &= \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} - \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} \\
 &= 2 \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}
@@ -1037,7 +1044,7 @@ $$
 Which, after dividing both sides by $2$, gives an explicit formula for the extrude product in terms of the vector product!
 
 $$
-\tag{2.9}
+\tag{5.11}
 \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} = \frac{\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} - \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}}{2}
 $$
 
@@ -1054,6 +1061,7 @@ $$
 The dot product of two orthogonal vectors is always $0$, so:
 
 $$
+\tag{5.12}
 \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} = \textcolor{red}{\hat{x}} \wedge \textcolor{green}{\hat{y}}
 $$
 
@@ -1062,16 +1070,40 @@ This is an incredibly convenient result! It means that we can stop writing our u
 Given that $\textcolor{red}{\hat{x}} \wedge \textcolor{green}{\hat{y}} = -\textcolor{green}{\hat{y}} \wedge \textcolor{red}{\hat{x}}$, it is clear that
 
 $$
+\tag{5.13}
 \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} = - \textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}
 $$
  
 So our freedom to swap the order of any two adjacent unit vectors at the cost of a minus sign still holds!
 
----
-
-We created equation $2.0$ to give us a way to multiply two vectors together. Can it cope if we start throwing bivectors at it? Let's try multiplying the bivector $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ times the unit vector $\textcolor{blue}{\hat{z}}$.
+Repeating the exercise for other unit vectors gives us the full set:
 
 $$
+\tag{5.14}
+\begin{align}
+\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} &= \textcolor{red}{\hat{x}} \wedge \textcolor{green}{\hat{y}} \\
+\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} &= \textcolor{green}{\hat{y}} \wedge \textcolor{blue}{\hat{z}} \\
+\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} &= \textcolor{red}{\hat{x}} \wedge \textcolor{blue}{\hat{z}}
+\end{align}
+$$
+
+$$
+\tag{5.15}
+\begin{align}
+\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} &= -\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} \\
+\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} &= -\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} \\
+\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} &= -\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}
+\end{align}
+$$
+
+With these identities we'll be able to easily rearrange almost any equation we're given!
+
+---
+
+We created equation $4.0$ to give us a way to multiply two vectors together. Can it cope if we start throwing bivectors at it? Let's try multiplying the bivector $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ times the unit vector $\textcolor{blue}{\hat{z}}$.
+
+$$
+\tag{5.16}
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})\textcolor{blue}{\hat{z}} = (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}) \cdot \textcolor{blue}{\hat{z}} + (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}) \wedge \textcolor{blue}{\hat{z}}
 $$
 
@@ -1080,18 +1112,21 @@ Well, what does it mean to take the dot product between the $\textcolor{red}{\ha
 So even though we haven't developed a formula for how to compute the dot product of a bivector with a vector, I think it makes sense to say that:
 
 $$
+\tag{5.17}
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}) \cdot \textcolor{blue}{\hat{z}} = 0
 $$
 
 That leaves us with
 
 $$
+\tag{5.18}
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})\textcolor{blue}{\hat{z}} = (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}) \wedge \textcolor{blue}{\hat{z}}
 $$
 
 Which is just ordinary extrusion of a bivector along a vector. After removing parenthesis and substituting in equation $n$ we see that:
 
 $$
+\tag{5.19}
 \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} = \textcolor{red}{\hat{x}} \wedge \textcolor{green}{\hat{y}} \wedge \textcolor{blue}{\hat{z}}
 $$
 
@@ -1112,16 +1147,15 @@ $$
 Whoa. Repeating for each unit vector, we see that:
 
 $$
-\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} = 1
-$$
-$$
-\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}} = 1
-$$
-$$
-\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} = 1
+\tag{5.20}
+\begin{align}
+\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} &= 1 \\
+\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}} &= 1 \\
+\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} &= 1
+\end{align}
 $$
 
-In fact, *any unit-length vector is its own inverse!* This will help us simplify complex expressions!
+In fact, *any unit-length vector is its own inverse!* This combined with $5.15$ will help us simplify complex expressions!
 
 ---
 
@@ -1180,16 +1214,17 @@ Whoa. Apparently, the unit trivector is also the square root of negative one! Wi
 Now that we can simplify complicated expressions, let's make some! What happens if we try to square the $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ unit bivector?
 
 $$
+\tag{5.21}
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})^2 = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}
 $$
 
-Here I'm just writing out what it means to square something; I haven't plugged it in to our special vector product formula. We can swap the last two axes and bring in a minus sign:
+Here I'm just writing out what it means to square something; I haven't plugged it in to our special vector product formula. We know from $5.15$ that we can swap the last two axes and bring in a minus sign:
 
 $$
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})^2 = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}(-\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}})
 $$
 
-And we know from equation n that we can freely move coefficients around:
+And we know from equation $1.0$ that we can freely move coefficients around:
 
 $$
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})^2 = -\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}
@@ -1204,6 +1239,7 @@ $$
 And the two $\textcolor{red}{\hat{x}}$'s cancel:
 
 $$
+\tag{5.22}
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})^2 = -1
 $$
 
@@ -1216,6 +1252,7 @@ This property is so remarkable to stumble upon that I think we should feel free 
 But there was nothing special about the $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ unit bivector that gave us this strange property. Does it hold with the $\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}$ unit bivector?
 
 $$
+\tag{5.23}
 \begin{align}
 (\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 &= \textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
 &= -\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} \\
@@ -1229,6 +1266,7 @@ This is wild! We apparently have *two* "imaginary numbers" and they are orthogon
 For completeness' sake let's try the last one:
 
 $$
+\tag{5.24}
 \begin{align}
 (\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}})^2 &= \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
 &= -\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
@@ -1244,6 +1282,7 @@ Apparently our new algebraic system based on Geometrics permits three mutually o
 If you've ever studied [Quaternions](https://www.youtube.com/watch?v=d4EgbgTm0Bg) you might remember the fundamental equation that defines them:
 
 $$
+\tag{5.25}
 i^2 = j^2 = k^2 = ijk = -1
 $$
 
@@ -1252,6 +1291,7 @@ And how strikingly similar our current situation seems to be!
 Now that we have bivector definitions for $\overset{\Rightarrow}{i}$, $\overset{\Rightarrow}{j}$, and $\overset{\Rightarrow}{k}$, let's see if that final, crucial identity holds?
 
 $$
+\tag{5.26}
 \begin{align}
 \overset{\Rightarrow}{i}\overset{\Rightarrow}{j}\overset{\Rightarrow}{k} &= (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})(\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}) \\
 &= \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
@@ -1364,30 +1404,31 @@ So it isn't a huge leap to ask: What happens when we use a *vector* as a transfo
 The formula for applying a transformation (sandwich) is:
 
 $$
-{\vec{v}\,}'=\vec{t}\vec{v}\vec{t}^{-1}
+\tag{7.0}
+\textcolor{orange}{{\vec{a}\,}'}=\textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{a}}\textcolor{brown}{\vec{t}}^{-1}
 $$
 
 Our input vector will be something simple like:
 $$
-\vec{v} = .5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}}
+\textcolor{orange}{\vec{a}} = .5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}}
 $$
 
 The vector we'll transform it by will also be simple; let's use:
 
 $$
-\vec{t} = .5 \textcolor{blue}{\hat{z}}
+\textcolor{brown}{\vec{t}} = .5 \textcolor{blue}{\hat{z}}
 $$
 
-We already know how to find the inverse vector using equation n:
+We already know how to find the inverse vector using equation $5.4$:
 $$
-\vec{t}^{-1} = 2 \textcolor{blue}{\hat{z}}
+\textcolor{brown}{\vec{t}}^{-1} = 2 \textcolor{blue}{\hat{z}}
 $$
 
 Plugging it all in:
 
 $$
 \begin{align}
-{\vec{v}\,}' &= \vec{t}\vec{v}\vec{t}^{-1} \\
+\textcolor{orange}{{\vec{a}\,}'} &= \textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{a}}\textcolor{brown}{\vec{t}}^{-1} \\
 &= (.5 \textcolor{blue}{\hat{z}})(.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}})(2 \textcolor{blue}{\hat{z}}) \\
 \end{align}
 $$
@@ -1396,7 +1437,7 @@ Let's pull out the constants $.5$ and $2$ to the very front and let them cancel:
 
 $$
 \begin{align}
-{\vec{v}\,}' &= .5 * 2 (\textcolor{blue}{\hat{z}})(.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) \\
+\textcolor{orange}{{\vec{a}\,}'} &= .5 * 2 (\textcolor{blue}{\hat{z}})(.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) \\
 &= (\textcolor{blue}{\hat{z}})(.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) 
 \end{align}
 $$
@@ -1406,7 +1447,7 @@ We can distribute the leftmost $\textcolor{blue}{\hat{z}}$, taking care to keep 
 
 $$
 \begin{align}
-{\vec{v}\,}'&= (.5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) \\
+\textcolor{orange}{{\vec{a}\,}'} &= (.5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) \\
 &= (.5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} + .707)(\textcolor{blue}{\hat{z}})
 \end{align}
 $$
@@ -1415,7 +1456,7 @@ Now we can incorporate that rightmost $\textcolor{blue}{\hat{z}}$:
 
 $$
 \begin{align}
-{\vec{v}\,}'&= .5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + .707 \textcolor{blue}{\hat{z}} \\
+\textcolor{orange}{{\vec{a}\,}'} &= .5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + .707 \textcolor{blue}{\hat{z}} \\
 &= -.5 \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}} \\
 &= -.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}}
 \end{align}
@@ -1427,56 +1468,59 @@ $$
   <Latex root="0,1.15,0" msg="\textcolor{green}{\hat{y}}"></Latex>
   <Latex root="0,0,1.15" msg="\textcolor{blue}{\hat{z}}"></Latex>
   
-  <Arrow begin="0,0,0" end="0,.5,.707" color="black"></Arrow>
-  <Latex root="0,.6,.8" msg="\vec{v}"></Latex>
+  <Arrow begin="0,0,0" end="0,.5,.707" color="orange"></Arrow>
+  <Latex root="0,.6,.8" msg="\textcolor{orange}{\vec{a}}"></Latex>
 
-  <Arrow begin="0,0,0" end="0,-.5,.707" color="black"></Arrow>
-  <Latex root="0,-.6,.8" msg="{\vec{v}\,}'"></Latex>
+  <Arrow begin="0,0,0" end="0,-.5,.707" color="orange"></Arrow>
+  <Latex root="0,-.6,.8" msg="\textcolor{orange}{{\vec{a}\,}'}" color="orange"></Latex>
 
-  <Arrow begin="0,0,0" end="0,0,.5" color="black"></Arrow>
-  <Latex root="-.15,0,.25" msg="\vec{t}"></Latex>
+  <Arrow begin="0,0,0" end="0,0,.5" color="brown"></Arrow>
+  <Latex root="-.15,0,.25" msg="\textcolor{brown}{\vec{t}}"></Latex>
+
+  <DottedLine begin="0,.5,.707" end="0,-.5,.707" color="gray"></DottedLine>
   
 </Vis3D>
 
 
-It looks like we reflected $\vec{v}$ across $\vec{t}$ as though it were a mirror!
+It looks like we reflected $\textcolor{orange}{\vec{a}}$ across $\textcolor{brown}{\vec{t}}$ as though it were a mirror!
 
 Let's verify that with a more 3D example, this time using:
 
 $$
-\vec{v} = \textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}}
+\textcolor{orange}{\vec{a}} = .6 (\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})
 $$
 
 $$
-\vec{t} = \vec{t}^{-1} = \textcolor{red}{\hat{x}} 
+\textcolor{brown}{\vec{t}} = \textcolor{brown}{\vec{t}}^{-1} = \textcolor{red}{\hat{x}} 
 $$
 
 Plugging into our transformation formula we see:
 
 $$
 \begin{align}
-{\vec{v}\,}'&=(\textcolor{red}{\hat{x}})(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
-&=(\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} + \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
-&=\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}} \\
-&=\textcolor{red}{\hat{x}} - \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} - \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
-&=\textcolor{red}{\hat{x}} - \textcolor{green}{\hat{y}} - \textcolor{blue}{\hat{z}}
+\textcolor{orange}{{\vec{a}\,}'} &= (\textcolor{red}{\hat{x}}).6(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
+&= .6(\textcolor{red}{\hat{x}})(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
+&= .6(\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} + \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
+&= .6(\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}) \\
+&= .6 (\textcolor{red}{\hat{x}} - \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} - \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}) \\
+&= .6(\textcolor{red}{\hat{x}} - \textcolor{green}{\hat{y}} - \textcolor{blue}{\hat{z}})
 \end{align}
 $$
 
-<Vis3D width="612px" height="344" camera="1,7,-1.5">
+<Vis3D width="612px" height="344" camera="5.5,-2,1">
   <Latex root="1.15,0,0" msg="\textcolor{red}{\hat{x}}"></Latex>
   <Latex root="0,1.15,0" msg="\textcolor{green}{\hat{y}}"></Latex>
   <Latex root="0,0,1.15" msg="\textcolor{blue}{\hat{z}}"></Latex>
   
-  <Arrow begin="0,0,0" end="1,1,1" color="black"></Arrow>
-  <Latex root="1.1,1.1,1.1" msg="\vec{v}"></Latex>
+  <Arrow begin="0,0,0" end=".6,.6,.6" color="orange"></Arrow>
+  <Latex root=".7,.7,.7" msg="\textcolor{orange}{\vec{v}}"></Latex>
 
-  <Arrow begin="0,0,0" end="1,-1,-1" color="black"></Arrow>
-  <Latex root="1.1,-1.1,-1.1" msg="{\vec{v}\,}'"></Latex>
+  <Arrow begin="0,0,0" end=".6,-.6,-.6" color="orange"></Arrow>
+  <Latex root=".7,-.7,-.7" msg="\textcolor{orange}{{\vec{v}\,}'}"></Latex>
 
-  <Latex root=".5,0,-.15" msg="\vec{t}"></Latex>
+  <Latex root=".5,0,-.15" msg="\textcolor{brown}{\vec{t}}"></Latex>
   
-  <DottedLine begin="1,1,1" end="1,-1,-1" color="gray"></DottedLine>  
+  <DottedLine begin=".6,.6,.6" end=".6,-.6,-.6" color="gray"></DottedLine>  
   
 </Vis3D>
 
@@ -1494,73 +1538,75 @@ The title of this post is **What is the Inverse of a Vector?** The answer is tha
 
 This is the last section with math in it and the most important to remember.
 
-What happens if we reflect $\vec{v}$ around $\vec{t}$ and then reflect the result around $\vec{u}$?
+What happens if we reflect $\textcolor{orange}{\vec{a}}$ around $\textcolor{brown}{\vec{t}}$ and then reflect the result around $\textcolor{#516fae}{\vec{u}}$?
 
 $$
-{\vec{v}\,}' = \vec{t}\vec{v}\vec{t}^{-1}
+\tag{7.0}
+\textcolor{orange}{{\vec{a}\,}'} = \textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{a}}\textcolor{brown}{\vec{t}}^{-1}
 $$
 
 $$
-{\vec{v}\,}'' = \vec{u}(\vec{t}\vec{v}\vec{t}^{-1})\vec{u}^{-1}
+\tag{8.0}
+\textcolor{orange}{{\vec{a}\,}''} = \textcolor{#516fae}{\vec{u}}(\textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{v}}\textcolor{brown}{\vec{t}}^{-1})\textcolor{#516fae}{\vec{u}}^{-1}
 $$
 
 I'm finding this a little hard to read so I'll temporarily drop the arrow signs, but we're still talking about vectors:
 
 $$
-v'' = u(tvt^{-1})u^{-1}
+
+\textcolor{orange}{a''} = \textcolor{#516fae}{u}(\textcolor{brown}{t}\textcolor{orange}{a}\textcolor{brown}{t}^{-1})\textcolor{#516fae}{u}^{-1}
 $$
 
 And we're just exploring here so let's arbitrarily define:
 
 $$
-v = \textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}}
+\textcolor{orange}{a} = .6(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})
 $$
 
 $$
-t = t^{-1} = \textcolor{green}{\hat{y}}
+\textcolor{brown}{t} = \textcolor{brown}{t}^{-1} = \textcolor{green}{\hat{y}}
 $$
 
 $$
-u = u^{-1} = \textcolor{blue}{\hat{z}}
+\textcolor{#516fae}{u} = \textcolor{#516fae}{u}^{-1} = \textcolor{blue}{\hat{z}}
 $$
 
 So, plugging it all in:
 
 $$
 \begin{align}
-v'' &= \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
-&= (\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
-&= \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
-&= \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} - \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
-&= \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} - \textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} - \textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
-&= \textcolor{red}{\hat{x}} - \textcolor{green}{\hat{y}} - \textcolor{blue}{\hat{z}}
-
-
+\textcolor{orange}{a''} &= \textcolor{blue}{\hat{z}}(\textcolor{green}{\hat{y}} * .6(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}})\textcolor{blue}{\hat{z}} \\
+&= \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} * .6(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
+&= .6(\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
+&= .6(\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) \\
+&= .6(\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} - \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) \\
+&= .6(\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} - \textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} - \textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) \\
+&= .6(\textcolor{red}{\hat{x}} - \textcolor{green}{\hat{y}} - \textcolor{blue}{\hat{z}})
 \end{align}
 $$
 
 
-<Vis3D width="612px" height="344" camera="1,7,-1.5">
+<Vis3D width="612px" height="344" camera="-5.6,-1.1,.45">
   <Latex root="1.15,0,0" msg="\textcolor{red}{\hat{x}}"></Latex>
   <Latex root="0,1.15,0" msg="\textcolor{green}{\hat{y}}"></Latex>
   <Latex root="0,0,1.15" msg="\textcolor{blue}{\hat{z}}"></Latex>
   
-  <Arrow begin="0,0,0" end="1,1,1" color="black"></Arrow>
-  <Latex root="1.1,1.1,1.1" msg="\vec{v}"></Latex>
+  <Arrow begin="0,0,0" end=".6,.6,.6" color="orange"></Arrow>
+  <Latex root=".7,.7,.7" msg="\textcolor{orange}{\vec{a}}"></Latex>
 
-  <Arrow begin="0,0,0" end="-1,1,-1" color="black"></Arrow>
-  <Latex root="-1.1,1.1,-1.1" msg="{\vec{v}\,}'"></Latex>
+  <Arrow begin="0,0,0" end="-.6,.6,-.6" color="orange"></Arrow>
+  <Latex root="-.7,.7,-.7" msg="\textcolor{orange}{{\vec{a}\,}'}"></Latex>
 
-  <Arrow begin="0,0,0" end="1,-1,-1" color="black"></Arrow>
-  <Latex root="1.1,-1.1,-1.1" msg="{\vec{v}\,}''"></Latex>
+  <Arrow begin="0,0,0" end=".6,-.6,-.6" color="orange"></Arrow>
+  <Latex root=".7,-.7,-.7" msg="\textcolor{orange}{{\vec{a}\,}''}"></Latex>
 
-  <Latex root="0,.5,-.15" msg="\vec{t}"></Latex>
+  <Latex root="0,.5,-.15" msg="\textcolor{brown}{\vec{t}}"></Latex>
 
 
-  <Latex root="-.15,0,.5" msg="\vec{u}"></Latex>
+  <Latex root="0,-.15,.5" msg="\textcolor{#516fae}{\vec{u}}"></Latex>
 
-  <DottedLine begin="1,1,1" end="-1,1,-1" color="gray"></DottedLine>
-  <DottedLine begin="-1,1,-1" end="1,-1,-1" color="gray"></DottedLine>
+  <DottedLine begin=".6,.6,.6" end="-.6,.6,-.6" color="gray"></DottedLine>
+  <DottedLine begin="-.6,.6,-.6" end=".6,-.6,-.6" color="gray"></DottedLine>
   
 </Vis3D>
 
@@ -1568,26 +1614,26 @@ We reflected our input vector across $\textcolor{green}{\hat{y}}$ and then the r
 
 But wait a second, if you reflect a right-handed glove you get a left-handed glove. If you reflect that one more time you're back to a right-handed glove, just rotated. Two reflections in series are equivalent to a single rotation!
 
-What rotation have we performed here?
+So what rotation have we performed here?
 
-<Vis3D width="612px" height="344" camera="1,7,-1.5">
+<Vis3D width="612px" height="344" camera="6,0,0">
   <Latex root="1.15,0,0" msg="\textcolor{red}{\hat{x}}"></Latex>
   <Latex root="0,1.15,0" msg="\textcolor{green}{\hat{y}}"></Latex>
   <Latex root="0,0,1.15" msg="\textcolor{blue}{\hat{z}}"></Latex>
   
-  <Arrow begin="0,0,0" end="1,1,1" color="black"></Arrow>
-  <Latex root="1.1,1.1,1.1" msg="\vec{v}"></Latex>
+  <Arrow begin="0,0,0" end=".6,.6,.6" color="orange"></Arrow>
+  <Latex root=".7,.7,.7" msg="\textcolor{orange}{\vec{a}}"></Latex>
 
-  <Arrow begin="0,0,0" end="1,-1,-1" color="black"></Arrow>
-  <Latex root="1.1,-1.1,-1.1" msg="{\vec{v}\,}''"></Latex>
+  <Arrow begin="0,0,0" end=".6,-.6,-.6" color="orange"></Arrow>
+  <Latex root=".7,-.7,-.7" msg="\textcolor{orange}{{\vec{a}\,}''}"></Latex>
 
-  <Latex root="0,.5,-.15" msg="\vec{t}"></Latex>
-  <Latex root="0,-.15,.5" msg="\vec{u}"></Latex>
+  <Latex root="0,.5,-.15" msg="\textcolor{brown}{\vec{t}}"></Latex>
+  <Latex root="0,-.15,.5" msg="\textcolor{#516fae}{\vec{u}}"></Latex>
   
   <Circle r={.7} rotatex="0" rotatey={90} color="gray" opacity={0.2}></Circle>
 </Vis3D>
 
-We have rotated our input vector by $2 \theta$ in the $\vec{t}\wedge\vec{u}$ plane, where $\theta$ is the angle between $\vec{t}$ and $\vec{u}$.
+We have rotated our input vector $\textcolor{orange}{\vec{a}}$ by $2 \theta$ in the $\textcolor{brown}{\vec{t}}\wedge\textcolor{#516fae}{\vec{u}}$ plane, where $\theta$ is the angle between $\textcolor{brown}{\vec{t}}$ and $\textcolor{#516fae}{\vec{u}}$. In this case $\theta = 90 \degree$.
 
 Somehow our simple algebraic rules of swapping and cancelling have produced an operation that normally involves trigonometry or "imaginary" numbers! Using just two vectors and a sandwich product, we have implemented rotation.
 
@@ -1631,6 +1677,7 @@ $$
 But it is equally correct and far simpler to teach:
 
 $$
+\tag{9.0}
 \tau = r \wedge F
 $$
 
@@ -1682,36 +1729,44 @@ $$
 $$
 
 $$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})^2 = (\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = (\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}})^2 = (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})(\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}) = -1
+(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})^2 = (\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = (\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}})^2 = -1
 $$
 
 $$
-\vec{a}\vec{b} = \vec{a} \cdot \vec{b} + \vec{a} \wedge \vec{b}
+(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})(\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}) = -1
 $$
 
 $$
-\vec{a} \cdot \vec{b} = \vec{b} \cdot \vec{a}
+(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = -1
 $$
 
 $$
-\vec{a} \wedge \vec{b} = -\vec{b} \wedge \vec{a}
+\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}
 $$
 
 $$
-(\vec{a}\vec{b})^{-1} = \vec{b}^{-1}\vec{a}^{-1}
+\textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} = \textcolor{purple}{\vec{b}} \cdot \textcolor{orange}{\vec{a}} = \frac{\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} + \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}}{2}
 $$
 
 $$
-{\vec{v}\,}' = \vec{t}\vec{v}\vec{t}^{-1}
+\textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} = -\textcolor{purple}{\vec{b}} \wedge \textcolor{orange}{\vec{a}} = \frac{\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} - \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}}{2}
 $$
 
 $$
-{\vec{v}\,}'' = \vec{u}(\vec{t}\vec{v}\vec{t}^{-1})\vec{u}^{-1} = (\vec{u}\vec{t})\vec{v}(\vec{u}\vec{t})^{-1}
+(\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}})^{-1} = \textcolor{purple}{\vec{b}}^{-1}\textcolor{orange}{\vec{a}}^{-1}
+$$
+
+$$
+\textcolor{orange}{{\vec{a}\,}'} = \textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{a}}\textcolor{brown}{\vec{t}}^{-1}
+$$
+
+$$
+\textcolor{orange}{{\vec{a}\,}''} = \textcolor{#516fae}{\vec{u}}(\textcolor{brown}{\vec{t}}\vec{v}\textcolor{brown}{\vec{t}}^{-1})\textcolor{#516fae}{\vec{u}}^{-1} = (\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}})\textcolor{orange}{\vec{a}}(\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}})^{-1}
 $$
 
 # Coda
 
-The area of math we explored today is called Geometric Algebra, also known as the Clifford Algebra. It was invented on a similar time frame to the Gibbs vector notation that is in wide use today, but it languished in obscurity for a long time. David Hestenes is largely responsible for the modern resurgence in interest and has written many great papers about it.
+The area of math we explored today is called Geometric Algebra, also known as the Clifford Algebra. It was invented in the 1840's, around the same time as the Gibbs vector notation that is in wide use today. But for some reason it languished in obscurity for more than a hundred years. Professor [David Hestenes](https://en.wikipedia.org/wiki/David_Hestenes) is largely responsible for the modern resurgence in interest and has written many great papers about it.
 
 In this post I took several liberties with notation and naming. What I called the "extrude product" is usually called the "wedge product" or "exterior product". Bivectors are often written like $\vec{B}$ rather than $\overset{\Rightarrow}{b}$.
 

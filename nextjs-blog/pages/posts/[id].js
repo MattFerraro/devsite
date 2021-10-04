@@ -255,7 +255,7 @@ const initialize3D = (vis3DContainer) => {
   function updater() {
   }
 
-  return {renderer, renderer2, scene, scene2, camera, updater};
+  return {renderer, renderer2, scene, scene2, camera, updater, controls};
 }
 
 const onWindowResize = (renderPackages) => {
@@ -287,6 +287,9 @@ const onWindowResize = (renderPackages) => {
   for (let rp of renderPackages) {
     rp.renderer.setSize(width, height)
     rp.renderer2.setSize(width, height)
+
+    rp.renderer.render( rp.scene, rp.camera );
+    rp.renderer2.render( rp.scene2, rp.camera );
   }
 }
 
@@ -305,7 +308,7 @@ const Vis3DRealizer = () => {
     window.addEventListener( 'resize', () => {onWindowResize(renderPackages)} );
 
     function animate() {
-      requestAnimationFrame( animate );
+      // requestAnimationFrame( animate );
       
       renderPackages.forEach((rpackage) => {
         rpackage.renderer.render( rpackage.scene, rpackage.camera );
@@ -314,6 +317,16 @@ const Vis3DRealizer = () => {
       })
     }
     animate();
+
+    renderPackages.forEach((rpackage) => {
+      rpackage.controls.addEventListener('change', (e) => {
+        rpackage.renderer.render( rpackage.scene, rpackage.camera );
+        rpackage.renderer2.render( rpackage.scene2, rpackage.camera );
+        // rpackage.updater()
+      });
+    })
+
+    // this.controls.addEventListener('change', this.render.bind(this));
 
     setIsComponentMounted(true)
   }, [])
