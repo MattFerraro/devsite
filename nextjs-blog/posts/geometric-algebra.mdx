@@ -1,19 +1,21 @@
 ---
 title: 'What is the Inverse of a Vector?'
-teaser: 'Vector algebra is extremely limited, but we can invent a much better approach'
-teaserImage: 'https://openga.org/imgs/basis.svg'
+teaser: 'In this post we will re-invent an obscure form of math that is far superior to the one you learned in school. It is a better foundation for science and engineering, and it is a better foundation for students.'
+teaserImage: 'https://www.mattferraro.dev/images/geometric-algebra/GA-teaser-image.webp'
 date: '2021-08-19'
 ---
 
-Doing algebra with vectors is impossibly frustrating.
+Doing algebra with vectors is needlessly frustrating.
 
-In school we learn how to add and subtract vectors, but we don't learn how to multiply and divide!
+We learned in school how to add and subtract vectors, but we didn't learn how to multiply and divide them!
 
-Yes, we learn about the dot product and the cross product but neither of these is invertible so neither can be extended to vector division.
+Yes, most curriculums cover the dot product and the cross product but neither of these is invertible so neither can be extended to vector division.
 
 > But invertible vector multiplication does exist and we can derive it ourselves.
 
-In this post we will re-invent a forgotten form of math that is far superior to the one you learned in school. It is a better foundation for science and engineering, and it is a better foundation for students.
+In this post we will re-invent an obscure form of math that is far superior to the one you learned in school. It is a better foundation for science and engineering, and it is a better foundation for students.
+
+You will learn how to invert a vector.
 
 # Table of Contents
 
@@ -241,9 +243,9 @@ Because their orientations and magnitudes are both equal.
 More generally, using any scalar $s$:
 
 $$
+\tag{1.0}
 \begin{align}
-s(\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}) &= s\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}} \\
-&= \textcolor{orange}{\vec{a}}\wedge s\textcolor{purple}{\vec{b}}
+s(\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}) &= s\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}}\wedge s\textcolor{purple}{\vec{b}}
 \end{align}
 $$
 
