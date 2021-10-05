@@ -39,7 +39,7 @@ export async function getStaticProps({ params }) {
   const mdxSource = await serialize(postData.rawContent, {
     mdxOptions: {
       remarkPlugins: [remarkMath, slug, [toc, {tight:true}]],
-      rehypePlugins: [rehypeKatex, rehypePrism]
+      rehypePlugins: [[rehypeKatex, {output:"html"}], rehypePrism]
     }
   });
 

@@ -1,16 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import slug from 'remark-slug'
-import toc from 'remark-toc'
-import remarkGfm from 'remark-gfm'
-import math from 'remark-math'
-import remark2rehype from 'remark-rehype'
-import katex from 'rehype-katex'
-import rehypePrism from '@mapbox/rehype-prism'
-import markdown from 'remark-parse'
-import stringify from 'rehype-stringify'
-import unified from 'unified'
 import imageSize from 'image-size';
 
 const postsDirectory = path.join(process.cwd(), 'posts')
