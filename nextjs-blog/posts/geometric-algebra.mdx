@@ -5,29 +5,42 @@ teaserImage: 'https://www.mattferraro.dev/images/geometric-algebra/GA_teaser_2_s
 date: '2021-10-04'
 ---
 
-Doing algebra with vectors is needlessly frustrating.
+If vector multiplication were invertible, we could treat vectors just like any other variable. We could do simple algebra like:
 
-We learned in school how to add and subtract vectors, but we didn't learn how to multiply and divide them!
+$$
+\begin{align}
+-3\textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}^2 &= 4\textcolor{purple}{\vec{b}}\textcolor{blue}{\vec{c}}\textcolor{orange}{\vec{a}} \\
+-3\textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} &= 4\textcolor{purple}{\vec{b}}\textcolor{blue}{\vec{c}} \\
+-3\textcolor{orange}{\vec{a}} &= 4\textcolor{blue}{\vec{c}} \\
+\textcolor{orange}{\vec{a}}\textcolor{blue}{\vec{c}}^{-1} &= -\frac{4}{3} \\
+\end{align}
+$$
 
-Yes, most curriculums cover the dot product and the cross product but neither of these is invertible so neither can be extended to vector division.
+It's strange to see vectors manipulated this way, isn't it? The cancellations generally make sense, but what does a quantity like $-3\textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}^2$ even mean?
+
+This type of algebra looks weird because we learned in school how to add and subtract vectors, but we never learned how to multiply and divide them!
+
+Most curriculums cover the dot product and the cross product but neither of these is invertible so neither gives us vector inversion.
 
 > But invertible vector multiplication does exist and we can derive it ourselves.
 
-In this post we will re-invent an obscure form of math that is far superior to the one you learned in school. It is a better foundation for science and engineering, and it is a better foundation for students.
-
-You will learn how to invert a vector.
+In this post we will re-invent a form of math that is far superior to the one you learned in school. The ideas herein are nothing short of revolutionary.
 
 # Table of Contents
 
 # The Units of Magnitude
 
-We're going to look at the things we're already familiar with and try to draw a pattern. We'll use this pattern to create some new objects.
+We're going to look at the things we're already familiar with and try to draw a pattern. We'll use this pattern to create some new objects. Those objects will lead us to invertible vector multiplication.
 
-The key insight comes from examining the units of the magnitude of scalars and vectors.
+Along the way we'll pretend that we're inventing this all for ourselves. We'll make a few wrong turns and see why they're wrong, rather than just dropping conclusions out of the sky.
+
+We're going to derive the foundations of an entire branch of Mathematics that is usually only taught to grad students. But to get there you need nothing more than high-school algebra skills.
+
+The key insight comes from examining scalars and vectors. We'll look at their magnitudes and focus on the units that those magnitudes are measured in.
 
 ## Scalars
 
-A **scalar** $s$ is a regular number like $-3$ or $1.618$ or $\frac{1}{137}$.
+A **scalar** $s$ is a regular number like $1.618$ or $-3$ or $\frac{1}{137}$.
 
 A scalar is a point on a number line. Its magnitude $\|s\|$ is just its absolute value. We can call this a 0-Vector or refer to it as "Grade 0" to indicate that its magnitude carries no units.
 
@@ -68,7 +81,7 @@ $$
   <Latex root="1.,.5,-0.1" msg="\textcolor{orange}{a_2}"></Latex>
 </Vis3D>
 
-By the way, all these 3D illustrations are fully interactible. Go ahead and rotate them around to make sure you get a good intuitive feel for them.
+By the way, all these 3D illustrations are fully interactive. Go ahead and rotate them around to make sure you get a good intuitive feel for them.
 
 A vector's magnitude $\|\textcolor{orange}{\vec{a}}\|$ is equal to its length, so we'll call them 1-Vectors or say they are "Grade 1" because length is a 1-dimensional quantity.
 
@@ -98,7 +111,7 @@ The most efficient way to define a plane is to use the normal vector $\textcolor
   <Circle r={.7} rotatex="-45" rotatey={45} color="gray" opacity={0.2}></Circle>
 </Vis3D>
 
-But...wait that definition isn't consistent with our goal. This object *does* describe an oriented plane and it does have a degree of freedom to represent scale, but it's still just a vector so its magnitude will be a length, not an area. This won't work.
+But...wait that definition isn't consistent with our goal. This object *does* describe an oriented plane and it *does* have a degree of freedom to represent scale, but it's still just a vector so its magnitude will be a length, not an area. This won't work.
 
 ---
 
@@ -127,14 +140,14 @@ We've already got two vectors so the simplest possible solution might be to comp
 Which has an area equal to:
 
 $$
-A_{triangle}=\frac{1}{2}\|\textcolor{orange}{\vec{a}}\|\textcolor{purple}{\vec{b}}\|\sin(\theta)
+A_{triangle}=\frac{1}{2}\|\textcolor{orange}{\vec{a}}\|\|\textcolor{purple}{\vec{b}}\|\sin(\theta)
 $$
 
 Where $\theta$ is the angle between the vectors.
 
 This works but we'll have to carry around an inconvenient factor of $\frac{1}{2}$.
 
-On a lark, what if we borrow an idea from CAD software and try to sweep or *extrude* $\textcolor{orange}{\vec{a}}$ in the direction of $\textcolor{purple}{\vec{b}}$?
+On a lark, what if we borrow an idea from CAD software and try to *extrude* $\textcolor{orange}{\vec{a}}$ in the direction of $\textcolor{purple}{\vec{b}}$?
 
 <Vis3D width="612px" height="344" camera="5,-2,3">
   <Latex root="1.1,0,0" msg="\textcolor{red}{\hat{x}}"></Latex>
@@ -249,13 +262,13 @@ s(\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}) &= s\textcolor{o
 \end{align}
 $$
 
-This property is called *linearity* which just means that the output scales linearly with the inputs. This is desirable property when designing an algebra!
+This property is called *linearity* which just means that the output scales linearly with the inputs. This is desirable property when designing an algebra! If the extrude product is linear, we can freely move coefficients around however we like.
 
 But it comes at a cost. $2\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}$ and $\textcolor{orange}{\vec{a}}\wedge2\textcolor{purple}{\vec{b}}$ are visually distinct objects yet we say they are equal. 
 
 The fact that we can write (and visualize) the same bivector multiple ways implies that even though we write down bivectors using 6 numbers, there are really only 5 degrees of freedom in a bivector.
 
-Even though we visualize them as oriented parallelograms, the only important properties of a bivector are the plane it lives in and the area of its parallelogram. The actual shape of the parallelogram isn't important.
+Even though we visualize them as oriented parallelograms, the only important properties of a bivector are the plane it lives in and the area of its parallelogram. The actual shape of the parallelogram and its location in that plane aren't important.
 
 If you've heard of quaternions, they famously use 4 numbers to represent 3 degrees of rotation. Their redundancy makes them much more algebraicly useful but also harder to visualize and understand.
 
@@ -301,7 +314,7 @@ But let's keep inspecting them first! What happens if we switch the input orderi
   <Latex root="0,0,-.6" msg="\textcolor{purple}{\vec{b}}\wedge\textcolor{orange}{\vec{a}}"></Latex>
 </Vis3D>
 
-Well, $\textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}$ forms a  parallelogram by extruding an orange vector out, so it forms an orange parallelogram. But $\textcolor{purple}{\vec{b}} \wedge \textcolor{orange}{\vec{a}}$ starts with a purple vector so it extrudes a purple parallelogram. Again we get to choose if these should be considered equal.
+Well, $\textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}$ forms a  parallelogram by extruding an orange vector out sideways, so it forms an orange parallelogram. But $\textcolor{purple}{\vec{b}} \wedge \textcolor{orange}{\vec{a}}$ extrudes a purple vector up almost vertically, so it extrudes a purple parallelogram. Again we get to choose if these should be considered equal.
 
 You may complain that vectors don't usually carry any intrinsic color, so how can we reliably use color as the basis of distinguishing bivectors?
 
@@ -375,7 +388,7 @@ $$
 \textcolor{purple}{\vec{b}} \wedge \textcolor{purple}{\vec{b}} = 0
 $$
 
-What happens if we form a bivector from two unit vectors like $\textcolor{red}{\hat{x}}$ and ${\textcolor{green}{\hat{y}}}$?
+What happens if we form a bivector from two orthogonal unit vectors like $\textcolor{red}{\hat{x}}$ and ${\textcolor{green}{\hat{y}}}$?
 
 <Vis3D width="612px" height="344" camera="5,-2,3">
   <Latex root="1.1,0,0" msg="\textcolor{red}{\hat{x}}"></Latex>
@@ -476,7 +489,7 @@ By the way I drew two arrows on top of the $b$ to indicate that it is a bivector
 
 So there we have it, a new type of object called a bivector which is an oriented chunk of area! Its magnitude carries units of area, so bivectors are considered 2-Vectors, or referred to as "Grade 2".
 
-It is important to remember that bivectors have a certain redundancy built into them in the sense that $s\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}}\wedge s\textcolor{purple}{\vec{b}}$. We write them using 6 numbers, but they actually only convey 5 degrees of freedom.
+It is important to remember that bivectors have a certain redundancy built into them in the sense that $s\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}}\wedge s\textcolor{purple}{\vec{b}}$. We can write them using 6 numbers or 3 numbers, but they actually convey 5 degrees of freedom.
 
 ## Trivectors
 
@@ -544,7 +557,7 @@ This object's magnitude is clearly its volume so we've got that taken care of. B
 
 Well, let's take a quick look at $\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}$
 
-<Vis3D width="612px" height="344" camera="5,-2,3">
+<Vis3D width="612px" height="344" camera="5.5,.35,.5">
   <Triangle v0="0,0,1" v1="0,1,1" v2="1,0,1" color="red" opacity={.1}></Triangle>
   <Triangle v0="1,1,1" v1="0,1,1" v2="1,0,1" color="red" opacity={.1}></Triangle>
   <DottedLine begin="1,0,0" end="1,1,0" color="green"></DottedLine>
@@ -578,7 +591,7 @@ This is clearly a unit cube which has a volume of $1$.
 
 If we throw a minus sign in front of any vector, let's pick $\textcolor{green}{\vec{y}}$, we get a different cube. Are these two trivectors equals or opposites?
 
-<Vis3D width="612px" height="344" camera="5,-2,3">
+<Vis3D width="612px" height="344" camera="5.5,.35,.5">
   <DottedLine begin="0,0,0" end="0,-1,0" color="green"></DottedLine>
   <DottedLine begin="1,0,0" end="1,-1,0" color="green"></DottedLine>
   <DottedLine begin="1,-1,0" end="0,-1,0" color="red"></DottedLine>
@@ -623,8 +636,6 @@ $$
 \textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}} = -(\textcolor{red}{\vec{x}}\wedge-\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}})
 $$
 
-That leads us to one more choice: Which type of volume is positive?
-
 By convention, most people agree that right-handed volume is positive and left-handed volume is negative, but this is an arbitrary choice. Really, the only important thing is that they are opposites.
 
 <!-- In the case of vectors there are three orthogonal basis vectors that you can project any vector onto. Bivectors have three orthogonal basis bivectors. How many orthogonal basis *volumes* are there?
@@ -650,7 +661,7 @@ $$
 \begin{align}
 -(\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}) &= \textcolor{green}{\vec{y}}\wedge\textcolor{red}{\vec{x}}\wedge\textcolor{blue}{\vec{z}} \\
 &= \textcolor{red}{\vec{x}}\wedge\textcolor{blue}{\vec{z}}\wedge\textcolor{green}{\vec{y}} \\
-&= \textcolor{blue}{\vec{z}}\wedge\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}} \\
+&= \textcolor{blue}{\vec{z}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{red}{\vec{x}} \\
 \end{align} 
 $$
 
@@ -662,7 +673,10 @@ $$
 \overset{\Rrightarrow}{t} = t_1\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}
 $$
 
+We might write a trivector using 9 numbers, but it only encapsulates a single degree of freedom: its volume.
+
 So I guess we're back at something that has just one degree of freedom and feels more like a scalar. In fact you might even think of trivectors as *pseudoscalars* because they behave so similarly.
+
 
 Remember that we only arrived at equation $1.1$ because we decided that bivector spin direction was important—that clockwise and anticlockwise are opposites.
 
@@ -725,7 +739,7 @@ $$
 $$
 
 
-So we've made it through the first hurdle--our new algebra would not be very useful it we couldn't add like types!
+So we've made it through the first hurdle—our new algebra would not be very useful it we couldn't add like types!
 
 # Addition of Disparate Types
 
@@ -737,7 +751,7 @@ $$
 
 I don't think there is any meaningful way to perform this computation. All you can do is just write out the sum as given.
 
-This is reminsicent of the imaginary number $i=\sqrt{-1}$. We just accept that value in the direction of $i$ is simply orthogonal to value in the direction of $1$, so we write out complex numbers like:
+This is reminsicent of the imaginary number $i=\sqrt{-1}$. We just accept that value in the direction of $i$ is orthogonal to value in the direction of $1$, so we write out complex numbers like:
 
 $$
 a + bi
@@ -769,6 +783,8 @@ $$
 \end{align}
 $$
 
+One scalar component, three vector components, three bivector components, and one trivector component.
+
 This might feel like a lot to deal with, but remember that most of the time most of those coefficients are zero.
 
 If orthogonal objects don't mix, then the sum of any two geometrics, $\mathbf{G_1}$ and $\mathbf{G_2}$, is just the pairwise sum of their scalar, vector, bivector, and trivector components. You'll never need this giant equation, but just for illustrative purposes:
@@ -787,7 +803,7 @@ $$
 \end{align}
 $$
 
-So there we have it, adding disparate types is permitted it just doesn't simplify.
+So there we have it, adding disparate types is permitted it just doesn't simplify!
 
 # Choosing The Vector Product
 
@@ -907,16 +923,7 @@ More visually, if the dot product constrains $\textcolor{orange}{\vec{a}}$ to a 
   <Arrow begin="0,0,0" end="0,.7,.5" color="orange"></Arrow>
 </Vis3D>
 
-We write the vector product as $\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}}$ in direct analogy to how we write scalar multiplication like $7x$ or $2c$ because it behaves so similarly. For example we can finally do things like:
-
-$$
-\begin{align}
--3\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} &= 4\textcolor{orange}{\vec{a}}\textcolor{blue}{\vec{c}} \\
--3\bcancel{\textcolor{orange}{\vec{a}}}\textcolor{purple}{\vec{b}} &= 4\bcancel{\textcolor{orange}{\vec{a}}}\textcolor{blue}{\vec{c}} \\
--3\textcolor{purple}{\vec{b}} &= 4\textcolor{blue}{\vec{c}} \\
-\frac{\textcolor{purple}{\vec{b}}}{\textcolor{blue}{\vec{c}}} &= -\frac{4}{3}
-\end{align}
-$$
+We write the vector product as $\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}}$ in direct analogy to how we write scalar multiplication like $7x$ or $2c$ because it behaves so similarly.
 
 The Vector Product is very important so let's examine it a few ways.
 
@@ -962,20 +969,14 @@ $$
 \textcolor{orange}{\vec{a}}^{-1} = \frac{\textcolor{orange}{\vec{a}}}{\textcolor{orange}{\vec{a}}^2}
 $$
 
-Just like scalars, vectors can be meaningfully inverted! Apparently the inverse of a vector is just that same vector, but scaled so that its new magnitude squared is the inverse of its old magnitude squared. Writing in a more suggestive way with help from equation $2.3$:
+Just like scalars, vectors can be meaningfully inverted! Apparently the inverse of a vector is just that same vector, but scaled so that its new magnitude squared is the inverse of its old magnitude squared. Writing in a more suggestive way:
 
 $$
 \tag{5.4}
 \textcolor{orange}{\vec{a}}^{-1} = \frac{1}{\|\textcolor{orange}{\vec{a}}\|^2} \textcolor{orange}{\vec{a}}
 $$
 
-<!-- There's even a certain similarity between a vector's inverse and a scalar's:
-
-$$
-s^{-1} = \frac{1}{s} 1
-$$ -->
-
-<!-- Or how the inverse of a matrix $A$ always carries a factor of $\frac{1}{\det(A)}$. -->
+Qualitatively: The inverse of a big vector is a small vector that points in the same direction.
 
 ---
 
@@ -1123,7 +1124,7 @@ $$
 (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})\textcolor{blue}{\hat{z}} = (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}) \wedge \textcolor{blue}{\hat{z}}
 $$
 
-Which is just ordinary extrusion of a bivector along a vector. After removing parenthesis and substituting in equation $n$ we see that:
+Which is just ordinary extrusion of a bivector along a vector. Substituting in equation $5.12$ we see that:
 
 $$
 \tag{5.19}
@@ -1248,6 +1249,8 @@ Whoa.
 Apparently, the unit bivector that lives in the $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ plane squares to negative one! Without resorting to anything "imaginary", we've stumbled upon an object with the property we normally assign to the imaginary number $i$! Maybe our new system of algebra can do some of the things that we normally rely on complex numbers to do, like 2D rotations?
 
 This property is so remarkable to stumble upon that I think we should feel free to refer to the $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ unit bivector as just $\overset{\Rightarrow}{i}$ for short!
+
+Instead of thinking of complex numbers as $a + bi$ maybe we can write them as $a + b\overset{\Rightarrow}{i}$ or $a + b\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$. As an exercise for the reader: can you prove that this system behaves identically to the complex numbers we normally learn about?
 
 But there was nothing special about the $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ unit bivector that gave us this strange property. Does it hold with the $\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}$ unit bivector?
 
@@ -1513,10 +1516,10 @@ $$
   <Latex root="0,0,1.15" msg="\textcolor{blue}{\hat{z}}"></Latex>
   
   <Arrow begin="0,0,0" end=".6,.6,.6" color="orange"></Arrow>
-  <Latex root=".7,.7,.7" msg="\textcolor{orange}{\vec{v}}"></Latex>
+  <Latex root=".7,.7,.7" msg="\textcolor{orange}{\vec{a}}"></Latex>
 
   <Arrow begin="0,0,0" end=".6,-.6,-.6" color="orange"></Arrow>
-  <Latex root=".7,-.7,-.7" msg="\textcolor{orange}{{\vec{v}\,}'}"></Latex>
+  <Latex root=".7,-.7,-.7" msg="\textcolor{orange}{{\vec{a}\,}'}"></Latex>
 
   <Latex root=".5,0,-.15" msg="\textcolor{brown}{\vec{t}}"></Latex>
   
@@ -1547,7 +1550,7 @@ $$
 
 $$
 \tag{8.0}
-\textcolor{orange}{{\vec{a}\,}''} = \textcolor{#516fae}{\vec{u}}(\textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{v}}\textcolor{brown}{\vec{t}}^{-1})\textcolor{#516fae}{\vec{u}}^{-1}
+\textcolor{orange}{{\vec{a}\,}''} = \textcolor{#516fae}{\vec{u}}(\textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{a}}\textcolor{brown}{\vec{t}}^{-1})\textcolor{#516fae}{\vec{u}}^{-1}
 $$
 
 I'm finding this a little hard to read so I'll temporarily drop the arrow signs, but we're still talking about vectors:
@@ -1635,19 +1638,25 @@ So what rotation have we performed here?
 
 We have rotated our input vector $\textcolor{orange}{\vec{a}}$ by $2 \theta$ in the $\textcolor{brown}{\vec{t}}\wedge\textcolor{#516fae}{\vec{u}}$ plane, where $\theta$ is the angle between $\textcolor{brown}{\vec{t}}$ and $\textcolor{#516fae}{\vec{u}}$. In this case $\theta = 90 \degree$.
 
-Somehow our simple algebraic rules of swapping and cancelling have produced an operation that normally involves trigonometry or "imaginary" numbers! Using just two vectors and a sandwich product, we have implemented rotation.
+Somehow our simple algebraic rules of swapping and cancelling have produced an operation that normally involves trigonometry or rotation matrices or quaternions! Using just two vectors and a sandwich product, we have implemented 3D rotation!
+
+Rearranging the equation $8.0$ stresses the combined transformation:
+
+$$
+\tag{9.0}
+\textcolor{orange}{{\vec{a}\,}''} = (\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}})\textcolor{orange}{\vec{a}}(\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}})^{-1}
+$$
+
 
 The product of two vectors can therefore be thought of as a *rotor*, because it rotates things.
 
-> The **Rotor** $\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}}$ will rotate the input by $2\theta$ in the $\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}}$ plane, where $\theta$ is the angle between $\textcolor{orange}{\vec{a}}$ and $\textcolor{purple}{\vec{b}}$
+> The **Rotor** $\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}}$ will rotate the input by $2\theta$ in the $\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}}$ plane, where $\theta$ is the angle between $\textcolor{#516fae}{\vec{u}}$ and $\textcolor{brown}{\vec{t}}$
 
 The extra factor of $2$ comes from the fact that the rotor is applied twice: once on the left and once on the right in the sandwich product.
 
-Every rotor includes a bivector part and scalar part which might equal zero. That means every bivector is a rotor.
+Every rotor includes a bivector part and a scalar part which might equal zero. That means **every bivector is also a rotor**.
 
-If vectors perform reflection, bivectors perform rotation.
-
-Can you figure out for yourself what action trivectors perform?
+If vectors perform reflection, bivectors perform rotation. Can you figure out for yourself what action trivectors perform?
 
 # A New Foundation for Physics
 
@@ -1667,7 +1676,7 @@ $$
 \overset{\Rightarrow}{b} = b_1\textcolor{red}{\hat{x}}  \textcolor{green}{\hat{y}} + b_2\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + b_3\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}
 $$
 
-It is obvious from the beginning that pseudovectors and vectors are similar but incompatible types.
+It is obvious from the beginning that pseudovectors and vectors have similar structure but are incompatible types.
 
 The equation for torque that we're taught in high school physics is:
 $$
@@ -1714,9 +1723,9 @@ All of these are band-aids over a fundamentally broken system. The alternative i
 
 We started with a question that seemed almost nonsensical: What is the inverse of a vector?
 
-In stumbling toward an answer, we developed a much richer understanding of what a vector is and what it does. Along the way we derived the foundation of a branch of Math that is usually only taught to Math graduate students, but is actually suitable for high school students.
+In stumbling toward an answer, we developed a much richer understanding of what a vector is and what it does. Along the way we derived the foundation of a branch of Math that is usually only taught to graduate students, but is actually suitable for high school students.
 
-We built a set of algebraic tools so powerful and elegant that they make the dominant system of mathematical notation in science and engineering seem almost nonsensical.
+We built a set of algebraic tools so powerful and elegant that they make the dominant system of mathematical notation in science and engineering seem a little silly.
 
 I believe that in 200 years, Geometric Algebra will be the dominant way of introducing students to mathematical physics. In the same way that Newton's notation for Calculus is no longer the dominant one, or that Maxwell's actual equations for Electromagnetism have been replaced by Heaviside's, textbooks will change because a better system has come along.
 
@@ -1768,7 +1777,7 @@ $$
 
 The area of math we explored today is called Geometric Algebra, also known as the Clifford Algebra. It was invented in the 1840's, around the same time as the Gibbs vector notation that is in wide use today. But for some reason it languished in obscurity for more than a hundred years. Professor [David Hestenes](https://en.wikipedia.org/wiki/David_Hestenes) is largely responsible for the modern resurgence in interest and has written many great papers about it.
 
-In this post I took several liberties with notation and naming. What I called the "extrude product" is usually called the "wedge product" or "exterior product". Bivectors are often written like $\vec{B}$ rather than $\overset{\Rightarrow}{b}$.
+In this post I took several liberties with notation and naming. What I called the "extrude product" is usually called the "wedge product" or "exterior product". Bivectors are often written like $\vec{B}$ rather than $\overset{\Rightarrow}{b}$. Most CAD software uses the word "sweeping" to create a 2D surface, and "extrusion" which creates a 3D surface.
 
 I am not a mathematician. I often sacrificed rigor for speed. My goal is only to light a spark.
 
