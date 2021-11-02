@@ -19,6 +19,7 @@ import { SVGRenderer } from '../../lib/SVGRenderer';
 import React, { useEffect, useState } from 'react'
 
 import Image from 'next/image'
+import renderMathInElement from 'katex/dist/contrib/auto-render';
 
 const headLength = 0.05
 const headWidth = 0.07
@@ -39,7 +40,7 @@ export async function getStaticProps({ params }) {
   const mdxSource = await serialize(postData.rawContent, {
     mdxOptions: {
       remarkPlugins: [remarkMath, slug, [toc, {tight:true}]],
-      rehypePlugins: [[rehypeKatex, {output:"html"}], rehypePrism]
+      rehypePlugins: [rehypePrism]
     }
   });
 
@@ -293,6 +294,29 @@ const onWindowResize = (renderPackages) => {
   }
 }
 
+const Katexifier = (props) => {
+  const [isComponentMounted, setIsComponentMounted] = useState(false)
+  useEffect(() => {
+    document.querySelectorAll('.math-display').forEach((el) => {
+      console.log(el.innerText)
+      katex.render(el.innerText, el, {displayMode: true})
+    })
+
+    document.querySelectorAll('.math-inline').forEach((el) => {
+      console.log(el.innerText)
+      katex.render(el.innerText, el)
+    })
+
+    
+    setIsComponentMounted(true)
+  }, [])
+  if(!isComponentMounted) {
+    return null
+  }
+
+  return <div></div>
+}
+
 
 const Vis3DRealizer = () => {
   const [isComponentMounted, setIsComponentMounted] = useState(false)
@@ -403,9 +427,9 @@ export default function Post({ metadata, mdxSource, imgDims }) {
                 }
               }
 
+            } else {
+              return <p>{paragraph.children}</p>
             }
-
-            return <p>{paragraph.children}</p>;
           } 
         }} scope={{
           "ax": .5, "ay": .5, "az": .8,
@@ -417,6 +441,7 @@ export default function Post({ metadata, mdxSource, imgDims }) {
         }} />
 
         <Vis3DRealizer></Vis3DRealizer>
+        <Katexifier></Katexifier>
 
       </article>
     </Layout>

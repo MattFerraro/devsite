@@ -8,14 +8,13 @@ date: '2021-10-04'
 If vector multiplication were invertible, we could treat vectors just like any other variable. We could do simple algebra like:
 
 $$
-\begin{align}
+\begin{aligned}
 -3\textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}^2 &= 4\textcolor{purple}{\vec{b}}\textcolor{blue}{\vec{c}}\textcolor{orange}{\vec{a}} \\
 -3\textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} &= 4\textcolor{purple}{\vec{b}}\textcolor{blue}{\vec{c}} \\
 -3\textcolor{orange}{\vec{a}} &= 4\textcolor{blue}{\vec{c}} \\
 \textcolor{orange}{\vec{a}}\textcolor{blue}{\vec{c}}^{-1} &= -\frac{4}{3} \\
-\end{align}
+\end{aligned}
 $$
-
 It's strange to see vectors manipulated this way, isn't it? The cancellations generally make sense, but what does a quantity like $-3\textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}}^2$ even mean?
 
 This type of algebra looks weird because we learned in school how to add and subtract vectors, but we never learned how to multiply and divide them!
@@ -51,13 +50,13 @@ A scalar is a point on a number line. Its magnitude $\|s\|$ is just its absolute
 For the purposes of this post a **vector** $\textcolor{orange}{\vec{a}}$ is an arrow in 3D space. It points from the origin to some other point in space and is usually written like this:
 
 $$
-\begin{align}
+\begin{aligned}
     \textcolor{orange}{\vec{a}} &= \begin{bmatrix}
            \textcolor{orange}{a_1} \\
            \textcolor{orange}{a_2} \\
            \textcolor{orange}{a_3}
          \end{bmatrix}
-\end{align}
+\end{aligned}
 $$
 
 Or equivalently, like this:
@@ -86,6 +85,7 @@ By the way, all these 3D illustrations are fully interactive. Go ahead and rotat
 A vector's magnitude $\|\textcolor{orange}{\vec{a}}\|$ is equal to its length, so we'll call them 1-Vectors or say they are "Grade 1" because length is a 1-dimensional quantity.
 
 That length is just:
+
 $$
 \|\textcolor{orange}{\vec{a}}\| = \sqrt{\textcolor{orange}{a_1}^2 + \textcolor{orange}{a_2}^2 + \textcolor{orange}{a_3}^2}
 $$
@@ -257,9 +257,9 @@ More generally, using any scalar $s$:
 
 $$
 \tag{1.0}
-\begin{align}
+\begin{aligned}
 s(\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}) &= s\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}}\wedge s\textcolor{purple}{\vec{b}}
-\end{align}
+\end{aligned}
 $$
 
 This property is called *linearity* which just means that the output scales linearly with the inputs. This is desirable property when designing an algebra! If the extrude product is linear, we can freely move coefficients around however we like.
@@ -466,13 +466,13 @@ Where you find the coefficients $b_1$, $b_2$, $b_3$ by projecting the bivector $
 Because bivectors can be written as three coefficients, they behave very similarly to vectors. You can add two bivectors the same way you add two vectors. You can multiply a bivector by a scalar the same way you would with a vector. The similarities are so striking that we might think of them as "pseudovectors":
 
 $$
-\begin{align} 
+\begin{aligned} 
     \overset{\Rightarrow}{b} &= \begin{bmatrix}
            b_1 \\
            b_2 \\
            b_3
          \end{bmatrix}
-\end{align}
+\end{aligned}
 $$
 
 But I won't write them this way because I think that obscures their true nature. Written this way it looks like a bivector only encapsulates three degrees of freedom!
@@ -645,11 +645,11 @@ I don't see how there can be more than just this one. Either a shape takes up vo
 Writing it out more formally:
 
 $$
-\begin{align}
+\begin{aligned}
 -(\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}) &= -\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}} \\
 &= \textcolor{red}{\vec{x}}\wedge-\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}} \\
 &= \textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge-\textcolor{blue}{\vec{z}} \\
-\end{align} 
+\end{aligned} 
 $$
 
 Which is really just another way of saying that we can freely move coefficients around, even negative coefficients. 
@@ -658,11 +658,11 @@ Remembering equation $1.1$, which lets us swap the order of any two vectors at t
 
 $$
 \tag{1.3}
-\begin{align}
+\begin{aligned}
 -(\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}) &= \textcolor{green}{\vec{y}}\wedge\textcolor{red}{\vec{x}}\wedge\textcolor{blue}{\vec{z}} \\
 &= \textcolor{red}{\vec{x}}\wedge\textcolor{blue}{\vec{z}}\wedge\textcolor{green}{\vec{y}} \\
 &= \textcolor{blue}{\vec{z}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{red}{\vec{x}} \\
-\end{align} 
+\end{aligned} 
 $$
 
 This is great because it means that no matter what order the unit vectors appear in, no matter if they are positive or negative, we can always shuffle them around and insert minus signs to get them back into the standard $\textcolor{red}{\vec{x}}\wedge\textcolor{green}{\vec{y}}\wedge\textcolor{blue}{\vec{z}}$ order.
@@ -709,20 +709,20 @@ Vectors can be added together in a simple way: Project the input vectors onto th
 
 $$
 \tag{2.0}
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{\vec{a}} + \textcolor{purple}{\vec{b}} &= (\textcolor{orange}{a_1}\textcolor{red}{\hat{x}} + \textcolor{orange}{a_2}\textcolor{green}{\hat{y}} + \textcolor{orange}{a_3}\textcolor{blue}{\hat{z}}) + (\textcolor{purple}{b_1}\textcolor{red}{\hat{x}} + \textcolor{purple}{b_2}\textcolor{green}{\hat{y}} + \textcolor{purple}{b_3}\textcolor{blue}{\hat{z}}) \\
 &= (\textcolor{orange}{a_1} + \textcolor{purple}{b_1})\textcolor{red}{\hat{x}} + (\textcolor{orange}{a_2}+\textcolor{purple}{b_2})\textcolor{green}{\hat{y}} + (\textcolor{orange}{a_3}+\textcolor{purple}{b_3})\textcolor{blue}{\hat{z}}
-\end{align}
+\end{aligned}
 $$
 
 Bivectors behave a lot like vectors:
 
 $$
-\begin{align}
+\begin{aligned}
 \tag{2.1}
 \overset{\Rightarrow}{c} + \overset{\Rightarrow}{d} &= c_1\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + c_2\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + c_3\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}} \\ &+ d_1\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + d_2\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + d_3\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}} \\
 &= (c_1+d_1)\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}} + (c_2+d_2)\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}} + (c_3+d_3)\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}}
-\end{align}
+\end{aligned}
 $$
 
 
@@ -732,10 +732,10 @@ Trivectors are just fancy scalars. There's only one meaningful unit trivector so
 
 $$
 \tag{2.2}
-\begin{align}
+\begin{aligned}
 \overset{\Rrightarrow}{t} + \overset{\Rrightarrow}{u} &= t_1 (\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}) + u_1 (\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}) \\
 &= (t_1 + u_1)(\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}})
-\end{align}
+\end{aligned}
 $$
 
 
@@ -771,7 +771,7 @@ Is perfectly valid, but it cannot be simplified into anything else. We just acce
 Writing it all out, we can see that in general a Geometric has eight orthogonal components:
 $$
 \tag{3.0}
-\begin{align}
+\begin{aligned}
 \mathbf{G} &= g \\
  &+ g_x\textcolor{red}{\hat{x}}\\
  &+ g_y\textcolor{green}{\hat{y}}\\
@@ -780,7 +780,7 @@ $$
  &+ g_{yz}\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}\\
  &+ g_{xz}\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}}\\
  &+ g_{xyz}\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}\\
-\end{align}
+\end{aligned}
 $$
 
 One scalar component, three vector components, three bivector components, and one trivector component.
@@ -791,7 +791,7 @@ If orthogonal objects don't mix, then the sum of any two geometrics, $\mathbf{G_
 
 $$
 \tag{3.1}
-\begin{align}
+\begin{aligned}
 \mathbf{G_1} + \mathbf{G_2} &= g_1 + g_2 \\
  &+ (g_{1x} + g_{2x})\textcolor{red}{\hat{x}}\\
  &+ (g_{1y} + g_{2y})\textcolor{green}{\hat{y}}\\
@@ -800,7 +800,7 @@ $$
  &+ (g_{1yz} + g_{2yz})\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}\\
  &+ (g_{1xz} + g_{2xz})\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}}\\
  &+ (g_{1xyz} + g_{2xyz})\textcolor{red}{\hat{x}}\wedge\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}\\
-\end{align}
+\end{aligned}
 $$
 
 So there we have it, adding disparate types is permitted it just doesn't simplify!
@@ -811,23 +811,21 @@ The products we've mentioned so far are the dot product and the extrude product.
 
 None of these are invertible.
 
-<!-- The dot product collapses two vectors into a single scalar. Six input numbers collapsing into just one output number means the operation is lossy and lossy operations generally cannot be inverted. -->
-
 Consider the dot product:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{gray}{s} &= \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} \\
  &= \textcolor{orange}{a_1} \textcolor{purple}{b_1} + \textcolor{orange}{a_2} \textcolor{purple}{b_2} + \textcolor{orange}{a_3} \textcolor{purple}{b_3}
-\end{align}
+\end{aligned}
 $$
 
 Given:
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{purple}{\vec{b}} &= \textcolor{green}{\hat{y}} \\
 \textcolor{gray}{s} &= .7
-\end{align}
+\end{aligned}
 $$
 
 There is no way to unambiguously recover $\textcolor{orange}{a_1}, \textcolor{orange}{a_2}, \textcolor{orange}{a_3}$:
@@ -861,11 +859,11 @@ $$
 Given:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{purple}{\vec{b}} &= \textcolor{green}{\hat{y}} \\
 \|\overset{\Rightarrow}{c}\| &= \frac{1}{2} \\
 \overset{\Rightarrow}{c} \text{ lies in the } & \textcolor{green}{\hat{y}} \wedge \textcolor{blue}{\hat{z}} \text{ plane}
-\end{align}
+\end{aligned}
 $$
 
 <Vis3D width="612px" height="344" camera="5,-2,2">
@@ -933,13 +931,13 @@ What happens when we plug in two of the same vector?
 
 $$
 \tag{5.0}
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{\vec{a}}\textcolor{orange}{\vec{a}} &= \textcolor{orange}{\vec{a}} \cdot \textcolor{orange}{\vec{a}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{orange}{\vec{a}} \\
 &= \|\textcolor{orange}{\vec{a}}\| \|\textcolor{orange}{\vec{a}}\| \cos{\theta} + \|\textcolor{orange}{\vec{a}}\| \|\textcolor{orange}{\vec{a}}\| \sin{\theta} \\
 &= \|\textcolor{orange}{\vec{a}}\| \|\textcolor{orange}{\vec{a}}\| \cos{0} + \|\textcolor{orange}{\vec{a}}\| \|\textcolor{orange}{\vec{a}}\| \sin{0} \\
 &= \|\textcolor{orange}{\vec{a}}\| \|\textcolor{orange}{\vec{a}}\| \\
 &= \|\textcolor{orange}{\vec{a}}\|^2
-\end{align}
+\end{aligned}
 $$
 
 And just like that we've learned what it means to take the square of a vector!
@@ -1020,10 +1018,10 @@ Just for practice, let's add equations $5.7$ and $4.0$ to get:
 
 $$
 \tag{5.8}
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} + \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} &= \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} - \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} \\
 &= 2 \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}}
-\end{align}
+\end{aligned}
 $$
 
 Dividing both sides by $2$ gives us an explicit formula for the dot product in terms of the vector product!
@@ -1036,10 +1034,10 @@ $$
 If we subtract equation $5.7$ from equation $4.0$ we get:
 $$
 \tag{5.10}
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}} - \textcolor{purple}{\vec{b}}\textcolor{orange}{\vec{a}} &= \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} - \textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} + \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} \\
 &= 2 \textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}
-\end{align}
+\end{aligned}
 $$
 
 Which, after dividing both sides by $2$, gives an explicit formula for the extrude product in terms of the vector product!
@@ -1081,20 +1079,20 @@ Repeating the exercise for other unit vectors gives us the full set:
 
 $$
 \tag{5.14}
-\begin{align}
+\begin{aligned}
 \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} &= \textcolor{red}{\hat{x}} \wedge \textcolor{green}{\hat{y}} \\
 \textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} &= \textcolor{green}{\hat{y}} \wedge \textcolor{blue}{\hat{z}} \\
 \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} &= \textcolor{red}{\hat{x}} \wedge \textcolor{blue}{\hat{z}}
-\end{align}
+\end{aligned}
 $$
 
 $$
 \tag{5.15}
-\begin{align}
+\begin{aligned}
 \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} &= -\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} \\
 \textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} &= -\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} \\
 \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} &= -\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}
-\end{align}
+\end{aligned}
 $$
 
 With these identities we'll be able to easily rearrange almost any equation we're given!
@@ -1138,79 +1136,27 @@ Another huge notational win! The unit trivector can be written as $\textcolor{re
 What about two of the same unit vector?
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} &= \textcolor{red}{\hat{x}} \cdot \textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}} \wedge \textcolor{red}{\hat{x}} \\
 &= 1 + 0 \\
 &= 1
-\end{align}
+\end{aligned}
 $$
 
 Whoa. Repeating for each unit vector, we see that:
 
 $$
 \tag{5.20}
-\begin{align}
+\begin{aligned}
 \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} &= 1 \\
 \textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}} &= 1 \\
 \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} &= 1
-\end{align}
+\end{aligned}
 $$
 
 In fact, *any unit-length vector is its own inverse!* This combined with $5.15$ will help us simplify complex expressions!
 
 ---
-
-<!-- Just for practice let's try squaring the unit trivector. Let's just spell it out and give it a go:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) ^2 = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}
-$$
-
-To be clear, I have not yet plugged two trivectors into our vector product equation. I'm just expanding out the definition of the square by writing it the long way.
-
-I don't have any idea how to visualize the vector product of six unit vectors, but the beautiful thing about algebra is that once you derive rules that work, you can *just use them*. Let's swap the last two vectors and add a minus sign:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) ^2 = -\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}
-$$
-
-Now let's swap second $\textcolor{red}{\hat{x}}$ with the second $\textcolor{blue}{\hat{z}}$ and remove our minus sign:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) ^2 = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}
-$$
-
-And finally let's swap our trailing $\textcolor{red}{\hat{x}}$ and $\textcolor{green}{\hat{y}}$ bringing back the minus:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) ^2 = -\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}
-$$
-
-Knowing that $\textcolor{blue}{\hat{z}}$ is its own inverse, this simplifies:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) ^2 = -\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}
-$$
-
-And again with $\textcolor{green}{\hat{y}}$:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) ^2 = -\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}
-$$
-
-And again with $\textcolor{red}{\hat{x}}$:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) ^2 = -1
-$$
-
-Which if we take the square root of both sides shows us:
-
-$$
-\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} = \sqrt{-1}
-$$
-
-Whoa. Apparently, the unit trivector is also the square root of negative one! Without resorting to "imaginary" numbers, we've stumbled upon an object with the property we normally assign to $i$! Maybe our new system of algebra can do some of the things that we normally rely on complex numbers to do, like rotations? -->
 
 Now that we can simplify complicated expressions, let's make some! What happens if we try to square the $\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}$ unit bivector?
 
@@ -1256,12 +1202,12 @@ But there was nothing special about the $\textcolor{red}{\hat{x}}\textcolor{gree
 
 $$
 \tag{5.23}
-\begin{align}
+\begin{aligned}
 (\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 &= \textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
 &= -\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} \\
 &= -\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}} \\
 &= -1
-\end{align}
+\end{aligned}
 $$
 
 This is wild! We apparently have *two* "imaginary numbers" and they are orthogonal to each other! We can't just call this one $\overset{\Rightarrow}{i}$ as well. Maybe we'll call this one $\overset{\Rightarrow}{j}$?
@@ -1270,19 +1216,19 @@ For completeness' sake let's try the last one:
 
 $$
 \tag{5.24}
-\begin{align}
+\begin{aligned}
 (\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}})^2 &= \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
 &= -\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
 &= -\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} \\
 &= -1
-\end{align}
+\end{aligned}
 $$
 
 Which is unsurprising the third time around, I guess. This plane is orthogonal to both of the previous planes so let's call it $\overset{\Rightarrow}{k}$!
 
 Apparently our new algebraic system based on Geometrics permits three mutually orthogonal "imaginary numbers" corresponding to the three unit bivectors!
 
-If you've ever studied [Quaternions](https://www.youtube.com/watch?v=d4EgbgTm0Bg) you might remember the fundamental equation that defines them:
+If you've ever studied [quaternions](https://www.youtube.com/watch?v=d4EgbgTm0Bg) you might remember the fundamental equation that defines them:
 
 $$
 \tag{5.25}
@@ -1295,52 +1241,19 @@ Now that we have bivector definitions for $\overset{\Rightarrow}{i}$, $\overset{
 
 $$
 \tag{5.26}
-\begin{align}
+\begin{aligned}
 \overset{\Rightarrow}{i}\overset{\Rightarrow}{j}\overset{\Rightarrow}{k} &= (\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})(\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}) \\
 &= \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
 &= \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
 &= -\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}} \\
 &= -\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} \\
 &= -1 \\
-\end{align}
+\end{aligned}
 $$
 
 Fantastic! Our new system of algebra conforms to the same fundamental rules that govern quaternions!
 
 Perhaps our new algebra will be useful for some of the things that quaternions are useful for, like 3D rotations!
-
-<!-- 
-Squaring bivectors has proven to be very interesting. What happens if we square the unit trivector?
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}
-$$
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = -\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}
-$$
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}
-$$
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}
-$$
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = -\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}
-$$
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})^2 = -1
-$$
-
-This is starting to look familiar. Let me confirm a quick hunch:
-
-$$
-(\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}})(\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}) = \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}
-$$ -->
 
 # A Quick Warmup (Start here if you just need a refresher)
 
@@ -1400,7 +1313,7 @@ $$
 {\vec{v}\,}'=\mathbf{q}\vec{v}\mathbf{q}^{-1}
 $$
 
-This form of equation is sometimes called the *sandwich product* for obvious reasons.
+This form of equation is sometimes called the *sandwich product* for obvious reasons. If you've never seen it before, just know that it pops up everywhere.
 
 So it isn't a huge leap to ask: What happens when we use a *vector* as a transformation? We can invert them and multiply them now, so let's try!
 
@@ -1430,39 +1343,39 @@ $$
 Plugging it all in:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{{\vec{a}\,}'} &= \textcolor{brown}{\vec{t}}\textcolor{orange}{\vec{a}}\textcolor{brown}{\vec{t}}^{-1} \\
 &= (.5 \textcolor{blue}{\hat{z}})(.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}})(2 \textcolor{blue}{\hat{z}}) \\
-\end{align}
+\end{aligned}
 $$
 
 Let's pull out the constants $.5$ and $2$ to the very front and let them cancel:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{{\vec{a}\,}'} &= .5 * 2 (\textcolor{blue}{\hat{z}})(.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) \\
 &= (\textcolor{blue}{\hat{z}})(.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) 
-\end{align}
+\end{aligned}
 $$
 
 
 We can distribute the leftmost $\textcolor{blue}{\hat{z}}$, taking care to keep it on the left of any existing unit vectors:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{{\vec{a}\,}'} &= (.5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}})(\textcolor{blue}{\hat{z}}) \\
 &= (.5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} + .707)(\textcolor{blue}{\hat{z}})
-\end{align}
+\end{aligned}
 $$
 
 Now we can incorporate that rightmost $\textcolor{blue}{\hat{z}}$:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{{\vec{a}\,}'} &= .5 \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + .707 \textcolor{blue}{\hat{z}} \\
 &= -.5 \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}} \\
 &= -.5 \textcolor{green}{\hat{y}} + .707 \textcolor{blue}{\hat{z}}
-\end{align}
+\end{aligned}
 $$
 
 
@@ -1500,14 +1413,14 @@ $$
 Plugging into our transformation formula we see:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{{\vec{a}\,}'} &= (\textcolor{red}{\hat{x}}).6(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
 &= .6(\textcolor{red}{\hat{x}})(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
 &= .6(\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} + \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}})(\textcolor{red}{\hat{x}}) \\
 &= .6(\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} + \textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{red}{\hat{x}}) \\
 &= .6 (\textcolor{red}{\hat{x}} - \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{green}{\hat{y}} - \textcolor{red}{\hat{x}}\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}) \\
 &= .6(\textcolor{red}{\hat{x}} - \textcolor{green}{\hat{y}} - \textcolor{blue}{\hat{z}})
-\end{align}
+\end{aligned}
 $$
 
 <Vis3D width="612px" height="344" camera="5.5,-2,1">
@@ -1577,7 +1490,7 @@ $$
 So, plugging it all in:
 
 $$
-\begin{align}
+\begin{aligned}
 \textcolor{orange}{a''} &= \textcolor{blue}{\hat{z}}(\textcolor{green}{\hat{y}} * .6(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}})\textcolor{blue}{\hat{z}} \\
 &= \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}} * .6(\textcolor{red}{\hat{x}} + \textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
 &= .6(\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{red}{\hat{x}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}})\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} \\
@@ -1585,7 +1498,7 @@ $$
 &= .6(\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} + \textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}} - \textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}}\textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) \\
 &= .6(\textcolor{red}{\hat{x}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} - \textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}\textcolor{blue}{\hat{z}} - \textcolor{green}{\hat{y}}\textcolor{green}{\hat{y}}\textcolor{blue}{\hat{z}}) \\
 &= .6(\textcolor{red}{\hat{x}} - \textcolor{green}{\hat{y}} - \textcolor{blue}{\hat{z}})
-\end{align}
+\end{aligned}
 $$
 
 
@@ -1686,13 +1599,13 @@ $$
 But it is equally correct and far simpler to teach:
 
 $$
-\tag{9.0}
+\tag{10.0}
 \tau = r \wedge F
 $$
 
 Which means torque is a bivector living in the plane defined by $r$ and $F$, not a pseudovector perpendicular to them. There is no need to introduce the cross product or the right-hand rule at all when teaching rotational dynamics.
 
-All bivectors are also rotors, so this new definition is self-consistent in the colloqial sense that torque, being a rotor, *rotates things*. Angular velocity, also a rotor, is a measure of how much rotation is occurring!
+All bivectors are also rotors, so this new definition is self-consistent in the colloquial sense that torque, being a rotor, *rotates things*. Angular velocity, also a rotor, is a measure of how much rotation is occurring!
 
 A similar problem occurs when students take the conceptual leap from electric fields to magnetic fields. The electric field is a vector field which lets them build intuition, but then the magnetic field is a pseudovector field which just tosses their intuition out the window.
 
@@ -1706,7 +1619,7 @@ $$
 \nabla \mathbf{F} = \frac{1}{c \epsilon} \mathbf{J}
 $$
 
-Which, when broken down into its scalar, vector, bivector, and trivector components, correspond to [Maxwell's four equations](https://en.wikipedia.org/wiki/Maxwell%27s_equations)! All of electricity and magnetism in one single equation!
+Which, when broken down into its scalar, vector, bivector, and trivector components, corresponds to [Maxwell's four equations](https://en.wikipedia.org/wiki/Maxwell%27s_equations)! All of electricity and magnetism in one single equation!
 
 <!-- Pseudovectors require special care when transforming from a right-handed coordinate system to a left-handed system. But bivectors manage such transformations automatically. -->
 
@@ -1727,17 +1640,29 @@ The normal approach to physics notation is to learn standard 3D vector notation,
 - Minkowski 4-Vectors
 - Dirac Spinors
 
-All of these are band-aids over a fundamentally broken system. The alternative is to teach the Geometric Algebra we've started learning today, which encompasses the dynamics of all of these lesser systems.
+All of these are band-aids over a fundamentally limited system. The alternative is to teach the Geometric Algebra we've started learning today, which encompasses the dynamics of all of these lesser systems.
 
 # Conclusion
 
-We started with a question that seemed almost nonsensical: What is the inverse of a vector?
+So, what is the inverse of a vector?
 
-In stumbling toward an answer, we developed a much richer understanding of what a vector is and what it does. Along the way we derived the foundation of a branch of Math that is usually only taught to graduate students, but is actually suitable for high school students.
+It turns out that inverting a vector on its own isn't well defined. We have to invert a vector *with respect to some kind of multiplication*, and we are free to invent new kinds of multiplication!
 
-We built a set of algebraic tools so powerful and elegant that they make the dominant system of mathematical notation in science and engineering seem a little silly.
+Beyond that we can invent entire new structures: bivectors and trivectors, and we get to choose what multiplication and inversion should mean when dealing with these new objects!
 
-I believe that in 200 years, Geometric Algebra will be the dominant way of introducing students to mathematical physics. In the same way that Newton's notation for Calculus is no longer the dominant one, or that Maxwell's actual equations for Electromagnetism have been replaced by Heaviside's, textbooks will change because a better system has come along.
+The math we are taught in school is not handed down by the Gods themselves, it is invented in small pieces by human beings. It changes over time and supports regional dialects just like spoken language.
+
+We can contribute to it. We can change it.
+
+Many people, including many engineers and scientists, view math as just rote memorization of formulas or rigid steps to complete some task. But that's like taking one semester of Spanish and viewing the entire Spanish language as nothing but rote memorization of vocabulary and steps to complete a conversation. It completely misses the point.
+
+Math is a living language and learning how to use it is a form of enculturation. Anyone can create new math in the same way that anyone can write a new poem or a new short story.
+
+<!-- The area of math we explored today is called Geometric Algebra, also known as the Clifford Algebra. It was invented in the 1840's, around the same time as the Gibbs vector notation that is in wide use today. But it languished in obscurity for more than a hundred years. Professor [David Hestenes](https://en.wikipedia.org/wiki/David_Hestenes) is largely responsible for the modern resurgence in interest and has written many great papers about it. -->
+
+<!-- In this post I took several liberties with notation and naming. What I called the "extrude product" is usually called the "wedge product" or "exterior product". Bivectors are often written like $\vec{B}$ rather than $\overset{\Rightarrow}{b}$. Most CAD software uses the word "sweep" to create a 2D surface from a 1D line, and "extrude" to create a 3D surface from a 2D face. In this post I oversimplified many things. My goal is only to help popularize these ideas. -->
+
+I firmly believe that in 100 years, Geometric Algebra will be the dominant way of introducing students to mathematical physics. In the same way that Newton's notation for Calculus is no longer the dominant one, or that Maxwell's actual equations for Electromagnetism have been replaced by Heaviside's, textbooks will change because a better system has come along.
 
 Unlike those examples, the change from Gibb's vector notation to Geometric Algebra is something we're living through right now. New [Youtube](https://www.youtube.com/watch?v=60z_hpEAtD8) [videos](https://www.youtube.com/watch?v=2hBWCCAiCzQ&list=PLVuwZXwFua-0Ks3rRS4tIkswgUmDLqqRy) and textbooks are coming out all the time that incorporate this superior approach. Pick one up [and](https://smile.amazon.com/Space-Time-Algebra-David-Hestenes/dp/3319184121/ref=sr_1_18?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-18) [be](https://smile.amazon.com/Introduction-Clifford-Algebras-Spinors/dp/0198836287/ref=sr_1_24?dchild=1&keywords=geometric+algebra+physics&qid=1633233021&sr=8-24) [part](https://smile.amazon.com/Geometric-Algebra-Electrical-Engineers-electromagnetism/dp/1987598970/ref=sr_1_10?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-10) [of](https://smile.amazon.com/New-Foundations-Mathematics-Geometric-Concept/dp/0817683844/ref=sr_1_19?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-19) [the](https://smile.amazon.com/Geometric-Invitation-Space-Time-SpringerBriefs-Mathematics/dp/331990664X/ref=sr_1_7?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-7) [revolution](https://smile.amazon.com/Geometric-Multiplication-Vectors-Introduction-Mathematics/dp/3030017559/ref=sr_1_6?dchild=1&keywords=geometric+algebra+physics&qid=1633232496&sr=8-6)!
 
@@ -1782,14 +1707,6 @@ $$
 $$
 \textcolor{orange}{{\vec{a}\,}''} = \textcolor{#516fae}{\vec{u}}(\textcolor{brown}{\vec{t}}\vec{v}\textcolor{brown}{\vec{t}}^{-1})\textcolor{#516fae}{\vec{u}}^{-1} = (\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}})\textcolor{orange}{\vec{a}}(\textcolor{#516fae}{\vec{u}}\textcolor{brown}{\vec{t}})^{-1}
 $$
-
-# Coda
-
-The area of math we explored today is called Geometric Algebra, also known as the Clifford Algebra. It was invented in the 1840's, around the same time as the Gibbs vector notation that is in wide use today. But for some reason it languished in obscurity for more than a hundred years. Professor [David Hestenes](https://en.wikipedia.org/wiki/David_Hestenes) is largely responsible for the modern resurgence in interest and has written many great papers about it.
-
-In this post I took several liberties with notation and naming. What I called the "extrude product" is usually called the "wedge product" or "exterior product". Bivectors are often written like $\vec{B}$ rather than $\overset{\Rightarrow}{b}$. Most CAD software uses the word "sweeping" to create a 2D surface, and "extrusion" which creates a 3D surface.
-
-I am not a mathematician. I often sacrificed rigor for speed. My goal is only to light a spark.
 
 # Contact me
 
