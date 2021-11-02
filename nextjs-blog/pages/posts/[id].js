@@ -296,20 +296,18 @@ const onWindowResize = (renderPackages) => {
 
 const Katexifier = (props) => {
   const [isComponentMounted, setIsComponentMounted] = useState(false)
+  console.log("Rendering Katexifier")
   useEffect(() => {
+    console.log("Doing the katex stuff")
     document.querySelectorAll('.math-display').forEach((el) => {
-      console.log(el.innerText)
       katex.render(el.innerText, el, {displayMode: true})
     })
 
     document.querySelectorAll('.math-inline').forEach((el) => {
-      console.log(el.innerText)
       katex.render(el.innerText, el)
     })
-
     
-    setIsComponentMounted(true)
-  }, [])
+  })
   if(!isComponentMounted) {
     return null
   }
