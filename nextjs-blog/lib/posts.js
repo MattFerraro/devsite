@@ -9,6 +9,7 @@ const allowList = [
   "cnc-router.mdx",
   "poissons-equation.mdx",
   "caustics-engineering.mdx",
+  "geometric-algebra.mdx",
   // "simple-test.mdx"
 ]
 
