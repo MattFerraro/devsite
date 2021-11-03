@@ -108,7 +108,7 @@ The most efficient way to define a plane is to use the normal vector $\textcolor
   <Arrow begin="0,0,0" end=".7,.7,.7" color="gray"></Arrow>
   <Latex root=".8,.8,.8" msg="\textcolor{gray}{\vec{n}}"></Latex>
   
-  <Circle r={.7} rotatex="-45" rotatey={45} color="gray" opacity={0.2}></Circle>
+  <Circle r={.7} rotatex={-45} rotatey={45} color="gray" opacity={0.2}></Circle>
 </Vis3D>
 
 But...wait that definition isn't consistent with our goal. This object *does* describe an oriented plane and it *does* have a degree of freedom to represent scale, but it's still just a vector so its magnitude will be a length, not an area. This won't work.

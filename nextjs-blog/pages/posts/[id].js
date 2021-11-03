@@ -350,8 +350,8 @@ const Vis3DRealizer = () => {
 
     // this.controls.addEventListener('change', this.render.bind(this));
 
-    setIsComponentMounted(true)
-  }, [])
+    // setIsComponentMounted(true)
+  })
   if(!isComponentMounted) {
     return null
   }
