@@ -132,11 +132,19 @@ const renderChild = (child, scene, scene2) => {
       } else {
         console.log("This circle has no root")
       }
-       
+      
+      
+
       const xrotation = childAttrs.rotateX.value
       circle.rotateOnWorldAxis(xAxis, xrotation * 3.14159/180)
+      
       const yrotation = childAttrs.rotateY.value
       circle.rotateOnWorldAxis(yAxis, yrotation * 3.14159/180)
+      
+      const zrotation = childAttrs.rotateZ.value
+      circle.rotateOnWorldAxis(zAxis, zrotation * 3.14159/180)
+
+
       scene.add(circle)
     } else if (childAttrs.class.value === "Latex") {
       const root = new THREE.Vector3(...childAttrs.root.value.split(",").map(parseFloat)).multiplyScalar(arbitraryScaling)

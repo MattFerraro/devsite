@@ -108,7 +108,7 @@ The most efficient way to define a plane is to use the normal vector $\textcolor
   <Arrow begin="0,0,0" end=".7,.7,.7" color="gray"></Arrow>
   <Latex root=".8,.8,.8" msg="\textcolor{gray}{\vec{n}}"></Latex>
   
-  <Circle r={.7} rotatex={-45} rotatey={45} color="gray" opacity={0.2}></Circle>
+  <Circle r={.7} rotatex={-54.73} rotatey={0} rotatez={-45} color="gray" opacity={0.2}></Circle>
 </Vis3D>
 
 But...wait that definition isn't consistent with our goal. This object *does* describe an oriented plane and it *does* have a degree of freedom to represent scale, but it's still just a vector so its magnitude will be a length, not an area. This won't work.
@@ -266,7 +266,7 @@ This property is called *linearity* which just means that the output scales line
 
 But it comes at a cost. $2\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}}$ and $\textcolor{orange}{\vec{a}}\wedge2\textcolor{purple}{\vec{b}}$ are visually distinct objects yet we say they are equal. 
 
-The fact that we can write (and visualize) the same bivector multiple ways implies that even though we write down bivectors using 6 numbers, there are really only 5 degrees of freedom in a bivector.
+The fact that we can write (and visualize) the same bivector multiple ways implies that our notation is redundant. Even though we write down bivectors using 6 numbers, it turns out there are only 3 degrees of freedom in a bivector.
 
 Even though we visualize them as oriented parallelograms, the only important properties of a bivector are the plane it lives in and the area of its parallelogram. The actual shape of the parallelogram and its location in that plane aren't important.
 
@@ -475,7 +475,7 @@ $$
 \end{aligned}
 $$
 
-But I won't write them this way because I think that obscures their true nature. Written this way it looks like a bivector only encapsulates three degrees of freedom!
+But I won't write them this way because I think that obscures their true nature.
 
 Instead, I will use:
 
@@ -483,13 +483,11 @@ $$
 \overset{\Rightarrow}{b} = b_1(\textcolor{red}{\hat{x}} \wedge \textcolor{green}{\hat{y}}) + b_2(\textcolor{green}{\hat{y}}\wedge\textcolor{blue}{\hat{z}}) + b_3(\textcolor{red}{\hat{x}}\wedge\textcolor{blue}{\hat{z}})
 $$
 
-Because it forces us to remember what those coefficients are attached to. Knowing that a bivector contains five degrees of freedom, can you figure out what the other two describe?
+Because it forces us to remember what those coefficients are attached to. A bivector contains three degrees of freedom just like a vector, but they are not the *same* degrees of freedom.
 
 By the way I drew two arrows on top of the $b$ to indicate that it is a bivector, not a vector. We won't use this notation much but it's nice to have in case we need it.
 
 So there we have it, a new type of object called a bivector which is an oriented chunk of area! Its magnitude carries units of area, so bivectors are considered 2-Vectors, or referred to as "Grade 2".
-
-It is important to remember that bivectors have a certain redundancy built into them in the sense that $s\textcolor{orange}{\vec{a}}\wedge\textcolor{purple}{\vec{b}} = \textcolor{orange}{\vec{a}}\wedge s\textcolor{purple}{\vec{b}}$. We can write them using 6 numbers or 3 numbers, but they actually convey 5 degrees of freedom.
 
 ## Trivectors
 
@@ -843,7 +841,7 @@ There is no way to unambiguously recover $\textcolor{orange}{a_1}, \textcolor{or
   <Latex root="0,.3,-.5" msg="\textcolor{orange}{\vec{a}?}"></Latex>
 
   <Latex root="0,.7,.85" msg="\textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} = \textcolor{gray}{s}"></Latex>
-  <Circle root="0,.7,0" r={.7} rotatex="90" rotatey={0} color="gray" opacity={0.2}></Circle>
+  <Circle root="0,.7,0" r={.7} rotatex={90} rotatey={0} rotatez={0} color="gray" opacity={0.2}></Circle>
 </Vis3D>
 
 All we can say is that $\textcolor{orange}{\vec{a}}$ lies somewhere on the infinite plane which is perpendicular to $\textcolor{purple}{\vec{b}}$ and passes through $\textcolor{gray}{s} \textcolor{purple}{\vec{b}}$. There are infinitely many valid solutions.
@@ -886,8 +884,6 @@ $$
 
 No matter which $\textcolor{orange}{\vec{a}}$ you choose, as long as it lies on the line $z = \frac{1}{2}, x = 0$, the resulting parallelogram will always lie in the $\textcolor{green}{\hat{y}} \wedge \textcolor{blue}{\hat{z}}$ plane and its area will always equal $\frac{1}{2}$.
 
-This lack of constraint is what I was referring to earlier when I said that bivectors are written out using 6 numbers, but only encapsulate 5 degrees of freedom.
-
 If the dot product constrains $\textcolor{orange}{\vec{a}}$ to a plane, and the extrude product constrains $\textcolor{orange}{\vec{a}}$ to a line which passes through that plane...
 
 A *Eureka* moment is upon us!
@@ -905,9 +901,9 @@ Which we read as:
 
 > The vector product $\textcolor{orange}{\vec{a}}\textcolor{purple}{\vec{b}}$ equals the dot product $\textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}}$ plus the extrude product $\textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}}$
 
-The output is a Geometric with a scalar component $\textcolor{gray}{s}$ and a bivector component $\textcolor{gray}{\overset{\Rightarrow}{c}}$, which has 1 + 5 = 6 degrees of freedom so this system is not lossy! It should permit an unambiguous inversion operation!
+The output is a Geometric with a scalar component $\textcolor{gray}{s}$ and a bivector component $\textcolor{gray}{\overset{\Rightarrow}{c}}$.
 
-More visually, if the dot product constrains $\textcolor{orange}{\vec{a}}$ to a plane and the extrude product constrains $\textcolor{orange}{\vec{a}}$ to a line that passes through that plane, then the only value of $\textcolor{orange}{\vec{a}}$ which satisfies both constraints lies at the point where the line intersects the plane
+Visually, if the dot product constrains $\textcolor{orange}{\vec{a}}$ to a plane and the extrude product constrains $\textcolor{orange}{\vec{a}}$ to a line that passes through that plane, then the only value of $\textcolor{orange}{\vec{a}}$ which satisfies both constraints lies at the point where the line intersects the plane
 
 <Vis3D width="612px" height="344" camera="5,-2,2">
   <Arrow begin="0,0,0" end="0,1,0" color="purple"></Arrow>
@@ -916,7 +912,7 @@ More visually, if the dot product constrains $\textcolor{orange}{\vec{a}}$ to a 
   
   <Latex root="0,-1.1,.65" msg="\textcolor{orange}{\vec{a}} \wedge \textcolor{purple}{\vec{b}} = \textcolor{gray}{\overset{\Rightarrow}{c}}"></Latex>
   <Latex root="0,.25,.3" msg="\textcolor{orange}{\vec{a}}"></Latex>
-  <Circle root="0,.7,0" r={.7} rotatex="90" rotatey={0} color="gray" opacity={0.2}></Circle>
+  <Circle root="0,.7,0" r={.7} rotatex={90} rotatey={0} rotatez={0} color="gray" opacity={0.2}></Circle>
   <Latex root="0,.7,.85" msg="\textcolor{orange}{\vec{a}} \cdot \textcolor{purple}{\vec{b}} = \textcolor{gray}{s}"></Latex>
   <Arrow begin="0,0,0" end="0,.7,.5" color="orange"></Arrow>
 </Vis3D>
@@ -1546,7 +1542,7 @@ So what rotation have we performed here?
   <Latex root="0,.5,-.15" msg="\textcolor{brown}{\vec{t}}"></Latex>
   <Latex root="0,-.15,.5" msg="\textcolor{#516fae}{\vec{u}}"></Latex>
   
-  <Circle r={.7} rotatex="0" rotatey={90} color="gray" opacity={0.2}></Circle>
+  <Circle r={.7} rotatex={0} rotatey={90} rotatez={0} color="gray" opacity={0.2}></Circle>
 </Vis3D>
 
 We have rotated our input vector $\textcolor{orange}{\vec{a}}$ by $2 \theta$ in the $\textcolor{brown}{\vec{t}}\wedge\textcolor{#516fae}{\vec{u}}$ plane, where $\theta$ is the angle between $\textcolor{brown}{\vec{t}}$ and $\textcolor{#516fae}{\vec{u}}$. In this case $\theta = 90 \degree$.
@@ -1713,3 +1709,7 @@ $$
 If you would like to tell me in excruciating detail exactly what I said wrong in this post, I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89). Email me at mattferraro.dev@gmail.com if you prefer to shame me privately.
 
 <iframe width="100%" height="390" src="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i" frameBorder="0" scrolling="auto" allowFullScreen style={{display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%"}}></iframe>
+
+# Errata
+
+The original version of the post incorrectly claimed that a bivector encapsulates 5 degrees of freedom. That is wrong. A bivector contains 3 degrees of freedom. Thank you to Sandrea for the helpful correction and detailed explanation of why the vector product is still invertible despite carrying only 4 degrees of freedom.
