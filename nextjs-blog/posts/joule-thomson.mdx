@@ -1,0 +1,149 @@
+---
+title: 'The Joule-Thomson Effect and The Models we Know'
+teaser: 'Just a test'
+teaserImage: 'https://www.mattferraro.dev/images/geometric-algebra/GA_teaser_2_small.png'
+date: '2021-11-23'
+---
+
+Here's a brain teaser that is startlingly unintuitive:
+
+![Diagram of the Initial State](/images/joule-thomson/initial.svg)
+
+We've got a cylinder split in half by a diaphragm. On the left side is some gas at some pressure and temperature. Let's say it's $CO_2$ at $0\degree$C and $1$ atm just to be concrete.
+
+On the right side is a perfect vacuum.
+
+We're going to snap our fingers and make the diaphragm instantly disappear:
+
+![Diagram with Diaphragm Removed](/images/joule-thomson/removed.svg)
+
+The gas is now free to occupy twice as much volume, and it will quickly diffuse out:
+
+![Diagram of the Final State](/images/joule-thomson/final.svg)
+
+What happens to the temperature?
+
+Go ahead and actually write down a guess.
+
+<!-- # The Obvious Answer
+
+When I first heard this problem, the answer seemed obvious.
+
+When gasses expand, they cool down. The temperature must go down, right? -->
+
+# The High School Answer
+
+In high school physics or chemistry you learn the ideal gas law which governs things like temperature, pressure, and volume for ideal gasses:
+
+$$
+PV = nRT
+$$
+
+In this case we know that $V$ doubles and we know that $n$ and $R$ are constant, but $P$ and $T$ are completely unconstrained. We've got one equation with two unknowns.
+
+This cannot be solved without some other constraint, it must be a trick question!
+
+High school me would have chalked this up as an unknowable thing, outside the reach of equations.
+
+# The Thermodynamics 101 Answer
+
+In Thermo class you learn the concept of fluid work.
+
+Gas in a cylinder exerts some pressure on a piston head. The integral of pressure over that area gives a force.
+
+![Diagram of Pressure over Area](/images/joule-thomson/work1.svg)
+
+If the piston moves, the integral of that force over distance tells us how much work the fluid did against the piston.
+
+![Diagram of Force over Distance](/images/joule-thomson/work2.svg)
+
+In a car engine hot gas pushes against a cylinder head and expands, performing work on the piston and crankshaft, accelerating the car and cooling down in the process. The energy to accelerate the car comes from the internal energy of the hot gas, which consequently cools down.
+
+That's all well and good but in our case the diaphragm just disappears instantly. There is no piston to perform work against, no area to integrate over.
+
+With no cylinder head to extract work from the gas, its internal energy must stay constant so the temperature must stay constant!
+
+If I were fresh out of Thermodynamics 101, I would say that the temperature remains unchanged, and I'd point at these equations to prove it.
+
+# The Physics 101 Answer
+
+In a collision, actual atoms do not bounce off of each other instantly. Actual atoms squish, more like kickballs than pool balls.
+
+[Animation of a collision]
+
+When a kickball bounces, the kinetic energy quickly drops to zero and converts entirely into potential energy, like a point mass on top of a compressed spring. For a moment, the kinetic energy is actually zero. Then the "spring" starts
+
+It takes energy to squish an atom, just like it takes energy to squish a kickball.
+
+During the course of their collision, the total kinetic energy goes down for a moment as the potential energy goes up.
+
+[Same animation but just spring, and little progress bars showing kinetic energy trading off with potential energy]
+
+The internal energy of the gas is the sum of all the kinetic energy in all the particles plus all the potential energy of the particles, and internal energy is constant unless you do work on the gas.
+
+At any given instant, some number of collisions are actively taking place. If we double the volume we're going to have a lower density of gas which means fewer intermolecular collisions. Fewer collisions means less of the internal energy is locked up as potential energy and is available as kinetic energy. Higher kinetic energy means higher temperature.
+
+The temperature of the gas must go up!
+
+# The Chemistry 101 Answer
+
+In college chemistry you learn at some point about the Van Der Waals force. This is a type of attraction that occurs between atoms and molecules--anything that has a big electron cloud around it.
+
+[Diagram of Van Der Waals Force]
+
+Atoms are usually thought of as net neutral, having exactly as many electrons as they have protons. But sometimes just by chance, more electrons than usual will gather on one side of an atom, leading to a partial negative charge on that side of the electron cloud.
+
+[Diagram of partial charged cloud]
+
+The extra negativity can repel the electrons on a nearby atom, causing *that* atom to also gain a partial charge.
+
+[Another Diagram?]
+
+This creates a kind of weak bond between the two partially-charged atoms so that they'd prefer to stay next to each other rather than fly apart. It's a spontanoues, reliable effect that is real and measurable.
+
+Two atoms bonded in this way can still be driven apart, but you have to invest energy into the bonded pair in order to do it.
+
+Back to our gas in a cylinder: We've doubled the volume which means we've decreased the density which means we've increased the average intermolecular spacing. To do that we had to break a lot of Van Der Waals bonds.
+
+The energy to break these bonds had to come from the kinetic energy of the particles. Lower kinetic energy means lower temperature.
+
+The temperature of the gas must go down!
+
+# Recap
+
+We've got 4 answers that all sound correct, but are mutually incompatible:
+
+- High School Answer: This question is unknowable
+- Thermodynamics Answer: Temperature must stay the same
+- Physics Answer: Temperature must go up
+- Chemistry Answer: Temperature must go down
+
+In our lives we often learn oversimplified models that are naive--they only work in one regime or another. As we grow we learn more sophisticated models that work over larger regimes, obviating the need for the earlier models.
+
+So, which of the above models is the least naive? Now that we've explored some models, go ahead and write down your revised guess for what happens.
+
+# The Actual Answer
+
+Our starting condition was CO2 at 1 atm and 0 degrees C. If you perform this experiment in real life, the final result is that the gas will get colder.
+
+This cooling effect can be *very* strong. A CO2 fire extinguisher, which just contains high-pressure CO2, will create dry ice if you empty it into a pillowcase. 
+
+Said again: _This process can convert your gas into a solid_.
+
+Which is probably not what you guessed at the beginning.
+
+But wait, if you perform the same experiment starting with CO2 at 100 degrees C, it will actually heat up to 120 C!
+
+And if you perform the experiment starting with CO2 at 1500 K, the temperature remains constant!
+
+[diagram of the temp divergence for CO2]
+
+What we have is a sort of unstable equilibrium where hot CO2 gets hotter and cold CO2 get colder.
+
+You see the same pattern, albeit with different strengths and centered on different equilibrium temperatures, for every gas. 
+
+[diagram of another gas]
+
+The equilibrium temperature for any given gas is called its Joule-Thomson inversion temperature. 
+
+If you perform this experiment at room temperature with 1 atm of pressure, Hydrogen and Helium will both get warmer. Oxygen and Nitrogen will get colder.

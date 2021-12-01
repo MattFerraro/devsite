@@ -10,6 +10,7 @@ const allowList = [
   "poissons-equation.mdx",
   "caustics-engineering.mdx",
   "geometric-algebra.mdx",
+  "joule-thomson.mdx",
   // "simple-test.mdx"
 ]
 
