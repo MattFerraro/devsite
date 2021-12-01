@@ -568,6 +568,8 @@ From here we could use Bernoulli's equation to find the pressure distribution, w
 
 With just a few simple building blocks we're already edging up on real computational fluid dynamics. All this just by adding up some matrices!
 
+One word of caution: When you add solutions in this way, realize that you're adding the boundary conditions as well. If you're just dealing with Dirichlet boundaries all around, this makes sense. But if you're trying to add solutions together that have incompatible boundary conditions, things start to get very tricky very fast and it possible to end up with something that is nonphysical. You need to thoroughly understand your domain to know if you're making a misstep.
+
 # Conclusion
 
 Poisson's equation comes up in many domains. Once you know how to recognize it and solve it, you will be capable of simulating a very wide range of physical phenomena.
