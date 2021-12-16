@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="297mm"
-   height="110mm"
-   viewBox="0 0 297 110"
+   width="265mm"
+   height="78mm"
+   viewBox="0 0 265 78"
    version="1.1"
    id="svg5"
    inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
@@ -23,24 +23,25 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.2967829"
-     inkscape:cx="522.44675"
-     inkscape:cy="233.65515"
+     inkscape:zoom="0.59149103"
+     inkscape:cx="780.23161"
+     inkscape:cy="223.16484"
      inkscape:window-width="1440"
-     inkscape:window-height="900"
+     inkscape:window-height="762"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
-     height="110mm" />
+     height="110mm"
+     width="265mm" />
   <defs
      id="defs2">
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 5.0000026 : 1"
-       inkscape:vp_y="0 : 1000.0001 : 0"
-       inkscape:vp_z="297 : 5.0000026 : 1"
-       inkscape:persp3d-origin="148.5 : -29.999999 : 1"
+       inkscape:vp_x="0 : -26.999996 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="296.99998 : -26.999996 : 1"
+       inkscape:persp3d-origin="148.49999 : -61.999995 : 1"
        id="perspective1043" />
   </defs>
   <g
@@ -50,546 +51,546 @@
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle727"
-       cx="70.00383"
-       cy="37.461372"
+       cx="53.005825"
+       cy="21.358"
        r="0.8658458" />
     <ellipse
-       style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-opacity:1;fill-opacity:0"
+       style="fill:#ffffff;fill-opacity:0;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
        id="path1128"
-       cx="31.67189"
-       cy="55.694626"
+       cx="14.673886"
+       cy="39.591255"
        rx="5.7379107"
        ry="25.038157" />
     <ellipse
        style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583;stroke-opacity:1"
        id="ellipse1344"
-       cx="265.97836"
-       cy="55.694626"
+       cx="248.98036"
+       cy="39.591255"
        rx="5.7379107"
        ry="25.038157" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 148.85952,30.65975 31.647342,30.648692"
+       d="M 131.86152,14.556378 14.649338,14.54532"
        id="path1654"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 148.88745,80.735732 31.675277,80.724674"
+       d="M 131.88945,64.63236 14.677273,64.621302"
        id="path1654-9"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 266.0996,80.74679 148.88745,80.735732"
+       d="M 249.1016,64.643418 131.88945,64.63236"
        id="path1654-9-1"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 266.07167,30.670808 148.85952,30.65975"
+       d="M 249.07367,14.567436 131.86152,14.556378"
        id="path1654-9-1-5"
        sodipodi:nodetypes="cc" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="path417"
-       cx="251.08337"
-       cy="77.58094"
+       cx="234.08537"
+       cy="61.47757"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle575"
-       cx="180.38324"
-       cy="76.120193"
+       cx="163.38524"
+       cy="60.016823"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle577"
-       cx="64.705597"
-       cy="59.734638"
+       cx="47.707592"
+       cy="43.631268"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle579"
-       cx="82.687401"
-       cy="61.017284"
+       cx="65.6894"
+       cy="44.913914"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle581"
-       cx="188.35202"
-       cy="61.75124"
+       cx="171.35402"
+       cy="45.647869"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle583"
-       cx="257.99136"
-       cy="68.081367"
+       cx="240.99336"
+       cy="51.977997"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle585"
-       cx="52.30883"
-       cy="57.206112"
+       cx="35.310825"
+       cy="41.102741"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle587"
-       cx="222.59325"
-       cy="68.991653"
+       cx="205.59525"
+       cy="52.888283"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle589"
-       cx="210.39702"
-       cy="74.602165"
+       cx="193.39902"
+       cy="58.498795"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle591"
-       cx="78.392204"
-       cy="41.605259"
+       cx="61.394199"
+       cy="25.501886"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle593"
-       cx="85.271339"
-       cy="52.855507"
+       cx="68.273338"
+       cy="36.752136"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle595"
-       cx="243.02351"
-       cy="65.091499"
+       cx="226.02551"
+       cy="48.988129"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle597"
-       cx="200.60239"
-       cy="47.668156"
+       cx="183.60439"
+       cy="31.564783"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle599"
-       cx="226.74432"
-       cy="78.115211"
+       cx="209.74632"
+       cy="62.011841"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle601"
-       cx="150.82368"
-       cy="63.840897"
+       cx="133.82568"
+       cy="47.737526"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle603"
-       cx="59.976196"
-       cy="66.900398"
+       cx="42.978191"
+       cy="50.797028"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle605"
-       cx="171.60541"
-       cy="56.5779"
+       cx="154.60741"
+       cy="40.474529"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle607"
-       cx="64.451393"
-       cy="42.566933"
+       cx="47.453388"
+       cy="26.46356"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle609"
-       cx="232.98792"
-       cy="61.032585"
+       cx="215.98991"
+       cy="44.929214"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle611"
-       cx="156.19978"
-       cy="73.251358"
+       cx="139.20178"
+       cy="57.147987"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle613"
-       cx="42.571236"
-       cy="40.185528"
+       cx="25.573233"
+       cy="24.082155"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle615"
-       cx="31.503492"
-       cy="43.267136"
+       cx="14.505488"
+       cy="27.163763"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle617"
-       cx="51.735569"
-       cy="32.719711"
+       cx="34.737564"
+       cy="16.616339"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle619"
-       cx="56.278107"
-       cy="48.391468"
+       cx="39.280102"
+       cy="32.288097"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle621"
-       cx="82.405037"
-       cy="34.439495"
+       cx="65.407036"
+       cy="18.336123"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle623"
-       cx="94.58683"
-       cy="32.934685"
+       cx="77.588829"
+       cy="16.831312"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle625"
-       cx="100.67773"
-       cy="38.45232"
+       cx="83.679726"
+       cy="22.348948"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle627"
-       cx="109.63493"
-       cy="32.719711"
+       cx="92.636932"
+       cy="16.616339"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle629"
-       cx="108.63173"
-       cy="46.692947"
+       cx="91.633728"
+       cy="30.589575"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle631"
-       cx="234.04945"
-       cy="74.518051"
+       cx="217.05145"
+       cy="58.41468"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle633"
-       cx="97.954742"
-       cy="48.054443"
+       cx="80.956741"
+       cy="31.951071"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle635"
-       cx="232.34427"
-       cy="68.806808"
+       cx="215.34627"
+       cy="52.703438"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle637"
-       cx="254.10295"
-       cy="48.709087"
+       cx="237.10495"
+       cy="32.605717"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle639"
-       cx="30.017693"
-       cy="73.236603"
+       cx="13.019688"
+       cy="57.133232"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle641"
-       cx="169.42561"
-       cy="76.232445"
+       cx="152.42761"
+       cy="60.129074"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle643"
-       cx="33.012524"
-       cy="60.035568"
+       cx="16.014521"
+       cy="43.932198"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle645"
-       cx="66.85601"
-       cy="75.864693"
+       cx="49.858006"
+       cy="59.761322"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle647"
-       cx="42.27964"
-       cy="66.617195"
+       cx="25.281637"
+       cy="50.513824"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle649"
-       cx="216.72818"
-       cy="44.702801"
+       cx="199.73018"
+       cy="28.599428"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle651"
-       cx="146.61137"
-       cy="33.91164"
+       cx="129.61336"
+       cy="17.808268"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle653"
-       cx="260.62985"
-       cy="78.206276"
+       cx="243.63185"
+       cy="62.102905"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle655"
-       cx="75.648911"
-       cy="77.702019"
+       cx="58.650906"
+       cy="61.598648"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle657"
-       cx="161.4324"
-       cy="34.944805"
+       cx="144.4344"
+       cy="18.841433"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle659"
-       cx="260.25876"
-       cy="35.611698"
+       cx="243.26076"
+       cy="19.508326"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle661"
-       cx="48.691956"
-       cy="73.393753"
+       cx="31.693953"
+       cy="57.290382"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle663"
-       cx="127.2252"
-       cy="63.528385"
+       cx="110.2272"
+       cy="47.425014"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle665"
-       cx="149.61488"
-       cy="42.364201"
+       cx="132.61688"
+       cy="26.260828"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle667"
-       cx="119.74467"
-       cy="56.047852"
+       cx="102.74667"
+       cy="39.944481"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle669"
-       cx="227.82762"
-       cy="40.815533"
+       cx="210.82962"
+       cy="24.71216"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle671"
-       cx="141.53008"
-       cy="46.992474"
+       cx="124.53208"
+       cy="30.889101"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle673"
-       cx="160.83586"
-       cy="55.569168"
+       cx="143.83786"
+       cy="39.465797"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle675"
-       cx="144.54854"
-       cy="79.276871"
+       cx="127.55054"
+       cy="63.1735"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle677"
-       cx="221.62881"
-       cy="58.313839"
+       cx="204.63081"
+       cy="42.210468"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle679"
-       cx="132.60594"
-       cy="77.83326"
+       cx="115.60794"
+       cy="61.729889"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle681"
-       cx="121.71324"
-       cy="71.402626"
+       cx="104.71524"
+       cy="55.299255"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle683"
-       cx="103.34001"
-       cy="75.995934"
+       cx="86.34201"
+       cy="59.892563"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle685"
-       cx="110.95178"
-       cy="66.546844"
+       cx="93.953781"
+       cy="50.443474"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle687"
-       cx="102.42136"
-       cy="67.465508"
+       cx="85.423355"
+       cy="51.362137"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle689"
-       cx="95.072067"
-       cy="75.602226"
+       cx="78.074066"
+       cy="59.498856"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle691"
-       cx="202.13084"
-       cy="68.808731"
+       cx="185.13284"
+       cy="52.70536"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle693"
-       cx="244.08612"
-       cy="41.179333"
+       cx="227.08812"
+       cy="25.07596"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle695"
-       cx="118.30106"
-       cy="41.218029"
+       cx="101.30306"
+       cy="25.114656"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle697"
-       cx="186.28874"
-       cy="37.202137"
+       cx="169.29074"
+       cy="21.098764"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle699"
-       cx="194.71725"
-       cy="74.903511"
+       cx="177.71925"
+       cy="58.80014"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle701"
-       cx="131.81851"
-       cy="33.606258"
+       cx="114.82051"
+       cy="17.502886"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle703"
-       cx="123.81303"
-       cy="33.212547"
+       cx="106.81503"
+       cy="17.109175"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle705"
-       cx="135.75563"
-       cy="41.61174"
+       cx="118.75763"
+       cy="25.508368"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle707"
-       cx="244.89069"
-       cy="53.685623"
+       cx="227.89268"
+       cy="37.582253"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle709"
-       cx="140.48018"
-       cy="57.097748"
+       cx="123.48218"
+       cy="40.994377"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle711"
-       cx="134.44325"
-       cy="68.909111"
+       cx="117.44525"
+       cy="52.80574"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle713"
-       cx="229.53348"
-       cy="49.598434"
+       cx="212.53548"
+       cy="33.495064"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle715"
-       cx="172.98712"
-       cy="33.300186"
+       cx="155.98912"
+       cy="17.196814"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle717"
-       cx="248.31203"
-       cy="34.360619"
+       cx="231.31403"
+       cy="18.257246"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle719"
-       cx="204.98605"
-       cy="32.847076"
+       cx="187.98805"
+       cy="16.743704"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle721"
-       cx="73.37986"
-       cy="51.111214"
+       cx="56.381855"
+       cy="35.007843"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle723"
-       cx="207.70288"
-       cy="55.420975"
+       cx="190.70488"
+       cy="39.317604"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle725"
-       cx="103.78441"
-       cy="60.049248"
+       cx="86.786407"
+       cy="43.945877"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle729"
-       cx="80.930702"
-       cy="69.31221"
+       cx="63.932697"
+       cy="53.208839"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle1582"
-       cx="94.022995"
-       cy="59.432602"
+       cx="77.024994"
+       cy="43.329231"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle1584"
-       cx="171.47565"
-       cy="44.536037"
+       cx="154.47765"
+       cy="28.432665"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle1586"
-       cx="228.98849"
-       cy="39.64085"
+       cx="211.99049"
+       cy="23.537477"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle1588"
-       cx="183.94514"
-       cy="48.188663"
+       cx="166.94714"
+       cy="32.085293"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle1590"
-       cx="160.30557"
-       cy="63.75198"
+       cx="143.30757"
+       cy="47.648609"
        r="0.8658458" />
     <circle
        style="fill:#000080;fill-rule:evenodd;stroke-width:0.264583"
        id="circle1592"
-       cx="160.97246"
-       cy="46.379822"
+       cx="143.97446"
+       cy="30.276449"
        r="0.8658458" />
   </g>
 </svg>

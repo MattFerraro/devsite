@@ -1,17 +1,17 @@
 ---
-title: 'The Joule-Thomson Effect and The Models we Know'
+title: 'The Joule-Thomson Effect and The Models We Know'
 teaser: 'Just a test'
 teaserImage: 'https://www.mattferraro.dev/images/geometric-algebra/GA_teaser_2_small.png'
 date: '2021-11-23'
 ---
 
-Here's a brain teaser that is startlingly unintuitive:
+Here's a brain teaser that seems easy but is actually very hard:
 
 ![Diagram of the Initial State](/images/joule-thomson/initial.svg)
 
-We've got a cylinder split in half by a diaphragm. On the left side is some gas at some pressure and temperature. Let's say it's $CO_2$ at $0\degree$C and $1$ atm just to be concrete.
-
-On the right side is a perfect vacuum.
+We've got a cylinder split in half by a diaphragm.
+- On the left side is some Helium gas at $0\degree$C and $1$ atmosphere of pressure
+- On the right side is a perfect vacuum
 
 We're going to snap our fingers and make the diaphragm instantly disappear:
 
@@ -21,7 +21,7 @@ The gas is now free to occupy twice as much volume, and it will quickly diffuse 
 
 ![Diagram of the Final State](/images/joule-thomson/final.svg)
 
-What happens to the temperature?
+**What happens to the temperature?**
 
 Go ahead and actually write down a guess.
 
@@ -41,7 +41,7 @@ $$
 
 In this case we know that $V$ doubles and we know that $n$ and $R$ are constant, but $P$ and $T$ are completely unconstrained. We've got one equation with two unknowns.
 
-This cannot be solved without some other constraint, it must be a trick question!
+This cannot be solved without some other constraint, it must be a trick question! If you told me the final pressure I could answer it.
 
 High school me would have chalked this up as an unknowable thing, outside the reach of equations.
 
@@ -55,9 +55,11 @@ Gas in a cylinder exerts some pressure on a piston head. The integral of pressur
 
 If the piston moves, the integral of that force over distance tells us how much work the fluid did against the piston.
 
+The energy to do the work comes from the internal energy of the gas, which consequently cools down.
+
 ![Diagram of Force over Distance](/images/joule-thomson/work2.svg)
 
-In a car engine hot gas pushes against a cylinder head and expands, performing work on the piston and crankshaft, accelerating the car and cooling down in the process. The energy to accelerate the car comes from the internal energy of the hot gas, which consequently cools down.
+<!-- In a car engine hot gas pushes against a cylinder head and expands, performing work on the piston and crankshaft, accelerating the car and cooling down in the process. The energy to accelerate the car comes from the internal energy of the hot gas, which consequently cools down. -->
 
 That's all well and good but in our case the diaphragm just disappears instantly. There is no piston to perform work against, no area to integrate over.
 
@@ -67,83 +69,169 @@ If I were fresh out of Thermodynamics 101, I would say that the temperature rema
 
 # The Physics 101 Answer
 
-In a collision, actual atoms do not bounce off of each other instantly. Actual atoms squish, more like kickballs than pool balls.
+Unlike the point-mass particles of Thermo 101, actual atoms do not bounce off of each other instantly. Actual atoms squish, more like kickballs than pool balls.
 
-[Animation of a collision]
+![Bounce](/images/joule-thomson/bounce.svg)
 
-When a kickball bounces, the kinetic energy quickly drops to zero and converts entirely into potential energy, like a point mass on top of a compressed spring. For a moment, the kinetic energy is actually zero. Then the "spring" starts
+In any atom, the nucleus carries almost all the mass and it is surrounded by an electron cloud which compresses like a spring whenever it encounters another electron cloud.
 
-It takes energy to squish an atom, just like it takes energy to squish a kickball.
+In a perfect head-on collision the kinetic energy of both atoms briefly drops to zero because it has been entirely converted into the potential energy of the compressed electron clouds. A moment later the potential energy is converted back to kinetic energy as the particles retreat.
 
-During the course of their collision, the total kinetic energy goes down for a moment as the potential energy goes up.
+Now, at any given instant a large number of collisions are actively taking place in our cylinder full of Helium so some finite amount of kinetic energy is locked up as potential energy. If we double the cylinder volume we're going to halve our gas density which means [one fourth](https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Kinetics/06%3A_Modeling_Reaction_Kinetics/6.01%3A_Collision_Theory/6.1.04%3A_Collision_Frequency) as many collisions per second.
 
-[Same animation but just spring, and little progress bars showing kinetic energy trading off with potential energy]
+Fewer collisions means that at any given instant, less of the internal energy is locked up as potential energy and is therefore available as kinetic energy. The average kinetic energy of our gas particles will go up.
 
-The internal energy of the gas is the sum of all the kinetic energy in all the particles plus all the potential energy of the particles, and internal energy is constant unless you do work on the gas.
-
-At any given instant, some number of collisions are actively taking place. If we double the volume we're going to have a lower density of gas which means fewer intermolecular collisions. Fewer collisions means less of the internal energy is locked up as potential energy and is available as kinetic energy. Higher kinetic energy means higher temperature.
-
-The temperature of the gas must go up!
+If the average kinetic energy goes up, the temperature must go up!
 
 # The Chemistry 101 Answer
 
-In college chemistry you learn at some point about the Van Der Waals force. This is a type of attraction that occurs between atoms and molecules--anything that has a big electron cloud around it.
+In college chemistry at some point you learn about the [London Dispersion Force](https://en.wikipedia.org/wiki/London_dispersion_force). This is a type of electrical attraction that occurs between atoms and molecules—anything that has a big electron cloud around it.
 
-[Diagram of Van Der Waals Force]
+Neutral atoms like our Helium gas have exactly as many electrons as they have protons so on the whole, they are uncharged. But sometimes just by chance more electrons than usual will gather on one side of an atom, creating a partial negative charge.
 
-Atoms are usually thought of as net neutral, having exactly as many electrons as they have protons. But sometimes just by chance, more electrons than usual will gather on one side of an atom, leading to a partial negative charge on that side of the electron cloud.
+![Partial Charge](/images/joule-thomson/partial_charge.svg)
 
-[Diagram of partial charged cloud]
+The $\delta$ symbol is a lowercase Greek delta, and in this case it is pronounced *partial*.
 
-The extra negativity can repel the electrons on a nearby atom, causing *that* atom to also gain a partial charge.
+The extra negativity on that side will repel the electrons of a nearby atom, causing *that* atom to also gain a partial charge which will be aligned with the first atom's.
 
-[Another Diagram?]
+![Two Partial Charges](/images/joule-thomson/two_partial_charges.svg)
 
-This creates a kind of weak bond between the two partially-charged atoms so that they'd prefer to stay next to each other rather than fly apart. It's a spontanoues, reliable effect that is real and measurable.
+This creates a kind of weak bond, we might call it a *dispersion bond*, between the two partially-charged atoms so that they'd prefer to stay next to each other rather than fly apart. It's a nearly instantaneous effect that is real and measurable.
 
-Two atoms bonded in this way can still be driven apart, but you have to invest energy into the bonded pair in order to do it.
+This bonding tendency means that if two gas particles collide with just the right initial conditions, they will actually stick together!
 
-Back to our gas in a cylinder: We've doubled the volume which means we've decreased the density which means we've increased the average intermolecular spacing. To do that we had to break a lot of Van Der Waals bonds.
+<!-- Two atoms bonded in this way *can* be driven apart, but you have to invest energy into the bonded pair in order to do it. -->
 
-The energy to break these bonds had to come from the kinetic energy of the particles. Lower kinetic energy means lower temperature.
+A container of gas is therefore a swirling soup: some atoms traveling alone, some traveling together in dispersion-bonded pairs.
 
-The temperature of the gas must go down!
+![Pairs](/images/joule-thomson/pairs.svg)
+
+The pairs don't last long though. As soon as a third atom smashes into the bonded pair, some of its kinetic energy will be absorbed and the bond will break.
+
+![Induced Breakage](/images/joule-thomson/break_3.svg)
+
+The result is three free particles which together have less kinetic energy than the bonded pair and incident particle together had.
+
+If chance collisions are what form these bonded pairs, and chance collisions break them, then the collision rate will be a determining factor in how many of them exist at any given instant.
+
+Back to our cylinder full of Helium: if we double the volume then we halve the density so the collision rate falls by 4x. That means the bonds will form at $\frac{1}{4}$ the rate, but also that they will be broken at $\frac{1}{4}$ the rate! So on the whole, there should be no change to the number of bonded pairs.
+
+But wait! If a bonded pair ever collides with the surface of the cylinder, that will also break the bond:
+
+![Pairs Breaking](/images/joule-thomson/break.svg)
+
+<!-- The pairs don't last long though. As soon as the pair crashes into the cylinder walls the pair will absorb enough kinetic energy to break the bond. 
+
+The bond can also be broken if a third atom smashes into the pair, which also absorbs energy. -->
+
+Halving the gas density means there are fewer atoms in the way and any bonded pair has an easier time making its way to the cylinder surface to break, so we should expect more breakages per second.
+
+So the cylinder surface can help break the bonds but it cannot help create them!
+
+That means we should expect far fewer bonded pairs after removing the diaphragm. Breaking each bond robs kinetic energy from the atoms involved, so the average kinetic energy afterwards must be lower.
+
+<!-- The attractive force falls off with distance but within some range, this effect actually causes atoms to fall towards each other, temporarily contributing to their kinetic energy.
+
+London Dispersion Forces demonstrate that all atoms are attracted to all nearby atoms, so to some degree the particle system in our cylinder wants to collapse into itself. If we instead *increase* the volume of the system by removing the diaphragm, we need to invest energy to do so. -->
+
+<!-- Back to our cylinder full of Helium: if these bonds are only created by chance collisions inside the cylinder volume, but they are broken by all collisions with the surface, then what happens when we double the volume? -->
+
+<!-- Well, doubling the volume halves the density. At lower density, far fewer collisions take place in the volume of the gas so we would expect fewer bonds to form per second. -->
+
+<!-- These two effects combine so that we should expect far fewer dispersion bonded pairs after removing the diaphragm. The energy to break all those pairs comes from the kinetic energy of the particles. -->
+
+<!-- Said again: doubling the volume means fewer bonded pairs. -->
+
+<!-- Back to our cylinder full of Helium: We've doubled the volume which means we've increased the average intermolecular spacing. To do that we had to break a lot of dispersion bonds!
+
+The energy to break these bonds had to come from the kinetic energy of the particles. Lower kinetic energy means lower temperature. -->
+
+So the temperature of the gas must go down!
 
 # Recap
 
-We've got 4 answers that all sound correct, but are mutually incompatible:
+We've got 4 answers that all sound correct:
 
-- High School Answer: This question is unknowable
-- Thermodynamics Answer: Temperature must stay the same
-- Physics Answer: Temperature must go up
-- Chemistry Answer: Temperature must go down
+- **High School Answer:** This question requires more information
+- **Thermo Answer:** The temperature must stay the same
+- **Physics Answer:** The temperature must go up
+- **Chemistry Answer:** The temperature must go down
 
-In our lives we often learn oversimplified models that are naive--they only work in one regime or another. As we grow we learn more sophisticated models that work over larger regimes, obviating the need for the earlier models.
-
-So, which of the above models is the least naive? Now that we've explored some models, go ahead and write down your revised guess for what happens.
+So which is it? Do you want to change your guess?
 
 # The Actual Answer
 
-Our starting condition was CO2 at 1 atm and 0 degrees C. If you perform this experiment in real life, the final result is that the gas will get colder.
+If you perform this experiment, **the Helium will get much warmer.**
 
-This cooling effect can be *very* strong. A CO2 fire extinguisher, which just contains high-pressure CO2, will create dry ice if you empty it into a pillowcase. 
+But if you start the experiment with much colder Helium at around $-222\degree C$, **the Helium will stay the same temperature.**
 
-Said again: _This process can convert your gas into a solid_.
+And if you start even colder, at say $-243\degree C$, **the Helium will get colder.**
 
-Which is probably not what you guessed at the beginning.
+Every gas has a characteristic temperature, its *Joule-Thomson Inversion Temperature*, at which point this type of expansion causes no temperature change. Whenever a gas starts out hotter than than its inversion temperature, it will cascade to even higher temperatures. If it starts lower than its inversion temperature, it gets even colder.
 
-But wait, if you perform the same experiment starting with CO2 at 100 degrees C, it will actually heat up to 120 C!
+![Joule-Thomson Inversion Temperature](/images/joule-thomson/joule-thomson-effect.svg)
 
-And if you perform the experiment starting with CO2 at 1500 K, the temperature remains constant!
+The Physics explanation above is correct and fewer collisions really does free up more kinetic energy. The Chemistry explanation above is also correct and lower density really does mean fewer bonded pairs which absorbs some kinetic energy. Which effect dominates depends on the initial temperature of the gas!
 
-[diagram of the temp divergence for CO2]
+<!-- At higher and higher temperatures, the Physics explanation becomes more and more important because high temperature means lots of collisions, each of which borrows a little bit of kinetic energy. The more collisions going on the stronger the effect. -->
 
-What we have is a sort of unstable equilibrium where hot CO2 gets hotter and cold CO2 get colder.
+<!-- At colder and colder temperatures, the Chemistry explanation dominates because bonded pairs last longer when the gas is cold, so there are more of them and their influence is larger. -->
 
-You see the same pattern, albeit with different strengths and centered on different equilibrium temperatures, for every gas. 
+# What happens with other gasses?
 
-[diagram of another gas]
+Larger electron clouds are easier to polarize, so they form stronger dispersion bonds. Consequently, big atoms like Krypton or Xenon have very high inversion temperatures because their capacity for dispersion bonding is so strong.
 
-The equilibrium temperature for any given gas is called its Joule-Thomson inversion temperature. 
+Almost all gasses have inversion temperatures higher than room temperature so almost all gasses will cool if you start at room temp. Hydrogen, Helium, and Neon are the only gasses which heat up.
 
-If you perform this experiment at room temperature with 1 atm of pressure, Hydrogen and Helium will both get warmer. Oxygen and Nitrogen will get colder.
+This capacity for strong dispersion bonding is why atoms with similar chemistry exist in different phases at room temperature. Chlorine is a gas at room temperature and pressure, but Bromine is a liquid and Iodine is a solid, despite them all being Halogens!
+
+More complex molecular gasses like CO2, Methane, or Butane all exhibit strong dispersion bonding and so all have high inversion temperatures.
+
+# What happens at higher pressures?
+
+Everything I've said so far is true if your gas starts at 1 atmosphere of pressure. But the story changes at higher pressures!
+
+As the starting pressure gets higher, the number of collisions per second goes up. More collisions means the squishy kickball effect that causes heating becomes more important and the dispersion pair effect which causes cooling becomes less important.
+
+So generally, as the initial pressure increases the heating effect dominates, so the inversion temperature gets lower.
+
+![Inversion Temperature vs Pressure](/images/joule-thomson/JT_vs_pressure.svg)
+
+Said again: The inversion temperature of a gas is _not_ a constant. It depends on the initial pressure.
+
+But here's where things get weird. At sufficiently high pressure there are just so many collisions that the heating effect dominates no matter the initial temperature! Beyond some maximum pressure, there is no inversion!
+
+![Inversion Temperature vs Pressure Extended](/images/joule-thomson/JT_vs_pressure_2.svg)
+
+To understand what's going on in this regime we have to remember that at pressures this high most gasses are no longer gasses, they are supercritical fluids:
+
+![Inversion Temperature vs Pressure Extended](/images/joule-thomson/JT_vs_pressure_3.svg)
+
+A supercritical fluid is a phase of matter where the properties of the fluid smoothly transition between liquid-like and gas-like.
+
+At high pressures and low temperatures the supercritical fluid starts to get very dense and liquid-like. In that regime, there are again so many collisions ocurring that the heating effect begins to dominate over the cooling effect:
+
+![Inversion Temperature vs Pressure Extended](/images/joule-thomson/JT_vs_pressure_4.svg)
+
+Here we have finally arrived at the full picture. At most achievable pressures, every fluid actually has _two_ inversion temperatures! Between these temperatures, the fluid will cool. Beyond the, the fluid will heat up.
+
+But starting from ultra-high pressures, all fluids heat up.
+
+# Conclusion
+
+It is tempting to teach students that the Ideal Gas Law as some sort of Truth™, some sort of inescapable Law of the Universe. But it's just a convenient, algebra-only model that sorta-kinda works under a narrow range of circumstances.
+
+With the inclusion of Calculus we can start to do basic Thermodynamics, but this too is a dramatic oversimplification of the real world. It's just a model.
+
+Over and over again we learn more and produce richer models. With Physics and Chemistry under our belts we can invent concepts like Inversion Temperature but even this is just a model. It doesn't always work. Its predictions aren't always right.
+
+The role of a scientist is to push into new regimes that our current models fail to explain.
+
+The role of an engineer is to know many models and when to apply which ones.
+
+Just remember never to mistake a model for reality.
+
+<!-- Linde Process for liquification of gasses. -->
+
+<!-- Supercriticality important in power generation (water) and decaffeinization (CO2) -->
