@@ -216,6 +216,15 @@ const Attribution = (props) => {
   return <div className="attribution">Image from {link} licensed {name}</div>
 }
 
+const AudioControls = (props) => {
+  return <div>
+    <audio controls>
+    <source src={props.src} type="audio/wav"></source>
+    Your browser does not support the audio element.
+    </audio>
+  </div>
+}
+
 // const MDXComponents = ;
 
 const initialize3D = (vis3DContainer) => {
@@ -402,6 +411,7 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           Circle,
           Latex,
           Attribution,
+          AudioControls,
           img: OptimizedImage,
           p: (paragraph) => {
 
