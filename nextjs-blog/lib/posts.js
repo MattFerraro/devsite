@@ -98,9 +98,14 @@ export async function getPostDataMDX(id) {
       if (img.endsWith(".mp4") || img.endsWith(".wav") || img.endsWith(".mp3")) {
         continue
       }
-      const dimensions = imageSize(imgDirectory + "/" + img)
+      try {
+        const dimensions = imageSize(imgDirectory + "/" + img)
+        imgDims[`/images/${id}/${img}`] = dimensions
+      } catch (error) {
+        console.log("Could not read " + imgDirectory + "/" + img)
+      }
+
       
-      imgDims[`/images/${id}/${img}`] = dimensions
     }
   }
   
