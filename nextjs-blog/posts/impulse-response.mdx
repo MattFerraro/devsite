@@ -17,4 +17,285 @@ Decommissioned in 1970, the large underground chamber [now mostly sits unused](h
 
 If you go there today and drop a heavy book on the floor, it will sound something like this:
 
-<AudioControls src="/images/impulse-response/r1_omni.wav"></AudioControls>
+<AudioControls2 src="/images/impulse-response/r1_omni_48k_cut.mp3"></AudioControls2>
+
+This sound is the Impulse Response of the R1 Reactor Hall and it contains everything there is to know about the hall's acoustics.
+
+
+We can now take any other sound, say this singer's voice which was recorded in a studio:
+
+<AudioControls2 src="/images/impulse-response/singing.wav"></AudioControls2>
+
+And if we convolve the impulse response against the voice recording we get something new. We can hear what it would sound like if that singer had instead been singing inside of the R1 Nuclear Reactor hall:
+
+<AudioControls2 src="/images/impulse-response/r1_omni_48k_sing_cut.mp3"></AudioControls2>
+
+In this post we'll explore the Impulse Response in audio, visual, and physical systems. You'll learn what it is, how to find it, and what you can do with it. And spoiler alert: The answer is _everything_.
+
+# Table of Contents
+
+# Audio
+
+In audio or signal processing, an ideal impulse is a bunch of 0's with a single 1 in the center:
+
+![Diagram of an audio impulse](/images/impulse-response/audio_impulse.svg)
+
+We usually call this the **Delta Function** and write it as $\delta(t)$
+
+In the real world, any sound which is nearly instantanous counts as an impulse. A dropped book, a popped balloon, a single clap of the hands, all of these are good approximations of an ideal impulse.
+
+The impulse _response_ is the extended sound that you hear after making an impulse. In a quarry you might hear a a few crisp echoes. In a church you might hear some extended reverberation. In a big open field you'd hear nothing but the impulse itself, slightly distorted by the reflection of the sound off the grass. Sound studios have special anechoic rooms whose walls are coated with material that absorbs all sounds so you hear nothing at all except the impulse.
+
+## Convolution
+
+To understand how to make use of impulse responses, we need to understand convolution.
+
+Convolution is a process that takes in two functions, $\textcolor{red}{f}(t)$ and $\textcolor{blue}{g}(t)$, and outputs a single function which we write as $\textcolor{brown}{h}(t) = \textcolor{red}{f}(t) * \textcolor{blue}{g}(t)$:
+
+$$
+\textcolor{brown}{h}(t) = \textcolor{red}{f}(t) * \textcolor{blue}{g}(t) = \int_{-\infty}^{\infty}\textcolor{red}{f}(\tau)\textcolor{blue}{g}(t-\tau)d\tau
+$$
+
+You could pronounce this as "$h$ equals $f$ convolved with $g$".
+
+Notice that in this context the asterisk $*$ is understood to be the convolution operator, not a multiplication sign. To prevent ambiguity, regular multiplication would always be written out as either the dot product $a \cdot b$ or the cross product $a \times b$.
+
+Visually, this equation means we need to take $\textcolor{blue}{g}(t)$ and flip it around so it's backwards. Then we sweep it from left to right, computing the overlap between the two functions at each position, recording only the sum of the overlap at each point:
+
+![Convolution explained Visually](/images/impulse-response/convolution.svg)
+
+As we slide $\textcolor{blue}{g}(-t)$ from left to right, we're computing the dot product $\textcolor{red}{f}(t) \cdot \textcolor{blue}{g}(-t)$ at each location. With a few nested for-loops you can implement convolution yourself in any programming language, but [Python/Numpy](https://numpy.org/doc/stable/reference/generated/numpy.convolve.html), [Julia](https://docs.juliadsp.org/stable/convolutions/), [R](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/convolve), [Matlab](https://www.mathworks.com/help/fixedpoint/ref/conv.html) and many others offer built-in support. 
+
+In this case $\textcolor{red}{f}(t)$ is our voice recording, $\textcolor{blue}{g}(t)$ is the impulse response of the R1 Reactor, and $\textcolor{brown}{h}(t) = \textcolor{red}{f}(t) * \textcolor{blue}{g}(t)$ yields the voice recording as though it were sung in the reactor!
+
+### Identity Function
+
+There's a property of convolutions which is very helpful to know:
+
+$$
+\textcolor{red}{f}(t) * \delta(t) = \textcolor{red}{f}(t)
+$$
+
+Any function convolved against the delta function $\delta(t)$ is just the original function. This is like saying that $x \cdot 1 = x$ for all $x$, or that $y + 0 = y$ for all $y$. The delta function $\delta(t)$ is the identity function under convolution, so $\textcolor{red}{f}(t) * \delta(t) = \textcolor{red}{f}(t)$ for all $\textcolor{red}{f}(t)$.
+
+This is tremendously useful because it is so easy to visualize! If this function means "give me one copy of $\textcolor{red}{f}(t)$ centered at $t=0$":
+
+![Diagram of the Delta Function](/images/impulse-response/audio_impulse.svg)
+
+Then what does this function mean?
+
+![Diagram of the Echo Function](/images/impulse-response/echo.svg)
+
+This is an echo. It means "give me one copy of $\textcolor{red}{f}(t)$ centered at $t=0$ and also give me a second copy that is delayed in time and diminished in intensity."
+
+Earlier we learned that when convolving we always flip $\textcolor{blue}{g}(x)$ backwards, turning it into $\textcolor{blue}{g}(-x)$. The reason we do that flip is so that when sliding, the effect of a quiet echo comes _after_ the effect of the original sound.
+
+We can convolve our singer against the echo function like so:
+
+```python
+from pydub import AudioSegment
+import numpy as np
+import array
+
+# Read in the reference sound
+segment = AudioSegment.from_file("singing.wav")
+
+# Build our echo impulse response:
+# Our sound contains 48k samples/second, so we start by
+# making one second of silence as our impulse response
+echo_ir = np.zeros(48000)
+# We put a 1 at the very beginning so that echo_ir looks
+# like a delta function
+echo_ir[0] = 1
+# Then we add an echo at the end which is 1 second delayed
+# and only 60% as intense
+echo_ir[47999] = .6  
+
+# Convert the reference sound to a numpy array
+samples = np.array(segment.get_array_of_samples())
+# Convolve the sound against the impulse response
+echoed = np.convolve(samples, echo_ir).astype(np.int16)
+
+# Convert the output back into an AudioSegment
+new_sound = segment._spawn(array.array(segment.array_type, echoed))
+# Save to disk
+new_sound.export("singing_with_echo.mp3")
+```
+
+<AudioControls2 src="/images/impulse-response/singing_with_echo.mp3"></AudioControls2>
+
+## Spatial Effects
+
+Stereo sound has a left and a right channel and we can define a separate impulse response for each.
+
+If the impulse response for the left channel is $\delta(t)$ and the impulse response for the right channel is say $\frac{1}{3}\delta(t - 0.0015)$, then we can create the illusion that the singer is on our left!
+
+```python
+from pydub import AudioSegment
+import numpy as np
+import array
+
+# Read in the reference sound
+segment = AudioSegment.from_file("singing.wav")
+
+# Impulse Response on the left:
+ir_left = np.zeros(4800)
+ir_left[0] = 1
+
+# IR on the right:
+# 48000 samples = 1000 ms
+# 720 samples = 15 ms
+ir_right = np.zeros(4800)
+ir_right[720] = .333
+
+samples = np.array(segment.get_array_of_samples())
+
+# Convolve
+left_channel = np.convolve(samples, ir_left).astype(np.int16)
+right_channel = np.convolve(samples, ir_right).astype(np.int16)
+
+# Convert the output back into an AudioSegment
+left_sound = segment._spawn(array.array(segment.array_type, left_channel))
+right_sound = segment._spawn(array.array(segment.array_type, right_channel))
+stereo_sound = AudioSegment.from_mono_audiosegments(left_sound, right_sound)
+
+# Save to disk
+stereo_sound.export("singing_from_left.mp3")
+```
+
+<AudioControls2 src="/images/impulse-response/singing_from_left.mp3" stereo="yes"></AudioControls2>
+
+The effect is very clear if you have headphones on!
+
+This technique of adding delays and modulating the volume is how videogame and movie studios provide the illusion of 3D sound.
+
+If you have a surround sound speaker system then you have 4 or more channels to work with but the concept is the same.
+
+## Interference Effects
+
+Let's examine the second note being sung. To get a closer look, click the cursor to somewhere in that second blob and hit "Zoom WAY in":
+
+<AudioControls2 src="/images/impulse-response/singing.wav"></AudioControls2>
+
+We can see that the second note being sung is made up of a consistent, repeating wave.
+
+Using a program like [Audacity](https://www.audacityteam.org/) we can measure the length of one period of that wave:
+
+![Audacity Being used to Measure](/images/impulse-response/audacity.png)
+
+The selection runs from sample 36,761 to sample 36,869 so a single oscillation of that wave takes about 108 samples.
+
+This audio recording consists of 48,000 samples/second, so if we want to know the frequency of this note, it's:
+
+$$
+\frac{48,000}{108} \approxeq 444.4 hz
+$$
+
+Which means the note she's singing there is the A above middle C, or just a touch higher:
+
+![A above C](/images/impulse-response/A440.png)
+
+If we want to cancel out that note we can use a technique very similar to the echo we created earlier. All we have to do is create an echo which is delayed by exactly 108 samples, and whose sign is inverted:
+
+![An echo kernel that cancels out 444 hz](/images/impulse-response/cancel_kernel.svg)
+
+```python
+echo_ir = np.zeros(109)
+echo_ir[0] = 1
+echo_ir[108] = -1
+```
+
+After convolving, the second note is almost completely cancelled out!
+
+<AudioControls2 src="/images/impulse-response/singing_with_cancellation.mp3"></AudioControls2>
+
+Even though we convolved the cancellation kernel against the entire signal, only the second note got cancelled out. This works because in the region we care about our waveform is periodic with a period of 108 samples. Shifting the signal by 108 samples and inverting it means we've created the exact opposite of our sample. They will sum to zero:
+
+![Image that shows waveform cancellation](/images/impulse-response/cancellation.png)
+
+But in any other region, the note being sung is a different pitch so it is periodic with some different frequency. Adding the waveform to itself, but inverted and shifted 108 samples just scrambles the shape of the waveform somewhat. It will not even come close to cancelling out:
+
+![Image that shows waveform cancellation](/images/impulse-response/no_cancellation.png)
+
+So overall, the resulting sound is changed everywhere but only in the sense that we've tamped down 444.4 hz and all higher harmonics like 888.8 hz and 1777.7 hz. Any notes that don't contain much energy at those frequencies will be changed, but imperceptibly.
+
+## Reverberation
+
+We heard at the beginning that the R1 Reactor Hall impulse response creates a reverberation effect. Let's take a closer look at what exactly is going on:
+
+![The IR close up](/images/impulse-response/ir_close.png)
+
+From a distance, the impulse response looks like it goes from silent to very loud in an instant, then quickly tapers off into a long tail of noise. We might call this an exponential envelope because the sound intensity decreases roughly like an exponential decay
+
+$$
+\tag{1.0}
+I(t) = I_0 e^{\lambda t}
+$$
+
+This is intuitive because the sound energy is being absorbed by the reactor hall, causing tiny amounts of heating in the cement structure and in the air itself. The rate of absorption is proportional to the intensity of the sound at any given time so
+
+$$
+\tag{1.1}
+\frac{dI}{dt} = -\lambda \cdot I
+$$
+
+And we know from calculus that the solution to this differential equation is the exponential decay $(1.0)$.
+
+Many, many physical systems exhibit an exponential decay envelope just like this one, though the decay constant $\lambda$ will vary.
+
+Zooming in we start to see the structure of the reverberation:
+
+![The IR closer up](/images/impulse-response/ir_close_2.png)
+
+There is an initial clap of sound followed by quiet, then around 10 or so distinct echoes which get quieter and eventually fade into noise.
+
+What we're observing here are reflections off the nearby walls. We can measure the gap between the initial sound and each of the reflections to estimate how far away the walls are. For example:
+
+![Measuring the number of samples between the initial sound and the third echo](/images/impulse-response/samples_measuring.png)
+
+There are $4501 - 2618 = 1883$ samples between the clap and the third echo. This is $\frac{1883}{48000} = 0.0392$ seconds. If the speed of sound is around $340\frac{m}{s}$ that means the third reflection traveled $340\frac{m}{s} \cdot 0.0392s = 13.3m$.
+
+From this we can guess that there was a wall roughly $6.6m$ away from the microphone when this impulse response was recorded.
+
+We could use this technique on the first four reflections to estimate the geometry of the hall and make a guess at the map:
+
+![A rough map of the R1 Reactor Hall](/images/impulse-response/rough_map.svg)
+
+But a problem quickly arises. How do we distinguish first reflections from second reflections? In a long thin room, won't we receive multiple reflections from the North and South walls before receiving a single reflection from the East and West walls?
+
+![A highly rectangular room](/images/impulse-response/rectangular_room.svg)
+
+If we're in the dead center of the room, won't the reflections from the North and South walls arrive at the same time? How can we accurately distinguish these reflections?
+
+The answer is that we can't. As the reflections pile up on each other they all add up and interfere, leading to a murky mess of sound. The individual reflections dissipate into a background din of noise.
+
+This simulation of the wave equation demonstrates the phenomenon visually in 2D:
+
+<iframe width="100%" height="350px"
+src="https://www.youtube.com/embed/dz-MNAYAVSk?autoplay=1&mute=1">
+</iframe> 
+
+The real-world situation is 3D which makes it even more complex!
+
+The three phenomena we see in this example:
+- Exponential intensity decay
+- Distinct, early echoes
+- Eventual descent into noise
+
+Are the defining characteristics of reverberation. They occur predictably in every room, every [tunnel](https://www.wired.com/2012/12/bay-bridge-skywalker-sound/), on every beach, in every forest. There are websites such as [OpenAIR](https://www.openair.hosted.york.ac.uk) which collect and host acoustic impulse responses like the [R1 Reactor Hall Impulse Response](https://www.openair.hosted.york.ac.uk/?page_id=626) that I used earlier in this post. 
+
+Whalesong reverberates off the ocean floor, bouncing back against the ocean-air interface. With an appropriate microphone you could measure the impulse response of the San Francisco Bay.
+
+Large explosions deposit incredibly energetic impulses into the air. The sound of an explosion can reflect off of different boundary layers and get distorted by high-speed wind, but ultimately loud enough sounds will encircle the entire globe multiple times. The [Tsar Bomba](https://en.wikipedia.org/wiki/Tsar_Bomba) was detonated in the Arctic Circle and it created an atmospheric pressure wave that was measured in New Zealand three times.
+
+Given a loud enough sound you can measure the impulse response of the atmosphere itself.
+
+When an earthquake shakes the crust of the Earth, the vibrations travel as sound 
+
+All of it qualitatively identical to this example.
+
+https://www.wired.com/2012/12/bay-bridge-skywalker-sound/
+
+# Visual
+
+# Physical

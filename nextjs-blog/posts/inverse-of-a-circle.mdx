@@ -1,0 +1,405 @@
+---
+title: "What is the Inverse of a Circle?"
+teaser: "..."
+teaserImage: '/images/inverse-of-a-circle/circle_inverse.png'
+date: '2022-01-29'
+---
+
+In a word, this:
+
+<CircleInverter></CircleInverter>
+
+In this post we'll try to make sense of what we're seeing, and try to understand what it means to invert a circle!
+
+# Table of Contents
+
+# Inverse of a Real Number
+
+For any number $a$ we think of the inverse $a^{-1}$ as whichever number yields:
+
+$$
+\tag{1.0}
+a a^{-1} = 1
+$$
+
+For real numbers this is easy:
+
+$$
+\tag{1.1}
+a^{-1} = \frac{1}{a}
+$$
+
+Qualitatively, the inverse of a big number is a small number and vice versa. There are two special numbers, $a = 1$ and $a = -1$, which are their own inverses. We call these **fixed points** under inversion.
+
+There are two more special points at $a = 0$ and $a = \infin$, such that:
+
+$$
+\tag{1.2}
+\frac{1}{0} = \infin
+$$
+
+and
+
+$$
+\tag{1.3}
+\frac{1}{\infin} = 0
+$$
+
+Now, $\infin$ is not actually a real number and you can sometimes get into trouble treating it like one, but for our purposes today we can just pretend that it is.
+
+# Inverse of a Complex Number
+
+A complex number is usually written as $\text{p} = a + bi$. It has a length given by:
+
+$$
+\tag{1.4}
+\|\text{p}\| = \sqrt{a^2 + b^2}
+$$
+
+And an angle $\theta_{\text{p}}$ given by:
+
+$$
+\tag{1.5}
+\theta_{\text{p}} = \tan^{-1}\left(\frac{b}{a}\right)
+$$
+
+Its inverse is defined just like before:
+
+$$
+\tag{1.6}
+\text{p}^{-1} = \frac{1}{a+bi}
+$$
+
+But having a complex number in the denominator of a fraction is hard to reason about. How can we pull that $i$ into the numerator so we can make sense of it?
+
+A typical choice is to multiply both the numerator and denominator by the complex conjugate, $a-bi$:
+
+$$
+\begin{aligned}
+\text{p}^{-1} &= \frac{1}{a + bi} \\
+&= \frac{1}{a + bi} \cdot \frac{a-bi}{a-bi} \\ 
+&= \frac{a-bi}{a^2 -abi + abi - b^2 i^2} \\
+&= \frac{a-bi}{a^2 + b^2}
+\end{aligned}
+$$
+
+$$
+\tag{1.7}
+\text{p}^{-1} = \textcolor{orange}{\frac{1}{a^2 + b^2}} \textcolor{ff00ff}{(a - bi)}
+$$
+
+These components separately control the length and angle of $\text{p}^{-1}$:
+
+The $\textcolor{orange}{\frac{1}{a^2 + b^2}}$ component means <span style={{color:"orange"}}>the new length is the inverse of the old length</span>, just as with real numbers.
+
+The $\textcolor{ff00ff}{a - bi}$ component means <span style={{color:"#ff00ff"}}>the direction is the same, but mirrored over the real axis</span>.
+
+Now that we have some idea of what to expect, we can play around with a complex number inverter to try and build some intuition:
+
+<ComplexNumberInverter></ComplexNumberInverter>
+
+Can you visually confirm that big numbers become small and that every number is mirrored over the real axis?
+
+One cool property of complex inversion is that <span style={{color:"orange"}}>every point inside the <span style={{color:"red"}}>unit circle</span> gets inverted outside of the circle and vice versa, but every point _on_ the unit circle stays on the unit circle</span>.
+
+Notice the two fixed points at $1 + 0i$ and $-1 + 0i$. It makes sense that fixed points can only occur on the  <span style={{color:"blue"}}>real axis</span>, since <span style={{color:"#ff00ff"}}>inversion mirrors over the real axis</span>.
+
+As a hint of things to come: What happens if you move your cursor along the vertical line with real value $0.25$? What path does the inverse trace out?
+
+# Conformal Mappings
+
+To appreciate inversion of a circle we need to understand a little bit about conformal mappings.
+
+For our purposes, a **mapping** $\Mu$ is a function that turns one complex number into another:
+
+For example:
+$$
+\Mu_{double}(a+bi) = 2a + 2bi
+$$
+
+or
+
+$$
+\Mu_{mirror}(a+bi) = a - bi
+$$
+
+There is also a convenient shorthand for mappings, $\mapsto$, which is pronounced "maps to" and is used like this:
+
+$$
+a + bi \mapsto a^2 + 3bi
+$$
+
+Which can also be used to define a mapping or illustrate specific properties of a particular mapping.
+
+<!-- The study of these mappings is called Complex Analysis and it is a rich field of Math, but this post will only need one or two ideas from the field. -->
+
+**Conformal** mappings have a special simplifying property: they locally preserve angles.
+
+Locally preserving angles means that while the large-scale structure may change, the small-scale structure stays exactly the same but for scaling and rotation. That means any two lines which intersect at $\theta$ before the mapping will still intersect at $\theta$ after the mapping.
+
+![Example of a Conformal Mapping](/images/inverse-of-a-circle/Conformal_map.svg)
+
+This also implies that any two lines which are parallel before the mapping are still parallel after the mapping, at least locally. Even though the mapping may warp straight lines into curves, if you zoom in close enough to any small neighboring line segments they are still locally parallel.
+
+Said another way: Tiny squares before the mapping will still be tiny squares after the mapping, though they may be shifted, scaled, and rotated. Squares will not warp into rectangles or diamonds.
+
+<!-- Lines of latitude always intersect meridians at $90\degree$, both on the sphere and on the Mercator map. Lines of latitude remain mutually parallel, as do meridians (if you excuse the singularities at the poles). -->
+
+From this falls an equivalent definition of **conformal**: Circles before the mapping remain circles after the mapping, but for scale and translation. The sizes and locations of the circles may change, but circles never get squished into ovals. These definitions will all be important later.
+
+To test our understanding let's examine a common mapping that transforms points on the Earth onto points in the complex plane, the [Mercator Projection](https://en.wikipedia.org/wiki/Mercator_projection).
+
+We call it a **projection** because we're specifically mapping from a sphere to a plane, but it's just a particular kind of mapping.
+
+If the longitude is represented as $\theta$ and latitude is represented as $\phi$, then the Mercator Projection is:
+
+$$
+\tag{1.8}
+M(\theta, \phi) = R\theta + R \ln\left[\tan{\left(\frac{\pi}{4} +  \frac{\phi}{2} \right)} \right]i
+$$
+
+![Example of the Mercator Projection](/images/inverse-of-a-circle/Mercator_projection.jpg)
+
+Is this mapping conformal? We can run a series of tests:
+
+1. Lines of constant Latitude (like the Equator, Tropic of Capricorn, etc) are all mutually parallel on the surface of the Earth. So too, in this projection. $\checkmark$
+2. Lines of constant Longitude (like the Prime Meridian) are all mutually parallel on the surface of the Earth. Again, this is also true in this projection. $\checkmark$
+3. Where Latitude and Longitude lines intersect, they do so at $90\degree$ angles. This is also true after projection. $\checkmark$
+
+From these tests we can deduce that the projection is conformal!
+
+There is another projection called the [Stereographic Projection](https://en.wikipedia.org/wiki/Stereographic_projection) which is more useful for inverting circles:
+
+![Example of the Stereographic Projection](/images/inverse-of-a-circle/Stereographic_projection.jpg)
+
+The Stereographic Projection unwraps the Earth onto the 2D plane by placing the South Pole at the origin and stretching out the North Pole to $r = \infin$ according to:
+
+$$
+\tag{1.9}
+S(\theta, \phi) = 2R\tan{\left(\frac{\phi}{2}\right)} (\cos(\theta) + \sin(\theta) i)
+$$
+
+Is the Stereographic projection conformal?
+
+1. Lines of constant Latitude are mutually parallel: $\checkmark$
+2. Lines of constant Longitude are all mutually parallel: $\checkmark$
+3. Lines of Latitude and Longitude are perpendicular: $\checkmark$
+
+So yes, this projection is also conformal.
+
+A consequence of conformality is that any circle on the sphere of the Earth maps to a circle on the 2D plane. This is trivially true of the Equator, but how about the Prime Meridian, which has become an infinite line?
+
+Well, the Prime Meridian passes through the North Pole which maps to the point at $\infin$. That means the Prime Meridian, when projected onto the complex plane, must be a circle which includes the point $\infin$, which means it must be a circle of radius $\infin$, which looks like a line!
+
+We can also look at the Stereographic projection in the opposite direction: Let's wrap the entire complex plane onto a sphere such that the South Pole of the sphere touches the origin and the North Pole represents all the points that are infinitely far away from the origin.
+
+If we're careful, we can do this in just such a way that the unit circle in the complex plane maps to the sphere's equator. This object is called the [Riemann Sphere](https://en.wikipedia.org/wiki/Riemann_sphere):
+
+![Image of the Riemann Sphere](/images/inverse-of-a-circle/Riemann_sphere.svg)
+
+If you flip back and forth between the Riemann Sphere and the Stereographic projection image you may be able to convince yourself that they are in fact two descriptions of the same mapping.
+
+Qualitatively: All the small complex numbers (magnitude $<1$) are in the Southern hemisphere and all the big complex numbers (magnitude $>1$) are in the Northern hemisphere.
+
+The surface of the Riemann Sphere contains the entire complex plane so it is reasonable for us to ask: What does complex inversion look like on this surface?
+
+The answer is easy to visualize:
+
+![Complex Inversion on the Riemann Sphere](/images/inverse-of-a-circle/Riemann_sphere_inversion.svg)
+
+A point $\text{p}$ on the complex plane is first <span style={{color:"orange"}}>mirrored across the equator</span> to $\text{p}'$. This transforms the magnitude from something small to something large.
+
+Then $\text{p}'$ is <span style={{color:"#ff00ff"}}>mirrored across the real meridian</span>, finally arriving at $\text{p}^{-1}$.
+
+These two mirroring operations correspond exactly with the two components of complex inversion, derived above:
+
+$$
+\tag{1.7}
+\text{p}^{-1} = \textcolor{orange}{\frac{1}{a^2 + b^2}} \textcolor{ff00ff}{(a - bi)}
+$$
+
+With this new picture in mind, try to visually walk through the known special cases from earlier:
+- Fixed points at $1$ and $-1$
+- $0 \mapsto \infin$
+- $i \mapsto -i$
+
+Now that we've got some 3D intuition for complex inversion on the Riemann Sphere, we're ready to tackle the full problem.
+
+# Inverse of a Circle
+
+Given that the Stereographic Projection is conformal, we know that a circle on the complex plane maps to a circle on the Riemann Sphere and vice versa.
+
+Reflection across the <span style={{color:"red"}}>unit circle</span> preserves the shape of the circle, it just moves it from one hemisphere to the other.
+
+By that same logic, mirroring across the <span style={{color:"blue"}}>real meridian</span> also preserves the shape of the circle.
+
+Finally, mapping that circle back to the complex plane is performed using the inverse of the Stereographic Projection, which must also be conformal.
+
+![Circle Inversion on the Riemann Sphere](/images/inverse-of-a-circle/Riemann_sphere_circle_inversion.svg)
+
+In short:
+
+> The inverse of a circle on the complex plane must be another circle on the complex plane.
+
+Qualitatively: <span style={{color:"orange"}}>Small circles close to the origin invert to big circles far from the origin and vice versa</span>. <span style={{color:"#ff00ff"}}>Circles above the real line invert to circles below the real line and vice versa</span>.
+
+The symmetry of the Riemann Sphere now lets us identify some special cases:
+1. A circle centered on $1$ or $-1$ is its own inverse
+2. A circle centered on $i$ inverts to a circle with the same radius, centered on $-i$
+
+Points 1 and 2 are easily confirmed by simulation, but now we have a rich visual understanding of _why_ they occur:
+
+<CircleInverter showUnitCircle="yes"></CircleInverter>
+
+But wait, placing the cursor at $+1$ does _not_ create a circle which is its own inverse! We need to travel out to something like $+1.1$ for the inverse to match. What gives?
+
+The issue here is that a circle centered on $+1$ on the Riemann Sphere does *not* translate to a circle centered on $+1$ in the complex plane:
+
+![Circle Inversion on the Riemann Sphere](/images/inverse-of-a-circle/Riemann_sphere_circle_inversion_2.svg)
+
+When projected onto the complex plane, the circle pictured must _contain_ $+1$ and its left side must fall between $0$ and $1$, but its right side could extend very far out into extremely large numbers. The larger the radius of the circle, the larger the offset between the centers.
+
+This is a subtle point that is worth rehashing. The exercise we did above where we reflected a circle across the equator (<span style={{color:"red"}}>unit circle</span>) and then again across the real meridian (<span style={{color:"blue"}}>real axis</span>), all of that is correct both for the points on the circumference of the circle and for the midpoint of the circle once it lives on the Riemann Sphere. We just need to remember that while the Stereographic Projection preserves the *shapes* of circles, it does warp the space inside them such that their midpoints are not usually preserved!
+
+Now consider a circle that touches the origin:
+
+![Circle Inversion on the Riemann Sphere](/images/inverse-of-a-circle/Riemann_sphere_circle_inversion_3.svg)
+
+> A circle that touches the origin inverts to a circle that passes through $\infin$!
+
+In order for a circle to pass through $\infin$, it must stretch to the edge of the complex plane. It must be a circle of infinite radius, which looks like a straight line!
+
+We saw this phenomenon as a special case earlier with the Prime Meridian and the Stereographic Projection, but here it appears as a general rule: _any_ circle that touches the origin will invert to a line, not just meridians.
+
+In this case we know that line passes through $+1$ and that it approaches $\infin$ in a manner parallel to the <span style={{color:"green"}}>imaginary axis</span>, so this straight line must be a vertical line that passes through $+1$. Scroll back up to the simulation to confirm this for yourself!
+
+Let's put a bow on this topic by identifying a few more fixed points, or should we call them **fixed circles**?
+
+- The <span style={{color:"red"}}>unit circle</span> inverts to itself
+- The <span style={{color:"blue"}}>real axis</span> inverts to itself
+- Any circle centered on $1$ or $-1$ (on the Riemann Sphere, not the complex plane) inverts to itself. The <span style={{color:"green"}}>imaginary axis</span> is therefore its own inverse
+
+So inversion of a circle has one infinite family of fixed circles: those parallel to the <span style={{color:"green"}}>imaginary axis</span>, and then two special outliers which happen to also be fixed.
+
+# Enriching the Structure of a Circle
+
+<!-- A circle is often thought of as a set of points equidistant from some center, but we can choose to assign additional properties to a circle that make it richer than a set of points could ever be. -->
+
+<!-- We can assign:
+
+1. An "inside" and an "outside"
+2. A handedness like clockwise or counterclockwise
+3. A phase so there is a starting point, a halfway point, and an ending point
+ -->
+Let's say that our input circle is spinning clockwise.
+
+We can then declare that all points locally on the right hand side of the circumference are *inside* the circle, so we'll paint them orange.
+
+On the complex plane we now have filled-in circles with arrows to indicate direction:
+
+<UltimateCircleInverter></UltimateCircleInverter>
+
+On the Riemann Sphere it will look like a dome:
+
+![Filled-in Circles on the Riemann Sphere](/images/inverse-of-a-circle/Riemann_sphere_filled_in.svg)
+
+Playing around, we can see that circles centered on $0$ are flipped inside out! Another way to say this is that their spin direction is reversed.
+
+The filled-in <span style={{color:"red"}}>unit circle</span> is no longer the equator, it is the entire Southern Hemisphere on the Riemann Sphere. Under inversion it becomes the entire Northern Hemisphere! So this circle is no longer its own inverse.
+
+The <span style={{color:"blue"}}>real axis</span> is no longer the real meridian, it is the entire hemisphere closer to us in the diagram, which inverts to the entire hemisphere far from us. This circle too, is no longer a special "fixed circle".
+
+But the <span style={{color:"green"}}>imaginary axis</span> is still its own inverse! The half-plane to the right of the <span style={{color:"green"}}>imaginary axis</span> forms the Eastern Hemisphere on the Riemann Sphere, which inverts to itself.
+
+By adding structure to the circle, the inversion function has lost two of its fixed circles!
+
+# Rotations on the Riemann Sphere
+
+We've been visualizing complex inversion as two reflections but we can also view it as a single $180\degree$ rotation about the $[-1, 1]$ axis:
+
+![Riemann Sphere Rotation](/images/inverse-of-a-circle/Riemann_sphere_rotation.svg)
+
+Go ahead and verify a few identities to convince yourself that they all work out identically:
+
+- Fixed points at $1$ and $-1$
+- $0 \mapsto \infin$
+- $i \mapsto -i$
+- <span style={{color:"green"}}>imaginary axis</span> ↦ <span style={{color:"green"}}>imaginary axis</span>
+- <span style={{color:"red"}}>unit circle</span> ↦ <span style={{color:"red"}}>unit circle</span> but not if it is filled in
+- <span style={{color:"blue"}}>real axis</span> ↦ <span style={{color:"blue"}}>real axis</span> but not if it is filled in
+
+Looking at it this way provides new insight. Rotation about the $[-1, 1]$ axis could also be called rotation in a plane perpendicular to the $[-1, 1]$ axis. One such plane passes through the entire <span style={{color:"green"}}>imaginary axis</span>.
+
+So in a colloquial sense, complex inversion is a $180 \degree$ rotation in the imaginary plane. Any circle parallel to that plane (just look on the Riemann Sphere) must invert to itself because circles are invariant to rotation. Circles perpendicular to that plane will only invert to themselves if they lack handedness.
+
+We've also stumbled on a tantalizing new question! What happens if we were to rotate about the $[-i, i]$ axis, aka in the real plane?
+
+![Riemann Sphere Rotation 2](/images/inverse-of-a-circle/Riemann_sphere_rotation_2.svg)
+
+Well, large numbers still become small numbers and vice versa, but it's like we're reflecting over the <span style={{color:"green"}}>imaginary axis</span> instead of the <span style={{color:"blue"}}>real axis</span>.
+
+This implies some different definition of complex inversion! Before, we were using:
+$$
+\tag{1.7}
+\text{p}^{-1}_{\textcolor{green}{imaginary}} = \textcolor{orange}{\frac{1}{a^2 + b^2}} \textcolor{ff00ff}{(a - bi)}
+$$
+
+But this new rotation corresponds to:
+$$
+\tag{1.10}
+\text{p}^{-1}_{\textcolor{blue}{real}} = \textcolor{orange}{\frac{1}{a^2 + b^2}} \textcolor{ff00ff}{(-a + bi)}
+$$
+
+Which is not an operation that I've seen before! It models a Bizarro-World complex plane where the special properties of the imaginary axis have been taken away and instead granted to the real axis.
+
+From this we can simulate a different but still perfectly reasonable definition of the inverse of a circle!
+
+<UltimateCircleInverter bizarro="yes"></UltimateCircleInverter>
+
+We can see in the simulation and on the Riemann Sphere that for this operation:
+- The fixed points are $\pm i$
+- The fixed circle is the <span style={{color:"blue"}}>real axis</span> and any other circle centered on $\pm i$
+
+That brings us to our last contender, a rotation about the $[0, \infin]$ axis, or a rotation in the plane defined by the <span style={{color:"red"}}>unit circle</span>:
+
+![Riemann Sphere Rotation 3](/images/inverse-of-a-circle/Riemann_sphere_rotation_3.svg)
+
+Can you see what this operation does to complex numbers? Big numbers stay big and small numbers stay small. This type of complex inversion is only changing the *direction* of complex numbers.
+
+On the complex plane, all we're doing is rotating $180 \degree$ around the origin!
+
+- Our fixed points are $0$ and $\infin$
+- Our fixed circle is the <span style={{color:"red"}}>unit circle</span> and any other circle centered on the origin
+
+By inspection we can write out this inversion formula as:
+
+$$
+\tag{1.11}
+\text{p}^{-1}_{\textcolor{red}{unit}} = \textcolor{ff00ff}{-a - bi}
+$$
+
+The three definitions that we've come to all look unique but now we know that they are actually three members of the same family: They are all $180 \degree$ rotations of the Riemann Sphere!
+
+# Digging Deeper
+
+I hope this post conveys a little bit of what math can feel like when you just go exploring. It's not so much about equations and manipulation of symbols as it is about asking "what if" and then following through.
+
+Speaking of, here's some ways you can dive deeper:
+
+What does it mean to rotate by $90 \degree$ on the Riemann Sphere? Is this a familiar operation viewed in a new light, or something new? Can you derive an explicit formula for it in all three planes?
+
+What does it mean to rotate the Riemann Sphere by any arbitrary $\phi$? Can you derive an explicit formula, perhaps making use of the complex exponential $re^{i\theta}$?
+
+Can you generate one of the inversion formulas above using only the other two? What implications does this have?
+
+On the Riemann Sphere, what happens if you reflect an odd number of times instead of an even number? What are the fixed points and circles of such an operation? What about with filled circles?
+
+Are there any squares which invert to themselves? Does it matter if you just use the four corners of the square vs every point along its edges?
+
+The field of math we've been playing in is called Complex Analysis. You can also learn more by [picking up a book](https://www.amazon.com/Visual-Complex-Analysis-Tristan-Needham/dp/0198534469/ref=sr_1_1?keywords=visual+complex+analysis&qid=1643496282&sprefix=visual+complex+%2Caps%2C318&sr=8-1), playing around [online](https://complex-analysis.com/content/mappings.html), or just watch some videos on [Youtube](https://www.youtube.com/watch?v=LoTaJE16uLk)!
+
+# Contact me
+
+I'm on Twitter at [@mferraro89](https://twitter.com/mferraro89) and you can shoot me an email me at mattferraro.dev@gmail.com
+
+<iframe width="100%" height="390" src="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i" frameBorder="0" scrolling="auto" allowFullScreen style={{display: "block", marginLeft: "auto", marginRight: "auto", maxWidth: "100%"}}></iframe>

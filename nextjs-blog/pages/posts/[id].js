@@ -19,7 +19,6 @@ import { SVGRenderer } from '../../lib/SVGRenderer';
 import React, { useEffect, useState } from 'react'
 
 import Image from 'next/image'
-import renderMathInElement from 'katex/dist/contrib/auto-render';
 
 const headLength = 0.05
 const headWidth = 0.07
@@ -225,7 +224,26 @@ const AudioControls = (props) => {
   </div>
 }
 
-// const MDXComponents = ;
+const AudioControls2 = (props) => {
+  return <div className="waveform-container" src={props.src} stereo={props.stereo ? "true" : "false"}>
+      <button>Play/Pause</button>
+      <button>Zoom Out</button>
+      <button>Zoom In</button>
+      <button>Zoom WAY In</button>
+    </div>
+}
+
+const UltimateCircleInverter = (props) => {
+  return <canvas className="ultimate-circle-inverter" width={614} height={400} style={{width:614, height: 400, cursor:"crosshair"}} {...props}></canvas>
+}
+
+const CircleInverter = (props) => {
+  return <canvas className="circle-inverter" width={614} height={400} style={{width:614, height: 400, cursor:"crosshair"}} {...props}></canvas>
+}
+
+const ComplexNumberInverter = (props) => {
+  return <canvas className="complex-number-inverter" width={614} height={400} style={{width:614, height: 400, cursor:"crosshair"}}></canvas>
+}
 
 const initialize3D = (vis3DContainer) => {
   const svgEl = vis3DContainer.children[0]
@@ -332,6 +350,15 @@ const Katexifier = (props) => {
   return <div></div>
 }
 
+import dynamic from 'next/dynamic'
+
+const Waveformifier = dynamic(() => import('../../components/waveformifier'), {
+    ssr: false
+})
+
+const CircleInverterRealizer = dynamic(() => import('../../components/circleinverterrealizer'), {
+  ssr: false
+})
 
 const Vis3DRealizer = () => {
   const [isComponentMounted, setIsComponentMounted] = useState(false)
@@ -412,6 +439,10 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           Latex,
           Attribution,
           AudioControls,
+          AudioControls2,
+          CircleInverter,
+          UltimateCircleInverter,
+          ComplexNumberInverter,
           img: OptimizedImage,
           p: (paragraph) => {
 
@@ -458,6 +489,8 @@ export default function Post({ metadata, mdxSource, imgDims }) {
 
         <Vis3DRealizer></Vis3DRealizer>
         <Katexifier></Katexifier>
+        <Waveformifier></Waveformifier>
+        <CircleInverterRealizer></CircleInverterRealizer>
 
       </article>
     </Layout>

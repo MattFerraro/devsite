@@ -55,6 +55,10 @@ blockquote {
   font-size: 12px;
 }
 
+audio {
+  width: 100%
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

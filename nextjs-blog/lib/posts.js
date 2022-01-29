@@ -11,7 +11,8 @@ const allowList = [
   "caustics-engineering.mdx",
   "geometric-algebra.mdx",
   "joule-thomson.mdx",
-  "impulse-response.mdx",
+  // "impulse-response.mdx",
+  "inverse-of-a-circle.mdx",
   // "simple-test.mdx"
 ]
 
@@ -94,7 +95,7 @@ export async function getPostDataMDX(id) {
       if (img.startsWith(".")) {
         continue
       }
-      if (img.endsWith(".mp4") || img.endsWith(".wav")) {
+      if (img.endsWith(".mp4") || img.endsWith(".wav") || img.endsWith(".mp3")) {
         continue
       }
       const dimensions = imageSize(imgDirectory + "/" + img)
