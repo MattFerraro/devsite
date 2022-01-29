@@ -66,8 +66,8 @@ export function getAllPostIds() {
 
   // This area controls what builds and is hosted, NOT what ends up on the front page
   // To allow EVERYTHING:
-  const fileNames = fs.readdirSync(postsDirectory)
-  // const fileNames = allowList
+  // const fileNames = fs.readdirSync(postsDirectory)
+  const fileNames = allowList
   // To allow a subset, use allowList
 
   
