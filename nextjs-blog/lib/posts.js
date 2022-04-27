@@ -11,8 +11,9 @@ const allowList = [
   "caustics-engineering.mdx",
   "geometric-algebra.mdx",
   "joule-thomson.mdx",
-  // "impulse-response.mdx",
   "inverse-of-a-circle.mdx",
+  "mri.mdx",
+  // "impulse-response.mdx",
   // "simple-test.mdx"
 ]
 

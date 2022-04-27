@@ -1,4 +1,6 @@
 Projects
+How does an MRI work?
+Building your own MRI
 Learning the Lathe--Cheesy Machinists puzzle
 Understanding the upcoming 99mTc Crisis
 Solutions to the 99mTc Crisis

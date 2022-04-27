@@ -360,6 +360,10 @@ const CircleInverterRealizer = dynamic(() => import('../../components/circleinve
   ssr: false
 })
 
+const DipoleV2 = dynamic(() => import('../../components/dipolev2'), {
+  ssr: false
+})
+
 const Vis3DRealizer = () => {
   const [isComponentMounted, setIsComponentMounted] = useState(false)
   useEffect(() => {
@@ -443,6 +447,7 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           CircleInverter,
           UltimateCircleInverter,
           ComplexNumberInverter,
+          DipoleV2,
           img: OptimizedImage,
           p: (paragraph) => {
 
