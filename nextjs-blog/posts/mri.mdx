@@ -1,0 +1,203 @@
+---
+title: "How does an MRI take pictures?"
+teaser: "some teaser text"
+teaserImage: 'https://mattferraro.dev/images/caustics-engineering/2D_image.jpg'
+date: '2022-04-22'
+---
+
+Compared to other medical imaging modalities, Magnetic Resonance Imaging has a few super powers:
+1. It produces no ionizing radiation
+2. It can distinguish soft tissue such as white matter from grey matter
+3. It can image *processes* such as oxygen absorption
+
+But the downsides of MRIs are difficult to overlook:
+1. Extremely expensive machines
+2. High cost of operation
+3. Stringent siting requirements
+
+In this post we'll learn how MRI machines function, from the physics to the reconstruction algorithms. We'll see why they are so flexible, powerful, and dangerous.
+
+# Table of Contents
+
+# Dipole Alignment
+
+Every magnet has a <span style={{color:"red"}}>North</span> pole and a <span style={{color:"blue"}}>South</span> pole which are inseparable so we call them Dipoles. Whenever two dipoles get close together, they feel a torque which tries to align them anti-parallel to each other:
+
+<DipoleV2></DipoleV2>
+
+A good mental model for magnetostatics is to picture each dipole as two separate magnetic monopoles which are rigidly connected, as is modeled here.
+
+The dipoles then do as you expect: Like poles repel and unlike poles attract.  This is a surprisingly accurate model despite its simplicity.
+
+<!-- You might ask "Why do dipoles align?" but there is no satisfying answer to be found here. The standard explanations talk about field lines compressing or energy density in volumes but it's all hand-wavy and imprecise. -->
+
+If one dipole is much larger than the other, then near the small dipole the magnetic field lines look uniform. The alignment torque is the same:
+
+<DipoleV3></DipoleV3>
+
+[That demo again, but now with a uniform set of background lines]
+
+This is how a magnetic compass works. The compass needle is a small permanant magnet that you hold and the larger dipole is the Earth's magnetic field. The North end of a magnet is defined as the end that points toward the [Geographic North Pole](https://en.wikipedia.org/wiki/North_Pole) when used as a compass needle, which means that if you model the Earth as a big bar magnet, it's the South end of the bar that sits at Earth's [Magnetic North Pole](https://en.wikipedia.org/wiki/Geomagnetic_pole).
+
+[Image of a magnetic compass]
+
+One interesting effect is that if you make the external field stronger, the alignment torque gets stronger and the oscillation frequency will get higher:
+
+[That demo again (uniform), but now with a configurable field strength and default to lower damping]
+
+This oscillation frequency is called the [Larmor Frequency](https://www.sciencedirect.com/topics/computer-science/larmor-frequency) and it is the single most important concept in all of Magnetic Resonsance Imaging.
+
+# Unpaired Protons and Nuclear Dipoles
+
+Both protons and neutrons exhibit spin and are composed of smaller particles called Quarks which carry charge. Spinning electric charges create dipoles so both behave like tiny little bar magnets.
+
+When exposed to an external magnetic field the nucleus of a regular Hydrogen atom, $^{1}\text{H}$, will feel a torque that tries to align it with that field exactly like a compass needle feels a torque.
+
+In a nucleus with two protons such as $^{4}\text{He}$, you might expect the two protons to both align with the external magnetic field, but like dipoles repel so this is not the case.
+
+The lowest energy configuration is for the protons to form pairs which cancel each other out. The paired-off protons have no substantial interaction with the surrounding field and together feel no torque.
+
+[interactive demo of two dipoles close to each other in an external field, allowing you to pause physics, rotate the dipoles, then resume physics to see what happens.]
+
+Neutrons have a magnetic moment which is slightly weaker and carries the opposite sign, but they pair up in a similar way:
+
+[diagram of neutrons paired up and cancelling]
+
+Given that paired-up protons and neutrons cancel each other out, it follows that any nucleus with an even number of both will have no net magnetic dipole. Isotopes like $^{4}\text{He}$ and $^{12}\text{C}$ do not try to align with a magnetic field.
+
+But any nucleus with an unpaired proton or unpaired neutron will have some net dipole! For example, $^{3}\text{He}$ contains two protons but only one neutron, so it feels a strong torque to align with a magnetic field. $^{7}\text{Li}$ contains four neutrons but only 3 protons, so it feels a strong torque as well.
+
+A nucleas with both an unpaired proton _and_ an unpaired neutron will have a net dipole because protons and neutrons are not dipoles of equal strength. They cannot pair up properly and will not cancel out completely. $^{6}\text{Li}$ and $^{10}\text{B}$ are examples of this.
+
+The stronger the net nuclear dipole, the stronger the torque will be. Two nuclides, each with one unpaired neutron, are demonstrated below:
+
+129Xe - 54 Protons, 75 neutrons
+3He - 2 Protons, 1 neutron
+
+[Interactive with a uniform background field + two separated nuclides. The important phenomenon is that the Xe is "heavier"]
+
+Despite these two nuclides exhibiting the same strength dipole and feeling identical alignment torque, the 129Xe is much heavier so it oscillates more slowly.
+
+Every nuclide with net dipole moment also has an empirically measured "gyromagnetic ratio", which tells you that nuclide's oscillation frequency in a 1 Tesla magnetic field.
+
+Light nuclides with strong dipoles such as $^{1}\text{H}$ and $^{3}\text{He}$ have high gyromagnetic ratios and will oscillate quickly. Heavy nuclides with weaker dipoles such as $^{129}\text{Xe}$ and $^{1}\text{H}$ have low gyromagnetic ratios and will oscillate slowly.
+
+<!-- Remember from earlier that the oscillation frequency scales linearly with the strength of the magnetic field, so knowing the gyromagnetic ratio of a nuclide tells us how to find its oscillation frequency in *any* magnetic field. -->
+
+The oscillation frequency, called the Larmor Frequency, is defined as:
+
+$$
+f_{larmor} = \gamma \cdot B
+$$
+
+Where $\gamma$ is the gyromagnetic ratio of the nuclide in question, and $B$ is the strength of the magnetic field in Teslas. The constant $\gamma$ therefore carries SI units of $\text{rad} \cdot \text{s}^{-1} \cdot \text{Tesla}^{-1}$ but for most practical applications we use $\frac{\text{MHz}}{\text{Tesla}}$.
+
+| Nuclide | Gyromagnetic Ratio (MHz/Tesla) |
+|:-- |:-- |
+| $^{1}\text{H}$ | 42.577 |
+| $^{2}\text{H}$ | 6.536 |
+| $^{3}\text{H}$ | 45.415 |
+| $^{3}\text{He}$ | -32.434 |
+| $^{13}\text{C}$ | 10.708 |
+| $^{14}\text{N}$ | 3.077 |
+| $^{14}\text{N}$ | -4.316 |
+| $^{57}\text{Fe}$ | 1.382 |
+| $^{67}\text{Zn}$ | 2.669 |
+| $^{129}\text{Xe}$ | -11.777 |
+| $e$ | 28024.951 |
+
+# Excitation and The Nuclear Magnetic Resonance
+
+Electromagnetic waves contribute a time-varying magnetic field on top of the background field which causes the local field angle to wiggle:
+
+[interactive demo split into three parts showing the background field, the time-varying field contributed by the wave, and the sum of the two. Allow user to toggle frequency and amplitude of the wave]
+
+[optionally, have a toggle on that demo that shows field lines instead of vector directions?]
+
+What does it look like when we put a nuclide in this field? In this simulation we've got a fixed background field of 1 Tesla and I've slowed down time by a factor of 10,000,000.
+
+[interactive demo of the nuclide. Allow user to pick which nuclide from a dropdown, and allow them to control amplitude and frequency. damping rate is fixed and kinda high]
+
+Notice that each nuclide can be made to resonate but only when the frequency of the electromagnetic wave matches the Larmor frequency of the nuclide. This is the phenomenon known as Nuclear Magnetic Resonance.
+
+## Damping
+
+<!-- Up until now our rotating dipoles have exhibited an unnamed damping torque that slows rotations. In a compass this is provided by friction. For nuclides, this is provided by their intrinsic coupling to the electromagnetic field. -->
+
+If you place your hand in a pool full of water there is no way for you to shake it back and forth without also emanating waves which travel outward along the surface. The waves carry energy away from the excitation and the water pushes back against the movement of your hand, which feels like a damping force.
+
+Given a magnetic dipole in free space, there is no way for it to oscillate without also emanating electromagnetic waves which travel outward through space. The electromagnetic field that permeates our universe acts like an endless pool and every charged particle acts like a hand dipped in its surface. To belabor the metaphor: moving a charged particle back and forth is like swashing your hand left and right. Rotating a dipole back and forth is like twisting your hand clockwise and counterclockwise.
+
+The waves carry away energy at a rate proportional to the energy of the oscillation, which means that a dipole left to oscillate freely will see its energy decay exponentially, just as shown in the simulations so far.
+
+# NMR Spectroscopy
+
+Let's try an experiment where we place an unknown nuclide in a strong magnetic field, then hit it with electromagnetic waves of different frequencies.
+
+For each frequency that we choose, we'll emit it for a few seconds to excite any resonance which might occur, then we'll abruptly stop emitting and start listening instead. If the nuclide was able to resonant, then we'll hear it give off waves.
+
+[interactive with unknown nuclide and we can select a frequency, then hit "emit" and we'll see it emit, resonate or not, and then we stop emitting and show a plot of whatever waves it gives off]
+
+Can you figure out what nuclide is being simulated just by analyzing the received waveform?
+
+Spoiler alert: [Spoiler hidden: the nuclide is 13C, which is in the table]
+
+This type of experiment is called Nuclear Magnetic Resonance Spectroscopy, or just NMR for short. The goal is to emit many different frequencies and then measure how much the nuclide responded to each frequency. The resulting graph, with frequency on the x-axis and response intensity on the y-axis, is called the spectrum of the nuclide.
+
+[example spectrum]
+
+There are ways to speed up the measurement process so that you don't need to wait and listen in between each individual frequency emission. One neat trick is to play what's called a "chirp":
+
+[example of a chirp]
+
+A chirp contains a little bit of energy at a bunch of different frequencies. The fourier transform of a chirp looks like this:
+
+[fourier transform of a chirp]
+
+Which shows us that a chirp contains equal energy at a whole range of frequencies!
+
+We can emit one single chirp and listen for the response:
+
+[interactive with just a "chirp" button, still showing the response with time on x axis. When response is done recording, show the FT of the response as well]
+
+With a chirp we can measure an entire band of frequencies at once! The fourier transform of the response is the spectrum of our nuclide.
+
+## Field Uniformity and Bulk Measurements
+
+The simulation we've been playing with shows the receiver coil very close to the nuclide in question but this is not practical in applied experiments. 
+
+An actual NMR Spectrometer permits glass vials full of samples and keeps all of the radio equipment outside of the sample.
+
+[image of an actual NMR Spectrometer]
+
+These tiny machines generate very strong and very uniform magnetic fields such that every nuclide in the sample feels the exact same field strength to within a few parts per million. In a 3 Tesla field, that means the maximum field deviation is of order 3 microtesla.
+
+For reference the Earth's magnetic field can range anywhere between 25,000 - 65,000 microtesla depending on the time of day, location on Earth, and solar weather.
+
+Such machines consequently need to be shielded from Earth's magnetic field as well as any exogenous fields like wifi routers, microwaves, cell phone towers, etc. Passive shielding is easy to achieve by encasing the sample in sheets of mu-metal, permalloy, or other high-permeability metal.
+
+The field uniformity is so important because it causes blurriness in the measured spectrum. 
+
+## Superposition of Nuclides
+
+## T1 vs T2 Signal
+
+## Spin Echo?
+
+## Chemistry Effects
+
+# Imaging with NMR
+
+## Slice Selection
+
+## Column Selection
+
+## Phase Effects
+
+
+Separate post about magnetism? Field lines and energy density and Heusler Alloys and differences between Ferro/Para/Diamagnetism. Also Anti-Ferromagnetism, magnetic ionic compounds, geometrical frustration, Iron Catastrophe
+
+
+Hyperpolarized 129Xe imaging: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3558952/
+
+Larmor Frequency: https://www.sciencedirect.com/topics/computer-science/larmor-frequency
