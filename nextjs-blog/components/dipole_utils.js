@@ -22,12 +22,16 @@ export const applyTorques = (dipoles) => {
   const kdrag = 1
   for (let d of dipoles) {
     d.ddtheta = d.nettorque / d.moment - d.dtheta * kdrag  // acceleration
+    // d.dtheta += d.ddtheta * dt  // velocity
+    // d.theta += d.dtheta * dt  // position
+
     d.dtheta += d.ddtheta * dt  // velocity
-    d.theta += d.dtheta * dt  // position
+    d.theta += .5 * d.ddtheta * dt * dt + d.dtheta * dt  // position
+    
   }
 }
 
-export const sampleField = (x, y, dipoles, reverse) => {
+export const sampleField = (x, y, dipoles, reverse, background) => {
   let fieldX = 0
   let fieldY = 0
   const distanceScale = .001  // each pixels = 1 mm
@@ -66,6 +70,14 @@ export const sampleField = (x, y, dipoles, reverse) => {
     fieldY -= dirSouthY * distCorrectionSouth * d.strength
 
   }
+
+  if (background) {
+    const dirX = Math.cos(background.theta)
+    const dirY = Math.sin(background.theta)
+    fieldX += dirX * background.strength
+    fieldY += dirY * background.strength
+  }
+
   if (reverse) {
     return [-fieldX, -fieldY]
   } else {
@@ -84,13 +96,13 @@ export function getMousePos(canvas, evt) {
 
 
 
-export const renderFieldVectors = (ctx, dipoles) => {
+export const renderFieldVectors = (ctx, dipoles, background) => {
   const fieldScale = 10
   ctx.lineWidth = .75;
   ctx.strokeStyle = "green"
   for (let x = 0; x < width; x += 20) {
     for (let y = 0; y < height; y += 20) {
-      const [fieldX, fieldY] = sampleField(x, y, dipoles)
+      const [fieldX, fieldY] = sampleField(x, y, dipoles, false, background)
 
       let l = Math.sqrt(fieldX * fieldX + fieldY * fieldY)
       const [dirX, dirY] = [fieldX / l, fieldY / l]
@@ -116,7 +128,7 @@ export const renderFieldVectors = (ctx, dipoles) => {
   }
 }
 
-const integratePath = (startingX, startingY, dipoles, reverse) => {
+const integratePath = (startingX, startingY, dipoles, reverse, background, terminateOffscreen=false) => {
   // reverse = false means start at North pole and follow
   // reverse = true means start at South pole and follow
   const path = []
@@ -136,24 +148,24 @@ const integratePath = (startingX, startingY, dipoles, reverse) => {
     }
   }
 
-  for (let s = 0; s < 3000; s++) {
+  for (let s = 0; s < 2000; s++) {
     // rk4
-    let [k1x, k1y] = sampleField(x, y, dipoles, reverse)
+    let [k1x, k1y] = sampleField(x, y, dipoles, reverse, background)
     const k1l = Math.hypot(k1x, k1y)
     k1x = k1x / k1l
     k1y = k1y / k1l
 
-    let [k2x, k2y] = sampleField(x + k1x * step / 2, y + k1y * step / 2, dipoles, reverse)
+    let [k2x, k2y] = sampleField(x + k1x * step / 2, y + k1y * step / 2, dipoles, reverse, background)
     const k2l = Math.hypot(k2x, k2y)
     k2x = k2x / k2l
     k2y = k2y / k2l
 
-    let [k3x, k3y] = sampleField(x + k2x * step / 2, y + k2y * step / 2, dipoles, reverse)
+    let [k3x, k3y] = sampleField(x + k2x * step / 2, y + k2y * step / 2, dipoles, reverse, background)
     const k3l = Math.hypot(k3x, k3y)
     k3x = k3x / k3l
     k3y = k3y / k3l
 
-    let [k4x, k4y] = sampleField(x + k3x * step, y + k3y * step, dipoles, reverse)
+    let [k4x, k4y] = sampleField(x + k3x * step, y + k3y * step, dipoles, reverse, background)
     const k4l = Math.hypot(k4x, k4y)
     k4x = k4x / k4l
     k4y = k4y / k4l
@@ -182,6 +194,13 @@ const integratePath = (startingX, startingY, dipoles, reverse) => {
         terminated = true
       }
     }
+
+    // check if we're offscreen and supposed to terminate
+    if (terminateOffscreen) {
+      if (y > height + 12 || y < -12) {
+        terminated = true
+      }
+    }
     
     if (terminated) {
       break
@@ -192,16 +211,19 @@ const integratePath = (startingX, startingY, dipoles, reverse) => {
   return path
 }
 
-export const renderStreamlines = (ctx, dipoles) => {
+export const renderStreamlines = (ctx, dipoles, background) => {
   ctx.strokeStyle = 'red';
   // First emit the lines from the North poles
   const streamlineStartOffset = 2
-  const numLines = 18
-  const fanAngle = 2 * PI / numLines
+  
+  const allPaths = []
   for (let i = 0; i < dipoles.length; i +=1 ){
     // For each dipole we need to draw the field lines
     const d = dipoles[i]
     d.terminalAngles = []
+
+    const numLines = d.numLines
+    const fanAngle = 2 * PI / numLines
 
     // At the North monopole, start emitting streamlines in a circle
     const [northX, northY] = findNorth(d)
@@ -210,25 +232,48 @@ export const renderStreamlines = (ctx, dipoles) => {
       const startingX = northX + Math.cos(t) * streamlineStartOffset
       const startingY = northY + Math.sin(t) * streamlineStartOffset
 
-      const path = integratePath(startingX, startingY, dipoles, false)
-      
-      
-      const prevX = northX
-      const prevY = northY
-      for (let p = 0; p < path.length; p++) {
-        const fraction = p / path.length
-        const pt = path[p]
-        
-        ctx.beginPath()
-        ctx.moveTo(prevX, prevY)          
-        ctx.strokeStyle = `rgb(${(1 - fraction) * 254},0, ${fraction * 254})`
-        ctx.lineTo(pt[0], pt[1])
+      const path = integratePath(startingX, startingY, dipoles, false, background, d.clipOffscreen)
+      allPaths.push(path)
+    }
+  }
 
-        ctx.stroke()
-        prevX = pt[0]
-        prevY = pt[1]
+  const numStreamlinesBackground = background.numLines
+  const backgroundStreamlineSpacing = width / numStreamlinesBackground
+  if (background.strength !== 0){
+    for (let i = 0; i < numStreamlinesBackground; i++) {
+      // Add some streamlines to show the background
+      let startingX = width / 2 + backgroundStreamlineSpacing * i
+      let startingY = height + 10
+      let path = integratePath(startingX, startingY, dipoles, false, background, true)
+      allPaths.push(path)
 
+      if (i == 0) {
+        continue
       }
+      startingX = width / 2 - backgroundStreamlineSpacing * i
+      startingY = height + 10
+      path = integratePath(startingX, startingY, dipoles, false, background, true)
+      allPaths.push(path)
+
+    }
+  }
+
+  for (let path of allPaths) {
+    const prevX = path[0][0]
+    const prevY = path[0][1]
+    for (let p = 0; p < path.length; p++) {
+      const fraction = p / path.length
+      const pt = path[p]
+      
+      ctx.beginPath()
+      ctx.moveTo(prevX, prevY)          
+      ctx.strokeStyle = `rgb(${(1 - fraction) * 254},0, ${fraction * 254})`
+      ctx.lineTo(pt[0], pt[1])
+
+      ctx.stroke()
+      prevX = pt[0]
+      prevY = pt[1]
+
     }
   }
   
@@ -368,6 +413,7 @@ export const renderDipole = (ctx, d, selected, north) => {
   const thetaL = 0 + d.theta + PI/2
   const thetaR = PI + d.theta + PI/2
 
+  ctx.strokeStyle = 'black';
   ctx.fillStyle = 'blue';
   ctx.beginPath()
   ctx.moveTo(Math.cos(theta0) * d.radius + d.x, Math.sin(theta0) * d.radius + d.y)
@@ -375,8 +421,8 @@ export const renderDipole = (ctx, d, selected, north) => {
   ctx.lineTo(Math.cos(thetaR) * d.w + d.x, Math.sin(thetaR) * d.w + d.y)
   ctx.lineTo(Math.cos(thetaL) * d.w + d.x, Math.sin(thetaL) * d.w + d.y)
   ctx.lineTo(Math.cos(theta0) * d.radius + d.x, Math.sin(theta0) * d.radius + d.y)
-  ctx.stroke()
   ctx.fill()
+  ctx.stroke()
 
   ctx.fillStyle = 'red';
   ctx.beginPath()
@@ -385,8 +431,8 @@ export const renderDipole = (ctx, d, selected, north) => {
   ctx.lineTo(Math.cos(thetaL) * d.w + d.x, Math.sin(thetaL) * d.w + d.y)
   ctx.lineTo(Math.cos(thetaR) * d.w + d.x, Math.sin(thetaR) * d.w + d.y)
   ctx.lineTo(Math.cos(theta2) * d.radius + d.x, Math.sin(theta2) * d.radius + d.y)
-  ctx.stroke()
   ctx.fill()
+  ctx.stroke()
 
 
 
@@ -404,5 +450,83 @@ export const renderDipole = (ctx, d, selected, north) => {
       ctx.arc(sx, sy, 30, 0, 2 * Math.PI);
       ctx.stroke();
     }
+  }
+}
+
+export const calculateTorques = (dipoles, background) => {
+  // This just finds the torques and saves them to the dipoles for rendering
+  const distanceScale = .001  // each pixel = 1 mm
+
+  for (let d of dipoles) {
+    // For each dipole we need to calculate torque
+    const [northX, northY] = findNorth(d)
+    const [southX, southY] = findSouth(d)
+
+    d.north = {}
+    d.south = {}
+
+    d.nettorque = 0
+
+    // The first step is to find all the dipoles which are not this dipole
+    for (let other of dipoles) {
+      if (other == d) {
+        continue
+      }
+
+      const [otherNorthX, otherNorthY] = findNorth(other)
+      const [otherSouthX, otherSouthY] = findSouth(other)
+
+
+      // Our dipole's North pole feels attraction to the other dipole's South pole
+      d.north.south = findForce(northX, northY, otherSouthX, otherSouthY, d.strength, other.strength, true)
+      
+      // and our dipole's North pole feels repulsion from the other dipole's North pole
+      d.north.north = findForce(northX, northY, otherNorthX, otherNorthY, d.strength, other.strength, false)
+      d.north.net = [d.north.north[0] + d.north.south[0], d.north.north[1] + d.north.south[1]]
+      const northDx = northX - d.x
+      const northDy = northY - d.y
+      d.north.torque = cross2D([northDx, northDy], [d.north.net[0], d.north.net[1]])
+      
+      // Our dipole's South pole feels attraction to the other dipole's North pole
+      d.south.north = findForce(southX, southY, otherNorthX, otherNorthY, d.strength, other.strength, true)
+      // and our dipole's North pole feels repulsion from the other dipole's North pole
+      d.south.south = findForce(southX, southY, otherSouthX, otherSouthY, d.strength, other.strength, false)
+      d.south.net = [d.south.north[0] + d.south.south[0], d.south.north[1] + d.south.south[1]]
+      const southDx = southX - d.x
+      const southDy = southY - d.y
+      d.south.torque = cross2D([southDx, southDy], [d.south.net[0], d.south.net[1]])
+      
+      d.net = [d.north.net[0] + d.south.net[0], d.north.net[1] + d.south.net[1]]
+      d.nettorque = d.north.torque + d.south.torque
+      
+    }
+
+    // Model the background field
+    const bgX = Math.cos(background.theta) * background.strength
+    const bgY = Math.sin(background.theta) * background.strength
+    const northDx = northX - d.x
+    const northDy = northY - d.y
+    const bgTorque = cross2D([northDx, northDy], [bgX, bgY])
+    d.nettorque += bgTorque
+  }
+}
+
+
+export const findForce = (m1x, m1y, m2x, m2y, m1s, m2s, attractive) => {
+  // Find the force that m1 feels because of m2, assuming they attract
+  const fMagGain = 100000
+  const dx = m2x - m1x
+  const dy = m2y - m1y
+  const dist = Math.hypot(dx, dy)
+  const dirx = dx / dist 
+  const diry = dy / dist
+  const fMag = m1s * m2s / (dist * dist) * fMagGain
+
+  const fx = dirx * fMag
+  const fy = diry * fMag
+  if (attractive) {
+    return [fx, fy]
+  } else {
+    return [-fx, -fy]
   }
 }

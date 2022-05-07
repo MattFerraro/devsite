@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from 'react'
-import { getMousePos, findNorth, findSouth, cross2D, applyTorques, renderDipole, renderFieldVectors, renderStreamlines } from './dipole_utils'
+import { calculateTorques, getMousePos, findNorth, findSouth, applyTorques, renderDipole, renderFieldVectors, renderStreamlines } from './dipole_utils'
 
 const width = 614
 const height = 400
@@ -11,13 +11,14 @@ const DipoleV2 = (props) => {
   const dipole1Ref = useRef({
     x: width * 1/3, y: height/2, w: 10, h: 40,
     theta: PI/2, dtheta:0, moment: 1,
-    strength:1});
+    strength:1, numLines: 23});
   const dipole2Ref = useRef({
     x: width * 2/3, y: height/2, w: 10, h: 40,
-    theta: -PI/4, dtheta:0, moment: 1, 
-    strength: 1});
+    theta: -PI/4, dtheta:0, moment: 1,
+    strength: 1, numLines: 23});
     dipole1Ref.current.radius = dipole1Ref.current.h
     dipole2Ref.current.radius = dipole2Ref.current.h
+  const backgroundRef = useRef({theta: PI/2, strength: 0, numLines: 18})
   
   const selectedDipoleRef = useRef(null)
 
@@ -43,80 +44,16 @@ const DipoleV2 = (props) => {
   const canvasVisibleRef = useRef(false)
   const requestIdRef = useRef(null);
 
-  const findForce = (m1x, m1y, m2x, m2y, m1s, m2s, attractive) => {
-    // Find the force that m1 feels because of m2, assuming they attract
-    const fMagGain = 100000
-    const dx = m2x - m1x
-    const dy = m2y - m1y
-    const dist = Math.hypot(dx, dy)
-    const dirx = dx / dist 
-    const diry = dy / dist
-    const fMag = m1s * m2s / (dist * dist) * fMagGain
-
-    const fx = dirx * fMag
-    const fy = diry * fMag
-    if (attractive) {
-      return [fx, fy]
-    } else {
-      return [-fx, -fy]
-    }
-  }
-
-  const calculateTorques = (dipoles) => {
-    // This just finds the torques and saves them to the dipoles for rendering
-    const distanceScale = .001  // each pixels = 1 mm
-
-    for (let d of dipoles) {
-      // For each dipole we need to calculate torque
-      const [northX, northY] = findNorth(d)
-      const [southX, southY] = findSouth(d)
-
-      d.north = {}
-      d.south = {}
-
-      // The first step is to find all the dipoles which are not this dipole
-      for (let other of dipoles) {
-        if (other == d) {
-          continue
-        }
-
-        const [otherNorthX, otherNorthY] = findNorth(other)
-        const [otherSouthX, otherSouthY] = findSouth(other)
-
-        // Our dipole's North pole feels attraction to the other dipole's South pole
-        d.north.south = findForce(northX, northY, otherSouthX, otherSouthY, d.strength, other.strength, true)
-        
-        // and our dipole's North pole feels repulsion from the other dipole's North pole
-        d.north.north = findForce(northX, northY, otherNorthX, otherNorthY, d.strength, other.strength, false)
-        d.north.net = [d.north.north[0] + d.north.south[0], d.north.north[1] + d.north.south[1]]
-        const northDx = northX - d.x
-        const northDy = northY - d.y
-        d.north.torque = cross2D([northDx, northDy], [d.north.net[0], d.north.net[1]])
-        
-        // Our dipole's South pole feels attraction to the other dipole's North pole
-        d.south.north = findForce(southX, southY, otherNorthX, otherNorthY, d.strength, other.strength, true)
-        // and our dipole's North pole feels repulsion from the other dipole's North pole
-        d.south.south = findForce(southX, southY, otherSouthX, otherSouthY, d.strength, other.strength, false)
-        d.south.net = [d.south.north[0] + d.south.south[0], d.south.north[1] + d.south.south[1]]
-        const southDx = southX - d.x
-        const southDy = southY - d.y
-        d.south.torque = cross2D([southDx, southDy], [d.south.net[0], d.south.net[1]])
-        
-
-        d.net = [d.north.net[0] + d.south.net[0], d.north.net[1] + d.south.net[1]]
-        d.nettorque = d.north.torque + d.south.torque
-        
-        
-      }
-    }
-  }
 
   const renderFrame = () => {
     const d1 = dipole1Ref.current
     const d2 = dipole2Ref.current
+    const background = backgroundRef.current
+
+    // console.log("render")
 
     // Simulate the physics
-    calculateTorques([d1, d2]) 
+    calculateTorques([d1, d2], background)
     if (rotationRef.current === "driven") {
       d2.theta += 0.004
       d2.dtheta = 0
@@ -134,22 +71,22 @@ const DipoleV2 = (props) => {
     ctx.clearRect(0,0, width, height)
     
     if (showFieldLinesRef.current) {
-      renderStreamlines(ctx, [d1, d2])
+      renderStreamlines(ctx, [d1, d2], background)
     }
     if (showFieldVectorsRef.current) {
-      renderFieldVectors(ctx, [d1, d2])
+      renderFieldVectors(ctx, [d1, d2], background)
     }
 
 
     if (selectedDipoleRef.current && selectedDipoleRef.current.dipole === 1) {
-      // console.log("SELECTED AND FOUND")
+      
       renderDipole(ctx, d1, true, selectedDipoleRef.current.north)
     } else {
       renderDipole(ctx, d1, false, false)
     }
     if (selectedDipoleRef.current && selectedDipoleRef.current.dipole === 2) {
       renderDipole(ctx, d2, true, selectedDipoleRef.current.north)
-      // console.log("SELECTED AND FOUND")
+      
     } else {
       renderDipole(ctx, d2, false, false)
     }
@@ -179,7 +116,9 @@ const DipoleV2 = (props) => {
         console.log("restarting v2 animations")
         requestIdRef.current = requestAnimationFrame(tick);
       }
-      if (evt[0].intersectionRatio === 1 && rotation === "unset") {
+      console.log("intersection observer rot:", rotation)
+      if (evt[0].intersectionRatio === 1 && rotationRef.current === "unset") {
+        console.log("freeing rotation")
         setRotation("free")
       }
       
@@ -224,20 +163,13 @@ const DipoleV2 = (props) => {
       }
       setRotation("fixed")
     }
-
-    // just remember which one we're moving in a ref
-
-
-    // also...don't move *any* if the click was not sufficiently close to one of them
-    // also highlight that monopole visually so they know they clicked
-    // if one is clicked, do not calculate or apply torques (but stay in free mode)
-    // then on drag, change d.theta to whichever most closly puts that monopole on that mouse move point
-    // then on mouse up, forget the clicked monopole and resume simulating torques
   }
 
   const mouseUp = (evt) => {
-    selectedDipoleRef.current = null
-    setRotation("free")
+    if (selectedDipoleRef.current) {
+      selectedDipoleRef.current = null
+      setRotation("free")
+    }
   } 
 
   const mouseMove = (evt) => {

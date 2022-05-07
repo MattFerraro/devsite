@@ -366,6 +366,9 @@ const DipoleV2 = dynamic(() => import('../../components/dipolev2'), {
 const DipoleV3 = dynamic(() => import('../../components/dipolev3'), {
   ssr: false
 })
+const DipoleV4 = dynamic(() => import('../../components/dipolev4'), {
+  ssr: false
+})
 
 const Vis3DRealizer = () => {
   const [isComponentMounted, setIsComponentMounted] = useState(false)
@@ -452,6 +455,7 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           ComplexNumberInverter,
           DipoleV2,
           DipoleV3,
+          DipoleV4,
           img: OptimizedImage,
           p: (paragraph) => {
 
