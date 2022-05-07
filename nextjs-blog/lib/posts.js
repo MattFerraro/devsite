@@ -12,7 +12,7 @@ const allowList = [
   "geometric-algebra.mdx",
   "joule-thomson.mdx",
   "inverse-of-a-circle.mdx",
-  "mri.mdx",
+  // "mri.mdx",
   // "impulse-response.mdx",
   // "simple-test.mdx"
 ]
