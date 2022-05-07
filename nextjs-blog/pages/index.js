@@ -19,6 +19,7 @@ export default function Home ({ allPostsData }) {
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
+        <meta name="google-site-verification" content="m79RgzcrBVb01J_uVW5sVjRG7FwRHPGb_YCTFAXhlUE" />
       </Head>
       <section className={utilStyles.headingMd}>
         <p>I'm an aerospace engineer and a software engineer. I love math and science, and I have two cats.</p>
@@ -26,6 +27,8 @@ export default function Home ({ allPostsData }) {
         <p>I try to post deep write-ups for a technical audience roughly once a month.</p>
 
         <p>If you want to subscribe to my content you can do so <a href="https://ca75030e.sibforms.com/serve/MUIEAGjBW1dCQAf8qMFX-PhgssdP7xAbJmCY9uoRoyLP9e0H62Ej8NG7cXcsFAU4JdfU0mlwZa9vTc3lfKa7ONXDCTtvU7Y2m9i9LiIrhDIASC7j1k_YpcahV1TMGzlwXbVthGoDvpVJxeBsz_9hFE3WNdjA4jcc_ocoNfDuOvU5-qLryUjlHk1PiSFoeSbUrmA3i9CVNsxK3V3i">here</a>.</p>
+
+        <p>If you want to support me on Patreon you can do so <a href="https://www.patreon.com/mattferrarodotdev">here</a></p>
         
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
