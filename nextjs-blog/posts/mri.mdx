@@ -5,21 +5,28 @@ teaserImage: 'https://mattferraro.dev/images/caustics-engineering/2D_image.jpg'
 date: '2022-04-22'
 ---
 
-Magnetic Resonance Imaging is a technique for creating medically-useful images of the insides of bodies. Compared to something like X-rays, MRI:
+<!-- Magnetic Resonance Imaging is a technique for creating medically-useful images of the insides of bodies. Compared to something like X-rays, MRI:
 - Produces no ionizing radiation
 - Can distinguish soft tissue such as white matter from grey matter
-- Can image *processes* such as oxygen absorption
+- Can image *processes* such as oxygen absorption -->
 
 <!-- But the downsides of MRIs are difficult to overlook:
 1. Extremely expensive machines
 2. High cost of operation
 3. Stringent siting requirements -->
 
-In this post we'll learn how MRI machines function, from the physics to the reconstruction algorithms. We'll see why they are so flexible, powerful, and dangerous.
+
+Magnetic Resonance Imaging allows us to take photos of the insides of our own brains. Here's mine:
+
+[MRI photo of my brain]
+
+In this post we'll learn how an MRI works. We'll see why they are so flexible, powerful, and dangerous.
 
 # Table of Contents
 
 # Dipole Alignment
+
+Let's start with a few basics about magnets.
 
 Every magnet has a <span style={{color:"red"}}>North</span> pole and a <span style={{color:"blue"}}>South</span> pole which are inseparable so we call them Dipoles. Whenever two dipoles get close together, they feel a torque which tries to align them anti-parallel to each other:
 
@@ -28,52 +35,120 @@ Every magnet has a <span style={{color:"red"}}>North</span> pole and a <span sty
 By the way these visualizations are interactive. You can click and rotate the poles to see what happens when you change their orientations.
 
 <!-- The pole on the left will stay at whatever angle you leave it. The pole on the right will respond to the resulting torques. You can also toggle the different visualization options if that's helpful for you. -->
-
+<!-- 
 A good mental model for magnetostatics is to break each dipole up into two monopoles, one with a <span style={{color:"red"}}>North</span> charge and one with a <span style={{color:"blue"}}>South</span> charge.
 
 The monopoles then pull on each other with a force:
 
 $$
 F = -k \frac{q_1 q_2}{\bm{r}^2}
-$$
+$$ -->
 
-Such that like poles repels and unlike poles attract each other.
+<!-- Such that like poles repels and unlike poles attract each other. -->
 
-If you constrain the monopoles to be rigidly connected to each other they behave like bar magnets. This simple model lets us calculate net forces and torques to surprisingly high accuracy.
+<!-- If you constrain the monopoles to be rigidly connected to each other they behave like bar magnets. This simple model lets us calculate net forces and torques to surprisingly high accuracy. -->
 
 <!-- Said a little differently: The math in this simulation is identical to how you might simulate electrostatics using positive and negative electric charges. -->
 
 <!-- Despite the simplicity of this model, it captures the phenomena we need to understand MRI. -->
 
-If one dipole is much larger and stronger than the other then near the small dipole the magnetic field of the big dipole looks uniform and we can simplify our model a bit.
+If one dipole is much larger and stronger than the other, then the small dipole looks like it's just submerged in a uniform magnetic field.
 
-Here I've replaced the larger dipole with a uniform background field. Once again the dominant behavior is to align.
+Here I've simulated a huge, very strong dipole far away to the left of the screeen. Once again the dominant behavior is to align.
 
 <DipoleV3></DipoleV3>
 
-A compass needle is a small permanant magnet that tries to align itself with the Earth's magnetic field, exactly like this simulation.
+Notice that if you use the slider to make the external field stronger, the alignment torque gets stronger and the oscillation frequency gets faster.
 
 <!-- The North end of a magnet is defined as the end that points toward the [Geographic North Pole](https://en.wikipedia.org/wiki/North_Pole) when used as a compass needle, which means that if you model the Earth as a big bar magnet, it's the South end of the bar that sits at Earth's [Magnetic North Pole](https://en.wikipedia.org/wiki/Geomagnetic_pole). -->
 
-Notice that if you make the external field stronger, the alignment torque gets stronger and the oscillation frequency gets faster.
+<!-- A compass needle is a small permanant magnet that tries to align itself with the Earth's magnetic field, exactly like this simulation. -->
 
-This oscillation frequency is called the [Larmor Frequency](https://www.sciencedirect.com/topics/computer-science/larmor-frequency) and it is the single most important concept in all of Magnetic Resonsance Imaging.
+<!-- This oscillation frequency is called the [Larmor Frequency](https://www.sciencedirect.com/topics/computer-science/larmor-frequency) and it is the single most important concept in all of Magnetic Resonance Imaging. -->
 
-# Unpaired Protons and Nuclear Dipoles
+To first order, the frequency of the magnetic oscillation is something like:
 
-Protons, electrons, and neutrons all exhibit **magnetic moment** which means they all behave like tiny little bar magnets.
+$$
+f_{magnet} = \frac{d}{I} \cdot B
+$$
 
-<!-- Both protons and neutrons exhibit spin and are composed of smaller particles called Quarks which carry electric charge. Spinning electric charges create dipoles so all protons and all neutrons behave like tiny little bar magnets. -->
+Where $d$ is the strength of the dipole, $I$ is its moment of inertia, and $B$ is the strength of the magnetic field it is submerged in.
 
-A Hydrogen atom, $^{1}_{0}\text{H}$, contains a single proton and a single electron. When exposed to an external magnetic field both the proton and the electron will feel a torque that tries to align them with that field exactly like tiny compass needles.
+Note that if two magnets have the same $\frac{d}{I}$, they will oscillate at the same frequency even if one is much larger or stronger. The *ratio* is what matters.
+
+In fact let's invent a term here and define $\frac{d}{I}$ as the **Magnetomoment Ratio**. It encapsulates the ratio of how strongly the magnet couples to the surrounding field to how resistant it is to changing its orientation.
+
+A Neodymium magnet has a high magnetomoment ratio and an Iron magnet has a weak one.
+
+<!-- 
+$$
+f_{Larmor} = g \cdot B
+$$
+
+Where $B$ is the strength of the magnetic field, and $g$ is the [gyromagnetic ratio](https://en.wikipedia.org/wiki/Gyromagnetic_ratio) of the magnet. -->
+
+# Gyroscopic Precession
+
+The second idea we need to understand is Precession and I know this feels like a non-sequitur, but toy gyroscopes are by far the most relatable example.
+
+To understand why a gyroscope doesn't fall over, it's easiest to start by looking at its angular momentum vector:
+
+<Gyroscope></Gyroscope>
+
+Without gravity, the angular momentum vector of the gyroscope remains constant. As you increase the strength of gravity you create a force that tries to pull the center of mass of the gyroscope to the ground. The distance from the center of mass to the pivot point forms a lever arm which means that the gyroscope experiences a torque which tries to rotate it towards the ground.
+
+Over time the torque vector gets added to the angular momentum vector but the two are always perpendicular so the angular momentum vector doesn't get shorter or longer, it just changes direction. Eventually the angular momentum vector swings back around to where it started. This process is called precession and however many times it precesses in a second is called its precession frequency.
+
+This mental model equips us to make qualitative predictions:
+
+- If we add mass to the gyroscope frame, the precession frequency should get faster
+- If we spin the gyroscope faster, the precession frequency should get slower
+- If we add more mass to the spinning center, then the angular momentum vector will get larger but the gravity torque will also get larger, so it depends!
+
+Working out the math yields a formula for the precession frequency:
+
+$$
+\omega_{precession} = \frac{mr}{I\omega} \cdot g
+$$
+
+Where $m$ is the mass of the gyroscope, $r$ is half the height, $I$ is the moment of inertia, and $g$ is the gravitational acceleration.
+
+We can invent another new word here and say that $\frac{mr}{I\omega}$ is the **Gyrogravitational Ratio**. It encapsulates the ratio between how strongly gravity is trying to pull the gyroscope down, and how strongly the gyroscope resists being pulled down.
+
+# Unpaired Protons and Nuclear Precession
+
+We've been looking at bar magnets so far, but the real phenomenon we're interested in is microscopic.
+
+Protons, electrons, and neutrons all exhibit a property called **magnetic moment** which means they all behave like tiny little bar magnets:
+
+| Particle | Gyromagnetic Ratio (MHz/Tesla) |
+|:-- |:-- |
+| proton | 42.577 |
+| neutron | -29.164 |
+| electron | 28024.951 |
+
+<!-- Both protons and neutrons exhibit spin and are composed of smaller particles called Quarks which carry electric charge. Spinning electric 
+charges create dipoles so all protons and all neutrons behave like tiny little bar magnets. -->
+
+When left alone in a strong magnetic field, all three subatomic particles will desperately try to snap into alignment exactly like how a compass needle tries to align with the Earth's magnetic field.
+
+[Visualization where the magnet is a sphere and it is 3D. You can pull the camera around and switch between proton, neutron, electron or see all three at once? No need for field lines. Maybe the sphere is segmented so you can more easily see rotation and procession?]
+
+<Nuclides></Nuclides>
+
+What looked like a oscillation in 2D turns out to be a precession in 3D. Subatomic particles precess like spinning tops as they try to align with the field!
+
+The proton will serve as our primary example and compared to it the neutron precesses in the opposite direction and is a little slower. The electron precesses so fast that we cannot really perceive its movement on the proton's time scale.
+
+We can assemble one proton and one electron into a $^{1}_{0}\text{H}$ Hydrogen atom and 
+
+https://en.wikipedia.org/wiki/Spin_isomers_of_hydrogen
 
 Right now you are sitting in the Earth's magnetic field and consequently all the protons and electrons of all Hydrogen atoms in your body are constantly trying to align themselves with it. They are at this moment oscillating around it at the Larmor frequency you would expect given the Earth's field strength.
 
 This isn't just a theoretical example. You can [produce MRI images using this effect](https://pubmed.ncbi.nlm.nih.gov/2233218/). But I'm jumping ahead.
 
 In a nucleus with two protons such as $^{4}_{2}\text{He}$, you might expect the two protons to both align with the external magnetic field and the resulting nucleus to have twice the magnetic moment, but the opposite happens:
-
-<DipoleV4></DipoleV4>
 
 [Simulation with two small dipoles in a larger uniform field with slide for separation distance, both spinning free]
 
@@ -257,3 +332,8 @@ Hyperpolarized 129Xe imaging: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC35589
 Larmor Frequency: https://www.sciencedirect.com/topics/computer-science/larmor-frequency
 
 Mention that electrons do the same thing and that's also a kind of imaging!
+
+
+Note that gyromagnetic ratio of electron is the single best measured and best predicted numbers in all of physics.
+
+Talk about how a pendulum would have also been a great example to start with, but I didn't include it because a) pendulums are so boring that a lot of people would just stop reading and b) the ratio of a pendulum coupling to gravity to its resistence to change is always 1! This is a startling puzzle and leads to some very deep questions about intertia and gravity, but it would have been a distraction in a post about MRI.

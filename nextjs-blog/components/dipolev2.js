@@ -203,16 +203,22 @@ const DipoleV2 = (props) => {
     }
   }
 
+  // <input type="checkbox" checked={rotation==="driven"} id="rotate2" name="rotate" value="rotate" onChange={() => setRotation(rotation==="driven"?"free":"driven")}></input>
+  //     <label htmlFor="rotate2"> Autospin </label>
+
+  // <input type="checkbox" checked={showFieldVectors} id="showfieldvectors2" name="showfieldvectors" value="showfieldvectors" onChange={() => setShowFieldVectors(!showFieldVectors)}></input>
+  //     <label htmlFor="showfieldvectors2"> Show Field Indicators </label>
+
+  // <input type="checkbox" checked={showFieldLines} id="showfieldlines2" name="showfieldlines" value="showfieldlines" onChange={() => setShowFieldLines(!showFieldLines)}></input>
+  //     <label htmlFor="showfieldlines2"> Show Field Lines </label>
+
   return <div>
       <canvas ref={canvasRef} onMouseMove={mouseMove} onMouseUp={mouseUp} onMouseDown={mouseDown} className="dipole-vis" width={width} height={height} style={{width:width, height: height}}></canvas>
-      <input type="checkbox" checked={rotation==="driven"} id="rotate2" name="rotate" value="rotate" onChange={() => setRotation(rotation==="driven"?"free":"driven")}></input>
-      <label htmlFor="rotate2"> Autospin </label>
-
-      <input type="checkbox" checked={showFieldLines} id="showfieldlines2" name="showfieldlines" value="showfieldlines" onChange={() => setShowFieldLines(!showFieldLines)}></input>
-      <label htmlFor="showfieldlines2"> Show Field Lines </label>
       
-      <input type="checkbox" checked={showFieldVectors} id="showfieldvectors2" name="showfieldvectors" value="showfieldvectors" onChange={() => setShowFieldVectors(!showFieldVectors)}></input>
-      <label htmlFor="showfieldvectors2"> Show Field Indicators </label>
+
+      
+      
+      
       
     </div>
 }

@@ -369,6 +369,12 @@ const DipoleV3 = dynamic(() => import('../../components/dipolev3'), {
 const DipoleV4 = dynamic(() => import('../../components/dipolev4'), {
   ssr: false
 })
+const Nuclides = dynamic(() => import('../../components/mri/nuclides'), {
+  ssr: false
+})
+const Gyroscope = dynamic(() => import('../../components/mri/gyroscope'), {
+  ssr: false
+})
 
 const Vis3DRealizer = () => {
   const [isComponentMounted, setIsComponentMounted] = useState(false)
@@ -456,6 +462,8 @@ export default function Post({ metadata, mdxSource, imgDims }) {
           DipoleV2,
           DipoleV3,
           DipoleV4,
+          Nuclides,
+          Gyroscope,
           img: OptimizedImage,
           p: (paragraph) => {
 

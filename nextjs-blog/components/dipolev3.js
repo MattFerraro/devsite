@@ -181,22 +181,24 @@ const DipoleV3 = (props) => {
 
   }
 
+
+  // <div>
+  //       <input type="checkbox" checked={rotation==="driven"} id="rotate3" name="rotate" value="rotate" onChange={() => setRotation(rotation==="driven"?"free":"driven")}></input>
+  //       <label htmlFor="rotate3"> Autospin </label>
+
+  //       <input type="checkbox" checked={showFieldLines} id="showfieldlines3" name="showfieldlines" value="showfieldlines" onChange={() => setShowFieldLines(!showFieldLines)}></input>
+  //       <label htmlFor="showfieldlines3"> Show Field Lines </label>
+        
+  //       <input type="checkbox" checked={showFieldVectors} id="showfieldvectors3" name="showfieldvectors" value="showfieldvectors" onChange={() => setShowFieldVectors(!showFieldVectors)}></input>
+  //       <label htmlFor="showfieldvectors3"> Show Field Indicators </label>
+  //     </div>
+
   return <div>
       <canvas ref={canvasRef} onMouseMove={mouseMove} onMouseUp={mouseUp} onMouseDown={mouseDown} className="dipole-vis" width={width} height={height} style={{width:width, height: height}}></canvas>
-      <div>
-        <input type="checkbox" checked={rotation==="driven"} id="rotate3" name="rotate" value="rotate" onChange={() => setRotation(rotation==="driven"?"free":"driven")}></input>
-        <label htmlFor="rotate3"> Autospin </label>
+      
 
-        <input type="checkbox" checked={showFieldLines} id="showfieldlines3" name="showfieldlines" value="showfieldlines" onChange={() => setShowFieldLines(!showFieldLines)}></input>
-        <label htmlFor="showfieldlines3"> Show Field Lines </label>
-        
-        <input type="checkbox" checked={showFieldVectors} id="showfieldvectors3" name="showfieldvectors" value="showfieldvectors" onChange={() => setShowFieldVectors(!showFieldVectors)}></input>
-        <label htmlFor="showfieldvectors3"> Show Field Indicators </label>
-      </div>
-
-      <div>
-        Field Strength:
-        <input type="range" min="5" max="80" value={BGStrength} onChange={(evt) => {setBGStrength(evt.target.value)}} id="myRange"></input>
+      <div style={{width:'100%'}}>
+        <input className='slider' type="range" min="5" max="80" value={BGStrength} onChange={(evt) => {setBGStrength(evt.target.value)}} id="myRange"></input>
       </div>
     </div>
 }
