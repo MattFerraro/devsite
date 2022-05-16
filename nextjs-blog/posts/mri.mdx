@@ -20,7 +20,7 @@ Magnetic Resonance Imaging allows us to take photos of the insides of our own br
 
 [MRI photo of my brain]
 
-In this post we'll learn how an MRI works. We'll see why they are so flexible, powerful, and dangerous.
+In this post we'll learn how MRI works. We'll see why they are so flexible, powerful, and dangerous.
 
 # Table of Contents
 
@@ -66,7 +66,7 @@ Notice that if you use the slider to make the external field stronger, the align
 
 <!-- This oscillation frequency is called the [Larmor Frequency](https://www.sciencedirect.com/topics/computer-science/larmor-frequency) and it is the single most important concept in all of Magnetic Resonance Imaging. -->
 
-To first order, the frequency of the magnetic oscillation is something like:
+The frequency of the magnetic oscillation is something like:
 
 $$
 f_{magnet} = \frac{d}{I} \cdot B
@@ -74,11 +74,11 @@ $$
 
 Where $d$ is the strength of the dipole, $I$ is its moment of inertia, and $B$ is the strength of the magnetic field it is submerged in.
 
-Note that if two magnets have the same $\frac{d}{I}$, they will oscillate at the same frequency even if one is much larger or stronger. The *ratio* is what matters.
+Note that if two magnets have the same $\frac{d}{I}$ and are submerged in the same magnetic field, they will oscillate at the same frequency even if they are dramatically different in size or strength. The *ratio* is what matters.
 
-In fact let's invent a term here and define $\frac{d}{I}$ as the **Magnetomoment Ratio**. It encapsulates the ratio of how strongly the magnet couples to the surrounding field to how resistant it is to changing its orientation.
+In fact let's invent a term here and define $\frac{d}{I}$ as the **Magnetomoment Ratio**. It encapsulates the ratio of how strongly the magnet couples to the surrounding field vs how resistant it is to changing its orientation.
 
-A Neodymium magnet has a high magnetomoment ratio and an Iron magnet has a weak one.
+A Neodymium magnet has a high magnetomoment ratio and an Iron magnet has a weaker one.
 
 <!-- 
 $$
@@ -91,58 +91,143 @@ Where $B$ is the strength of the magnetic field, and $g$ is the [gyromagnetic ra
 
 The second idea we need to understand is Precession and I know this feels like a non-sequitur, but toy gyroscopes are by far the most relatable example.
 
-To understand why a gyroscope doesn't fall over, it's easiest to start by looking at its angular momentum vector:
+To understand why a gyroscope doesn't fall over, it's easiest to start by looking at its <span style={{"color":"#f08826"}}>angular momentum vector </span>:
 
 <Gyroscope></Gyroscope>
 
-Without gravity, the angular momentum vector of the gyroscope remains constant. As you increase the strength of gravity you create a force that tries to pull the center of mass of the gyroscope to the ground. The distance from the center of mass to the pivot point forms a lever arm which means that the gyroscope experiences a torque which tries to rotate it towards the ground.
+<!-- TODO slider for $\phi$ -->
 
-Over time the torque vector gets added to the angular momentum vector but the two are always perpendicular so the angular momentum vector doesn't get shorter or longer, it just changes direction. Eventually the angular momentum vector swings back around to where it started. This process is called precession and however many times it precesses in a second is called its precession frequency.
+Without gravity, the <span style={{"color":"#f08826"}}>angular momentum vector </span> of the gyroscope remains fixed. As you increase the pull of gravity you create a <span style={{"color":"#00bf19"}}>gravitational force</span> that tries to pull the center of mass of the gyroscope to the ground. The distance from the center of mass to the pivot point forms a <span style={{"color":"#0095e6"}}>lever arm</span> which means that the gyroscope experiences a <span style={{"color":"#6500bd"}}>torque</span> which tries to rotate it towards the ground.
 
-This mental model equips us to make qualitative predictions:
+$$
+\textcolor{#6500bd}{\tau} = \textcolor{#0095e6}{r} \times \textcolor{#00bf19}{F}
+$$
+
+To simulate what happens over time we add the <span style={{"color":"#6500bd"}}>torque vector</span> to the <span style={{"color":"#f08826"}}>angular momentum vector</span> but the two are always perpendicular so the angular momentum vector doesn't get shorter or longer, it just changes direction. Eventually the angular momentum vector swings back around to where it started. This process is called [precession](https://en.wikipedia.org/wiki/Precession) and however many times it precesses in a second is called its precession frequency.
+
+<!-- This mental model equips us to make qualitative predictions:
 
 - If we add mass to the gyroscope frame, the precession frequency should get faster
 - If we spin the gyroscope faster, the precession frequency should get slower
-- If we add more mass to the spinning center, then the angular momentum vector will get larger but the gravity torque will also get larger, so it depends!
+- If we add more mass to the spinning center, then the angular momentum vector will get larger but the gravity torque will also get larger, so it depends! -->
 
 Working out the math yields a formula for the precession frequency:
 
 $$
-\omega_{precession} = \frac{mr}{I\omega} \cdot g
+f_{precession} = \frac{mr}{If} \cdot g
 $$
 
-Where $m$ is the mass of the gyroscope, $r$ is half the height, $I$ is the moment of inertia, and $g$ is the gravitational acceleration.
+Where $mr$ is the mass of the gyroscope times the length of the lever arm, and $If$ is the gyroscope's moment of inertia times the spinning part's frequency. $g$ is the gravitational acceleration.
 
-We can invent another new word here and say that $\frac{mr}{I\omega}$ is the **Gyrogravitational Ratio**. It encapsulates the ratio between how strongly gravity is trying to pull the gyroscope down, and how strongly the gyroscope resists being pulled down.
+We can invent another new word here and say that $\frac{mr}{If}$ is the **Gyrogravitational Ratio**. It encapsulates the ratio between how strongly gravity is trying to change the gyroscope's orientation vs how strongly the gyroscope resists having its orientation changed. The interplay between these two effects is what gives rise to the oscillation.
 
-# Unpaired Protons and Nuclear Precession
+Note that nobody ever uses the words "Magnetomoment Ratio" or "Gyrogravitational Ratio", I made them up to illustrate the structural similarities between magnetic oscillation and angular precession. They are stepping stones for the next topic which fuses the two together.
 
-We've been looking at bar magnets so far, but the real phenomenon we're interested in is microscopic.
+<!-- TODO: talk about how the system loses energy over time due to friction and will eventually fall. Maybe simulate that and add a restart button? -->
 
-Protons, electrons, and neutrons all exhibit a property called **magnetic moment** which means they all behave like tiny little bar magnets:
+# The Electron and The Nucleons
 
-| Particle | Gyromagnetic Ratio (MHz/Tesla) |
+<!-- There is a system in nature which fuses the behavior of the two systems we've discussed above: The free nucleon in a uniform magnetic field. -->
+
+Consider a lone proton, neutron or electron swimming in a strong magnetic field. How will it behave?
+
+All three particles exhibit a quantum-mechanical property called **spin**, which means they all behave like tiny gyroscopes that can never cease spinning. They have angular momentum vectors pointing off in some direction so they resist changes in orientation.
+
+Incidentally, they all have spin $\frac{1}{2} \hbar$ which means their angular momentum vectors are all the same length.
+
+These tiny gyroscopes do not experience gravitational torques but they *do* feel alignment torque due to the background magnetic field!
+
+The proton and neutron are each composed of quarks which carry electric charge and the electron is a point particle which carries charge. Spinning charges *are* current loops, so they induce their own magnetic dipoles.
+
+Therefore all three _also_ behave like tiny bar magnets, desperately trying to align with the background field!
+
+The resulting magnetic torque causes the subatomic particles to precess about the local magnetic field lines exactly like tiny gyroscopes.
+
+[simulation of one of each in a uniform field, not mutually interacting, with variable phi]
+
+Note that if you increase the tilt angle $\phi$ the precession frequency does not change.
+
+<!-- This is a remarkable geometric coincidence which stems from the fact that the alignment torque increases as $\sin{\phi}$. -->
+
+<!-- Over time energy is lost and the particles come to rest, still spinning, in alignment with the field. -->
+
+In this situation the precession frequency is given a special name: the Larmor Frequency. It's governing equation is:
+
+$$
+f_{Larmor} = \frac{m}{L} \cdot B
+$$
+
+Where $m$ is the particle's magnetic moment, $L$ is the particle's angular momentum, and $B$ is the strength of the surrounding magnetic field.
+
+This ratio $\frac{m}{L}$ is commonly referred to as the particle's **Gyromagnetic Ratio** and it is written as $\gamma$ (greek _gamma_).
+
+$$
+\gamma = \frac{m}{L}
+$$
+
+Unlike the two phrases I made up earlier, the [Gyromagnetic Ratio](https://en.wikipedia.org/wiki/Gyromagnetic_ratio) is an important concept in particle physics and you can look it up in reference tables.
+
+<!-- Predicting a subatomic particle's gyromagnetic ratio from scratch involves quantum mechanics and is way outside the scope of this post but it involves finding the ratio between how strongly the magnetic field tries to change the particle's orientation vs how strongly the particle resists changes to its orientation. -->
+
+<!-- Said another way: How magnety is it vs how gyroscopy is it? -->
+
+For example we can look up the three particles in question:
+
+| Particle | $\bold{\gamma}$ (MHz/Tesla) |
 |:-- |:-- |
 | proton | 42.577 |
 | neutron | -29.164 |
 | electron | 28024.951 |
 
-<!-- Both protons and neutrons exhibit spin and are composed of smaller particles called Quarks which carry electric charge. Spinning electric 
-charges create dipoles so all protons and all neutrons behave like tiny little bar magnets. -->
+This table tells us that a proton placed in a 1 Tesla magnetic field will precess at 42.577 MHz, and the governing equation tells us that the precession frequency responds linearly to changes in field strength.
 
-When left alone in a strong magnetic field, all three subatomic particles will desperately try to snap into alignment exactly like how a compass needle tries to align with the Earth's magnetic field.
+Note that the proton and neutron have similar Larmor frequencies in a 1 T field, but the neutron precesses a little more slowly and in the opposite direction. 
 
-[Visualization where the magnet is a sphere and it is 3D. You can pull the camera around and switch between proton, neutron, electron or see all three at once? No need for field lines. Maybe the sphere is segmented so you can more easily see rotation and procession?]
+The magnetic dipole moment of an electron is far stronger than the nucleons' so its precession frequency is much faster.
 
-<Nuclides></Nuclides>
+# Nuclide Response
 
-What looked like a oscillation in 2D turns out to be a precession in 3D. Subatomic particles precess like spinning tops as they try to align with the field!
+A Nuclide is a specific configuration of an atomic nucleus. It is written like:
 
-The proton will serve as our primary example and compared to it the neutron precesses in the opposite direction and is a little slower. The electron precesses so fast that we cannot really perceive its movement on the proton's time scale.
+$$
+^{7}_{3}\text{Li}^{}_{4}
+$$
 
-We can assemble one proton and one electron into a $^{1}_{0}\text{H}$ Hydrogen atom and 
+And this one is pronounced "Lithium 7, 3, 4". The letters at the center are the chemical symbol from the periodic table and the $7$ indicates the total number of nucleons in the nuclide. The $3$ indicates the number of protons and is redundant with the chemical symbol. The $4$ is also redundant because it tells you how many neutrons are in the nuclide, which is always equal to $7 - 3$.
 
-https://en.wikipedia.org/wiki/Spin_isomers_of_hydrogen
+When writing in shorthand you almost always omit the $4$ and the $3$. If you see something written as $^{7}\text{Li}$ it is understood that you're talking about $^{7}_{3}\text{Li}^{}_{4}$.
+
+The simplest stable nuclide is $^1_{1}\text{H}_{0}$ which consists of just a single proton. We already know how this precesses in a magnetic field.
+
+But what happens with $^4_{2}\text{He}_{2}$, which has two protons and two neutrons?
+
+Remember from the first section that when you bring two bar magnets near each other they try to anti-align with each other. Nucleons will do the same thing.
+
+The two protons will snap together in a pair such that their combined magnetic moment is zero. The two neutrons do the same and snap together, leaving the nucleus as a whole with zero magnetic moment and therefore no precession at all!
+
+The same thing happens with $^{12}_{6}\text{C}_{6}$, $^{18}_{8}\text{O}_{10}$, and any other nuclide that has an even number of protons and an even number of neutrons. Consequently:
+
+> Roughly $\frac{1}{4}$ of all nuclides do not possess magnetic moment and therefore do not precess at all.
+
+So what happens with $^3_{1}\text{H}_{2}$, with its pair of neutrons and a lone proton?
+
+The neutrons pair up and cancel out both their magnetic dipole moments and their angular momentums. The resulting nuclide behaves very much like a lone proton, with $\gamma = 45.415$ MHz/T.
+
+A similar phenomenon occurs with $^3_{2}\text{H}_{1}$, which behaves very much like a lone neutron with $\gamma = -32.434$ MHz/T.
+
+But what happens with $^2_{1}\text{H}_{1}$?
+
+The proton and neutron snap together like tiny bar magnets but they are not equal in strength so they cancel somewhat but not completely. Their angular momentums are aligned and therefore add constructively. The nuclide has a weaker dipole and a larger angular momentum, so $^2_{1}\text{H}_{1}$  precesses quite slowly at just $\gamma = 6.535$ MHz/Tesla.
+
+[diagram of the anti-alignment of dipoles but alignment of angular momemtum vectors]
+
+It is possible to calculate the gyromagnetic ratio of any particle or nuclide from first principles using Quantum Electrodynamics and indeed this exact exercise applied to an [electron](https://en.wikipedia.org/wiki/Precision_tests_of_QED#Anomalous_magnetic_dipole_moments) is commonly held up as the single most convincing proof of that theory.
+
+But that approach is only practical when dealing with extremely simple systems like lone electrons or muons. For heavy nuclides it is far better to rely on empirically measured [tables](https://web.archive.org/web/20180201154413/http://www-lcs.ensicaen.fr/pyPulsar/index.php/List_of_NMR_isotopes).
+
+When applied to the muon (a particle just like the electron but heavier and short-lived), the empirical results for $\gamma$ do not agree perfectly with theory and this is considered by some to be a promising lead in the hunt for physics beyond the standard model.
+
+# Hello
 
 Right now you are sitting in the Earth's magnetic field and consequently all the protons and electrons of all Hydrogen atoms in your body are constantly trying to align themselves with it. They are at this moment oscillating around it at the Larmor frequency you would expect given the Earth's field strength.
 
@@ -337,3 +422,10 @@ Mention that electrons do the same thing and that's also a kind of imaging!
 Note that gyromagnetic ratio of electron is the single best measured and best predicted numbers in all of physics.
 
 Talk about how a pendulum would have also been a great example to start with, but I didn't include it because a) pendulums are so boring that a lot of people would just stop reading and b) the ratio of a pendulum coupling to gravity to its resistence to change is always 1! This is a startling puzzle and leads to some very deep questions about intertia and gravity, but it would have been a distraction in a post about MRI.
+
+
+If you want a classical explanation of why, remember that protons and neutrons are composed of charged particles called quarks. Each quark is both charged and spinning, so it produces a B field. In a neutron the total charges sum to zero, but the B fields do not sum to zero.
+
+Talk about different spin states and how you could potentially excite the spin of a nuclide to create a spin isomer, then image just the spin isomers because their \gamma will be very different than those around them.
+
+https://en.wikipedia.org/wiki/Spin_isomers_of_hydrogen
