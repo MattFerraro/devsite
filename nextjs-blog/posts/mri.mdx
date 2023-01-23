@@ -1,8 +1,8 @@
 ---
-title: "How does an MRI take pictures?"
-teaser: "some teaser text"
-teaserImage: 'https://mattferraro.dev/images/caustics-engineering/2D_image.jpg'
-date: '2022-04-22'
+title: "Introduction to Nuclear Magnetic Resonance"
+teaser: "Magnetic Resonance Imaging and MR Spectroscopy work because of the high-frequency wiggling of..."
+teaserImage: "https://mattferraro.dev/images/caustics-engineering/2D_image.jpg"
+date: "2022-04-22"
 ---
 
 <!-- Magnetic Resonance Imaging is a technique for creating medically-useful images of the insides of bodies. Compared to something like X-rays, MRI:
@@ -15,12 +15,19 @@ date: '2022-04-22'
 2. High cost of operation
 3. Stringent siting requirements -->
 
+The Nuclear Magnetic Resonance phenomenon gives us two distinct technologies: NMR Spectroscopy and NMR Imaging, also called MRI.
 
-Magnetic Resonance Imaging allows us to take photos of the insides of our own brains. Here's mine:
+NMR Spectroscopy can directly identify the chemical components of unknown compounds, and it gives us hints about the spatial structure of those compounds.
+
+MRI is the most flexible form of medical imaging yet imagined, and one of the most complex to implement.
+
+In this post we will learn the foundational concepts and build a useful mental model of the Nuclear Magnetic Resonance which we will build on in future posts.
+
+<!-- Magnetic Resonance Imaging allows us to take photos of the insides of our own brains. Here's mine:
 
 [MRI photo of my brain]
 
-In this post we'll learn how MRI works. We'll see why they are so flexible, powerful, and dangerous.
+In this post we'll learn how MRI works. We'll see why the technology is so flexible, powerful, and dangerous. -->
 
 # Table of Contents
 
@@ -28,14 +35,18 @@ In this post we'll learn how MRI works. We'll see why they are so flexible, powe
 
 Let's start with a few basics about magnets.
 
-Every magnet has a <span style={{color:"red"}}>North</span> pole and a <span style={{color:"blue"}}>South</span> pole which are inseparable so we call them Dipoles. Whenever two dipoles get close together, they feel a torque which tries to align them anti-parallel to each other:
+Every magnet has a <span style={{color:"red"}}>North</span> pole and a <span style={{color:"blue"}}>South</span> pole which are inseparable so we call them Dipoles. The "strength" of a dipole is called $m$, its _magnetic dipole moment_.
 
-<DipoleV2></DipoleV2>
+Any magnet made of matter will exhibit inertia: it will resist changes in orientation and position. In this post we will pay attention to $I$, the magnet's _moment of inertia_ which quantifies how much the magnet resists rotation about a given axis.
 
-By the way these visualizations are interactive. You can click and rotate the poles to see what happens when you change their orientations.
+Whenever two dipoles get close together, they feel a torque which tries to align them anti-parallel to each other:
+
+<DipoleWebGL></DipoleWebGL>
+
+<!-- By the way these visualizations are interactive. You can click and rotate the poles to see what happens when you change their orientations. -->
 
 <!-- The pole on the left will stay at whatever angle you leave it. The pole on the right will respond to the resulting torques. You can also toggle the different visualization options if that's helpful for you. -->
-<!-- 
+<!--
 A good mental model for magnetostatics is to break each dipole up into two monopoles, one with a <span style={{color:"red"}}>North</span> charge and one with a <span style={{color:"blue"}}>South</span> charge.
 
 The monopoles then pull on each other with a force:
@@ -50,15 +61,13 @@ $$ -->
 
 <!-- Said a little differently: The math in this simulation is identical to how you might simulate electrostatics using positive and negative electric charges. -->
 
-<!-- Despite the simplicity of this model, it captures the phenomena we need to understand MRI. -->
+Notice that if you use the slider to make the left magnet stronger, the alignment torque gets stronger and the right magnet's oscillation frequency gets faster.
 
-If one dipole is much larger and stronger than the other, then the small dipole looks like it's just submerged in a uniform magnetic field.
+<!-- If one dipole is much larger and stronger than the other, then the small dipole looks like it's just submerged in a uniform magnetic field. -->
 
-Here I've simulated a huge, very strong dipole far away to the left of the screeen. Once again the dominant behavior is to align.
+<!-- Here I've simulated a huge, very strong dipole far away to the left of the screeen. Once again the dominant behavior is to align. -->
 
-<DipoleV3></DipoleV3>
-
-Notice that if you use the slider to make the external field stronger, the alignment torque gets stronger and the oscillation frequency gets faster.
+<!-- Notice that if you use the slider to make the external field stronger, the alignment torque gets stronger and the oscillation frequency gets faster. -->
 
 <!-- The North end of a magnet is defined as the end that points toward the [Geographic North Pole](https://en.wikipedia.org/wiki/North_Pole) when used as a compass needle, which means that if you model the Earth as a big bar magnet, it's the South end of the bar that sits at Earth's [Magnetic North Pole](https://en.wikipedia.org/wiki/Geomagnetic_pole). -->
 
@@ -69,18 +78,18 @@ Notice that if you use the slider to make the external field stronger, the align
 The frequency of the magnetic oscillation is something like:
 
 $$
-f_{magnet} = \frac{d}{I} \cdot B
+f_{magnet} = \frac{m}{I} \cdot B
 $$
 
-Where $d$ is the strength of the dipole, $I$ is its moment of inertia, and $B$ is the strength of the magnetic field it is submerged in.
+Where $m$ is the strength of the magnet on the right, $I$ is its moment of inertia, and $B$ is the strength of the magnetic field it is submerged in, which is proportional to the strength of the magnet on the left.
 
-Note that if two magnets have the same $\frac{d}{I}$ and are submerged in the same magnetic field, they will oscillate at the same frequency even if they are dramatically different in size or strength. The *ratio* is what matters.
+This equation predicts that any other magnets with the same $\frac{m}{I}$ will oscillate at the same frequency as the magnet on the right, even if they are dramatically different in size or strength. The _ratio_ is what matters.
 
-In fact let's invent a term here and define $\frac{d}{I}$ as the **Magnetomoment Ratio**. It encapsulates the ratio of how strongly the magnet couples to the surrounding field vs how resistant it is to changing its orientation.
+In fact let's invent a term here and define $\frac{m}{I}$ as the **Magnetomoment Ratio**. It encapsulates the ratio of how strongly the magnet couples to the surrounding field vs how resistant it is to changing its orientation.
 
-A Neodymium magnet has a high magnetomoment ratio and an Iron magnet has a weaker one.
+A Neodymium magnet has a high magnetomoment ratio and an Iron magnet has a low one, so all else being constant the Neodymium magnet should oscillate faster.
 
-<!-- 
+<!--
 $$
 f_{Larmor} = g \cdot B
 $$
@@ -91,16 +100,16 @@ Where $B$ is the strength of the magnetic field, and $g$ is the [gyromagnetic ra
 
 The second idea we need to understand is Precession and I know this feels like a non-sequitur, but toy gyroscopes are by far the most relatable example.
 
-To understand why a gyroscope doesn't fall over, it's easiest to start by looking at its <span style={{"color":"#f08826"}}>angular momentum vector </span>:
+To understand why a gyroscope doesn't fall over, it's easiest to start by looking at its <span style={{"color":"#f08826"}}>angular momentum vector</span>:
 
 <Gyroscope></Gyroscope>
 
 <!-- TODO slider for $\phi$ -->
 
-Without gravity, the <span style={{"color":"#f08826"}}>angular momentum vector </span> of the gyroscope remains fixed. As you increase the pull of gravity you create a <span style={{"color":"#00bf19"}}>gravitational force</span> that tries to pull the center of mass of the gyroscope to the ground. The distance from the center of mass to the pivot point forms a <span style={{"color":"#0095e6"}}>lever arm</span> which means that the gyroscope experiences a <span style={{"color":"#6500bd"}}>torque</span> which tries to rotate it towards the ground.
+Without gravity, the <span style={{"color":"#f08826"}}>angular momentum vector </span> of the gyroscope remains fixed. As you use the slider to increase the pull of gravity you create a <span style={{"color":"#0d6efd"}}>gravitational force</span> that tries to pull the center of mass of the gyroscope to the ground. The distance from the center of mass to the pivot point forms a <span style={{"color":"#00bf19"}}>lever arm</span> which means that the gyroscope experiences a <span style={{"color":"#6500bd"}}>torque</span> which tries to rotate it towards the ground.
 
 $$
-\textcolor{#6500bd}{\tau} = \textcolor{#0095e6}{r} \times \textcolor{#00bf19}{F}
+\textcolor{#6500bd}{\tau} = \textcolor{#00bf19}{r} \times \textcolor{#0095e6}{F}
 $$
 
 To simulate what happens over time we add the <span style={{"color":"#6500bd"}}>torque vector</span> to the <span style={{"color":"#f08826"}}>angular momentum vector</span> but the two are always perpendicular so the angular momentum vector doesn't get shorter or longer, it just changes direction. Eventually the angular momentum vector swings back around to where it started. This process is called [precession](https://en.wikipedia.org/wiki/Precession) and however many times it precesses in a second is called its precession frequency.
@@ -121,31 +130,37 @@ Where $mr$ is the mass of the gyroscope times the length of the lever arm, and $
 
 We can invent another new word here and say that $\frac{mr}{If}$ is the **Gyrogravitational Ratio**. It encapsulates the ratio between how strongly gravity is trying to change the gyroscope's orientation vs how strongly the gyroscope resists having its orientation changed. The interplay between these two effects is what gives rise to the oscillation.
 
-Note that nobody ever uses the words "Magnetomoment Ratio" or "Gyrogravitational Ratio", I made them up to illustrate the structural similarities between magnetic oscillation and angular precession. They are stepping stones for the next topic which fuses the two together.
+Our equation predicts that all gyroscopes with the same Gyrogravitational Ratio will precess at the same frequency when placed in the same gravity well.
+
+Note that nobody ever uses the words "Magnetomoment Ratio" or "Gyrogravitational Ratio". I made them up to illustrate the structural similarities between magnetic dipole oscillation and angular precession. They are stepping stones for the next topic which fuses the two together.
 
 <!-- TODO: talk about how the system loses energy over time due to friction and will eventually fall. Maybe simulate that and add a restart button? -->
 
 # The Electron and The Nucleons
 
-<!-- There is a system in nature which fuses the behavior of the two systems we've discussed above: The free nucleon in a uniform magnetic field. -->
+Consider a lone proton, neutron or electron submerged in a strong magnetic field. How will it behave?
 
-Consider a lone proton, neutron or electron swimming in a strong magnetic field. How will it behave?
+The proton and neutron are composed of quarks which carry electric charge and the electron is a point particle which carries charge. Spinning charges _are_ current loops, so our tiny gyroscopes also induce their own magnetic dipoles.
 
-All three particles exhibit a quantum-mechanical property called **spin**, which means they all behave like tiny gyroscopes that can never cease spinning. They have angular momentum vectors pointing off in some direction so they resist changes in orientation.
+[svg diagram of the three particles showing that they all make dipoles]
 
-Incidentally, they all have spin $\frac{1}{2} \hbar$ which means their angular momentum vectors are all the same length.
+All three particles will therefore behave like tiny bar magnets. They will feel a torque that tries to align them with the background field exactly like we saw in the first section of this post.
 
-These tiny gyroscopes do not experience gravitational torques but they *do* feel alignment torque due to the background magnetic field!
+At the same time, all three particles exhibit a quantum-mechanical property called **spin** which means they all behave like tiny gyroscopes that can never cease spinning. They always have angular momentum vectors pointing off in some direction so they resist changes in orientation just like gyroscopes.
 
-The proton and neutron are each composed of quarks which carry electric charge and the electron is a point particle which carries charge. Spinning charges *are* current loops, so they induce their own magnetic dipoles.
+Incidentally, they all have spin $\frac{1}{2} \hbar$ which means their angular momentum vectors are all the same length. The constant $\hbar$ comes from quantum mechanics and it is a tiny unit of angular momentum.
 
-Therefore all three _also_ behave like tiny bar magnets, desperately trying to align with the background field!
+<!-- These tiny gyroscopes do not experience gravitational torques but they _do_ feel alignment torque due to the background magnetic field! -->
 
-The resulting magnetic torque causes the subatomic particles to precess about the local magnetic field lines exactly like tiny gyroscopes.
+The magnetic torque tries to align the particles' spin axis with the magnetic field vector but because they are gyroscopes they do not immediately align--they precess.
 
-[simulation of one of each in a uniform field, not mutually interacting, with variable phi]
+[simulation of one of each in a uniform field, not mutually interacting, with variable phi. proton is red, electron is blue, neutron is grey?]
 
-Note that if you increase the tilt angle $\phi$ the precession frequency does not change.
+<Nucleons></Nucleons>
+
+The only difference between this situation and the gyroscope from the previous section is that in this case, the alignment torque comes from the magnetic interaction instead of gravity.
+
+Note that if you change the tilt angle $\phi$ the precession amplitude will change, but the frequency will stay constant.
 
 <!-- This is a remarkable geometric coincidence which stems from the fact that the alignment torque increases as $\sin{\phi}$. -->
 
@@ -174,28 +189,30 @@ Unlike the two phrases I made up earlier, the [Gyromagnetic Ratio](https://en.wi
 For example we can look up the three particles in question:
 
 | Particle | $\bold{\gamma}$ (MHz/Tesla) |
-|:-- |:-- |
-| proton | 42.577 |
-| neutron | -29.164 |
-| electron | 28024.951 |
+| :------- | :-------------------------- |
+| proton   | 42.577                      |
+| neutron  | -29.164                     |
+| electron | 28024.951                   |
 
 This table tells us that a proton placed in a 1 Tesla magnetic field will precess at 42.577 MHz, and the governing equation tells us that the precession frequency responds linearly to changes in field strength.
 
-Note that the proton and neutron have similar Larmor frequencies in a 1 T field, but the neutron precesses a little more slowly and in the opposite direction. 
+Note that the proton and neutron have similar Larmor frequencies in a 1 T field, but the neutron precesses a little slower and in the opposite direction.
 
-The magnetic dipole moment of an electron is far stronger than the nucleons' so its precession frequency is much faster.
+The magnetic dipole moment of an electron is far stronger than the nucleons' so its precession frequency is about 1000x faster. I had to slow it down in the simulation above just to make it visible.
 
 # Nuclide Response
 
-A Nuclide is a specific configuration of an atomic nucleus. It is written like:
+It is rare in nature to find lone protons or neutrons. They generally prefer to bunch up together as atomic nuclei called nuclides.
 
-$$
-^{7}_{3}\text{Li}^{}_{4}
-$$
+> A Nuclide is a specific configuration of an atomic nucleus. It is written like:
+>
+> $$
+> ^{7}_{3}\text{Li}^{}_{4}
+> $$
 
-And this one is pronounced "Lithium 7, 3, 4". The letters at the center are the chemical symbol from the periodic table and the $7$ indicates the total number of nucleons in the nuclide. The $3$ indicates the number of protons and is redundant with the chemical symbol. The $4$ is also redundant because it tells you how many neutrons are in the nuclide, which is always equal to $7 - 3$.
+This one is pronounced "Lithium 7, 3, 4". The letters at the center are the chemical symbol from the periodic table and the $7$ indicates the total number of nucleons in the nuclide. The $3$ indicates the number of protons and is redundant with the chemical symbol. The $4$ is also redundant because it tells you how many neutrons are in the nuclide, which is equal to $n_{nuleons} - n_{protons}$. In this case $7 - 3 = 4$.
 
-When writing in shorthand you almost always omit the $4$ and the $3$. If you see something written as $^{7}\text{Li}$ it is understood that you're talking about $^{7}_{3}\text{Li}^{}_{4}$.
+When writing in shorthand you usually omit the $4$ and the $3$. If you see something written as $^{7}\text{Li}$ it is understood that you're talking about $^{7}_{3}\text{Li}^{}_{4}$.
 
 The simplest stable nuclide is $^1_{1}\text{H}_{0}$ which consists of just a single proton. We already know how this precesses in a magnetic field.
 
@@ -203,31 +220,60 @@ But what happens with $^4_{2}\text{He}_{2}$, which has two protons and two neutr
 
 Remember from the first section that when you bring two bar magnets near each other they try to anti-align with each other. Nucleons will do the same thing.
 
-The two protons will snap together in a pair such that their combined magnetic moment is zero. The two neutrons do the same and snap together, leaving the nucleus as a whole with zero magnetic moment and therefore no precession at all!
+The two protons will anti-align and snap together into a pair such that their combined magnetic moment is zero and their combined angular momentum is also zero.
+
+[svg diagram of two protons showing that their net angular momentum is zero and that their net magnetic dipole moment is zero]
+
+The two neutrons do the same and snap together and cancel out, leaving the nucleus as a whole with zero magnetic moment and therefore no precession at all!
+
+[svg diagram showing two protons and two neutrons both snapped together into pairs that cancel out, leaving the total at zero]
 
 The same thing happens with $^{12}_{6}\text{C}_{6}$, $^{18}_{8}\text{O}_{10}$, and any other nuclide that has an even number of protons and an even number of neutrons. Consequently:
 
-> Roughly $\frac{1}{4}$ of all nuclides do not possess magnetic moment and therefore do not precess at all.
+> Roughly $\frac{1}{4}$ of all nuclides possess a magnetic moment of 0 and an angular momentum of 0 and therefore do not precess.
 
 So what happens with $^3_{1}\text{H}_{2}$, with its pair of neutrons and a lone proton?
 
-The neutrons pair up and cancel out both their magnetic dipole moments and their angular momentums. The resulting nuclide behaves very much like a lone proton, with $\gamma = 45.415$ MHz/T.
+The neutrons pair up and cancel out. The resulting nuclide behaves very much like a lone proton, with $\gamma = 45.415$ MHz/T. It is not identical to a single proton, but its larmor frequency is very similar.
 
-A similar phenomenon occurs with $^3_{2}\text{H}_{1}$, which behaves very much like a lone neutron with $\gamma = -32.434$ MHz/T.
+A similar phenomenon occurs with $^3_{2}\text{He}_{1}$, which behaves very much like a lone neutron with $\gamma = -32.434$ MHz/T.
 
 But what happens with $^2_{1}\text{H}_{1}$?
 
-The proton and neutron snap together like tiny bar magnets but they are not equal in strength so they cancel somewhat but not completely. Their angular momentums are aligned and therefore add constructively. The nuclide has a weaker dipole and a larger angular momentum, so $^2_{1}\text{H}_{1}$  precesses quite slowly at just $\gamma = 6.535$ MHz/Tesla.
+[svg diagram of this nuclide showing that one thing cancels but not the other]
 
-[diagram of the anti-alignment of dipoles but alignment of angular momemtum vectors]
+The proton and neutron snap together like tiny bar magnets but they are not equal in strength so they cancel somewhat but not completely. Their angular momentum vectors are aligned and so add constructively.
 
-It is possible to calculate the gyromagnetic ratio of any particle or nuclide from first principles using Quantum Electrodynamics and indeed this exact exercise applied to an [electron](https://en.wikipedia.org/wiki/Precision_tests_of_QED#Anomalous_magnetic_dipole_moments) is commonly held up as the single most convincing proof of that theory.
+All together, the nuclide has a weaker dipole and a larger angular momentum. Looking back to our equation for Larmor frequency:
 
-But that approach is only practical when dealing with extremely simple systems like lone electrons or muons. For heavy nuclides it is far better to rely on empirically measured [tables](https://web.archive.org/web/20180201154413/http://www-lcs.ensicaen.fr/pyPulsar/index.php/List_of_NMR_isotopes).
+$$
+f_{Larmor} = \frac{m}{L} \cdot B
+$$
 
-When applied to the muon (a particle just like the electron but heavier and short-lived), the empirical results for $\gamma$ do not agree perfectly with theory and this is considered by some to be a promising lead in the hunt for physics beyond the standard model.
+The $^2_{1}\text{H}_{1}$ nuclide has small $m$ and large $L$, so we should expect much slower oscillation. Consulting a reference table we see that yes, $^2_{1}\text{H}_{1}$ precesses quite slowly at just $\gamma = 6.535$ MHz/T.
 
-# Hello
+It is theoretically possible to calculate the gyromagnetic ratio of any particle or nuclide from first principles using [Quantum Electrodynamics](https://press.princeton.edu/books/paperback/9780691164090/qed) (cheekily abbreviated QED). and indeed this exact exercise applied to an electron [agrees so well](https://en.wikipedia.org/wiki/Precision_tests_of_QED#Anomalous_magnetic_dipole_moments) with empirical observation that it is sometimes lauded as the single most convincing piece of evidence for that theory.
+
+But when applied to the muon (a particle just like the electron but heavier and short-lived), the empirical results for $\gamma$ [do not agree perfectly with theory](<https://en.wikipedia.org/wiki/G-factor_(physics)#Muon_g-factor>) and this is considered by some to be a promising lead in the hunt for physics beyond the standard model.
+
+But the theoretical approach is only practical when dealing with extremely simple systems. Nuclides are far too complex to accurately model from QED so it is better to rely on empirically measured [tables](https://web.archive.org/web/20180201154413/http://www-lcs.ensicaen.fr/pyPulsar/index.php/List_of_NMR_isotopes):
+
+| Nuclide           | $\gamma$ (MHz/Tesla) |
+| :---------------- | :------------------- |
+| $^{1}\text{H}$    | 42.577               |
+| $^{2}\text{H}$    | 6.536                |
+| $^{3}\text{H}$    | 45.415               |
+| $^{3}\text{He}$   | -32.434              |
+| $^{13}\text{C}$   | 10.708               |
+| $^{14}\text{N}$   | 3.077                |
+| $^{14}\text{N}$   | -4.316               |
+| $^{57}\text{Fe}$  | 1.382                |
+| $^{67}\text{Zn}$  | 2.669                |
+| $^{129}\text{Xe}$ | -11.777              |
+
+For the purposes of understanding MRI, existing reference tables tell us everything we need to know about the behavior of nuclides.
+
+<!-- # Hello
 
 Right now you are sitting in the Earth's magnetic field and consequently all the protons and electrons of all Hydrogen atoms in your body are constantly trying to align themselves with it. They are at this moment oscillating around it at the Larmor frequency you would expect given the Earth's field strength.
 
@@ -268,57 +314,53 @@ Light nuclides with strong dipoles such as $^{1}\text{H}$ and $^{3}\text{He}$ ha
 
 <!-- Remember from earlier that the oscillation frequency scales linearly with the strength of the magnetic field, so knowing the gyromagnetic ratio of a nuclide tells us how to find its oscillation frequency in *any* magnetic field. -->
 
-The oscillation frequency, called the Larmor Frequency, is defined as:
+<!-- The oscillation frequency, called the Larmor Frequency, is defined as: -->
 
-$$
+<!-- $$
 f_{larmor} = \gamma \cdot B
 $$
 
-Where $\gamma$ is the gyromagnetic ratio of the nuclide in question, and $B$ is the strength of the magnetic field in Teslas. The constant $\gamma$ therefore carries SI units of $\text{rad} \cdot \text{s}^{-1} \cdot \text{Tesla}^{-1}$ but for most practical applications we use $\frac{\text{MHz}}{\text{Tesla}}$.
-
-| Nuclide | Gyromagnetic Ratio (MHz/Tesla) |
-|:-- |:-- |
-| $^{1}\text{H}$ | 42.577 |
-| $^{2}\text{H}$ | 6.536 |
-| $^{3}\text{H}$ | 45.415 |
-| $^{3}\text{He}$ | -32.434 |
-| $^{13}\text{C}$ | 10.708 |
-| $^{14}\text{N}$ | 3.077 |
-| $^{14}\text{N}$ | -4.316 |
-| $^{57}\text{Fe}$ | 1.382 |
-| $^{67}\text{Zn}$ | 2.669 |
-| $^{129}\text{Xe}$ | -11.777 |
-| $e$ | 28024.951 |
+Where $\gamma$ is the gyromagnetic ratio of the nuclide in question, and $B$ is the strength of the magnetic field in Teslas. The constant $\gamma$ therefore carries SI units of $\text{rad} \cdot \text{s}^{-1} \cdot \text{Tesla}^{-1}$ but for most practical applications we use $\frac{\text{MHz}}{\text{Tesla}}$. -->
 
 # Excitation and The Nuclear Magnetic Resonance
 
-Electromagnetic waves contribute a time-varying magnetic field on top of the background field which causes the local field angle to wiggle:
+An electromagnetic wave is a time-varying electric field which induces a time-varying magnetic field. While the electric field isn't relevant to the Larmor oscillation, the magnetic field is very relevant.
+
+If we superimpose a time-varying magnetic field on top of a fixed magnetic field, we can cause the local field angle to wiggle:
 
 [interactive demo split into three parts showing the background field, the time-varying field contributed by the wave, and the sum of the two. Allow user to toggle frequency and amplitude of the wave]
 
 [optionally, have a toggle on that demo that shows field lines instead of vector directions?]
 
-What does it look like when we put a nuclide in this field? In this simulation we've got a fixed background field of 1 Tesla and I've slowed down time by a factor of 10,000,000.
+What does it look like when we put a nuclide in this wiggling field? In this simulation we've got a fixed background field of 1 Tesla and I've slowed down time by a factor of 10,000,000.
 
 [interactive demo of the nuclide. Allow user to pick which nuclide from a dropdown, and allow them to control amplitude and frequency. damping rate is fixed and kinda high]
 
-Notice that each nuclide can be made to resonate but only when the frequency of the electromagnetic wave matches the Larmor frequency of the nuclide. This is the phenomenon known as Nuclear Magnetic Resonance.
+Notice that each nuclide can be made to resonate but only when the frequency of the electromagnetic wave matches the Larmor frequency of the nuclide. This is the phenomenon known as Nuclear Magnetic Resonance, abbreviated NMR.
 
 ## Damping
 
 <!-- Up until now our rotating dipoles have exhibited an unnamed damping torque that slows rotations. In a compass this is provided by friction. For nuclides, this is provided by their intrinsic coupling to the electromagnetic field. -->
 
-If you place your hand in a pool full of water there is no way for you to shake it back and forth without also emanating waves which travel outward along the surface. The waves carry energy away from the excitation and the water pushes back against the movement of your hand, which feels like a damping force.
+The simulation above exhibits an unnamed damping force which requires explanation.
 
-Given a magnetic dipole in free space, there is no way for it to oscillate without also emanating electromagnetic waves which travel outward through space. The electromagnetic field that permeates our universe acts like an endless pool and every charged particle acts like a hand dipped in its surface. To belabor the metaphor: moving a charged particle back and forth is like swashing your hand left and right. Rotating a dipole back and forth is like twisting your hand clockwise and counterclockwise.
+If you place your hand in a pool full of water there is no way for you to shake it back and forth without also creating waves which travel outward along the surface. The waves carry energy away from the excitation and the water pushes back against the movement of your hand, which feels like a damping force.
 
-The waves carry away energy at a rate proportional to the energy of the oscillation, which means that a dipole left to oscillate freely will see its energy decay exponentially, just as shown in the simulations so far.
+Given a magnetic dipole in free space, there is no way for it to oscillate without also creating electromagnetic waves which travel outward through space. The electromagnetic field that permeates our universe acts like an endless pool of water and every charged particle acts like a hand dipped in its surface, both creating and feeling the effects of ripples.
+
+<!-- To belabor the metaphor: moving a charged particle back and forth is like swashing your hand left and right. Rotating a dipole back and forth is like twisting your hand clockwise and counterclockwise. -->
+
+The waves carry away energy at a rate proportional to the energy of the oscillation, which means that a dipole left to oscillate freely will see its energy decay over time as shown in the simulations so far. The energy is lost in the form of electromagnetic waves which are emitted out into space.
+
+If we can create a uniform magnetic field, put some sample of nuclides inside, then hit it with a brief and carefully controlled electromagnetic wave, we can "charge up" the relevant nuclear magnetic resonances. Then we can listen for the energetic nuclides to emit waves back at us as they settle down to nonenergetic states. By analyzing the response waves we can learn about the nuclides.
+
+The field of NMR Spectroscopy (abbreviated NMR) lets us learn about the nuclear and chemical properties of the sample while the field of Nuclear Magnetic Resonance Imaging (abbreviated MRI) lets us learn about the spatial distribution of different sample nuclides whose properties are already known.
 
 # NMR Spectroscopy
 
 Let's try an experiment where we place an unknown nuclide in a strong magnetic field, then hit it with electromagnetic waves of different frequencies.
 
-For each frequency that we choose, we'll emit it for a few seconds to excite any resonance which might occur, then we'll abruptly stop emitting and start listening instead. If the nuclide was able to resonant, then we'll hear it give off waves.
+For each frequency that we choose, we'll emit it for a few seconds to excite any resonance which might occur, then we'll abruptly stop emitting and start listening instead. If the nuclide was able to resonate, then we'll hear it give off waves.
 
 [interactive with unknown nuclide and we can select a frequency, then hit "emit" and we'll see it emit, resonate or not, and then we stop emitting and show a plot of whatever waves it gives off]
 
@@ -348,9 +390,15 @@ With a chirp we can measure an entire band of frequencies at once! The fourier t
 
 Devices that perform this experiment are called NMR Spectrometers and they are [available on ebay](https://www.ebay.com/sch/i.html?_nkw=NMR+spectrometer).
 
+# Conclusion
+
+Larmor oscillation is an inescapable consequence of building a gyroscope out of magnet. If you built a toy gyroscope out of iron, magnetized it, then set it spinning in low earth orbit, the gyroscope would precess and this could be correctly classified as Larmor oscillation.
+
+There is a lot more to say about NMR and MRI, this post is only meant to cover the fundamentals. I hope that in future posts I can do those topics justice!
+
 ## Bulk Measurements
 
-The simulation we've been playing with shows the receiver coil very close to the nuclide in question but this is not practical in applied experiments. 
+The simulation we've been playing with shows the receiver coil very close to the nuclide in question but this is not practical in applied experiments.
 
 An actual NMR Spectrometer permits glass vials full of samples and keeps all of the radio equipment outside of the sample.
 
@@ -358,7 +406,9 @@ An actual NMR Spectrometer permits glass vials full of samples and keeps all of 
 
 So, how do we sense the behavior of nuclides which are of order $10^{-15}$ meters across from outside the glass vial, several millimeters away?
 
-The trick is to ensure that the entire sample is submerged in a very strong and uniform magnetic field. If that is the case, every nuclide inside will behave the exact same way and they will all oscillate in phase with each other. So long as they stay in phase they will sway in unison and the resulting waves that they emit all constructively interfere. This adds up to a signal we can easily measure with standard lab equipment.
+The trick is to ensure that the entire sample is submerged in a very uniform magnetic field. If that is the case, every nuclide inside will behave the exact same way and they will all oscillate in phase with each other. So long as they stay in phase they will sway in unison and the resulting waves that they emit all constructively interfere. This adds up to a signal we can easily measure with standard lab equipment.
+
+[simulation with many individual dipoles all in phase, adding their signals]
 
 Let's suppose the field strength is exactly 3 Tesla at one end of the glass vial. The Larmor frequency of $^{1}_{0}H$ will then be:
 
@@ -366,7 +416,7 @@ $$
 3 \cdot 42.577 \space \text{MHz} = 127.731 \space \text{MHz}
 $$
 
-If the field strength increases linearly to 3.0001 Tesla at the other end of the vial, then the Larmor frequency on that end will be 
+If the field strength increases linearly to 3.0001 Tesla at the other end of the vial, then the Larmor frequency on that end will be
 
 $$
 3.0001 \cdot 42.577 \space \text{MHz} = 127.735 \space \text{MHz}
@@ -374,15 +424,17 @@ $$
 
 The difference in Larmor frequencies is just $.004 \space \text{MHz}$ but that equals $4 \space \text{kHz}$ which means that the oscillating nuclides will drift out of phase with each other by $180 \degree$ in just $\frac{1}{8000}$ of a second.
 
+[simulation with many individual dipoles with just a slight dephasing]
+
 You might expect that the two sides of the vial would be back in phase again another $\frac{1}{8000}$ of a second later and that's true, but what about the nuclides in the middle where the field strength is 3.00005 Tesla?
 
-To find the resulting signal we have to sum up a continuum of frequencies in the range and the resulting waves will in general never come back into phase and the signal will be lost.
+To find the resulting signal we have to sum up a continuum of frequencies in the range and the resulting waves will in general never come back into phase.
+
+Even with a field variation of just 1 part in 10,000 the signal will be lost in less than a millisecond.
 
 Lab NMR Spectrometers consequently need field uniformity of order 1 part per million.
 
-## Field Uniformity 
-
-
+<!-- ## Field Uniformity
 
 These tiny machines generate very strong and very uniform magnetic fields such that every nuclide in the sample feels the exact same field strength to within a few parts per million. In a 3 Tesla field, that means the maximum field deviation is of order 3 microtesla.
 
@@ -390,11 +442,33 @@ For reference the Earth's magnetic field can range anywhere between 25,000 - 65,
 
 Such machines consequently need to be shielded from Earth's magnetic field as well as any exogenous fields like wifi routers, microwaves, cell phone towers, etc. Passive shielding is easy to achieve by encasing the sample in sheets of mu-metal, permalloy, or other high-permeability metal.
 
-The field uniformity is so important because it causes blurriness in the measured spectrum. 
-
-## Superposition of Nuclides
+The field uniformity is so important because it causes blurriness in the measured spectrum.  -->
 
 ## T1 vs T2 Signal
+
+Given an excited nuclide, we can measure its magnetic dipole in two different locations:
+
+[diagram showing T1 and T2, with a "charge" button. When you press it the thing gets more excited. When you release it, it starts a new time series graph showing T1 and T2 times.]
+
+The T1 graph always starts out at zero and approaches 1, while the T2 graph always starts with a strong sine wave that gets weaker over time. The time it takes for the T1 intensity to reach 90% is called the T1 time, and the time it takes for the T2 wave to reach 10% of its original intensity is called the T2 time.
+
+For a single nuclide the T1 time is always equal to the T2 time.
+
+But when you add many nuclides, something changes:
+
+[simulation with a bunch of nuclides and that same charge button. when you press it they all get excited and approach the same phase. when you release it, they quickly dephase]
+
+The issue is the mutual interaction between neighboring dipoles. They are all exerting torques on each other and trying to anti-align with all the other nearby nuclides.
+
+Even in a perfectly uniform background field, the phase coherence falls apart very quickly.
+
+The observed T2 time is called T2\* and it is of order 1/10 T2.
+
+But wait, if the phase coherence falls apart because of local interactions, then shouldn't this T2 shortening effect be sensitive to the density of the material?
+
+Indeed, both fat and water contain lots of 1H. But fat is less dense so its T2\* time is longer than the water's!
+
+## Superposition of Nuclides
 
 ## Spin Echo?
 
@@ -408,9 +482,7 @@ The field uniformity is so important because it causes blurriness in the measure
 
 ## Phase Effects
 
-
 Separate post about magnetism? Field lines and energy density and Heusler Alloys and differences between Ferro/Para/Diamagnetism. Also Anti-Ferromagnetism, magnetic ionic compounds, geometrical frustration, Iron Catastrophe
-
 
 Hyperpolarized 129Xe imaging: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3558952/
 
@@ -418,14 +490,24 @@ Larmor Frequency: https://www.sciencedirect.com/topics/computer-science/larmor-f
 
 Mention that electrons do the same thing and that's also a kind of imaging!
 
-
 Note that gyromagnetic ratio of electron is the single best measured and best predicted numbers in all of physics.
 
 Talk about how a pendulum would have also been a great example to start with, but I didn't include it because a) pendulums are so boring that a lot of people would just stop reading and b) the ratio of a pendulum coupling to gravity to its resistence to change is always 1! This is a startling puzzle and leads to some very deep questions about intertia and gravity, but it would have been a distraction in a post about MRI.
-
 
 If you want a classical explanation of why, remember that protons and neutrons are composed of charged particles called quarks. Each quark is both charged and spinning, so it produces a B field. In a neutron the total charges sum to zero, but the B fields do not sum to zero.
 
 Talk about different spin states and how you could potentially excite the spin of a nuclide to create a spin isomer, then image just the spin isomers because their \gamma will be very different than those around them.
 
 https://en.wikipedia.org/wiki/Spin_isomers_of_hydrogen
+
+Look up chemical shift anisotropy for 31P
+
+also the actual basis for NMR Spectroscopy is chemical shift!
+
+Talk about what causes specific T1 and T2?
+
+Look up Lactate Doublet
+
+Talk about magic angle? https://mri-q.com/magic-angle.html
+
+Rewrite the section about hand waving in a pool. It is wrong.
