@@ -28,11 +28,11 @@ const Gyroscope = () => {
     gravityRef.current = gravity
   }, [gravity])
 
-  const [phi, setPhi] = useState(0.2)
-  const phiRef = useRef(phi)
-  useEffect(() => {
-    phiRef.current = phi
-  }, [phi])
+  // const [phi, setPhi] = useState(0.2)
+  // const phiRef = useRef(phi)
+  // useEffect(() => {
+  //   phiRef.current = phi
+  // }, [phi])
 
   useEffect(() => {
     const { scene, camera, renderer } = setupBasicScene(

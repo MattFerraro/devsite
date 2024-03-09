@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useRef } from "react"
 import * as THREE from "three"
-import { rotateAboutPoint, setupBasicScene } from "./webgl_utils"
+import { setupBasicScene } from "./webgl_utils"
 import { Vector3 } from "three"
 import { RGBELoader } from "../../lib/RGBELoader"
-import { BufferGeometry } from "three"
 
-const width = 614
-const height = 400
 const PI = 3.1415926
 
 const fieldLinesPerPole = 19
@@ -22,9 +19,6 @@ const DipoleWebGL = () => {
   const sceneContext = useRef()
   const requestIdRef = useRef(null)
 
-  const sliderRef = useRef(null)
-
-  const [exciting, setExciting] = useState(false)
   const [showFieldLines, setShowFieldLines] = useState(true)
   const showFieldLinesRef = useRef(showFieldLines)
   const [showArrows, setShowArrows] = useState(false)
@@ -32,12 +26,6 @@ const DipoleWebGL = () => {
 
   const timestampRef = useRef(0)
   const arrowGroupRef = useRef()
-
-  const [size, setSize] = useState(1)
-  const sizeRef = useRef(size)
-  useEffect(() => {
-    sizeRef.current = size
-  }, [size])
 
   const mainDipoleRef = useRef({
     theta: PI / 2,
@@ -83,15 +71,7 @@ const DipoleWebGL = () => {
     }
   }, [strength])
 
-  const [separation, setSeparation] = useState(0.06)
-  useEffect(() => {
-    otherDipoleRef.current.center.x = parseFloat(separation)
-    updateDipole(otherDipoleRef.current)
-  }, [separation])
-
   const exciteRef = useRef(false)
-  const exciteButtonRef = useRef()
-  const arrowsRef = useRef(false)
 
   useEffect(() => {
     const { scene, camera, renderer } = setupBasicScene(
@@ -256,18 +236,6 @@ const DipoleWebGL = () => {
           sceneContext.current.southSphere = sphere2
         }
 
-        // Create a sine-like wave
-        // const curve = new THREE.SplineCurve( [
-        //     new THREE.Vector2( -.10, 0 ),
-        //     new THREE.Vector2( -.05, .05 ),
-        //     new THREE.Vector2( 0, 0 ),
-        //     new THREE.Vector2( .05, -.05 ),
-        //     new THREE.Vector2( .10, 0 )
-        // ] );
-
-        // const points = curve.getPoints( 15 );
-        // console.log(points)
-
         // Add all the Line objects and geometries so we can animate them later
         const fieldLines = []
         const points = []
@@ -336,7 +304,7 @@ const DipoleWebGL = () => {
       sceneContext.current.cylinderGroup.rotation.y = PI / 2 - dipole1.theta
     }
 
-    if (sceneContext.current.arrows && showArrows) {
+    if (sceneContext.current.arrows && showArrowsRef.current) {
       const arrows = sceneContext.current.arrows
       for (let a = 0; a < arrows.length; a++) {
         const arrow = arrows[a]
@@ -452,10 +420,6 @@ const DipoleWebGL = () => {
         lineGeometry.attributes.color.needsUpdate = true
       }
     }
-
-    if (webGLContext.current.camera) {
-      // webGLContext.current.camera.position.set(0, otherDipoleRef.current.center.x * 2 + .3, 0)
-    }
   }
 
   const integratePath = (start, n) => {
@@ -524,12 +488,10 @@ const DipoleWebGL = () => {
 
   const beginExcite = () => {
     exciteRef.current = true
-    setExciting(true)
   }
 
   const endExcite = () => {
     exciteRef.current = false
-    setExciting(false)
   }
 
   const toggleArrows = () => {

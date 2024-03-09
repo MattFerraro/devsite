@@ -14,13 +14,13 @@ const Nucleons = () => {
   const sceneContext = useRef()
   const requestIdRef = useRef(null)
   const [nucleon, setNucleon] = useState("proton")
-  const [gravity, setGravity] = useState(2)
+  const [gravity, setGravity] = useState(0)
   const gravityRef = useRef(gravity)
   useEffect(() => {
     gravityRef.current = gravity
   }, [gravity])
 
-  const [phi, setPhi] = useState(0.2)
+  const [phi, setPhi] = useState(3.1415926 / 6)
   const phiRef = useRef(phi)
   useEffect(() => {
     phiRef.current = phi
@@ -29,8 +29,8 @@ const Nucleons = () => {
   useEffect(() => {
     const { scene, camera, renderer } = setupBasicScene(
       canvasRef.current,
-      false,
-      false
+      true,
+      true
     )
     webGLContext.current = { scene, camera, renderer }
     sceneContext.current = setScene(scene, renderer)
@@ -63,53 +63,90 @@ const Nucleons = () => {
         const metalness = 0.8
         const n = 8
         const m = 8
-        const R = 0.06
+        const R = 0.04
+
+        const pivot = new THREE.Object3D()
 
         const protonMaterial = new THREE.MeshStandardMaterial({
-          color: 0xff3333,
+          color: 0xff1111,
           roughness: roughness,
           metalness: metalness,
           envMap: envmap.texture,
         })
         const protonSphere = new THREE.Mesh(
-          new THREE.SphereGeometry(R, n, m),
+          // new THREE.SphereGeometry(R, n, m),
+          new THREE.OctahedronGeometry(R, 0),
           protonMaterial
         )
-        scene.add(protonSphere)
+        pivot.add(protonSphere)
         sceneContext.current.proton = protonSphere
 
-        // const neutronMaterial = new THREE.MeshStandardMaterial( {
-        //     color: 0xFFFFFF,
-        //     roughness: roughness,
-        //     metalness: metalness,
-        //     envMap: envmap.texture,
-        // })
-        // const neutronSphere = new THREE.Mesh( new THREE.SphereGeometry( R, n, m ), neutronMaterial );
-        // scene.add(neutronSphere)
-        // sceneContext.current.neutron = neutronSphere
+        const neutronMaterial = new THREE.MeshStandardMaterial({
+          color: 0xffffff,
+          roughness: roughness,
+          metalness: metalness,
+          envMap: envmap.texture,
+        })
+        const neutronSphere = new THREE.Mesh(
+          // new THREE.SphereGeometry(R, n, m),
+          new THREE.OctahedronGeometry(R, 0),
+          neutronMaterial
+        )
+        pivot.add(neutronSphere)
+        sceneContext.current.neutron = neutronSphere
 
-        // const electronMaterial = new THREE.MeshStandardMaterial( {
-        //     color: 0x3333FF,
-        //     roughness: roughness,
-        //     metalness: metalness,
-        //     envMap: envmap.texture,
-        // })
-        // const electronSphere = new THREE.Mesh( new THREE.SphereGeometry( R/5, n, m ), electronMaterial );
-        // scene.add(electronSphere)
-        // sceneContext.current.electron = electronSphere
+        const electronMaterial = new THREE.MeshStandardMaterial({
+          color: 0x1111ff,
+          roughness: roughness,
+          metalness: metalness,
+          envMap: envmap.texture,
+        })
+        const electronSphere = new THREE.Mesh(
+          // new THREE.SphereGeometry(R / 5, n, m),
+          new THREE.TetrahedronGeometry(R, 0),
+          electronMaterial
+        )
+        pivot.add(electronSphere)
+        sceneContext.current.electron = electronSphere
+
+        pivot.rotateOnAxis(new Vector3(0, 1, 0), phi)
+        const axesHelper = new THREE.AxesHelper(0.07)
+        pivot.add(axesHelper)
+
+        protonSphere.visible = true
+        neutronSphere.visible = false
+        electronSphere.visible = false
+
+        scene.add(pivot)
+        sceneContext.current.pivot = pivot
       })
     return {}
   }
 
   const update = () => {
+    const precessionAngle = gravityRef.current * 0.01
+    // const precessionCorrection = precessionAngle * Math.sin(phiRef.current)
+    if (sceneContext.current.pivot) {
+      const pivot = sceneContext.current.pivot
+      pivot.rotateOnWorldAxis(new Vector3(0, 0, 1), precessionAngle)
+    }
+
     if (sceneContext.current.proton) {
       const proton = sceneContext.current.proton
-      proton.rotateZ(0.02 * gravityRef.current)
+      proton.rotateZ(-precessionAngle * Math.cos(phi))
+
+      // proton.rotateZ(0.08)
     }
     if (sceneContext.current.neutron) {
-      const obj = sceneContext.current.neutron
-      obj.rotateZ(-0.02 * gravityRef.current)
+      // const nucleon = sceneContext.current.neutron
+      // nucleon.rotateZ(-0.08 - precessionCorrection)
     }
+    if (sceneContext.current.electron) {
+      // const nucleon = sceneContext.current.electron
+      // nucleon.rotateZ(0.08)
+    }
+
+    // The proton and neutron spin the
   }
 
   const protonClass = nucleon === "proton" ? "selected" : ""
@@ -155,6 +192,22 @@ const Nucleons = () => {
           value={gravity}
           onChange={(evt) => {
             setGravity(evt.target.value)
+          }}
+        ></input>
+      </div>
+      <div>
+        <input
+          className="slider"
+          type="range"
+          min="0"
+          max="6.28318"
+          step=".01"
+          value={phi}
+          onChange={(evt) => {
+            const pivot = sceneContext.current.pivot
+            pivot.rotateOnAxis(new Vector3(0, 1, 0), -phi)
+            pivot.rotateOnAxis(new Vector3(0, 1, 0), evt.target.value)
+            setPhi(evt.target.value)
           }}
         ></input>
       </div>

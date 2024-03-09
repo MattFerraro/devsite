@@ -35,7 +35,7 @@ In this post we'll learn how MRI works. We'll see why the technology is so flexi
 
 Let's start with a few basics about magnets.
 
-Every magnet has a <span style={{color:"red"}}>North</span> pole and a <span style={{color:"blue"}}>South</span> pole which are inseparable so we call them Dipoles. The "strength" of a dipole is called $m$, its _magnetic dipole moment_.
+Every magnet has a <span style={{color:"red"}}>North</span> pole and a <span style={{color:"blue"}}>South</span> pole which are inseparable so we call them Dipoles. The "strength" of a dipole is called its _magnetic dipole moment_, written as $m$.
 
 Any magnet made of matter will exhibit inertia: it will resist changes in orientation and position. In this post we will pay attention to $I$, the magnet's _moment of inertia_ which quantifies how much the magnet resists rotation about a given axis.
 
@@ -75,13 +75,16 @@ Notice that if you use the slider to make the left magnet stronger, the alignmen
 
 <!-- This oscillation frequency is called the [Larmor Frequency](https://www.sciencedirect.com/topics/computer-science/larmor-frequency) and it is the single most important concept in all of Magnetic Resonance Imaging. -->
 
-The frequency of the magnetic oscillation is something like:
+For small oscillations, the frequency [works out](https://anarchy.website/2016/05/06/magnetic-dipole.html) to:
 
 $$
-f_{magnet} = \frac{m}{I} \cdot B
+\tag{1}
+f_{magnet} = \frac{1}{2 \pi} \sqrt{ \frac{m}{I} \cdot B}
 $$
 
 Where $m$ is the strength of the magnet on the right, $I$ is its moment of inertia, and $B$ is the strength of the magnetic field it is submerged in, which is proportional to the strength of the magnet on the left.
+
+The $\frac{1}{2 \pi}$ is just a unit conversion from angular velocity to hertz.
 
 This equation predicts that any other magnets with the same $\frac{m}{I}$ will oscillate at the same frequency as the magnet on the right, even if they are dramatically different in size or strength. The _ratio_ is what matters.
 
@@ -120,15 +123,16 @@ To simulate what happens over time we add the <span style={{"color":"#6500bd"}}>
 - If we spin the gyroscope faster, the precession frequency should get slower
 - If we add more mass to the spinning center, then the angular momentum vector will get larger but the gravity torque will also get larger, so it depends! -->
 
-Working out the math yields a formula for the precession frequency:
+Working out [the math](https://openstax.org/books/university-physics-volume-1/pages/11-4-precession-of-a-gyroscope) yields a formula for the precession frequency:
 
 $$
+\tag{2}
 f_{precession} = \frac{mr}{If} \cdot g
 $$
 
 Where $mr$ is the mass of the gyroscope times the length of the lever arm, and $If$ is the gyroscope's moment of inertia times the spinning part's frequency. $g$ is the gravitational acceleration.
 
-We can invent another new word here and say that $\frac{mr}{If}$ is the **Gyrogravitational Ratio**. It encapsulates the ratio between how strongly gravity is trying to change the gyroscope's orientation vs how strongly the gyroscope resists having its orientation changed. The interplay between these two effects is what gives rise to the oscillation.
+We can invent another new word here and say that $\frac{mr}{If}$ is the **Gyrogravitational Ratio**. It encapsulates the ratio between how strongly gravity is trying to change the gyroscope's orientation vs how strongly the gyroscope resists having its orientation changed. The interplay between these two effects is what causes the oscillation.
 
 Our equation predicts that all gyroscopes with the same Gyrogravitational Ratio will precess at the same frequency when placed in the same gravity well.
 
@@ -146,7 +150,7 @@ The proton and neutron are composed of quarks which carry electric charge and th
 
 All three particles will therefore behave like tiny bar magnets. They will feel a torque that tries to align them with the background field exactly like we saw in the first section of this post.
 
-At the same time, all three particles exhibit a quantum-mechanical property called **spin** which means they all behave like tiny gyroscopes that can never cease spinning. They always have angular momentum vectors pointing off in some direction so they resist changes in orientation just like gyroscopes.
+At the same time, all three particles exhibit a quantum-mechanical property called **spin** which means they all behave like tiny gyroscopes that can never stop spinning. They always have angular momentum vectors pointing off in some direction so they resist changes in orientation just like gyroscopes.
 
 Incidentally, they all have spin $\frac{1}{2} \hbar$ which means their angular momentum vectors are all the same length. The constant $\hbar$ comes from quantum mechanics and it is a tiny unit of angular momentum.
 
