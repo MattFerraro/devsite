@@ -1,0 +1,170 @@
+---
+title: "Continuous Integration for CAD"
+teaser: "When you’re designing a part in a 3D CAD program there are dozens of concerns to juggle"
+teaserImage: "https://www.mattferraro.dev/images/ci-for-cad/pipes.png"
+date: "2024-03-11"
+---
+
+When you’re designing a part in a 3D CAD program there are dozens of concerns to juggle.
+
+Some of them involve the physical properties of the part: Will the mass and center of gravity be in spec? Will it interfere with any other parts? Does it fit inside the envelope you’ve been given?
+
+Others involve the manufacturing process you're targeting: Are there any overhangs? Are the draft angles appropriate? Did you round the corners of that pocket?
+
+Lastly there's performance: Where are the stress concentrations? Will the part buckle under load? Does the structure have resonant modes below 100 hz?
+
+<!-- When considering an entire assembly, yet more questions come up: Is the shell waterproof? Are two dissimilar metals touching? Is your assembly actually assemblable? -->
+
+Many of these checks could be automated. In this doc I try to imagine what that might look like.
+
+## Start With CAD
+
+Imagine someone were to build an open source 3D CAD application written in Rust. For the sake of argument, let's imagine it's called [CADmium](https://docs.google.com/document/d/1gyjAhCFvK4_TY-Hv4YuOq7oNZCu2_Wj1vLEbbcC3zGw/edit). The primary interface would be graphical, but it would be possible to add a Command Line Interface (CLI) which could perform small operations like finding the intersection between two solids:
+
+```bash
+$ CADmium intersect part1.cadmium part2.cadmium \
+    -o intersection.cadmium
+Info: Nonzero intersection was written to `intersection.cadmium`.
+```
+
+Or locating the center of mass of a part:
+
+```bash
+$ CADmium center-of-mass my_part.cadmium -o text
+Info: Center of mass of `my_part.cadmium` is located at:
+[0.15, -0.05, 1.499]
+```
+
+Composing scripts together using pipes, we could build meaningful tests:
+
+```bash
+$ CADmium center-of-mass my_part.cadmium |
+    CADmium intersect part_envelope.cadmium --assert_nonzero
+Info: Returning exit code 0
+```
+
+Here we find the center of mass of `my_part`, then assert that it must be within `part_envelope`, a separate file that we've modeled.
+
+As the CLI grows more expressive, the space of automated tests we can run grows more comprehensive.
+
+## Incorporate CAM
+
+We also need an app for Computer Aided Manufacturing (CAM). This functionality could be incorporated into CADmium, similar to how Fusion360 handles it, or it could live as a standalone program like MasterCAM. For now let's assume it's a separate program called CAMphor:
+
+```bash
+$ CAMphor toolpath my_part.cadmium stock.cadmium \
+    cutting_params.camphor \
+    -o toolpaths.gcode
+Info: 4 GRBL toolpaths written to `toolpaths.gcode`.
+Estimated cutting time: 01:37:22
+```
+
+Our CAM program should provide a simulator as well:
+
+```bash
+$ CAMphor simulate toolpaths.gcode stock.cadmium -o result.cadmium
+Info: Nonzero result written to `result.cadmium`
+```
+
+Now we can string these concepts together to test that our part is machinable:
+
+```bash
+$ CAMphor toolpath my_part.cadmium stock.cadmium cut_params.camphor |
+    CAMphor simulate stock.cadmium |
+    CADmium difference my_part.cadmium |
+    CADmium mass --assert_less_than=0.1g
+Info: Returning exit code 0
+```
+
+Here we are asserting that the simulated part after machining and the desired part differ by very little mass.
+
+## Finish with FEA
+
+Let's pretend we have an open source application for Finite Element Analysis (FEA) too, and that it also provides a CLI. Let's call it FEAther:
+
+```bash
+$ FEAther mesh my_part.cadmium |
+    FEAther stress-strain constraints_and_loads.feather \
+    --assert_strain_less_than=3mm
+Info: Returning exit code 0
+```
+
+The most common cases to test might involve stress, strain, and material safety factors, but this pattern extends to all kinds of simulation:
+
+```bash
+$ FEAther acoustic-dampening my_part.cadmium \
+    sources_and_receivers.feather \
+    --automesh \
+    --assert_dampening_greater_than=6db
+Info: Returning exit code 0
+```
+
+## Orchestration
+
+Some of these tests will be computationally expensive. To spread the load we should reach for off the shelf systems like Jenkins, Github Actions, or whatever is hip. There is no need to re-invent CI pipelines just because it's hardware.
+
+> How do we kick off these pipelines? With git.
+
+So far we've imagined three new open source apps. If we build these apps to keep all of their files in a git-friendly format like JSON, then we can reuse all kinds of machinery. Branching, merging, rolling back, and kicking off a CI pipeline all come for free.
+
+Imagine a pre-commit hook that ensures your parts fit your company-specific naming convention, or that checks all fasteners are metric vs imperial.
+
+## Realizations
+
+Services such as SendCutSend, Xometry, and Fictiv allow users to upload part files and receive automated quotes. You can place an order online and they will cut the parts for you.
+
+These APIs could be wrapped and brought to the CLI:
+
+```bash
+$ SendCutSend quote my_part.stl
+Info: Total estimated cost: $235.00
+```
+
+It is common for CI pipelines to have an automatic portion and a manual portion. Upon merging changes to the main branch, the system could automatically collect quotes for all the parts.
+
+If an engineer decides to hit a green button, they could run the portion of the pipeline that actually places the orders.
+
+If you are targetting a networked 3D printer, you could imagine:
+
+```bash
+$ PrusaPrinter my_part.stl --autoslice --send-to=192.168.0.123
+```
+
+## Transformations
+
+When you're designing something large it is often helpful to 3D print a scale model to keep on your desk. CADmium could present an interface for scaling:
+
+```bash
+$ CADmium scale my_assembly.cadmium \
+    --factor=0.1 -o mini.cadmium
+Info: Applied uniform scaling factor of 0.1
+Info: Wrote output to `mini.cadmium`
+```
+
+It might be useful to support other simple transformations like translation, rotation, duplication, or warping.
+
+You could imagine complex transformations like merging all the parts from an assembly into one monlithic part, or unfolding a sheet metal enclosure into a 2D shape.
+
+## Running Via the GUI
+
+The Command Line isn't for everybody. The graphical interfaces for all three apps should support building the most common tests and those tests should be included directly in the files. There should be a button for running the tests inside the app.
+
+By locating the tests in the same file as the part, you get something analogous to [doctests](https://doc.rust-lang.org/rustdoc/write-documentation/documentation-tests.html). You could imagine running them all at once like:
+
+```bash
+$ CADmium validate my_part.cadmium
+Info: 8 out of 8 tests passing
+Info: Returning exit code 0
+```
+
+## Conclusion
+
+You can build parts of this CI system using SolidWorks, but you'll be writing VBA macros and every CI worker will need an authorized copy of Windows and of SolidWorks. Also, git won't cope well with their proprietary binary file formats.
+
+Hosted tools like Onshape are entirely cloud-based, so there is no clear path to running anything locally.
+
+Fusion360 has a [command line interface](https://productdesignonline.com/tips-and-tricks/does-fusion-360-have-a-command-line/), but it only runs from within the graphical interface and it's mostly meant for debugging.
+
+FreeCAD could probably be tweaked to support many of these examples, but unfortunately its graphical interface is simply not good enough for most enterprise users.
+
+To build the kind of CI system described above, I think it will be necessary to start from scratch and build a new generation of modern, open source CAD, CAM, and FEA programs. [Together](https://discord.gg/G2pcSVf3pt), we can cultivate an ecosystem outside of the walled gardens.
