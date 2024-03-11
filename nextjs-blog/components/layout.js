@@ -1,20 +1,17 @@
-import Head from 'next/head'
-import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
-import Link from 'next/link'
+import Head from "next/head";
+import styles from "./layout.module.css";
+import utilStyles from "../styles/utils.module.css";
+import Link from "next/link";
 
-const name = 'Matt Ferraro'
-export const siteTitle = 'Engineering Blog'
+const name = "Matt Ferraro";
+export const siteTitle = "mattferraro.dev";
 
 export default function Layout({ children, home }) {
   return (
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Some topics in engineering"
-        />
+        <meta name="description" content="Some topics in engineering" />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
         <script
@@ -22,15 +19,15 @@ export default function Layout({ children, home }) {
           src="https://www.googletagmanager.com/gtag/js?id=G-05L8G0THHM"
         />
         <script
-            dangerouslySetInnerHTML={{
-              __html: `
+          dangerouslySetInnerHTML={{
+            __html: `
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
                     gtag('config', '[Tracking ID]');
                 `,
-            }}
-          />
+          }}
+        />
       </Head>
       <header className={styles.header}>
         {home ? (
@@ -70,5 +67,5 @@ export default function Layout({ children, home }) {
         </div>
       )}
     </div>
-  )
+  );
 }
