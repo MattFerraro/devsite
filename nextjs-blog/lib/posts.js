@@ -13,6 +13,7 @@ const allowList = [
   "joule-thomson.mdx",
   "inverse-of-a-circle.mdx",
   "ci-for-cad.mdx",
+  "cadmium.mdx",
   // "mri.mdx",
   // "impulse-response.mdx",
   // "simple-test.mdx"
