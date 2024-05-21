@@ -5,7 +5,7 @@ teaserImage: "https://www.mattferraro.dev/images/ci-for-cad/pipes.png"
 date: "2024-03-11"
 ---
 
-It's time to build a new open-source CAD program. I've gotten pretty far, but I need your help.
+It's time to build a new open-source CAD program. We've gotten pretty far, but we need your help.
 
 If you'd like to join the effort, join the [Discord](https://discord.gg/qJCsKJeyZv)!
 
@@ -13,15 +13,15 @@ If you'd like to join the effort, join the [Discord](https://discord.gg/qJCsKJey
 
 # What Does It Take?
 
-To build a 3D parametric CAD program, you need five major components:
+To build a 3D parametric CAD program, you need a:
 
-1. A 2D Constraint Solver
-2. A B-rep Kernel
-3. A History Tracker
-4. A 3D User Interface
-5. A File Format
+- 2D Constraint Solver
+- B-rep Kernel
+- History Tracker
+- 3D User Interface
+- File Format
 
-Let's talk about each one.
+Let's talk about each one!
 
 # 2D Constraint Solver
 
@@ -60,7 +60,7 @@ Instead of solving the whole problem at once, this formulation makes many small 
 
 ![Solving](/images/cadmium/solving_clipped.mp4)
 
-At each time step, the runtime is linear with the number of springs and linear with the number of unknowns, so it may support dramatically more complex sketches than the textbook approach. This type of simulation lends itself to parallelization, so it may be very fast in practice. Maybe this step could happen in a compute shader.
+At each time step, the runtime is linear with the number of springs and linear with the number of unknowns, so it may support dramatically more complex sketches than the textbook approach. This type of simulation lends itself to parallelization, so it may be very fast in practice. Maybe this step could happen in a compute shader?
 
 In this formulation, overconstrained problems don't complain about being overconstrained: a self-consistent system will solve normally, and in an inconsistent system the springs just fight it out and compromise.
 
@@ -70,15 +70,15 @@ Another advantage is that this formulation can support inequality constraints. Y
 
 More speculatively, you could extend this formulation to other types of forces. If a closed polygon should have a particular surface area, that could be accommodated as a pressure force.
 
-There are other interesting formulations of the 2D constraint problem and I'm sure there are disadvantages to the spring-mass-damper approach, but in general I would advocate for solving the problem iteratively rather than in a single monolithic solve step. In the last decade there has been tremendous progress in solving gradient descent problems quickly, and in bringing the power of the GPU to the browser.
+There are other interesting formulations of the 2D constraint problem and there are certainly disadvantages to the spring-mass-damper approach, but in general we would advocate for solving the problem iteratively rather than in a single monolithic solve step. In the last decade there has been tremendous progress in solving gradient descent problems quickly, and in bringing the power of the GPU to the browser.
 
-My primary goal is to make a CAD experience that feels familiar for most CAD users, but I do believe there is room here for fresh ideas.
+Our primary goal is to make a CAD experience that feels familiar for most CAD users, but we do believe there is room here for fresh ideas.
 
 # B-rep Kernel
 
 In Mechanical CAD, users need to interact directly with the edges and faces of their parts.
 
-Consequently, all modern CAD programs model parts by directly representing their boundaries in a data structure. A cube would be representated as a Solid which has six Faces, each with four Edges, each with two Points. This approach is called _Boundary Representation_, or _b-rep_.
+Consequently, all parametric CAD programs model parts by directly representing their boundaries in a data structure. A cube is representated as a Solid with six Faces, each with four Edges, each with two Points. This approach is called _Boundary Representation_, or _b-rep_.
 
 ![B-rep Illustration](/images/cadmium/b-rep-illustration.png)
 
@@ -94,7 +94,7 @@ Each of the big four CAD companies has written their own, and it took them decad
 
 Where the company is at the top, the b-rep kernel is at the bottom, and in the middle are some of the CAD programs they offer, arranged loosely by cost.
 
-Most notably, Parasolid powers a lot of the industry including other products like Shapr3D and Plasticity. Parsolid is the Cadillac Escalade of b-rep kernels: It is huge, expensive, and it offers every amenity you could ask for, as well as a bunch of amenities you didn't ask for.
+The most important b-rep kernel is Parasolid which powers a lot of the industry including products like Shapr3D and Plasticity. Parasolid is the Cadillac Escalade of b-rep kernels: It is huge, expensive, and it offers every amenity you could ask for, as well as a bunch of amenities you didn't ask for.
 
 In contrast, the open source CAD landscape looks like this:
 
@@ -102,15 +102,15 @@ In contrast, the open source CAD landscape looks like this:
 
 The only popular open-source b-rep kernel is OpenCascade, which is the Pontiac Aztek of b-rep kernels: It is ugly, barebones, and it might break down on you, but it is drivable and you can get one for free.
 
-SolveSpace is a [Tuk-Tuk](https://en.wikipedia.org/wiki/File:Tuk-Tuk_-_Herat,_Afghanistan.jpg) in that it was built by one person in a garage, it gets a lot done with very little, but it only looks like a car if you squint.
+SolveSpace is a [Tuk-Tuk](https://en.wikipedia.org/wiki/File:Tuk-Tuk_-_Herat,_Afghanistan.jpg) in that it was built by one person in a garage and it gets a lot done with very little, but it only looks like a car if you squint.
 
-All this to say: The proprietary kernels are good but expensive, and the open-source kernels are free but not good.
+All this to say: The proprietary kernels are good but expensive and the open-source kernels are free but not good.
 
 All popular b-rep kernels are old and written in C++. If you consult the [official build instructions](https://dev.opencascade.org/doc/overview/html/build_upgrade__building_occt.html) for OpenCascade, you see this screenshot:
 
 ![Screenshot of How To Build OpenCascade](/images/cadmium/cmake_image004.png)
 
-Which appears to have been taken on a Windows 2000 machine.
+Which looks like it was taken on Windows 2000?
 
 ---
 
@@ -122,9 +122,9 @@ It is trivial to include Truck in any Rust project. It runs on any operating sys
 
 Truck is about four years old and it already covers all the basics. It can read and write .step files. It can triangulate surfaces to a fixed tolerance. It has NURBS support. It can compute the Intersection or Union of two Solids[\*](https://github.com/ricosjp/truck/issues/57), as well as the Not of a single Solid.
 
-It is small and lightweight, it is sponsored by a [real company](https://www.ricos.ltd/), and it is young enough and simple enough that a few motivated people could add major pieces of functionality, in a fork if necessary.
+It is small and lightweight, it is being developed by a [real company](https://www.ricos.ltd/), and it is young enough and simple enough that a few motivated people could add major pieces of functionality, in a fork if necessary.
 
-For example, the B in NURBS stands for [B-Splines](https://en.wikipedia.org/wiki/B-spline), but there is an alternative representation called [T-Splines](https://en.wikipedia.org/wiki/T-spline) which is better in some ways. The [patent](https://patents.google.com/patent/US7274364B2/en) on T-Splines is owned by Autodesk, but it just expired last week! Support could theoretically be built into Truck!
+For example, the B in NURBS stands for [B-Splines](https://en.wikipedia.org/wiki/B-spline), but there is an alternative representation called [T-Splines](https://en.wikipedia.org/wiki/T-spline) which is better in some ways. The [patent](https://patents.google.com/patent/US7274364B2/en) on T-Splines is owned by Autodesk, but it just expired a few weeks ago! Support could theoretically be built into Truck!
 
 I think that Truck is the Rivian R3 of b-rep kernels: It is smaller than its cousins, it's using a lot of modern technology in an exciting but proven way, and it isn't quite finished yet! At the risk of overextending the metaphor, Rust is the electric motor and C++ is the internal combustion engine.
 
@@ -146,15 +146,17 @@ RMS is a set of conventions for how parts should be designed. For example, all c
 
 Maybe there is value in enforcing these patterns within the CAD program. It may feel limiting at first, but it may pay huge dividends by making designs actually reusable and transferrable.
 
+---
+
 Another avenue to explore could be adding a feature history to sketches. In today's CAD programs it's common to sketch base features likes circles and rectangles, then use tools like mirror, linear pattern, or sketch fillet to duplicate or modify those features. Then you sketch more base features and use more tools, back and forth. The web of dependencies this builds in a sketch is very hard to understand if you weren't the one who made the sketch, so it is often faster to delete the whole sketch and start over.
 
 But if sketch features were also stored and displayed in a feature tree, then the ideas from RMS could be applied to a single sketch. Reference features like projecting an edge probably should come first, and final details like snipping and filleting should probably come last.
 
 Again this might feel limiting at first, but putting an operation first in the feature tree doesn't mean you have to start with that feature chronologically as you sit down to model.
 
-Which is a good segue to a third idea:
+---
 
-Why not record every user event in an append-only log? If that log were the single source of truth for the file, then any particular Feature History could be reconstructed by moving a "time" slider. Think: Unlimited Undo/Redo, even after closing and reopening the file:
+On the topic of chronological ordering, why not record every user event in an append-only log? If that log were the single source of truth for the file, then any particular Feature History could be reconstructed by moving a time slider. Think: Unlimited Undo/Redo, even after closing and reopening the file:
 
 ![Operation Log](/images/cadmium/operation-log.png)
 
@@ -162,42 +164,42 @@ You could imagine rewinding back to an earlier version of the Feature History an
 
 ![Evolution Log](/images/cadmium/evolution-log.png)
 
-My goal is to create a CAD application where every single document state is trivially recoverable. Every false start, every "final" deliverable, whether you knew you needed it or not.
+Our goal is to create a CAD application where every single document state is trivially recoverable. Every false start, every "final" deliverable, whether you knew you needed it or not.
 
-With that machinery you could maintain different variants of parts, and keep a record of every design as it was when you ran downstream processes like toolpath generation or FEA.
+With that machinery you could maintain different variants of parts and keep a record of every design as it was when you ran downstream processes like toolpath generation or FEA.
 
-If building this system is akin to building git version control for Mechanical design, what would it look like to build git**hub** for Mechanical design?
+If building this version control system is akin to building git for Mechanical design, could we also build git**hub** for Mechanical design?
 
 # 3D User Interface
 
-I love the idea of doing CAD in a browser. Onshape paved the way here and it's awesome.
+We love the idea of doing CAD in a browser. Onshape paved the way here and it's awesome.
 
-However, Onshape doesn't really run in a browser, it runs on a GPU-enabled cloud instance somewhere in AWS and streams the results to your browser. This is why if your internet connection goes down while you're using Onshape, you literally can't do _anything_. You can't even rotate the viewport.
+However, Onshape doesn't really run in a browser—it runs on a GPU enabled cloud instance somewhere in AWS and streams the results to your browser. This is why if your internet connection goes down while you're using Onshape, you literally can't do _anything_. You can't even rotate the viewport.
 
 ![Onshape with no Internet](/images/cadmium/onshape-no-internet.png)
 
-But CADmium doesn't have to be like that. Given that Truck can compile to webassembly, CADmium can do everything right there in your browser.
+But CADmium doesn't have to be like that. Given that Truck can compile to webassembly, CADmium can do everything right there in your browser. A [Local-First](https://www.inkandswitch.com/local-first/) app!
 
 ---
 
-I've been using this tech stack:
+We've been using this tech stack:
 
-1. [Three.js](https://threejs.org/) for the 3D viewport
-1. [Svelte](https://svelte.dev/) for state management/reactivity
-1. [Threlte](https://threlte.xyz/) to bridge the gap between Svelte and Three.js
-1. Message passing between the UI and the b-rep kernel, rather than sharing memory
-1. [Electron](https://www.electronjs.org/) for running locally
-1. Bog standard everything else: Typescript, TailwindCSS, Vite, etc
+- [Three.js](https://threejs.org/) for the 3D viewport
+- [Svelte](https://svelte.dev/) for state management/reactivity
+- [Threlte](https://threlte.xyz/) to bridge the gap between Svelte and Three.js
+- Message passing between the UI and the b-rep kernel, rather than sharing memory
+- [Electron](https://www.electronjs.org/) for running locally
+- Bog standard everything else: Typescript, TailwindCSS, Vite, etc
 
-This kind of stack allows the entire app to be written in a reactive, declarative way, plumbing data changes all the way through to mesh updates without you having manage that complexity. That's important because 3D CAD apps are among the most complex UIs that exist. There's no way for a small team to make a good one unless the framework does a lot of heavy lifting.
+This kind of stack allows the entire app to be written in a reactive, declarative way, plumbing data changes all the way through to mesh updates without you having manage that complexity. That's important because 3D CAD apps are among the most complex UIs that exist. If you want to make a good one and you only have a small team, the framework had better do a lot of heavy lifting!
 
-With this stack I was able to build a proof of concept that works, so I feel that this won't be the limiting factor for CADmium.
+With this stack we were able to build a proof of concept that works, so we feel that this won't be the limiting factor for CADmium.
 
 # File Format
 
-I want CADmium to use JSON or [JSON-adjacent](https://jsonlines.org/) files for everything, especially the Operation Log mentioned above.
+CADmium will use JSON for everything.
 
-And after you've designed a part, CADmium should support exporting to an even simpler exchange format. Notionally something like:
+The Operation Log mentioned above should be [JSON lines](https://jsonlines.org/). And after you've designed a part, CADmium should support exporting to an even simpler exchange format. Notionally something like:
 
 ```json
 {
@@ -232,7 +234,7 @@ These two ingredients:
 1. A simple, easy-to-understand file format
 2. An open-source CLI to work with it
 
-Are what's required to enable an ecosystem that can create tremendous new value that I'd never be able to build myself.
+Are what's required to enable an ecosystem that can create tremendous new value that we would never be able to build ourselves.
 
 Imagine being able to pop open a text editor to change an extrusion depth or a fillet radius. Imagine writing a script that replaces all the M5 screws with M6 screws, without having to read a [nasty spec](https://en.wikipedia.org/wiki/ISO_10303-21).
 
@@ -242,23 +244,23 @@ What would a change like that look like using git-diff?
 
 I mentioned above the concept of github for Mechanical design. If such a thing really were built and people really did use it, then it would not be hard to imagine building github copilot for mechanical design.
 
-I don't know exactly what that would need to look like in practice, but I think it's fair to say that large language models work best on simple, open, text-based formats rather than complex, proprietary, binary formats.
+We don't know what that would look like in practice, but we think it's fair to say that large language models work best on simple, open, text-based formats rather than complex, proprietary, binary formats.
 
 # Conclusion
 
-Of the ideas I mentioned here, I have no idea which ones are going to work out and which ones will turn out to be duds. But I know that somewhere in this space, there's a huge opportunity for a small group of people to make an outsized impact on the manufacturing industry.
+Of the ideas mentioned here, we have no idea which ones are going to work out and which ones will turn out to be duds. But we know that somewhere in this space, there's a huge opportunity for a small group of people to make an outsized impact on the manufacturing industry.
 
-These are the things I actively need help with:
+These are the things we need help with:
 
 1. Programming in Rust (general improvements)
 1. Computational Geometry (patches to Truck)
 1. Three.js help (new camera controller, better lighting, post-processing)
 1. Finding grant opportunities or wealthy benefactors
 
-These are things that we are not touching for now:
+These are things that we are not touching for now, but would love to revisit later:
 
-1. Venture funding
+1. Venture Capital
 1. Toolpath generation (CAM)
 1. Finite Element Analysis (FEA)
 
-If you find these ideas intriguing, please join the CADmium [discord server](https://discord.gg/qJCsKJeyZv) and chat with me!
+If you find these ideas intriguing, please join the CADmium [discord server](https://discord.gg/qJCsKJeyZv) and chat with us!
