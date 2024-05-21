@@ -31,8 +31,8 @@ export default function Home({ allPostsData }) {
         </p>
 
         <p>
-          I used to post deep technical write-ups, but for now I'm writing a
-          series of posts on what I see as the future of mechanical CAD.
+          I used to post technical write-ups, but for now I'm writing a series
+          of posts on what I see as the future of mechanical CAD.
         </p>
 
         {/* <p>
